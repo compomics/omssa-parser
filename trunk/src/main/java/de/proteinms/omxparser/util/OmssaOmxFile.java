@@ -33,6 +33,8 @@ import de.proteinms.omxparser.util.omssaparser.MSSearch;
 import de.proteinms.omxparser.util.omssaparser.MSSpectrum;
 import de.proteinms.omxparser.util.omssaparser.OmxParser;
 
+import org.apache.log4j.Logger;
+
 /**
  * This Class manages parsing and storing of the Omx file.
  * It provides several methods to retrieve ordered information.
@@ -43,6 +45,12 @@ import de.proteinms.omxparser.util.omssaparser.OmxParser;
 
 public class OmssaOmxFile {
 	
+        /**
+         * Define a static logger variable so that it references the
+         * Logger instance named "OmssaOmxFile".
+         */
+        private static Logger logger = Logger.getLogger(OmssaOmxFile.class);        
+    
 	/**
 	 * This HashMap contains pairs of (MSSpectrum,MSHitSet) <br>
 	 * It returns the corresponding MSHitSet for a specific MSSpectrum <br>
@@ -55,7 +63,7 @@ public class OmssaOmxFile {
 	private HashMap<String,LinkedList<MSPepHit>> peptideToProteinMap =new HashMap<String,LinkedList<MSPepHit>>();
 	private HashMap<String,LinkedList<String>> proteinToPeptideMap =new HashMap<String,LinkedList<String>>();
 
-    private MSSearch parserResult;
+        private MSSearch parserResult;
 	
 	/**
 	 * Returns ALL data from the original Omx file gathered by the OmxParser as a MSSearch object.
@@ -117,10 +125,12 @@ public class OmssaOmxFile {
 	 * @param args String[]
 	 */
 	public OmssaOmxFile(String[]args){
+
 		OmxParser parser=new OmxParser(args);
 		parserResult=parser.parserResult;
 		
-		System.out.println("processing Information...");
+                logger.debug("processing Information...");
+		
 		//process Information
 		processSpectrumToHitSetMap(parserResult);
 		processSpectrumToPeptideMap(parserResult);
@@ -128,7 +138,7 @@ public class OmssaOmxFile {
 		processPeptideToProteineMap(parserResult);
 		processProteineToPeptideMap(parserResult);
 		
-		System.out.println("finished");
+		logger.debug("finished");
     }
 	
 	
@@ -285,7 +295,4 @@ public class OmssaOmxFile {
 			}
 		}
 	}
-	
-	
-
 }
