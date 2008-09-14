@@ -4,7 +4,7 @@
     <groupId>de.proteinms.omxparser</groupId>
     <artifactId>omssaparser</artifactId>
     <packaging>jar</packaging>
-    <version>0.9</version>
+    <version>0.9.1</version>
     <name>omssaparser</name>
     <url>http://maven.apache.org</url>
     
