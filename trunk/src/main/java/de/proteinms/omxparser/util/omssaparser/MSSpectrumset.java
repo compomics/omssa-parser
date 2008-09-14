@@ -30,8 +30,10 @@ import java.util.Map;
  * @author Steffen Huber
  */
 public class MSSpectrumset {
-	public Map<Integer,MSSpectrum> MSSpectrum=new HashMap<Integer,MSSpectrum>();
-	public void setMSSpectrum(MSSpectrum s){
-		this.MSSpectrum.put(s.MSSpectrum_number, s);
-	}
+
+    public Map<Integer, MSSpectrum> MSSpectrum = new HashMap<Integer, MSSpectrum>();
+
+    public void setMSSpectrum(MSSpectrum s) {
+        this.MSSpectrum.put(s.MSSpectrum_number, s);
+    }
 }

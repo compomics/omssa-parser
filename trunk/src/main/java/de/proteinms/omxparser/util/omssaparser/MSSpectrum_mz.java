@@ -28,10 +28,16 @@ import java.util.List;
  * This Class stores MSSpectrum_mz specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
  * @author Steffen Huber
+ * @author Harald Barsnes (added a way of extracting the "real" m/z value)
  */
 public class MSSpectrum_mz {
-	public List<Integer> MSSpectrum_mz_E=new LinkedList<Integer>();
-	public void setMSSpectrum_mz_E(String s){
-		MSSpectrum_mz_E.add(Integer.valueOf(s));
-	}
+
+    /**
+     * The list of MSSpectrum_mz_E values from the omx file.
+     */
+    public List<MZValue> MSSpectrum_mz_E = new LinkedList<MZValue>();
+
+    public void setMSSpectrum_mz_E(String s) {
+        MSSpectrum_mz_E.add(new MZValue(Integer.valueOf(s)));
+    }
 }
