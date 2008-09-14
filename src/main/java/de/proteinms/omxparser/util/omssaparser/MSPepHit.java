@@ -21,52 +21,71 @@
  */
 package de.proteinms.omxparser.util.omssaparser;
 
-
 /**
  * This Class stores MSPepHit specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
  * @author Steffen Huber
  */
 public class MSPepHit {
-		public int MSPepHit_start;
-		public int MSPepHit_stop;
-		public int MSPepHit_gi;
-		public String MSPepHit_accession;
-		public String MSPepHit_defline;
-		public int MSPepHit_protlength;
-		public int MSPepHit_oid;
-		public Boolean MSPepHit_reversed;
-		public String MSPepHit_pepstart;
-		public String MSPepHit_pepstop;
-		
-		public void setMSPepHit_pepstop(String s){
-			this.MSPepHit_pepstop=s;
-		}
-		public void setMSPepHit_pepstart(String s){
-			this.MSPepHit_pepstart=s;
-		}
-		public void setMSPepHit_reversed(String s){
-			this.MSPepHit_reversed=Boolean.valueOf(s);
-		}
-		public void setMSPepHit_oid(String s){
-			this.MSPepHit_oid=Integer.valueOf(s);
-		}
-		public void setMSPepHit_protlength(String s){
-			this.MSPepHit_protlength=Integer.valueOf(s);
-		}
-		public void setMSPepHit_defline(String s){
-			this.MSPepHit_defline=s;
-		}
-		public void setMSPepHit_accession(String s){
-			this.MSPepHit_accession=s;
-		}
-		public void setMSPepHit_gi(String s){
-			this.MSPepHit_gi=Integer.valueOf(s);
-		}
-		public void setMSPepHit_stop(String s){
-			this.MSPepHit_stop=Integer.valueOf(s);
-		}
-		public void setMSPepHit_start(String s){
-			this.MSPepHit_start=Integer.valueOf(s);
-		}
+
+    /**
+     * The starting position of the peptide relative to the protein sequence. 
+     * NB: The indexing starts at 0, not at 1.
+     */
+    public int MSPepHit_start;
+    
+    /**
+     * The ending position of the peptide relative to the protein sequence. 
+     * NB: The indexing starts at 0, not at 1.
+     */
+    public int MSPepHit_stop;
+    
+    public int MSPepHit_gi;
+    public String MSPepHit_accession;
+    public String MSPepHit_defline;
+    public int MSPepHit_protlength;
+    public int MSPepHit_oid;
+    public Boolean MSPepHit_reversed;
+    public String MSPepHit_pepstart;
+    public String MSPepHit_pepstop;
+
+    public void setMSPepHit_pepstop(String s) {
+        this.MSPepHit_pepstop = s;
+    }
+
+    public void setMSPepHit_pepstart(String s) {
+        this.MSPepHit_pepstart = s;
+    }
+
+    public void setMSPepHit_reversed(String s) {
+        this.MSPepHit_reversed = Boolean.valueOf(s);
+    }
+
+    public void setMSPepHit_oid(String s) {
+        this.MSPepHit_oid = Integer.valueOf(s);
+    }
+
+    public void setMSPepHit_protlength(String s) {
+        this.MSPepHit_protlength = Integer.valueOf(s);
+    }
+
+    public void setMSPepHit_defline(String s) {
+        this.MSPepHit_defline = s;
+    }
+
+    public void setMSPepHit_accession(String s) {
+        this.MSPepHit_accession = s;
+    }
+
+    public void setMSPepHit_gi(String s) {
+        this.MSPepHit_gi = Integer.valueOf(s);
+    }
+
+    public void setMSPepHit_stop(String s) {
+        this.MSPepHit_stop = Integer.valueOf(s);
+    }
+
+    public void setMSPepHit_start(String s) {
+        this.MSPepHit_start = Integer.valueOf(s);
+    }
 }
