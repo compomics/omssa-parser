@@ -1,7 +1,7 @@
 #summary Short summary of changes for each version of the parser.
 #labels Featured
 
----
+----
 
 *Changes from omssa-parser 0.9 to omssa-parser 0.9.1:*
  * Logging functionality added (log4j)
