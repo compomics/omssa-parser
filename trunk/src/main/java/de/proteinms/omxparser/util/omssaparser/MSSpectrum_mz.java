@@ -27,8 +27,9 @@ import java.util.List;
 /**
  * This Class stores MSSpectrum_mz specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
- * @author Harald Barsnes (added a way of extracting the "real" m/z value)
+ * @author Harald Barsnes (added a way of extracting the "real" m/z value, and adding Javadoc)
  */
 public class MSSpectrum_mz {
 
@@ -37,6 +38,11 @@ public class MSSpectrum_mz {
      */
     public List<MZValue> MSSpectrum_mz_E = new LinkedList<MZValue>();
 
+    /**
+     * Adds an element to the MSSpectrum_mz_E list.
+     *
+     * @param s the element to add as a String
+     */
     public void setMSSpectrum_mz_E(String s) {
         MSSpectrum_mz_E.add(new MZValue(Integer.valueOf(s)));
     }

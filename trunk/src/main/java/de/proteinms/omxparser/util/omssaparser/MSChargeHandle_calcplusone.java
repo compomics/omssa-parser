@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,12 +23,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSChargeHandle_calcplusone specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
-
 public class MSChargeHandle_calcplusone {
-		public Integer MSCalcPlusOne;
-		public void setMSCalcPlusOne(String s){
-			MSCalcPlusOne=(Integer.valueOf(s));
-		}
+
+    public Integer MSCalcPlusOne;
+
+    /**
+     * Sets the MSCalcPlusOne value.
+     *
+     * @param s the MSCalcPlusOne as a String
+     */
+    public void setMSCalcPlusOne(String s) {
+        MSCalcPlusOne = (Integer.valueOf(s));
+    }
 }

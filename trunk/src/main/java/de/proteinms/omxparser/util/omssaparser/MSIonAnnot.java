@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,20 +23,40 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSIonAnnot specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSIonAnnot {
-		public Boolean MSIonAnnot_suspect;
-		public double MSIonAnnot_massdiff;
-		public Boolean MSIonAnnot_missingisotope;
-		
-		public void setMSIonAnnot_missingisotope(String s){
-			this.MSIonAnnot_missingisotope=Boolean.valueOf(s);
-		}
-		public void setMSIonAnnot_massdiff(String s){
-			this.MSIonAnnot_massdiff=Double.valueOf(s);
-		}
-		public void setMSIonAnnot_suspect(String s){
-			this.MSIonAnnot_suspect=Boolean.valueOf(s);
-		}
+
+    public Boolean MSIonAnnot_suspect;
+    public double MSIonAnnot_massdiff;
+    public Boolean MSIonAnnot_missingisotope;
+
+    /**
+     * Sets the MSIonAnnot_missingisotope value.
+     * 
+     * @param s the MSIonAnnot_missingisotope value as a String
+     */
+    public void setMSIonAnnot_missingisotope(String s) {
+        this.MSIonAnnot_missingisotope = Boolean.valueOf(s);
+    }
+
+    /**
+     * Sets the MSIonAnnot_massdiff value.
+     *
+     * @param s the MSIonAnnot_massdiff value as a String
+     */
+    public void setMSIonAnnot_massdiff(String s) {
+        this.MSIonAnnot_massdiff = Double.valueOf(s);
+    }
+
+    /**
+     * Sets the MSIonAnnot_suspect value.
+     *
+     * @param s the MSIonAnnot_suspect value as a String
+     */
+    public void setMSIonAnnot_suspect(String s) {
+        this.MSIonAnnot_suspect = Boolean.valueOf(s);
+    }
 }

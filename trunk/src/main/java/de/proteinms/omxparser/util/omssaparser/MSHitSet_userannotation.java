@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,11 +23,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSHitSet_userannotation specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSHitSet_userannotation {
-	public int MSUserAnnot;
-	public void setMSUserAnnot(String s){
-		this.MSUserAnnot=Integer.valueOf(s);
-	}
+
+    public int MSUserAnnot;
+
+    /**
+     * Sets the MSUserAnnot value.
+     * 
+     * @param s the MSUserAnnot as a String
+     */
+    public void setMSUserAnnot(String s) {
+        this.MSUserAnnot = Integer.valueOf(s);
+    }
 }

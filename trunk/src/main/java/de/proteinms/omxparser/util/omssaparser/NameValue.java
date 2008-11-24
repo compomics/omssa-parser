@@ -24,16 +24,30 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores NameValue specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class NameValue {
-	public String NameValue_name;
-	public String NameValue_value;
-	public void setNameValue_name(String s){
-		this.NameValue_name=s;
-	}
-	public void setNameValue_value(String s){
-		this.NameValue_value=s;
-	}
-	
+
+    public String NameValue_name;
+    public String NameValue_value;
+
+    /**
+     * Sets the NameValue_name value.
+     *
+     * @param s the NameValue_name value as a String
+     */
+    public void setNameValue_name(String s) {
+        this.NameValue_name = s;
+    }
+
+    /**
+     * Sets the NameValue_value value.
+     *
+     * @param s the NameValue_value as a String
+     */
+    public void setNameValue_value(String s) {
+        this.NameValue_value = s;
+    }
 }

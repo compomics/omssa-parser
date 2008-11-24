@@ -24,11 +24,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSSearchSettings_infiles specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearchSettings_infiles {
-	public MSInFile MSInFile=new MSInFile();
-	public void setMSInFile(MSInFile s){
-		this.MSInFile=s;
-	}
+
+    public MSInFile MSInFile = new MSInFile();
+
+    /**
+     * Sets the MSInFile value.
+     *
+     * @param s the MSInFile value
+     */
+    public void setMSInFile(MSInFile s) {
+        this.MSInFile = s;
+    }
 }

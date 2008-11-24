@@ -27,11 +27,20 @@ import java.util.List;
 /**
  * This Class stores MSSearch_request specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearch_request {
-		public List<MSRequest> MSRequest=new LinkedList<MSRequest>();
-		public void setMSRequest(MSRequest s){
-			this.MSRequest.add(s);
-		}
+
+    public List<MSRequest> MSRequest = new LinkedList<MSRequest>();
+
+    /**
+     * Adds an element to the MSRequest list.
+     *
+     * @param s the MSRequest element to add
+     */
+    public void setMSRequest(MSRequest s) {
+        this.MSRequest.add(s);
+    }
 }

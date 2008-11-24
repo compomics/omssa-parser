@@ -27,11 +27,20 @@ import java.util.List;
 /**
  * This Class stores MSSearchSettings_othersettings specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearchSettings_othersettings {
-	public List<NameValue> NameValue=new LinkedList<NameValue>();
-	public void setNameValue(NameValue s){
-		NameValue.add(s);
-	}
+
+    public List<NameValue> NameValue = new LinkedList<NameValue>();
+
+    /**
+     * Adds an element to the NameValue list.
+     *
+     * @param s the NameValue to add
+     */
+    public void setNameValue(NameValue s) {
+        NameValue.add(s);
+    }
 }

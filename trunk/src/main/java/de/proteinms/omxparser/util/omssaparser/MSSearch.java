@@ -24,16 +24,30 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSSearch specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearch {
-	public MSSearch_request MSSearch_request=new MSSearch_request();
-	public MSSearch_response MSSearch_response=new MSSearch_response();
-	
-	public void setMSSearch_response(MSSearch_response s){
-		this.MSSearch_response=s;
-	}
-	public void setMSSearch_request(MSSearch_request s){
-		this.MSSearch_request=s;
-	}
+
+    public MSSearch_request MSSearch_request = new MSSearch_request();
+    public MSSearch_response MSSearch_response = new MSSearch_response();
+
+    /**
+     * Sets the MSSearch_response value.
+     *
+     * @param s the MSSearch_response value
+     */
+    public void setMSSearch_response(MSSearch_response s) {
+        this.MSSearch_response = s;
+    }
+
+    /**
+     * Sets the MSSearch_request value.
+     *
+     * @param s the MSSearch_request value
+     */
+    public void setMSSearch_request(MSSearch_request s) {
+        this.MSSearch_request = s;
+    }
 }

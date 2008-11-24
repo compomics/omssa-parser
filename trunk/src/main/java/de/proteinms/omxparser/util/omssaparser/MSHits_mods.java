@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -23,16 +22,24 @@ package de.proteinms.omxparser.util.omssaparser;
 
 import java.util.LinkedList;
 import java.util.List;
+
 /**
  * This Class stores MSHits_mods specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
-
 public class MSHits_mods {
-	public List<MSModHit> MSModHit=new LinkedList<MSModHit>();
-	
-	public void setMSModHit(MSModHit s){
-		MSModHit.add(s);
-	}
+
+    public List<MSModHit> MSModHit = new LinkedList<MSModHit>();
+
+    /**
+     * Adds a MSModHit to the MSModHit list.
+     *
+     * @param s a MSModHit
+     */
+    public void setMSModHit(MSModHit s) {
+        MSModHit.add(s);
+    }
 }

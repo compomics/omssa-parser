@@ -27,11 +27,21 @@ import java.util.List;
 /**
  * This Class stores MSSearchSettings_enzyme specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearchSettings_enzyme {
-	public List<Integer> MSEnzymes=new LinkedList<Integer>();
-	public void setMSEnzymes(String s){
-		MSEnzymes.add(Integer.valueOf(s));
-	}
+
+    public List<Integer> MSEnzymes = new LinkedList<Integer>();
+
+    /**
+     * Adds an element to the MSEnzymes list. NB: The element has to be
+     * an integer.
+     *
+     * @param s the element to add as a String
+     */
+    public void setMSEnzymes(String s) {
+        MSEnzymes.add(Integer.valueOf(s));
+    }
 }

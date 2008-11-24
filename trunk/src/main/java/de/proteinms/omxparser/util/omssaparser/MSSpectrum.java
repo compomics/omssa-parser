@@ -24,8 +24,9 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSSpectrum specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
- * @author Harald Barsnes (added a way of extracting the "real" precursor m/z
+ * @author Harald Barsnes (added a way of extracting the "real" precursor m/z, and added Javadoc)
  */
 public class MSSpectrum {
 
@@ -54,37 +55,77 @@ public class MSSpectrum {
      * @return the real m/z value
      */
     public double getPrecursorMz() {
-        return ((double) MSSpectrum_precursormz)/1000;
+        return ((double) MSSpectrum_precursormz) / 1000;
     }
 
+    /**
+     * Sets the MSSpectrum_number value.
+     *
+     * @param s the MSSpectrum_number value as a String
+     */
     public void setMSSpectrum_number(String s) {
         MSSpectrum_number = Integer.valueOf(s);
     }
 
+    /**
+     * Sets the MSSpectrum_charge value.
+     *
+     * @param s the MSSpectrum_charge
+     */
     public void setMSSpectrum_charge(MSSpectrum_charge s) {
         this.MSSpectrum_charge = s;
     }
 
+    /**
+     * Sets the MSSpectrum_mz value.
+     *
+     * @param s the MSSpectrum_mz
+     */
     public void setMSSpectrum_mz(MSSpectrum_mz s) {
         this.MSSpectrum_mz = s;
     }
 
+    /**
+     * Sets the MSSpectrum_precursormz value.
+     *
+     * @param s the MSSpectrum_precursormz value as a String
+     */
     public void setMSSpectrum_precursormz(String s) {
         MSSpectrum_precursormz = Integer.valueOf(s);
     }
 
+    /**
+     * Sets the MSSpectrum_abundance value.
+     *
+     * @param s the MSSpectrum_abundance
+     */
     public void setMSSpectrum_abundance(MSSpectrum_abundance s) {
         this.MSSpectrum_abundance = s;
     }
 
+    /**
+     * Sets the MSSpectrum_iscale value.
+     *
+     * @param s the MSSpectrum_iscale value as a String
+     */
     public void setMSSpectrum_iscale(String s) {
         this.MSSpectrum_iscale = Integer.valueOf(s);
     }
 
+    /**
+     * Sets the MSSpectrum_ids value.
+     *
+     * @param s the MSSpectrum_ids
+     */
     public void setMSSpectrum_ids(MSSpectrum_ids s) {
         this.MSSpectrum_ids = s;
     }
 
+    /**
+     * Sets the MSSpectrum_namevalue value.
+     *
+     * @param s the MSSpectrum_name value
+     */
     public void setMSSpectrum_namevalue(MSSpectrum_namevalue s) {
         this.MSSpectrum_namevalue = s;
     }

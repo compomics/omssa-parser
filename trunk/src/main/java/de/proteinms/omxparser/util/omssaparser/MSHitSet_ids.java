@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -27,12 +26,20 @@ import java.util.List;
 /**
  * This Class stores MSHitSet_ids specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSHitSet_ids {
-	public List<String> MSHitSet_ids_E = new LinkedList<String>();
-	
-	public void setMSHitSet_ids_E(String s){
-		MSHitSet_ids_E.add(s);
-	}
+
+    public List<String> MSHitSet_ids_E = new LinkedList<String>();
+
+    /**
+     * Adds a MSHitSet_ids_E to the MSHitSet_ids_E list.
+     * 
+     * @param s a MSHitSet_ids_E as a String
+     */
+    public void setMSHitSet_ids_E(String s) {
+        MSHitSet_ids_E.add(s);
+    }
 }

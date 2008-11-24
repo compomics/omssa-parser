@@ -24,11 +24,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSModSpec_type specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSModSpec_type {
-	public Integer MSModType;
-	public void setMSModType(String s){
-		this.MSModType=Integer.valueOf(s);
-	}
+
+    public Integer MSModType;
+
+    /**
+     * Sets the MSModType value.
+     *
+     * @param s the MSModType value as a String
+     */
+    public void setMSModType(String s) {
+        this.MSModType = Integer.valueOf(s);
+    }
 }

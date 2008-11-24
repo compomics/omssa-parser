@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,12 +23,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSMZHit_moreion specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSMZHit_moreion {
-	public MSIon MSIon=new MSIon();
-	
-	public void setMSIon(MSIon s){
-		this.MSIon=s;
-	}
+
+    public MSIon MSIon = new MSIon();
+
+    /**
+     * Sets the MSIon value
+     *
+     * @param s the MSIon value
+     */
+    public void setMSIon(MSIon s) {
+        this.MSIon = s;
+    }
 }

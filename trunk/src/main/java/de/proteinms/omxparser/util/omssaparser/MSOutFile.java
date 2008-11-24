@@ -24,21 +24,40 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSOutFile_outfiletype specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSOutFile {
-		public String MSOutFile_outfile;
-		public MSOutFile_outfiletype MSOutFile_outfiletype=new MSOutFile_outfiletype();
-		public Boolean MSOutFile_includerequest;
-		
-		public void setMSOutFile_includerequest(String s){
-			this.MSOutFile_includerequest=Boolean.valueOf(s);
-		}
-		public void setMSOutFile_outfiletype(MSOutFile_outfiletype s){
-			this.MSOutFile_outfiletype=s;
-		}
-		public void setMSOutFile_outfile(String s){
-			this.MSOutFile_outfile=s;
-		}
-		
+
+    public String MSOutFile_outfile;
+    public MSOutFile_outfiletype MSOutFile_outfiletype = new MSOutFile_outfiletype();
+    public Boolean MSOutFile_includerequest;
+
+    /**
+     * Sets the MSOutFile_includerequest value.
+     *
+     * @param s the MSOutFile_includerequest value as a String
+     */
+    public void setMSOutFile_includerequest(String s) {
+        this.MSOutFile_includerequest = Boolean.valueOf(s);
+    }
+
+    /**
+     * Sets the MSOutFile_outfiletype value.
+     *
+     * @param s the MSOutFile_outfiletype value
+     */
+    public void setMSOutFile_outfiletype(MSOutFile_outfiletype s) {
+        this.MSOutFile_outfiletype = s;
+    }
+
+    /**
+     * Sets the MSOutFile_outfile value.
+     *
+     * @param s the MSOutFile_outfile value as a String
+     */
+    public void setMSOutFile_outfile(String s) {
+        this.MSOutFile_outfile = s;
+    }
 }

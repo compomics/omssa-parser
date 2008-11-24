@@ -24,11 +24,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSSearchSettings_productsearchtype specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearchSettings_productsearchtype {
-	public Integer MSSearchType;
-	public void setMSSearchType(String s){
-		this.MSSearchType=Integer.valueOf(s);
-	}
+
+    public Integer MSSearchType;
+
+    /**
+     * Sets the MSSearchType value.
+     *
+     * @param s the MSSearchType value as a String
+     */
+    public void setMSSearchType(String s) {
+        this.MSSearchType = Integer.valueOf(s);
+    }
 }

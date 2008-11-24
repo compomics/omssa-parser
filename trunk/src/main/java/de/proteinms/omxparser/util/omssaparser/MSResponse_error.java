@@ -24,11 +24,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSResponse_error specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSResponse_error {
-	public int MSResponseError;
-	public void setMSResponseError(String s){
-		this.MSResponseError=Integer.valueOf(s);
-	}
+
+    public int MSResponseError;
+
+    /**
+     * Sets the MSResponseError value.
+     *
+     * @param s the MSResponseError value as a String
+     */
+    public void setMSResponseError(String s) {
+        this.MSResponseError = Integer.valueOf(s);
+    }
 }

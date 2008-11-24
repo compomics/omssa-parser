@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,11 +23,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSMZHit_annotation specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSMZHit_annotation {
-	public MSIonAnnot MSIonAnnot=new MSIonAnnot();
-	public void setMSIonAnnot(MSIonAnnot s){
-		this.MSIonAnnot=s;
-	}
+
+    public MSIonAnnot MSIonAnnot = new MSIonAnnot();
+
+    /**
+     * Sets the MSIonAnnot value
+     * 
+     * @param s the MSIonAnnot value
+     */
+    public void setMSIonAnnot(MSIonAnnot s) {
+        this.MSIonAnnot = s;
+    }
 }

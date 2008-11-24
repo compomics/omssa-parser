@@ -27,11 +27,20 @@ import java.util.List;
 /**
  * This Class stores MSModSpec_residues specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSModSpec_residues {
-	public List<String> MSModSpec_residues_E=new LinkedList<String>();
-	public void setMSModSpec_residues_E(String s){
-		MSModSpec_residues_E.add(s);
-	}
+
+    public List<String> MSModSpec_residues_E = new LinkedList<String>();
+
+    /**
+     * Add an element to the MSModSpec_residues_E list.
+     *
+     * @param s a MSModSpec_residues_E value as a String
+     */
+    public void setMSModSpec_residues_E(String s) {
+        MSModSpec_residues_E.add(s);
+    }
 }

@@ -15,34 +15,58 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
 package de.proteinms.omxparser.util.omssaparser;
 
-
 /**
  * This Class stores MSIon specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSIon {
-		public MSIon_neutralloss MSIon_neutralloss=new MSIon_neutralloss();
-		public MSIon_isotope MSIon_isotope=new MSIon_isotope();
-		public String MSIon_internal;
-		public MSIon_immonium MSIon_immonium=new MSIon_immonium();
-		
-		public void setMSIon_immonium(MSIon_immonium s){
-			this.MSIon_immonium=s;
-		}
-		public void setMSIon_internal(String s){
-			this.MSIon_internal=s;
-		}
-		public void setMSIon_isotope(MSIon_isotope s){
-			this.MSIon_isotope=s;
-		}
-		public void setMSIon_neutralloss(MSIon_neutralloss s){
-			this.MSIon_neutralloss=s;
-		}
+
+    public MSIon_neutralloss MSIon_neutralloss = new MSIon_neutralloss();
+    public MSIon_isotope MSIon_isotope = new MSIon_isotope();
+    public String MSIon_internal;
+    public MSIon_immonium MSIon_immonium = new MSIon_immonium();
+
+    /**
+     * Sets the MSIon_immonium value
+     *
+     * @param s the MSIon_immonium value
+     */
+    public void setMSIon_immonium(MSIon_immonium s) {
+        this.MSIon_immonium = s;
+    }
+
+    /**
+     * Sets the MSIon_internal value
+     *
+     * @param s the MSIon_internal value as a String
+     */
+    public void setMSIon_internal(String s) {
+        this.MSIon_internal = s;
+    }
+
+    /**
+     * Sets the MSIon_isotope value
+     *
+     * @param s the MSIon_isotope value
+     */
+    public void setMSIon_isotope(MSIon_isotope s) {
+        this.MSIon_isotope = s;
+    }
+
+    /**
+     * Sets the MSIon_neutralloss value
+     *
+     * @param s the MSIon_neutralloss value
+     */
+    public void setMSIon_neutralloss(MSIon_neutralloss s) {
+        this.MSIon_neutralloss = s;
+    }
 }

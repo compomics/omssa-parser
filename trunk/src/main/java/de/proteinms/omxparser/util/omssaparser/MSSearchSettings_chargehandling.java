@@ -24,12 +24,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSSearchSettings_chargehandling specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearchSettings_chargehandling {
-	public MSChargeHandle MSChargeHandle=new MSChargeHandle();
-	public void setMSChargeHandle(MSChargeHandle s){
-		this.MSChargeHandle=s;
-	}
-	
+
+    public MSChargeHandle MSChargeHandle = new MSChargeHandle();
+
+    /**
+     * Sets the MSChargeHandle value.
+     *
+     * @param s the MSChargeHandle value
+     */
+    public void setMSChargeHandle(MSChargeHandle s) {
+        this.MSChargeHandle = s;
+    }
 }
