@@ -27,11 +27,21 @@ import java.util.List;
 /**
  * This Class stores MSSearchSettings_ionstosearch specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearchSettings_ionstosearch {
-		public List<Integer> MSIonType=new LinkedList<Integer>();
-		public void setMSIonType(String s){
-			MSIonType.add(Integer.valueOf(s));
-		}
+
+    public List<Integer> MSIonType = new LinkedList<Integer>();
+
+    /**
+     * Adds an element to the MSIonType list. NB: The element has to be
+     * an integer.
+     *
+     * @param s the element to add as a String
+     */
+    public void setMSIonType(String s) {
+        MSIonType.add(Integer.valueOf(s));
+    }
 }

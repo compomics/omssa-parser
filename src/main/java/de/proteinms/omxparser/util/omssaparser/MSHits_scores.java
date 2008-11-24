@@ -14,8 +14,7 @@
  * See the License for the specific language governing permissions 
  * and limitations under the License.
  * 
- * 
- * 
+ *  
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -27,11 +26,20 @@ import java.util.List;
 /**
  * This Class stores MSHits_scores specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSHits_scores {
-		public List<MSScoreSet> MSScoreSet=new LinkedList<MSScoreSet>();
-		public void setMSScoreSet(MSScoreSet s){
-			MSScoreSet.add(s);
-		}
+
+    public List<MSScoreSet> MSScoreSet = new LinkedList<MSScoreSet>();
+
+    /**
+     * Adds a MSScoreSet to the MSScoreSet list.
+     *
+     * @param s a MSScoreSet
+     */
+    public void setMSScoreSet(MSScoreSet s) {
+        MSScoreSet.add(s);
+    }
 }

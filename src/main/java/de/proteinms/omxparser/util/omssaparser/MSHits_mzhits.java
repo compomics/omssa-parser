@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -27,12 +26,20 @@ import java.util.List;
 /**
  * This Class stores MSHits_mzhits specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
-
 public class MSHits_mzhits {
-	public List<MSMZHit> MSMZHit=new LinkedList<MSMZHit>();
-	public void setMSMZHit(MSMZHit s){
-		MSMZHit.add(s);
-	}
+
+    public List<MSMZHit> MSMZHit = new LinkedList<MSMZHit>();
+
+    /**
+     * Adds a MSMZHit to the MSMZHit list.
+     * 
+     * @param s a MSMZHit
+     */
+    public void setMSMZHit(MSMZHit s) {
+        MSMZHit.add(s);
+    }
 }

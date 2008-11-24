@@ -27,11 +27,20 @@ import java.util.List;
 /**
  * This Class stores MSModSpecSet specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSModSpecSet {
-	public List<MSModSpec> MSModSpec=new LinkedList<MSModSpec>();
-	public void setMSModSpec(MSModSpec s){
-		MSModSpec.add(s);
-	}
+
+    public List<MSModSpec> MSModSpec = new LinkedList<MSModSpec>();
+
+    /**
+     * Add a MSModSpec element to the MSModSpec list.
+     * 
+     * @param s a MSModSpec value
+     */
+    public void setMSModSpec(MSModSpec s) {
+        MSModSpec.add(s);
+    }
 }

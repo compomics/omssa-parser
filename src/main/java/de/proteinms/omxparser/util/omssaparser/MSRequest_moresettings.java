@@ -24,12 +24,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSRequest_moresettings specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSRequest_moresettings {
-		public MSSearchSettingsSet MSSearchSettingsSet=new MSSearchSettingsSet();
-		
-		public void setMSSearchSettingsSet(MSSearchSettingsSet s){
-			this.MSSearchSettingsSet=s;
-		}
+
+    public MSSearchSettingsSet MSSearchSettingsSet = new MSSearchSettingsSet();
+
+    /**
+     * Sets the MSSearchSettingsSet value.
+     *
+     * @param s the MSSearchSettingsSet value
+     */
+    public void setMSSearchSettingsSet(MSSearchSettingsSet s) {
+        this.MSSearchSettingsSet = s;
+    }
 }

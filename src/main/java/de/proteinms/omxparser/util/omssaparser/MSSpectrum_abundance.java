@@ -27,8 +27,9 @@ import java.util.List;
 /**
  * This Class stores MSSpectrum_abundance specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
- * @author Harald Barsnes (added a way of extracting the "real" abundance value)
+ * @author Harald Barsnes (added a way of extracting the "real" abundance value, and added Javadoc)
  */
 public class MSSpectrum_abundance {
 
@@ -37,6 +38,11 @@ public class MSSpectrum_abundance {
      */
     public List<AbundanceValue> MSSpectrum_abundance_E = new LinkedList<AbundanceValue>();
 
+    /**
+     * Adds an element to the MSSpectrum_abundance_E list.
+     *
+     * @param s the element to add as a String
+     */
     public void setMSSpectrum_abundance_E(String s) {
         MSSpectrum_abundance_E.add(new AbundanceValue(Integer.valueOf(s)));
     }

@@ -24,11 +24,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSSearchSettings_zdep specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearchSettings_zdep {
-	public int MSZdependence;
-	public void setMSZdependence(String s){
-		this.MSZdependence=Integer.valueOf(s);
-	}
+
+    public int MSZdependence;
+
+    /**
+     * Sets the MSZdependence value.
+     *
+     * @param s the MSZdependence value as a String
+     */
+    public void setMSZdependence(String s) {
+        this.MSZdependence = Integer.valueOf(s);
+    }
 }

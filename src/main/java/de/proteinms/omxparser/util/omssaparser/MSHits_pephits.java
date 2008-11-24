@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -27,12 +26,20 @@ import java.util.List;
 /**
  * This Class stores MSHits_pephits specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSHits_pephits {
-	public List<MSPepHit> MSPepHit=new LinkedList<MSPepHit>();
-	
-	public void setMSPepHit(MSPepHit s){
-		MSPepHit.add(s);
-	}
+
+    public List<MSPepHit> MSPepHit = new LinkedList<MSPepHit>();
+
+    /**
+     * Adds a MSPepHit to the MSPepHit list.
+     * 
+     * @param s a MSPepHit
+     */
+    public void setMSPepHit(MSPepHit s) {
+        MSPepHit.add(s);
+    }
 }

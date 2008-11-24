@@ -27,11 +27,20 @@ import java.util.List;
 /**
  * This Class stores MSResponse_hitsets specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSResponse_hitsets {
-	public List<MSHitSet> MSHitSet=new LinkedList<MSHitSet>();
-	public void setMSHitSet(MSHitSet s){
-		this.MSHitSet.add(s);
-	}
+
+    public List<MSHitSet> MSHitSet = new LinkedList<MSHitSet>();
+
+    /**
+     * Add a MSHitSet element to the MSHitSet list.
+     * 
+     * @param s a MSHitSet
+     */
+    public void setMSHitSet(MSHitSet s) {
+        this.MSHitSet.add(s);
+    }
 }

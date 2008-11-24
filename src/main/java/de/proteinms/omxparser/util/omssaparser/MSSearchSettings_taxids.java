@@ -27,11 +27,20 @@ import java.util.List;
 /**
  * This Class stores MSSearchSettings_taxids specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearchSettings_taxids {
-	public List<Integer> MSSearchSettings_taxids_E=new LinkedList<Integer>();
-	public void setMSSearchSettings_taxids_E(String s){
-		MSSearchSettings_taxids_E.add(Integer.valueOf(s));
-	}
+
+    public List<Integer> MSSearchSettings_taxids_E = new LinkedList<Integer>();
+
+    /**
+     * Adds an element to the MSSearchSettings_taxids_E list.
+     *
+     * @param s the element to add as a String
+     */
+    public void setMSSearchSettings_taxids_E(String s) {
+        MSSearchSettings_taxids_E.add(Integer.valueOf(s));
+    }
 }

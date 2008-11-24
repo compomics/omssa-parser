@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,12 +23,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSIon_neutralloss specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSIon_neutralloss {
-	public Boolean MSIonNeutralLoss;
-	
-	public void setMSIonNeutralLoss(String s){
-		this.MSIonNeutralLoss=Boolean.valueOf(s);
-	}
+
+    public Boolean MSIonNeutralLoss;
+
+    /**
+     * Sets the MSIonNeutralLoss value.
+     *
+     * @param s the MSIonNeutralLoss value as a String
+     */
+    public void setMSIonNeutralLoss(String s) {
+        this.MSIonNeutralLoss = Boolean.valueOf(s);
+    }
 }

@@ -49,7 +49,7 @@ import org.apache.log4j.Logger;
  * 
  * @param String[] args
  * @author Steffen Huber
- *
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class OmxParser {
 
@@ -79,7 +79,6 @@ public class OmxParser {
     /**
      * If a Class should be parsed by OmxParser, it has to be initialzed by<br>
      * writing it into the HashMap classes
-     * 
      */
     public static void initializeClasses() {
 
@@ -180,9 +179,6 @@ public class OmxParser {
             //write every class from which objects should be created into the hashmap classes
             initializeClasses();
 
-
-
-
             logger.debug("Parsing file: " + args[0]);
             xpp.setInput(new BufferedReader(new FileReader(args[0])));
             long t1 = System.currentTimeMillis();
@@ -190,23 +186,28 @@ public class OmxParser {
             long t2 = System.currentTimeMillis();
             long t3 = (t2 - t1) / 1000;
             logger.debug("finished after " + t3 + " seconds");
-
-
         } catch (XmlPullParserException e) {
-        //not yet implemented
+            //not yet implemented
         } catch (IOException e) {
-        //not yet implemented
+            //not yet implemented
         }
-
-
     }
 
+    /**
+     * Process the document given by the XmlPullParser.
+     *
+     * @param xpp
+     * @throws org.xmlpull.v1.XmlPullParserException
+     * @throws java.io.IOException
+     */
     public void processDocument(XmlPullParser xpp)
             throws XmlPullParserException, IOException {
+
         // initialize lockStack:
         lockStack.add(false);
 
         int eventType = xpp.getEventType();
+
         do {
             if (eventType == xpp.START_DOCUMENT) {
 
@@ -219,15 +220,19 @@ public class OmxParser {
             } else if (eventType == xpp.TEXT) {
                 processText(xpp);
             }
+
             eventType = xpp.next();
         } while (eventType != xpp.END_DOCUMENT);
     }
 
+    /**
+     * Process the end element for the XmlPullParser object.
+     *
+     * @param xpp
+     */
     public void processEndElement(XmlPullParser xpp) {
 
-
         if (!objectStack.isEmpty() && (!lockStack.peek())) {
-
 
             Object pop = objectStack.pop();
             if (!objectStack.isEmpty()) {
@@ -238,62 +243,57 @@ public class OmxParser {
                     Method setX = c.getDeclaredMethod("set" + nameStack.peek(), pop.getClass());
                     setX.invoke(peek, pop);
                 } catch (EmptyStackException e) {
-                //not yet implemented
+                    //not yet implemented
                 } catch (NoSuchMethodException e) {
-                //not yet implemented
+                    //not yet implemented
                 } catch (InvocationTargetException e) {
-                //not yet implemented
+                    //not yet implemented
                 } catch (IllegalAccessException e) {
-                //not yet implemented
+                    //not yet implemented
                 } catch (ClassCastException e) {
-                //not yet implemented
+                    //not yet implemented
                 }
             }
 
             if (pop.getClass().equals(MSSearch.class)) {
-
                 parserResult = (MSSearch) pop;
             }
-
-
-
         }
 
         lockStack.pop();
         nameStack.pop();
-
-
     }
 
+    /**
+     * Process the start element for the XmlPullParser object.
+     *
+     * @param xpp
+     */
     public void processStartElement(XmlPullParser xpp) {
-        nameStack.push(xpp.getName());
-        try {
 
+        nameStack.push(xpp.getName());
+        
+        try {
             if (classes.get(nameStack.peek()) == null) {
                 lockStack.add(true);
-
             } else {
                 Class<?> c = classes.get(nameStack.peek());
                 Object neu = c.newInstance();
                 objectStack.push(neu);
                 lockStack.add(false);
-
             }
         } catch (InstantiationException e) {
-        //not yet implemented
+            //not yet implemented
         } catch (IllegalAccessException e) {
-        //not yet implemented
+            //not yet implemented
         }
+
         if (xpp.getAttributeCount() > 0) {
             attribute = xpp.getAttributeName(0);
             if (attribute.equals("value")) {
                 value = xpp.getAttributeValue(0);
 
-
-
                 try {
-
-
                     Object peek = objectStack.peek();
                     Class<?> c = peek.getClass();
                     Method setX = c.getDeclaredMethod("set" + nameStack.peek(), String.class);
@@ -301,23 +301,24 @@ public class OmxParser {
                     attribute = "";
                     value = "";
                 } catch (EmptyStackException e) {
-
-                //not yet implemented
+                    //not yet implemented
                 } catch (IllegalAccessException e) {
-                //not yet implemented
-
+                    //not yet implemented
                 } catch (NoSuchMethodException e) {
-                //not yet implemented
+                    //not yet implemented
                 } catch (InvocationTargetException e) {
-                //not yet implemented
-
+                    //not yet implemented
                 }
             }
-
         }
-
     }
 
+    /**
+     * Process the text for the XmlPullParser object.
+     *
+     * @param xpp
+     * @throws org.xmlpull.v1.XmlPullParserException
+     */
     public void processText(XmlPullParser xpp) throws XmlPullParserException {
         char ch[] = xpp.getTextCharacters(indexBuffer);
         int start = indexBuffer[0];
@@ -326,31 +327,27 @@ public class OmxParser {
 
         for (int i = start; i < start + length; i++) {
             buffer.append(ch[i]);
-
         }
 
         String buffer2 = buffer.toString().trim();
+
         if (buffer2.equals("")) {
 
         } else {
             try {
-
-
                 Object peek = objectStack.peek();
                 Class<?> c = peek.getClass();
                 Method setX = c.getDeclaredMethod("set" + nameStack.peek(), String.class);
                 setX.invoke(peek, buffer2);
-
             } catch (EmptyStackException e) {
-            //not yet implemented
+                //not yet implemented
             } catch (IllegalAccessException e) {
-            //not yet implemented
+                //not yet implemented
             } catch (NoSuchMethodException e) {
-            //not yet implemented
+                //not yet implemented
             } catch (InvocationTargetException e) {
-            //not yet implemented
+                //not yet implemented
             }
         }
-
     }
 }

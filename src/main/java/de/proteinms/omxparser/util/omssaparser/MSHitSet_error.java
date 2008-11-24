@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,12 +23,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSHitSet_error specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSHitSet_error {
-		public int MSHitError;
-		
-		public void setMSHitError(String s){
-			this.MSHitError=Integer.valueOf(s);
-		}
+
+    public int MSHitError;
+
+    /**
+     * Sets the MSHitError
+     *
+     * @param s the MSHitError as a String
+     */
+    public void setMSHitError(String s) {
+        this.MSHitError = Integer.valueOf(s);
+    }
 }

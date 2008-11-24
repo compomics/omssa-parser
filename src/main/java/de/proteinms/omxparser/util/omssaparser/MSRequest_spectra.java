@@ -24,11 +24,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSRequest_spectra specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSRequest_spectra {
-	public MSSpectrumset MSSpectrumset=new MSSpectrumset();
-	public void setMSSpectrumset(MSSpectrumset s){
-		this.MSSpectrumset=s;
-	}
+
+    public MSSpectrumset MSSpectrumset = new MSSpectrumset();
+
+    /**
+     * Sets the MSSpectrumset value.
+     *
+     * @param s the MSSpectrumset value
+     */
+    public void setMSSpectrumset(MSSpectrumset s) {
+        this.MSSpectrumset = s;
+    }
 }

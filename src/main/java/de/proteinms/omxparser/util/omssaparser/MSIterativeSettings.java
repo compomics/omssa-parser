@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,19 +23,40 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSIterativeSettings specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSIterativeSettings {
-	public double MSIterativeSettings_researchthresh;
-	public double MSIterativeSettings_subsetthresh;
-	public double MSIterativeSettings_replacethresh;
-	public void setMSIterativeSettings_researchthresh(String s){
-		this.MSIterativeSettings_researchthresh=Double.valueOf(s);
-	}
-	public void setMSIterativeSettings_subsetthresh(String s){
-		this.MSIterativeSettings_subsetthresh=Double.valueOf(s);
-	}
-	public void setMSIterativeSettings_replacethresh(String s){
-		this.MSIterativeSettings_replacethresh=Double.valueOf(s);
-	}
+
+    public double MSIterativeSettings_researchthresh;
+    public double MSIterativeSettings_subsetthresh;
+    public double MSIterativeSettings_replacethresh;
+
+    /**
+     * Sets the MSIterativeSettings_researchthresh value.
+     *
+     * @param s the MSIterativeSettings_researchthresh value as a String
+     */
+    public void setMSIterativeSettings_researchthresh(String s) {
+        this.MSIterativeSettings_researchthresh = Double.valueOf(s);
+    }
+
+    /**
+     * Sets the MSIterativeSettings_subsetthresh value.
+     *
+     * @param s the MSIterativeSettings_subsetthresh value as a String
+     */
+    public void setMSIterativeSettings_subsetthresh(String s) {
+        this.MSIterativeSettings_subsetthresh = Double.valueOf(s);
+    }
+
+    /**
+     * Sets the MSIterativeSettings_replacethresh value.
+     *
+     * @param s the MSIterativeSettings_replacethresh value as a String
+     */
+    public void setMSIterativeSettings_replacethresh(String s) {
+        this.MSIterativeSettings_replacethresh = Double.valueOf(s);
+    }
 }

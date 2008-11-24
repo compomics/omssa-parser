@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,11 +23,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSIon_isotope specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSIon_isotope {
-		public int MSIonIsotopicType;
-		public void setMSIonIsotopicType(String s){
-			this.MSIonIsotopicType=Integer.valueOf(s);
-		}
+
+    public int MSIonIsotopicType;
+
+    /**
+     * Sets the MSIonIsotopicType value.
+     *
+     * @param s the MSIonIsotopicType value as a String
+     */
+    public void setMSIonIsotopicType(String s) {
+        this.MSIonIsotopicType = Integer.valueOf(s);
+    }
 }

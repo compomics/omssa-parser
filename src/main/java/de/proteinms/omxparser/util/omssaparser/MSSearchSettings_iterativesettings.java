@@ -24,11 +24,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSSearchSettings_iterativesettings specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearchSettings_iterativesettings {
-	public MSIterativeSettings MSIterativeSettings=new MSIterativeSettings();
-	public void setMSIterativeSettings(MSIterativeSettings s){
-		this.MSIterativeSettings=s;
-	}
+
+    public MSIterativeSettings MSIterativeSettings = new MSIterativeSettings();
+
+    /**
+     * Sets the MSIterativeSettings value.
+     *
+     * @param s the MSIterativeSettings value
+     */
+    public void setMSIterativeSettings(MSIterativeSettings s) {
+        this.MSIterativeSettings = s;
+    }
 }

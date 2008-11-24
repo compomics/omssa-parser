@@ -24,11 +24,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSSearchSettings_outfiles specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearchSettings_outfiles {
- public MSOutFile MSOutFile=new MSOutFile();
- public void setMSOutFile(MSOutFile s){
-	 this.MSOutFile=s;
- }
+
+    public MSOutFile MSOutFile = new MSOutFile();
+
+    /**
+     * Sets the MSOutFile value.
+     *
+     * @param s the MSOutFile value
+     */
+    public void setMSOutFile(MSOutFile s) {
+        this.MSOutFile = s;
+    }
 }

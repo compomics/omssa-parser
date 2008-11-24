@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,30 +23,60 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSLibrarySettings specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSLibrarySettings {
-	public MSLibrarySettings_libnames MSLibrarySettings_libnames=new MSLibrarySettings_libnames();
-	public Boolean MSLibrarySettings_presearch;
-	public Boolean MSLibrarySettings_useomssascore;
-	public Boolean MSLibrarySettings_usereplicatescore;
-	public Boolean MSLibrarySettings_qtofscore;
-	
-	public void setMSLibrarySettings_qtofscore(String s){
-		this.MSLibrarySettings_qtofscore=Boolean.valueOf(s);
-	}
-	public void setMSLibrarySettings_usereplicatescore(String s){
-		this.MSLibrarySettings_usereplicatescore=Boolean.valueOf(s);
-	}
-	public void setMSLibrarySettings_useomssascore(String s){
-		this.MSLibrarySettings_useomssascore=Boolean.valueOf(s);
-	}
-	public void setMSLibrarySettings_presearch(String s){
-		this.MSLibrarySettings_presearch=Boolean.valueOf(s);
-	}
-	public void setMSLibrarySettings_libnames(MSLibrarySettings_libnames s){
-		this.MSLibrarySettings_libnames=s;
-	}
-	
-	
+
+    public MSLibrarySettings_libnames MSLibrarySettings_libnames = new MSLibrarySettings_libnames();
+    public Boolean MSLibrarySettings_presearch;
+    public Boolean MSLibrarySettings_useomssascore;
+    public Boolean MSLibrarySettings_usereplicatescore;
+    public Boolean MSLibrarySettings_qtofscore;
+
+    /**
+     * Sets the MSLibrarySettings_qtofscore value.
+     *
+     * @param s the MSLibrarySettings_qtofscore value as a String
+     */
+    public void setMSLibrarySettings_qtofscore(String s) {
+        this.MSLibrarySettings_qtofscore = Boolean.valueOf(s);
+    }
+
+    /**
+     * Sets the MSLibrarySettings_usereplicatescore value.
+     *
+     * @param s the MSLibrarySettings_usereplicatescore value as a String
+     */
+    public void setMSLibrarySettings_usereplicatescore(String s) {
+        this.MSLibrarySettings_usereplicatescore = Boolean.valueOf(s);
+    }
+
+    /**
+     * Sets the MSLibrarySettings_useomssascore value.
+     *
+     * @param s the MSLibrarySettings_useomssascore value as a String
+     */
+    public void setMSLibrarySettings_useomssascore(String s) {
+        this.MSLibrarySettings_useomssascore = Boolean.valueOf(s);
+    }
+
+    /**
+     * Sets the MSLibrarySettings_presearch value.
+     *
+     * @param s the MSLibrarySettings_presearch value as a String
+     */
+    public void setMSLibrarySettings_presearch(String s) {
+        this.MSLibrarySettings_presearch = Boolean.valueOf(s);
+    }
+
+    /**
+     * Sets the MSLibrarySettings_libnames value.
+     *
+     * @param s the MSLibrarySettings_libnames value
+     */
+    public void setMSLibrarySettings_libnames(MSLibrarySettings_libnames s) {
+        this.MSLibrarySettings_libnames = s;
+    }
 }

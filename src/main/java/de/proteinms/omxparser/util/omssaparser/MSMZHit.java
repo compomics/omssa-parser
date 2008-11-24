@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,36 +23,80 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSMZHit specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSMZHit {
-	public MSMZHit_ion MSMZHit_ion=new MSMZHit_ion();
-	public int MSMZHit_charge;
-	public int MSMZHit_number;
-	public int MSMZHit_mz;
-	public int MSMZHit_index;
-	public MSMZHit_moreion MSMZHit_moreion=new MSMZHit_moreion();
-	public MSMZHit_annotation MSMZHit_annotation=new MSMZHit_annotation();
-	
-	public void setMSMZHit_annotation(MSMZHit_annotation s){
-		this.MSMZHit_annotation=s;
-	}
-	public void setMSMZHit_moreion(MSMZHit_moreion s){
-		this.MSMZHit_moreion=s;
-	}
-	public void setMSMZHit_index(String s){
-		this.MSMZHit_index=Integer.valueOf(s);
-	}
-	public void setMSMZHit_mz(String s){
-		this.MSMZHit_mz=Integer.valueOf(s);
-	}
-	public void setMSMZHit_number(String s){
-		this.MSMZHit_number=Integer.valueOf(s);
-	}
-	public void setMSMZHit_charge(String s){
-		this.MSMZHit_charge=Integer.valueOf(s);
-	}
-	public void setMSMZHit_ion(MSMZHit_ion s){
-		this.MSMZHit_ion=s;
-	}
+
+    public MSMZHit_ion MSMZHit_ion = new MSMZHit_ion();
+    public int MSMZHit_charge;
+    public int MSMZHit_number;
+    public int MSMZHit_mz;
+    public int MSMZHit_index;
+    public MSMZHit_moreion MSMZHit_moreion = new MSMZHit_moreion();
+    public MSMZHit_annotation MSMZHit_annotation = new MSMZHit_annotation();
+
+    /**
+     * Sets the MSMZHit_annotation value.
+     *
+     * @param s the MSMZHit_annotation value
+     */
+    public void setMSMZHit_annotation(MSMZHit_annotation s) {
+        this.MSMZHit_annotation = s;
+    }
+
+    /**
+     * Sets the MSMZHit_moreion value.
+     *
+     * @param s the MSMZHit_moreion value
+     */
+    public void setMSMZHit_moreion(MSMZHit_moreion s) {
+        this.MSMZHit_moreion = s;
+    }
+
+    /**
+     * Sets the MSMZHit_index value.
+     *
+     * @param s the MSMZHit_index value as a String
+     */
+    public void setMSMZHit_index(String s) {
+        this.MSMZHit_index = Integer.valueOf(s);
+    }
+
+    /**
+     * Sets the MSMZHit_mz value.
+     *
+     * @param s the MSMZHit_mz value as a String
+     */
+    public void setMSMZHit_mz(String s) {
+        this.MSMZHit_mz = Integer.valueOf(s);
+    }
+
+    /**
+     * Sets the MSMZHit_number value.
+     *
+     * @param s the MSMZHit_number value as a String
+     */
+    public void setMSMZHit_number(String s) {
+        this.MSMZHit_number = Integer.valueOf(s);
+    }
+
+    /**
+     * Sets the MSMZHit_charge value.
+     *
+     * @param s the MSMZHit_charge value as a String
+     */
+    public void setMSMZHit_charge(String s) {
+        this.MSMZHit_charge = Integer.valueOf(s);
+    }
+
+    /**
+     * Sets the MSMZHit_ion value.
+     *
+     * @param s the MSMZHit_ion value
+     */
+    public void setMSMZHit_ion(MSMZHit_ion s) {
+        this.MSMZHit_ion = s;
+    }
 }

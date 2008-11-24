@@ -15,21 +15,28 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
 package de.proteinms.omxparser.util.omssaparser;
 
-
 /**
  * This Class stores MSMZHit_ion specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSMZHit_ion {
-	public int MSIonType;
-	public void setMSIonType(String s){
-		this.MSIonType=Integer.valueOf(s);
-	}
+
+    public int MSIonType;
+
+    /**
+     * Sets the MSIonType value.
+     *
+     * @param s the MSIonType value as a String
+     */
+    public void setMSIonType(String s) {
+        this.MSIonType = Integer.valueOf(s);
+    }
 }

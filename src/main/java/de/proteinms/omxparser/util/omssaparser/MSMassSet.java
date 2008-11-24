@@ -24,20 +24,40 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSMassSet specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSMassSet {
-	public double MSMassSet_monomass;
-	public double MSMassSet_averagemass;
-	public double MSMassSet_n15mass;
-	
-	public void setMSMassSet_monomass(String s){
-		this.MSMassSet_monomass=Double.valueOf(s);
-	}
-	public void setMSMassSet_averagemass(String s){
-		this.MSMassSet_averagemass=Double.valueOf(s);
-	}
-	public void setMSMassSet_n15mass(String s){
-		this.MSMassSet_n15mass=Double.valueOf(s);
-	}
+
+    public double MSMassSet_monomass;
+    public double MSMassSet_averagemass;
+    public double MSMassSet_n15mass;
+
+    /**
+     * Sets the MSMassSet_monomass value.
+     *
+     * @param s the MSMassSet_monomass value as a String
+     */
+    public void setMSMassSet_monomass(String s) {
+        this.MSMassSet_monomass = Double.valueOf(s);
+    }
+
+    /**
+     * Sets the MSMassSet_averagemass value.
+     *
+     * @param s the MSMassSet_averagemass value as a String
+     */
+    public void setMSMassSet_averagemass(String s) {
+        this.MSMassSet_averagemass = Double.valueOf(s);
+    }
+
+    /**
+     * Sets the MSMassSet_n15mass value.
+     *
+     * @param s the MSMassSet_n15mass value as a String
+     */
+    public void setMSMassSet_n15mass(String s) {
+        this.MSMassSet_n15mass = Double.valueOf(s);
+    }
 }

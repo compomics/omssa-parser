@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions 
  * and limitations under the License.
  */
-
 package de.proteinms.omxparser.util.omssaparser;
 
 /**
@@ -30,32 +29,32 @@ public class MZValue {
      * by 1000 to get the real m/z value.
      */
     private int mzValueAsInteger;
-    
+
     /**
      * Takes in the original MSSpectrum_mz_E from the omx file.
      * 
      * @param mzValueAsInteger
      */
-    public MZValue(int mzValueAsInteger){
+    public MZValue(int mzValueAsInteger) {
         this.mzValueAsInteger = mzValueAsInteger;
     }
-    
+
     /**
      * Returns the original MSSpectrum_mz_E from the omx file.
      * 
      * @return the original MSSpectrum_mz_E from the omx file
      */
-    public int getMSSpectrum_mz_E(){
+    public int getMSSpectrum_mz_E() {
         return mzValueAsInteger;
     }
-    
+
     /**
      * Returns the real m/z value by dividing the MSSpectrum_mz_E value 
      * by 1000.
      * 
      * @return the real m/z value
      */
-    public double getMzValue(){
-        return ((double) mzValueAsInteger)/1000;
+    public double getMzValue() {
+        return ((double) mzValueAsInteger) / 1000;
     }
 }

@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,11 +23,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSInFile_infiletype specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSInFile_infiletype {
-	public int MSSpectrumFileType;
-	public void setMSSpectrumFileType(String s){
-		this.MSSpectrumFileType=Integer.valueOf(s);
-	}
+
+    public int MSSpectrumFileType;
+
+    /**
+     * Sets the MSSpectrumFileType value
+     *
+     * @param s the MSSpectrumFileType value as a String
+     */
+    public void setMSSpectrumFileType(String s) {
+        this.MSSpectrumFileType = Integer.valueOf(s);
+    }
 }

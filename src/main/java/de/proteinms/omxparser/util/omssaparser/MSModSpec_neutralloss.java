@@ -24,11 +24,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSModSpec_neutralloss specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSModSpec_neutralloss {
-	public MSMassSet MSMassSet=new MSMassSet();
-	public void setMSMassSet(MSMassSet s){
-		this.MSMassSet=s;
-	}
+
+    public MSMassSet MSMassSet = new MSMassSet();
+
+    /**
+     * Sets the MSMassSet value.
+     * 
+     * @param s the MSMassSet value
+     */
+    public void setMSMassSet(MSMassSet s) {
+        this.MSMassSet = s;
+    }
 }

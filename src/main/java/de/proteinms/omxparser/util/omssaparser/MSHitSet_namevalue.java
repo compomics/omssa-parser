@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -27,12 +26,20 @@ import java.util.List;
 /**
  * This Class stores MSHitSet_namevalue specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSHitSet_namevalue {
-	public List<NameValue> NameValue=new LinkedList<NameValue>();
-	
-	public void setNameValue(NameValue s){
-		this.NameValue.add(s);
-	}
+
+    public List<NameValue> NameValue = new LinkedList<NameValue>();
+
+    /**
+     * Adds a name value to the NameValue list.
+     * 
+     * @param s a name values as a String
+     */
+    public void setNameValue(NameValue s) {
+        this.NameValue.add(s);
+    }
 }

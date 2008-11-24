@@ -27,11 +27,20 @@ import java.util.List;
 /**
  * This Class stores MSSpectrum_charge specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSpectrum_charge {
-  public List<Integer> MSSpectrum_charge_E=new LinkedList<Integer>();
-  public void setMSSpectrum_charge_E(String s){
-	  MSSpectrum_charge_E.add(Integer.valueOf(s));
-  }
+
+    public List<Integer> MSSpectrum_charge_E = new LinkedList<Integer>();
+
+    /**
+     * Adds an element to the MSSpectrum_charge_E list.
+     *
+     * @param s the element to add as a String
+     */
+    public void setMSSpectrum_charge_E(String s) {
+        MSSpectrum_charge_E.add(Integer.valueOf(s));
+    }
 }

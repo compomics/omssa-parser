@@ -24,11 +24,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSSearchSettings_libsearchsettings specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearchSettings_libsearchsettings {
-	public MSLibrarySettings MSLibrarySettings=new MSLibrarySettings();
-	public void setMSLibrarySettings(MSLibrarySettings s){
-		this.MSLibrarySettings=s;
-	}
+
+    public MSLibrarySettings MSLibrarySettings = new MSLibrarySettings();
+
+    /**
+     * Sets the MSLibrarySettings value.
+     *
+     * @param s the MSLibrarySettings value
+     */
+    public void setMSLibrarySettings(MSLibrarySettings s) {
+        this.MSLibrarySettings = s;
+    }
 }

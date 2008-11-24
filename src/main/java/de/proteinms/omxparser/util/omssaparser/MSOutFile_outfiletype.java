@@ -24,16 +24,30 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSOutFile_outfiletype specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSOutFile_outfiletype {
-		public int MSSerialDataFormat;
-		public Boolean MSOutFile_includerequest;
-		public void setMSOutFile_includerequest(String s){
-			this.MSOutFile_includerequest=Boolean.valueOf(s);
-		}
-		public void setMSSerialDataFormat(String s){
-			this.MSSerialDataFormat=Integer.valueOf(s);
-		}
-		
+
+    public int MSSerialDataFormat;
+    public Boolean MSOutFile_includerequest;
+
+    /**
+     * Sets the MSOutFile_includerequest value.
+     *
+     * @param s the MSOutFile_includerequest value as a String
+     */
+    public void setMSOutFile_includerequest(String s) {
+        this.MSOutFile_includerequest = Boolean.valueOf(s);
+    }
+
+    /**
+     * Sets the MSSerialDataFormat value.
+     *
+     * @param s the MSSerialDataFormat value as a String
+     */
+    public void setMSSerialDataFormat(String s) {
+        this.MSSerialDataFormat = Integer.valueOf(s);
+    }
 }

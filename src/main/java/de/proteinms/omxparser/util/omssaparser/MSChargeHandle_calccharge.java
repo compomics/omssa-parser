@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,15 +23,23 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSChargeHandle_calccharge specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (fixing the Javadoc)
  */
 public class MSChargeHandle_calccharge {
-	/**
-	 * This Integer stores how to handle charges.
-	 */
-	public Integer MSCalcCharge;
-	
-	public void setMSCalcCharge(String s){
-		this.MSCalcCharge=Integer.valueOf(s);
-	}
+
+    /**
+     * This Integer stores how to handle charges.
+     */
+    public Integer MSCalcCharge;
+
+    /**
+     * Sets the MSCalcCharge value.
+     *
+     * @param s the MSCalcCharge as a String
+     */
+    public void setMSCalcCharge(String s) {
+        this.MSCalcCharge = Integer.valueOf(s);
+    }
 }

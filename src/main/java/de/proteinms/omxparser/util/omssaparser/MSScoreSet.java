@@ -24,16 +24,30 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSScoreSet specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSScoreSet {
-		public String MSScoreSet_name;
-		public double MSScoreSet_value;
-		
-		public void setMSScoreSet_value(String s){
-			this.MSScoreSet_value=Integer.valueOf(s);
-		}
-		public void setMSScoreSet_name(String s){
-			this.MSScoreSet_name=s;
-		}
+
+    public String MSScoreSet_name;
+    public double MSScoreSet_value;
+
+    /**
+     * Sets the MSScoreSet_value value.
+     *
+     * @param s the MSScoreSet_value value as a String
+     */
+    public void setMSScoreSet_value(String s) {
+        this.MSScoreSet_value = Integer.valueOf(s);
+    }
+
+    /**
+     * Sets the MSScoreSet_name value.
+     *
+     * @param s the MSScoreSet_name value as a String
+     */
+    public void setMSScoreSet_name(String s) {
+        this.MSScoreSet_name = s;
+    }
 }

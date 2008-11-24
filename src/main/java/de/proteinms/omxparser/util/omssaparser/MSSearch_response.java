@@ -27,11 +27,20 @@ import java.util.List;
 /**
  * This Class stores MSSearch_response specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearch_response {
-	public List<MSResponse> MSResponse=new LinkedList<MSResponse>();
-	public void setMSResponse(MSResponse s){
-		MSResponse.add(s);
-	}
+
+    public List<MSResponse> MSResponse = new LinkedList<MSResponse>();
+
+    /**
+     * Adds an element to the MSResponse list.
+     *
+     * @param s the MSResponse element to add
+     */
+    public void setMSResponse(MSResponse s) {
+        MSResponse.add(s);
+    }
 }

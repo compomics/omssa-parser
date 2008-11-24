@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -27,12 +26,20 @@ import java.util.List;
 /**
  * This Class stores MSHitSet_hits specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSHitSet_hits {
-		public List<MSHits> MSHits=new LinkedList<MSHits>();
-		
-		public void setMSHits(MSHits s){
-			MSHits.add(s);
-		}
+
+    public List<MSHits> MSHits = new LinkedList<MSHits>();
+
+    /**
+     * Sets the MSHits
+     *
+     * @param s the MSHits
+     */
+    public void setMSHits(MSHits s) {
+        MSHits.add(s);
+    }
 }

@@ -24,7 +24,9 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSPepHit specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSPepHit {
 
@@ -33,13 +35,11 @@ public class MSPepHit {
      * NB: The indexing starts at 0, not at 1.
      */
     public int MSPepHit_start;
-    
     /**
      * The ending position of the peptide relative to the protein sequence. 
      * NB: The indexing starts at 0, not at 1.
      */
     public int MSPepHit_stop;
-    
     public int MSPepHit_gi;
     public String MSPepHit_accession;
     public String MSPepHit_defline;
@@ -49,42 +49,92 @@ public class MSPepHit {
     public String MSPepHit_pepstart;
     public String MSPepHit_pepstop;
 
+    /**
+     * Sets the MSPepHit_pepstop value.
+     *
+     * @param s the MSPepHit_pepstop value as a String
+     */
     public void setMSPepHit_pepstop(String s) {
         this.MSPepHit_pepstop = s;
     }
 
+    /**
+     * Sets the MSPepHit_pepstart value.
+     *
+     * @param s the MSPepHit_pepstart value as a String
+     */
     public void setMSPepHit_pepstart(String s) {
         this.MSPepHit_pepstart = s;
     }
 
+    /**
+     * Sets the MSPepHit_reversed value.
+     *
+     * @param s the MSPepHit_reversed value as a String
+     */
     public void setMSPepHit_reversed(String s) {
         this.MSPepHit_reversed = Boolean.valueOf(s);
     }
 
+    /**
+     * Sets the MSPepHit_oid value.
+     *
+     * @param s the MSPepHit_oid value as a String
+     */
     public void setMSPepHit_oid(String s) {
         this.MSPepHit_oid = Integer.valueOf(s);
     }
 
+    /**
+     * Sets the MSPepHit_protlength value.
+     *
+     * @param s the MSPepHit_protlength value as a String
+     */
     public void setMSPepHit_protlength(String s) {
         this.MSPepHit_protlength = Integer.valueOf(s);
     }
 
+    /**
+     * Sets the MSPepHit_defline value.
+     *
+     * @param s the MSPepHit_defline value as a String
+     */
     public void setMSPepHit_defline(String s) {
         this.MSPepHit_defline = s;
     }
 
+    /**
+     * Sets the MSPepHit_accession value.
+     *
+     * @param s the MSPepHit_accession value as a String
+     */
     public void setMSPepHit_accession(String s) {
         this.MSPepHit_accession = s;
     }
 
+    /**
+     * Sets the MSPepHit_gi value.
+     *
+     * @param s the MSPepHit_gi value as a String
+     */
     public void setMSPepHit_gi(String s) {
         this.MSPepHit_gi = Integer.valueOf(s);
     }
 
+    /**
+     * Sets the MSPepHit_stop value.
+     *
+     * @param s the MSPepHit_stop value as a String
+     */
     public void setMSPepHit_stop(String s) {
         this.MSPepHit_stop = Integer.valueOf(s);
     }
 
+    /**
+     * Sets the MSPepHit_start value.
+     *
+     * @param s the MSPepHit_start value as a String
+     */
     public void setMSPepHit_start(String s) {
         this.MSPepHit_start = Integer.valueOf(s);
     }

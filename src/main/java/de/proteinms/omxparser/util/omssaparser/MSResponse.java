@@ -24,36 +24,80 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSResponse specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSResponse {
-		public MSResponse_hitsets MSResponse_hitsets=new MSResponse_hitsets();
-		public int MSResponse_scale;
-		public String MSResponse_rid;
-		public MSResponse_error MSResponse_error=new MSResponse_error();
-		public String MSResponse_version;
-		public String MSResponse_email;
-		public int MSResponse_dbversion;
 
-		public void setMSResponse_dbversion(String s){
-			this.MSResponse_dbversion=Integer.valueOf(s);
-		}
-		public void setMSResponse_email(String s){
-			this.MSResponse_email=s;
-		}
-		public void setMSResponse_version(String s){
-			this.MSResponse_version=s;
-		}
-		public void setMSResponse_error(MSResponse_error s){
-			this.MSResponse_error=s;
-		}
-		public void setMSResponse_rid(String s){
-			this.MSResponse_rid=s;
-		}
-		public void setMSResponse_scale(String s){
-			this.MSResponse_scale=Integer.valueOf(s);
-		}
-		public void setMSResponse_hitsets(MSResponse_hitsets s){
-			this.MSResponse_hitsets=s;
-		}
+    public MSResponse_hitsets MSResponse_hitsets = new MSResponse_hitsets();
+    public int MSResponse_scale;
+    public String MSResponse_rid;
+    public MSResponse_error MSResponse_error = new MSResponse_error();
+    public String MSResponse_version;
+    public String MSResponse_email;
+    public int MSResponse_dbversion;
+
+    /**
+     * Sets the MSResponse_dbversion value.
+     *
+     * @param s the MSResponse_dbversion value as a String
+     */
+    public void setMSResponse_dbversion(String s) {
+        this.MSResponse_dbversion = Integer.valueOf(s);
+    }
+
+    /**
+     * Sets the MSResponse_email value.
+     *
+     * @param s the MSResponse_email value as a String
+     */
+    public void setMSResponse_email(String s) {
+        this.MSResponse_email = s;
+    }
+
+    /**
+     * Sets the MSResponse_version value.
+     *
+     * @param s the MSResponse_version value as a String
+     */
+    public void setMSResponse_version(String s) {
+        this.MSResponse_version = s;
+    }
+
+    /**
+     * Sets the MSResponse_error value.
+     *
+     * @param s the MSResponse_error value as a String
+     */
+    public void setMSResponse_error(MSResponse_error s) {
+        this.MSResponse_error = s;
+    }
+
+    /**
+     * Sets the MSResponse_rid value.
+     *
+     * @param s the MSResponse_rid value as a String
+     */
+    public void setMSResponse_rid(String s) {
+        this.MSResponse_rid = s;
+    }
+
+    /**
+     * Sets the MSResponse_scale value.
+     *
+     * @param s the MSResponse_scale value as a String
+     */
+    public void setMSResponse_scale(String s) {
+        this.MSResponse_scale = Integer.valueOf(s);
+    }
+
+    /**
+     * Sets the MSResponse_hitsets value.
+     *
+     * @param s the MSResponse_hitsets value as a String
+     */
+    public void setMSResponse_hitsets(MSResponse_hitsets s) {
+        this.MSResponse_hitsets = s;
+    }
 }

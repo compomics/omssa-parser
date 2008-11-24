@@ -27,12 +27,19 @@ import java.util.Map;
 /**
  * This Class stores MSSpectrumset specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSpectrumset {
 
     public Map<Integer, MSSpectrum> MSSpectrum = new HashMap<Integer, MSSpectrum>();
 
+    /**
+     * Adds a MSSpectrum_number-MSSpectrum mapping to the MSSpectrum map.
+     *
+     * @param s the MSSpectrum to add
+     */
     public void setMSSpectrum(MSSpectrum s) {
         this.MSSpectrum.put(s.MSSpectrum_number, s);
     }

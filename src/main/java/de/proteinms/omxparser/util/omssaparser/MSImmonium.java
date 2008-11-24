@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,15 +23,30 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSImmonium specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSImmonium {
-		public String MSImmonium_parent;
-		public String MSImmonium_product;
-		public void setMSImmonium_product(String s){
-			this.MSImmonium_product=s;
-		}
-		public void setMSImmonium_parent(String s){
-			this.MSImmonium_parent=s;
-		}
+
+    public String MSImmonium_parent;
+    public String MSImmonium_product;
+
+    /**
+     * Sets the MSImmonium_product value
+     * 
+     * @param s the MSImmonium_product value as a String
+     */
+    public void setMSImmonium_product(String s) {
+        this.MSImmonium_product = s;
+    }
+
+    /**
+     * Sets the MSImmonium_parent value
+     *
+     * @param s the MSImmonium_parent value as a String
+     */
+    public void setMSImmonium_parent(String s) {
+        this.MSImmonium_parent = s;
+    }
 }

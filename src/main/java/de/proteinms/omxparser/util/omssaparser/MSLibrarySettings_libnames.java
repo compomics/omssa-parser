@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -23,15 +22,24 @@ package de.proteinms.omxparser.util.omssaparser;
 
 import java.util.LinkedList;
 import java.util.List;
+
 /**
  * This Class stores MSLibrarySettings_libnames specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
-
 public class MSLibrarySettings_libnames {
-		public List<String> MSLibrarySettings_libnames_E=new LinkedList<String>();
-		public void setMSLibrarySettings_libnames_E(String s){
-			MSLibrarySettings_libnames_E.add(s);
-		}
+
+    public List<String> MSLibrarySettings_libnames_E = new LinkedList<String>();
+
+    /**
+     * Adds a library name to the MSLibrarySettings_libnames_E list.
+     * 
+     * @param s the library name as a String
+     */
+    public void setMSLibrarySettings_libnames_E(String s) {
+        MSLibrarySettings_libnames_E.add(s);
+    }
 }

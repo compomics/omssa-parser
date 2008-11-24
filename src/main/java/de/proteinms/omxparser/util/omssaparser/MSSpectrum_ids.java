@@ -27,11 +27,20 @@ import java.util.List;
 /**
  * This Class stores MSSpectrum_ids specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSpectrum_ids {
-	  public List<String> MSSpectrum_ids_E=new LinkedList<String>();
-	  public void setMSSpectrum_ids_E(String s){
-		  MSSpectrum_ids_E.add(s);
-	  }
+
+    public List<String> MSSpectrum_ids_E = new LinkedList<String>();
+
+    /**
+     * Adds an element to the MSSpectrum_ids_E list.
+     *
+     * @param s the element to add as a String
+     */
+    public void setMSSpectrum_ids_E(String s) {
+        MSSpectrum_ids_E.add(s);
+    }
 }

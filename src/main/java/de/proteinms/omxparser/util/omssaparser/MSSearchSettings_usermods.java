@@ -24,11 +24,20 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSSearchSettings_usermods specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSSearchSettings_usermods {
-	public MSModSpecSet MSModSpecSet=new MSModSpecSet();
-	public void setMSModSpecSet(MSModSpecSet s){
-		this.MSModSpecSet=s;
-	}
+
+    public MSModSpecSet MSModSpecSet = new MSModSpecSet();
+
+    /**
+     * Sets the MSModSpecSet value.
+     *
+     * @param s the MSModSpecSet value
+     */
+    public void setMSModSpecSet(MSModSpecSet s) {
+        this.MSModSpecSet = s;
+    }
 }

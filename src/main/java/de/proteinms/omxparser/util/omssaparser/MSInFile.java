@@ -15,7 +15,6 @@
  * and limitations under the License.
  * 
  * 
- * 
  * Contact: 
  * s4990348@mail.inf.tu-dresden.de
  */
@@ -24,16 +23,30 @@ package de.proteinms.omxparser.util.omssaparser;
 /**
  * This Class stores MSInFile specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ *
  * @author Steffen Huber
+ * Modified by: Harald Barsnes (adding Javadoc)
  */
 public class MSInFile {
-	public String MSInFile_infile;
-	public MSInFile_infiletype MSInFile_infiletype=new MSInFile_infiletype();
-	
-	public void setMSInFile_infiletype(MSInFile_infiletype s){
-		this.MSInFile_infiletype=s;
-	}
-	public void setMSInFile_infile(String s){
-		this.MSInFile_infile=s;
-	}
+
+    public String MSInFile_infile;
+    public MSInFile_infiletype MSInFile_infiletype = new MSInFile_infiletype();
+
+    /**
+     * Sets the MSInFile_infiletype value.
+     * 
+     * @param s the MSInFile_infiletype
+     */
+    public void setMSInFile_infiletype(MSInFile_infiletype s) {
+        this.MSInFile_infiletype = s;
+    }
+
+    /**
+     * Sets the MSInFile_infile value
+     *
+     * @param s the MSInFile_infile value as a String
+     */
+    public void setMSInFile_infile(String s) {
+        this.MSInFile_infile = s;
+    }
 }
