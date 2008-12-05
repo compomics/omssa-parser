@@ -3,7 +3,12 @@
 
 ----
 
-*Changes from omssa-parser 0.9 to omssa-parser 0.9.1:*
+*Changes in omssa-parser 0.9.3:*
+ * Cleaned up the package structure.
+
+----
+
+*Changes in omssa-parser 0.9.1:*
  * Logging functionality added (log4j)
  * Added methods for extracting the "real" m/z and abundance values. (The original values can still be extracted, but have to be divided by 1000 to get the "real" values.)
  * Javadoc added for the methods and variables involved in the previous point.
