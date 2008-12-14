@@ -37,6 +37,7 @@ public class MSResponse {
     public String MSResponse_version;
     public String MSResponse_email;
     public int MSResponse_dbversion;
+    //public MSResponse_bioseqs MSResponse_bioseqs = new MSResponse_bioseqs();
 
     /**
      * Sets the MSResponse_dbversion value.
@@ -100,4 +101,13 @@ public class MSResponse {
     public void setMSResponse_hitsets(MSResponse_hitsets s) {
         this.MSResponse_hitsets = s;
     }
+
+    /**
+     * Sets the MSResponse_bioseqs value.
+     *
+     * @param s the MSResponse_hitsets
+     */
+//    public void MSResponse_bioseqs(MSResponse_bioseqs s) {
+//        this.MSResponse_bioseqs = s;
+//    }
 }

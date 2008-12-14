@@ -4,7 +4,7 @@
     <groupId>de.proteinms.omxparser</groupId>
     <artifactId>omssaparser</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.3</version>
+    <version>0.9.4</version>
     <name>omssaparser</name>
     <url>http://code.google.com/p/omssa-parser/</url>
     
@@ -16,6 +16,11 @@
     </licenses>
     
     <dependencies>
+        <dependency>
+            <groupId>com.jgoodies</groupId>
+            <artifactId>looks</artifactId>
+            <version>2.2.0</version>
+        </dependency>
         <dependency>
             <groupId>xpp3</groupId>
             <artifactId>xpp3</artifactId>
@@ -41,7 +46,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        
+        <dependency>
+            <groupId>lennart</groupId>
+            <artifactId>utilities</artifactId>
+            <version>2.9</version>
+        </dependency>
     </dependencies>
     <build>
         <resources>
@@ -64,6 +73,7 @@
                     <target>1.5</target>
                 </configuration>
             </plugin>
+
             <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -89,9 +99,45 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteReleases>true</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>de.proteinms.omxparser.tools.OmssaViewerWrapper</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/Properties</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources/Properties</directory>
+                                </resource>
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>
@@ -110,6 +156,22 @@
             </plugin>-->
         </plugins>
     </build>
+    
+    <repositories>
+        <!-- UGent Genesis Maven 1 repository -->
+        <repository>
+            <id>genesis-maven-repository</id>
+            <name>Genesis repository</name>
+            <url>http://genesis.UGent.be/maven</url>
+            <layout>legacy</layout>
+            <releases>
+            </releases>
+            <snapshots>
+            </snapshots>
+        </repository>
+    </repositories>
+
+
 
     <distributionManagement>
         <repository>

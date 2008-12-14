@@ -35,8 +35,11 @@ public class MSSpectrum_abundance {
 
     /**
      * The list of MSSpectrum_abundance_E values from the omx file.
+     *
+     * Note that this value has to be divided by MSResponse_scale to get the
+     * real abundance value.
      */
-    public List<AbundanceValue> MSSpectrum_abundance_E = new LinkedList<AbundanceValue>();
+    public List<Integer> MSSpectrum_abundance_E = new LinkedList<Integer>();
 
     /**
      * Adds an element to the MSSpectrum_abundance_E list.
@@ -44,6 +47,6 @@ public class MSSpectrum_abundance {
      * @param s the element to add as a String
      */
     public void setMSSpectrum_abundance_E(String s) {
-        MSSpectrum_abundance_E.add(new AbundanceValue(Integer.valueOf(s)));
+        MSSpectrum_abundance_E.add(Integer.valueOf(s));
     }
 }

@@ -47,6 +47,9 @@ public class MSHits {
 
     /**
      * Returns the MSHits_mass value from the omx file.
+     *
+     * Note that this value has to be divided by MSResponse_scale
+     * to get the real mass.
      * 
      * @return the MSHits_mass value
      */
@@ -55,32 +58,15 @@ public class MSHits {
     }
 
     /**
-     * Returns the real mass of the hit by dividing the 
-     * MSHits_mass value by 1000.
-     * 
-     * @return the real mass value
-     */
-    public double getMass() {
-        return ((double) MSHits_mass) / 1000;
-    }
-
-    /**
      * Returns the MSHits_theomass value from the omx file.
+     *
+     * Note that this value has to be divided by MSResponse_scale
+     * to get the real mass.
      * 
      * @return the MSHits_theomass value
      */
     public int getMSHits_theomass() {
         return MSHits_theomass;
-    }
-
-    /**
-     * Returns the real theoretical mass of the hit by dividing the 
-     * MSHits_theomass value by 1000.
-     * 
-     * @return the real theoretical mass value
-     */
-    public double getTheoreticalMass() {
-        return ((double) MSHits_theomass) / 1000;
     }
 
     /**

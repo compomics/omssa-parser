@@ -30,6 +30,7 @@ import de.proteinms.omxparser.util.MSHits;
 import de.proteinms.omxparser.util.MSPepHit;
 import de.proteinms.omxparser.util.MSSearch;
 import de.proteinms.omxparser.util.MSSpectrum;
+import de.proteinms.omxparser.util.OmssaModification;
 import de.proteinms.omxparser.util.OmxParser;
 
 import org.apache.log4j.Logger;
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
  * After all it is an example how to access and handle the parsed information.
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (mainly fixing the Javadoc)
+ * <br>Modified by: Harald Barsnes (added support for extracting modification details and updated the Javadoc)
  */
 public class OmssaOmxFile {
 
@@ -62,6 +63,7 @@ public class OmssaOmxFile {
     private HashMap<String, LinkedList<MSPepHit>> peptideToProteinMap = new HashMap<String, LinkedList<MSPepHit>>();
     private HashMap<String, LinkedList<String>> proteinToPeptideMap = new HashMap<String, LinkedList<String>>();
     private MSSearch parserResult;
+    private OmxParser parser;
 
     /**
      * Returns ALL data from the original Omx file gathered by the OmxParser as a MSSearch object.
@@ -121,7 +123,7 @@ public class OmssaOmxFile {
     }
 
     /**
-     * Returns a HashMap where every Proteine (represented by its accession) is allocated
+     * Returns a HashMap where every Protein (represented by its accession) is allocated
      * to the corresponding Peptides (represented by their sequence), found by the omssa algorithm.
      *
      * @return HashMap<String,LinkedList<String>>
@@ -131,13 +133,19 @@ public class OmssaOmxFile {
     }
 
     /**
-     * The Constructor initializes the Parser with the filename, given by the parameter args.
+     * This constructor initializes the Parser with the file name of the omx file,
+     * and the file names of the two OMSSA modification files (mods.xml and usermods.xml).
      *
-     * @param args String[]
+     * @param omxFile the file name of the omx file to be parsed
+     * @param modsFile the file name of the mods.xml file
+     * @param userModsFile the file name of the usermods.xml file
      */
-    public OmssaOmxFile(String[] args) {
+    public OmssaOmxFile(String omxFile, String modsFile, String userModsFile) {
 
-        OmxParser parser = new OmxParser(args);
+//        System.out.println("Start");
+//        long a = System.currentTimeMillis();
+
+        parser = new OmxParser(omxFile, modsFile, userModsFile);
         parserResult = parser.parserResult;
 
         logger.debug("processing Information...");
@@ -149,7 +157,46 @@ public class OmssaOmxFile {
         processPeptideToProteineMap(parserResult);
         processProteineToPeptideMap(parserResult);
 
-        logger.debug("finished");
+        logger.debug("parsing completed");
+
+//        long b = System.currentTimeMillis();
+//        System.out.println((b - a));
+//        System.out.println(((double) (b - a) / 1000));
+//        System.out.println("Done.");
+
+    }
+
+    /**
+     * This constructor initializes the Parser with the file name of the omx file,
+     * and the file name of one of the two OMSSA modification files (mods.xml or
+     * usermods.xml).
+     *
+     * @param omxFile the file name of the omx file to be parsed
+     * @param modsFile the file name of the mods.xml file
+     */
+    public OmssaOmxFile(String omxFile, String modsFile) {
+        new OmssaOmxFile(omxFile, modsFile, null);
+    }
+
+    /**
+     * This constructor initializes the Parser with the file name of the omx file.
+     *
+     * @param omxFile the file name of the omx file to be parsed
+     */
+    public OmssaOmxFile(String omxFile) {
+        new OmssaOmxFile(omxFile, null, null);
+    }
+
+    /**
+     * Returns a hashmap if the omssa modification details. Where the key is
+     * the integer value used by omssa for the modification, and the element
+     * is a OmssaModification object containing all the information about the
+     * modification.
+     *
+     * @return
+     */
+    public HashMap<Integer, OmssaModification> getModifications() {
+        return parser.getOmssaModificationDetails();
     }
 
     /**

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML>
+    <HEAD>
+        <TITLE><H2><a name="#top">OMSSA Viewer</a></H2></TITLE>
+    </HEAD>
+    <BODY >
+        <p align="justify">
+            The OMSSA Viewer is a simple, lightweight viewer of 
+            <a href="http://pubchem.ncbi.nlm.nih.gov/omssa/">OMSSA</a> MS/MS
+            result files (omx files). The input is the omx file itself and
+            (if available) two files containing details about the amino acid
+            modification that was used by OMSSA in the identification process: 
+            mods.xml and usermods.xml. Both of these are located in the OMSSA
+            installation directory. If you don't have these files available
+            you will still be able to use the OMSSA Viewer, but no modifications
+            will be shown.
+            <br><br>
+            After selecting the files the OMSSA Viewer uses the omssa-parser
+            to parse the omx file into an object model that is then used to
+            extract the information to present to the user. The OMSSA Viewer
+            has three separate panels: (i) the Spectra Files panel, (ii) the
+            Spectrum panel, and (iii) the Identification panel. The Spectra
+            files panel contains the basic details about each spectrum file:
+            the filename, the precursor m/z and charge, and if it's identified
+            or not. Selecting a row in this table, automatically updates the
+            two other panels, by displaying all the identification for the
+            given spectrum and by displaying the spectrum itself. Clicking on
+            a column header will automatically sort the table on the values
+            in the given column.
+            <br><br>
+            For the spectra identified by OMSSA, the ion coverage is shown.
+            Both on the spectra and in the modified sequence column in the
+            identification table. By selecting two peaks in the spectrum
+            panel the distance between the peaks is shown. If this
+            distance has a mass equal to an amino acid the given amino acid
+            is also displayed.
+            <br><br>
+            The information in each of the three tables can be exported to
+            cvs files (comma separated text files). This is done via the
+            Export menu. It is also possible to export the spectra as
+            individual dta files.
+            <br><br>
+            If you want to submitt your OMSSA data to the online PRIDE
+            <a href="http://www.ebi.ac.uk/pride/">PRIDE</a>
+            repository check out the 
+            <a href="http://code.google.com/p/pride-converter">PRIDE Converter</a>.
+            <br><br>
+        </p>
+
+        <a href="#top">Go to top of page</a><br>
+
+    </BODY>
+</HTML>
