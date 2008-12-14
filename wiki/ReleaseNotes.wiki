@@ -3,6 +3,13 @@
 
 ----
 
+*Changes in omssa-parser 0.9.4:*
+ * Added a simple, lightweight viewer for omx files: OMSSA Viewer v1.0.
+ * Removed the hardcoding of the scale value. The scale is now extracted from the omx file.
+ * The OMSSA modifications are now also parsed if the mods.xml and usermods.xml files are provided.
+
+----
+
 *Changes in omssa-parser 0.9.3:*
  * Cleaned up the package structure.
 
