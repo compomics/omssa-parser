@@ -22,6 +22,7 @@
 package de.proteinms.omxparser.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -31,11 +32,17 @@ import java.util.HashMap;
 
 import java.util.Stack;
 
+import java.util.Vector;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  * This class contains the OmxParser using a XML Pull Parser API implementation<br>
@@ -47,9 +54,8 @@ import org.apache.log4j.Logger;
  * Every originally XML Tag is now represented as a name-corresponding Object, except<br>
  * the XML Tags which hold information, they are represented by an Attribute inside<br> the corresponding Object.
  * 
- * @param String[] args
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * <br>Modified by: Harald Barsnes (adding modification support and extending Javadoc)
  */
 public class OmxParser {
 
@@ -75,6 +81,11 @@ public class OmxParser {
     public MSSearch parserResult;
     private String attribute = "";
     private String value = "";
+    /**
+     * HashMap of the modification details where the keys are the
+     * modification numbers and the elements are OmssaModification-objects
+     */
+    private HashMap<Integer, OmssaModification> omssaModificationDetails;
 
     /**
      * If a Class should be parsed by OmxParser, it has to be initialzed by<br>
@@ -163,10 +174,25 @@ public class OmxParser {
     }
 
     /**
-     * Should contain the filename at args[0]
-     * @param args String[]<br>
+     * Initializes the parser and parses the omx file. Also parses
+     * the modification files (if any).
+     *
+     * @param omxFile
+     * @param modsFile
+     * @param userModsFile
      */
-    public OmxParser(String[] args) {
+    public OmxParser(String omxFile, String modsFile, String userModsFile) {
+
+        omssaModificationDetails = new HashMap();
+
+        // parse modification files
+        if (modsFile != null && modsFile.endsWith(".xml")) {
+            parseModificationFile(modsFile);
+        }
+
+        if (userModsFile != null && userModsFile.endsWith(".xml")) {
+            parseModificationFile(userModsFile);
+        }
 
         try {
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance(
@@ -179,17 +205,99 @@ public class OmxParser {
             //write every class from which objects should be created into the hashmap classes
             initializeClasses();
 
-            logger.debug("Parsing file: " + args[0]);
-            xpp.setInput(new BufferedReader(new FileReader(args[0])));
+            logger.debug("Parsing file: " + omxFile);
+            xpp.setInput(new BufferedReader(new FileReader(omxFile)));
             long t1 = System.currentTimeMillis();
             processDocument(xpp);
             long t2 = System.currentTimeMillis();
             long t3 = (t2 - t1) / 1000;
             logger.debug("finished after " + t3 + " seconds");
         } catch (XmlPullParserException e) {
-            //not yet implemented
+            logger.error("Error parsing file: " + omxFile + " " + e.toString());
+            e.printStackTrace();
         } catch (IOException e) {
-            //not yet implemented
+            logger.error("Error parsing file: " + omxFile + " " + e.toString());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 
+     * @param modsFile
+     */
+    private void parseModificationFile(String modsFile) {
+
+        try {
+            File mods = new File(modsFile);
+
+            //get the factory
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
+            //Using factory get an instance of document builder
+            DocumentBuilder db = dbf.newDocumentBuilder();
+
+            //parse using builder to get DOM representation of the XML file
+            Document dom = db.parse(mods);
+
+            //get the root elememt
+            Element docEle = dom.getDocumentElement();
+
+            NodeList nodes = docEle.getChildNodes();
+
+            for (int i = 0; i < nodes.getLength(); i++) {
+
+                if (nodes.item(i).getNodeName().equalsIgnoreCase("MSModSpec")) {
+
+                    NodeList modNodes = nodes.item(i).getChildNodes();
+                    int modNumber = -1;
+                    String modName = "";
+                    Double modMonoMass = 0.0;
+                    Vector modResidues = new Vector();
+
+                    for (int j = 0; j < modNodes.getLength(); j++) {
+
+                        if (modNodes.item(j).getNodeName().equalsIgnoreCase("MSModSpec_mod")) {
+
+                            NodeList tempNodes = modNodes.item(j).getChildNodes();
+
+                            for (int m = 0; m < tempNodes.getLength(); m++) {
+                                if (tempNodes.item(m).getNodeName().equalsIgnoreCase("MSMod")) {
+                                    modNumber = new Integer(tempNodes.item(m).getTextContent());
+                                }
+                            }
+                        } else if (modNodes.item(j).getNodeName().equalsIgnoreCase("MSModSpec_name")) {
+                            modName = modNodes.item(j).getTextContent();
+                        } else if (modNodes.item(j).getNodeName().equalsIgnoreCase("MSModSpec_monomass")) {
+                            modMonoMass = new Double(modNodes.item(j).getTextContent());
+                        } else if (modNodes.item(j).getNodeName().equalsIgnoreCase("MSModSpec_residues")) {
+                            NodeList residueNodes = modNodes.item(j).getChildNodes();
+
+                            modResidues = new Vector();
+
+                            for (int m = 0; m <
+                                    residueNodes.getLength(); m++) {
+
+                                if (residueNodes.item(m).getNodeName().equalsIgnoreCase(
+                                        "MSModSpec_residues_E")) {
+
+                                    modResidues.add(residueNodes.item(m).getTextContent());
+                                }
+                            }
+                        }
+                    }
+
+                    if (modMonoMass == 0.0) {
+                        modMonoMass = null;
+                    }
+
+                    omssaModificationDetails.put(modNumber,
+                            new OmssaModification(modNumber, modName,
+                            modMonoMass, modResidues));
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Error parsing the modification file: " + e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -210,9 +318,7 @@ public class OmxParser {
 
         do {
             if (eventType == xpp.START_DOCUMENT) {
-
             } else if (eventType == xpp.END_DOCUMENT) {
-
             } else if (eventType == xpp.START_TAG) {
                 processStartElement(xpp);
             } else if (eventType == xpp.END_TAG) {
@@ -235,6 +341,7 @@ public class OmxParser {
         if (!objectStack.isEmpty() && (!lockStack.peek())) {
 
             Object pop = objectStack.pop();
+
             if (!objectStack.isEmpty()) {
 
                 try {
@@ -243,15 +350,20 @@ public class OmxParser {
                     Method setX = c.getDeclaredMethod("set" + nameStack.peek(), pop.getClass());
                     setX.invoke(peek, pop);
                 } catch (EmptyStackException e) {
-                    //not yet implemented
+                    logger.error("Error processing the end element: " + e.toString());
+                    e.printStackTrace();
                 } catch (NoSuchMethodException e) {
-                    //not yet implemented
+                    logger.error("Error processing the end element: " + e.toString());
+                    e.printStackTrace();
                 } catch (InvocationTargetException e) {
-                    //not yet implemented
+                    logger.error("Error processing the end element: " + e.toString());
+                    e.printStackTrace();
                 } catch (IllegalAccessException e) {
-                    //not yet implemented
+                    logger.error("Error processing the end element: " + e.toString());
+                    e.printStackTrace();
                 } catch (ClassCastException e) {
-                    //not yet implemented
+                    logger.error("Error processing the end element: " + e.toString());
+                    e.printStackTrace();
                 }
             }
 
@@ -272,7 +384,7 @@ public class OmxParser {
     public void processStartElement(XmlPullParser xpp) {
 
         nameStack.push(xpp.getName());
-        
+
         try {
             if (classes.get(nameStack.peek()) == null) {
                 lockStack.add(true);
@@ -283,31 +395,43 @@ public class OmxParser {
                 lockStack.add(false);
             }
         } catch (InstantiationException e) {
-            //not yet implemented
+            logger.error("Error processing the start element: " + e.toString());
+            e.printStackTrace();
         } catch (IllegalAccessException e) {
-            //not yet implemented
+            logger.error("Error processing the start element: " + e.toString());
+            e.printStackTrace();
         }
 
-        if (xpp.getAttributeCount() > 0) {
-            attribute = xpp.getAttributeName(0);
-            if (attribute.equals("value")) {
-                value = xpp.getAttributeValue(0);
 
-                try {
-                    Object peek = objectStack.peek();
-                    Class<?> c = peek.getClass();
-                    Method setX = c.getDeclaredMethod("set" + nameStack.peek(), String.class);
-                    setX.invoke(peek, value);
-                    attribute = "";
-                    value = "";
-                } catch (EmptyStackException e) {
-                    //not yet implemented
-                } catch (IllegalAccessException e) {
-                    //not yet implemented
-                } catch (NoSuchMethodException e) {
-                    //not yet implemented
-                } catch (InvocationTargetException e) {
-                    //not yet implemented
+        // @TODO verifiy that using lockStack here is correct. Otherwise NoSuchMethodException
+        // is thrown for all the MSResponse_bioseqs tags.
+        if (!lockStack.peek()) {
+
+            if (xpp.getAttributeCount() > 0) {
+                attribute = xpp.getAttributeName(0);
+                if (attribute.equals("value")) {
+                    value = xpp.getAttributeValue(0);
+
+                    try {
+                        Object peek = objectStack.peek();
+                        Class<?> c = peek.getClass();
+                        Method setX = c.getDeclaredMethod("set" + nameStack.peek(), String.class);
+                        setX.invoke(peek, value);
+                        attribute = "";
+                        value = "";
+                    } catch (EmptyStackException e) {
+                        logger.error("Error processing the start element: " + e.toString());
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        logger.error("Error processing the start element: " + e.toString());
+                        e.printStackTrace();
+                    } catch (NoSuchMethodException e) {
+                        logger.error("Error processing the start element: " + e.toString());
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        logger.error("Error processing the start element: " + e.toString());
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -320,6 +444,7 @@ public class OmxParser {
      * @throws org.xmlpull.v1.XmlPullParserException
      */
     public void processText(XmlPullParser xpp) throws XmlPullParserException {
+
         char ch[] = xpp.getTextCharacters(indexBuffer);
         int start = indexBuffer[0];
         int length = indexBuffer[1];
@@ -332,7 +457,6 @@ public class OmxParser {
         String buffer2 = buffer.toString().trim();
 
         if (buffer2.equals("")) {
-
         } else {
             try {
                 Object peek = objectStack.peek();
@@ -340,14 +464,29 @@ public class OmxParser {
                 Method setX = c.getDeclaredMethod("set" + nameStack.peek(), String.class);
                 setX.invoke(peek, buffer2);
             } catch (EmptyStackException e) {
-                //not yet implemented
+                logger.error("Error processing the text element: " + e.toString());
+                e.printStackTrace();
             } catch (IllegalAccessException e) {
-                //not yet implemented
+                logger.error("Error processing the text element: " + e.toString());
+                e.printStackTrace();
             } catch (NoSuchMethodException e) {
-                //not yet implemented
-            } catch (InvocationTargetException e) {
-                //not yet implemented
+                // logger.error("Error processing the text element: " + e.toString());
+                // e.printStackTrace();
+                // @TODO exception always thrown for all the MSResponse_bioseqs tags!!!
+                } catch (InvocationTargetException e) {
+                logger.error("Error processing the text element: " + e.toString());
+                e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Returns a HashMap of the modification details where the keys are the
+     * modification numbers and the elements are OmssaModification-objects.
+     *
+     * @return the omssa modification details
+     */
+    public HashMap<Integer, OmssaModification> getOmssaModificationDetails() {
+        return omssaModificationDetails;
     }
 }

@@ -39,24 +39,6 @@ public class MSSpectrum {
     public MSSpectrum_ids MSSpectrum_ids = new MSSpectrum_ids();
     public MSSpectrum_namevalue MSSpectrum_namevalue = new MSSpectrum_namevalue();
 
-    /**
-     * Returns the MSSpectrum_precursormz value from the omx file.
-     * 
-     * @return the MSSpectrum_precursormz value
-     */
-    public int getMSSpectrum_precursormz() {
-        return MSSpectrum_precursormz;
-    }
-
-    /**
-     * Returns the real m/z value of the precursor by dividing the 
-     * MSSpectrum_precursormz value by 1000.
-     * 
-     * @return the real m/z value
-     */
-    public double getPrecursorMz() {
-        return ((double) MSSpectrum_precursormz) / 1000;
-    }
 
     /**
      * Sets the MSSpectrum_number value.

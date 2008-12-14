@@ -35,8 +35,11 @@ public class MSSpectrum_mz {
 
     /**
      * The list of MSSpectrum_mz_E values from the omx file.
+     *
+     * Note that this value has to be divided by MSResponse_scale to get the
+     * real mz value.
      */
-    public List<MZValue> MSSpectrum_mz_E = new LinkedList<MZValue>();
+    public List<Integer> MSSpectrum_mz_E = new LinkedList<Integer>();
 
     /**
      * Adds an element to the MSSpectrum_mz_E list.
@@ -44,6 +47,6 @@ public class MSSpectrum_mz {
      * @param s the element to add as a String
      */
     public void setMSSpectrum_mz_E(String s) {
-        MSSpectrum_mz_E.add(new MZValue(Integer.valueOf(s)));
+        MSSpectrum_mz_E.add(Integer.valueOf(s));
     }
 }
