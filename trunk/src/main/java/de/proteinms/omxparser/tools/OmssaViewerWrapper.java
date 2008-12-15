@@ -15,12 +15,12 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author  Harald Barsnes
  * 
  * Created October 2005
- * Revised March 2008
+ * Revised December 2008
  */
 public class OmssaViewerWrapper {
 
     private boolean debug = false;
-    private String jarFileName = "omssaparser-0.9.4.jar";
+    private String jarFileName = "omssaparser-0.9.5.jar";
 
     /**
      * Starts the launcher by calling the launch method. Use this as the 

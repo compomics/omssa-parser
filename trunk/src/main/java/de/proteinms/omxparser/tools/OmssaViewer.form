@@ -90,34 +90,41 @@
             <Property name="text" type="java.lang.String" value="Export"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="exportSpectraJMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="exportSpectraFilesTableJMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="80"/>
-                <Property name="text" type="java.lang.String" value="Spectra Properties"/>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="text" type="java.lang.String" value="Spectra Files Table"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportSpectraJMenuItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportSpectraFilesTableJMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="exportSpectrumJMenuItem">
-              <Properties>
-                <Property name="mnemonic" type="int" value="83"/>
-                <Property name="text" type="java.lang.String" value="Spectrum"/>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportSpectrumJMenuItemActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="exportIdentificationsJMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="exportAllIdentificationsJMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="73"/>
-                <Property name="text" type="java.lang.String" value="Identifications"/>
+                <Property name="text" type="java.lang.String" value="All Identifications"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportAllIdentificationsJMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="exportSelectedSpectrumJMenuItem">
+              <Properties>
+                <Property name="mnemonic" type="int" value="83"/>
+                <Property name="text" type="java.lang.String" value="Selected Spectrum"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportIdentificationsJMenuItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportSelectedSpectrumJMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="exportAllSpectraJMenuItem">
+              <Properties>
+                <Property name="mnemonic" type="int" value="83"/>
+                <Property name="text" type="java.lang.String" value="All Spectra"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportAllSpectraJMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -321,14 +328,16 @@
             <Component class="javax.swing.JTable" name="identificationsJTable">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="9" rowCount="0">
+                  <Table columnCount="11" rowCount="0">
                     <Column editable="false" title=" " type="java.lang.Integer"/>
                     <Column editable="false" title="Sequence" type="java.lang.String"/>
                     <Column editable="false" title="Modified Sequence" type="java.lang.String"/>
-                    <Column editable="false" title="E-value" type="java.lang.String"/>
-                    <Column editable="false" title="P-value" type="java.lang.String"/>
                     <Column editable="false" title="Start" type="java.lang.Integer"/>
                     <Column editable="false" title="End" type="java.lang.Integer"/>
+                    <Column editable="false" title="Exp. Mass" type="java.lang.Double"/>
+                    <Column editable="false" title="Theo. Mass" type="java.lang.Double"/>
+                    <Column editable="false" title="E-value" type="java.lang.String"/>
+                    <Column editable="false" title="P-value" type="java.lang.String"/>
                     <Column editable="false" title="Accession" type="java.lang.String"/>
                     <Column editable="false" title="Description" type="java.lang.String"/>
                   </Table>
@@ -336,6 +345,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="identificationsJTableMouseClicked"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="identificationsJTableKeyReleased"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JTable() {     &#xa;    protected JTableHeader createDefaultTableHeader() { &#xa;        return new JTableHeader(columnModel) {        &#xa;            public String getToolTipText(MouseEvent e) { &#xa;                String tip = null;                 &#xa;                java.awt.Point p = e.getPoint();       &#xa;                int index = columnModel.getColumnIndexAtX(p.x);                 &#xa;                int realIndex = columnModel.getColumn(index).getModelIndex();                 &#xa;                tip = (String) identificationsJTableColumnToolTips.get(realIndex);                 &#xa;                return tip;             &#xa;            }         &#xa;        };     &#xa;    } &#xa;};"/>

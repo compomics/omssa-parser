@@ -4,7 +4,7 @@
     <groupId>de.proteinms.omxparser</groupId>
     <artifactId>omssaparser</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.4</version>
+    <version>0.9.5</version>
     <name>omssaparser</name>
     <url>http://code.google.com/p/omssa-parser/</url>
     

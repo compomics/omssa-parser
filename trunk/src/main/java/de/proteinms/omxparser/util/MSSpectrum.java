@@ -26,7 +26,7 @@ package de.proteinms.omxparser.util;
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
  *
  * @author Steffen Huber
- * @author Harald Barsnes (added a way of extracting the "real" precursor m/z, and added Javadoc)
+ * @author Harald Barsnes (added Javadoc)
  */
 public class MSSpectrum {
 

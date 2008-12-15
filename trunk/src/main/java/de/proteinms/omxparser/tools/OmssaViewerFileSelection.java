@@ -4,6 +4,7 @@ import java.awt.Frame;
 import java.awt.Toolkit;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * A dialog that lets you choose the files the to be viewed in the OMSSA Viewer.
@@ -293,6 +294,10 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
             chooser = new JFileChooser(userModsJTextField.getText());
         }
 
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "XML file (*.xml)", "xml");
+        chooser.setFileFilter(filter);
+
         chooser.setDialogTitle("Locate the usermods.xml file");
 
         int returnVal = chooser.showOpenDialog(this);
@@ -336,6 +341,10 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
             chooser = new JFileChooser(modsFileJTextField.getText());
         }
 
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "XML file (*.xml)", "xml");
+        chooser.setFileFilter(filter);
+
         chooser.setDialogTitle("Locate the mods.xml file");
 
         int returnVal = chooser.showOpenDialog(this);
@@ -378,6 +387,10 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
         } else {
             chooser = new JFileChooser(omxFileJTextField.getText());
         }
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "OMSSA omx file (*.omx)", "omx");
+        chooser.setFileFilter(filter);
 
         chooser.setDialogTitle("Locate the OMSSA omx file");
 
