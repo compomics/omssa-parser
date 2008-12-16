@@ -4,6 +4,7 @@
 ----
 
 *Changes in omssa-parser 0.9.5:*
+ * Added a way of turning on/off the different annotations in the spectrum panel.
  * Fixed the scale issue yet again. Now individual MSSpectrum_iscale scales are used for each spectrum.
  * Added charge to the spectrum panel ion coverage. 
  * The ion coverage in the spectrum panel now changes relative to the identification selected in the identification table.
