@@ -62,7 +62,7 @@ public class OmssaViewer extends javax.swing.JFrame {
     private Vector spectraJTableColumnToolTips;
     private Vector spectrumJTableColumnToolTips;
     private Vector identificationsJTableColumnToolTips;
-    private HashMap<String, Vector> allAnnotations;
+    private HashMap<String, Vector<DefaultSpectrumAnnotation>> allAnnotations;
     /**
      * The MSSearchSettings_msmstol used in the omx file
      */
@@ -374,7 +374,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                     List<Integer> currentMzValuesAsIntegers = tempSpectrum.MSSpectrum_mz.MSSpectrum_mz_E;
                     List<Integer> currentAbundanceValuesAsIntegers = tempSpectrum.MSSpectrum_abundance.MSSpectrum_abundance_E;
 
-                    for(int i=0; i< currentMzValuesAsIntegers.size(); i++){
+                    for (int i = 0; i < currentMzValuesAsIntegers.size(); i++) {
                         currentRealMzValues.add(currentMzValuesAsIntegers.get(i).doubleValue() / omssaResponseScale);
                         currentRealAbundanceValues.add(currentAbundanceValuesAsIntegers.get(i).doubleValue() / omssaAbundanceScale);
                     }
@@ -475,6 +475,18 @@ public class OmssaViewer extends javax.swing.JFrame {
             }
         };
         spectrumJPanel = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        aIonsJCheckBox = new javax.swing.JCheckBox();
+        bIonsJCheckBox = new javax.swing.JCheckBox();
+        cIonsJCheckBox = new javax.swing.JCheckBox();
+        jSeparator1 = new javax.swing.JSeparator();
+        yIonsJCheckBox = new javax.swing.JCheckBox();
+        xIonsJCheckBox = new javax.swing.JCheckBox();
+        zIonsJCheckBox = new javax.swing.JCheckBox();
+        jSeparator2 = new javax.swing.JSeparator();
+        chargeOneJCheckBox = new javax.swing.JCheckBox();
+        chargeTwoJCheckBox = new javax.swing.JCheckBox();
+        chargeOverTwoJCheckBox = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileJMenu = new javax.swing.JMenu();
         openJMenuItem = new javax.swing.JMenuItem();
@@ -517,6 +529,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OMSSA Viewer v1.0");
+        setMinimumSize(new java.awt.Dimension(900, 600));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Spectra Files", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0))); // NOI18N
 
@@ -567,7 +580,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -672,6 +685,163 @@ public class OmssaViewer extends javax.swing.JFrame {
         spectrumJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         spectrumJPanel.setLayout(new javax.swing.BoxLayout(spectrumJPanel, javax.swing.BoxLayout.LINE_AXIS));
 
+        aIonsJCheckBox.setSelected(true);
+        aIonsJCheckBox.setText("a");
+        aIonsJCheckBox.setToolTipText("Show a-ions");
+        aIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
+        aIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        aIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
+        aIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aIonsJCheckBoxActionPerformed(evt);
+            }
+        });
+
+        bIonsJCheckBox.setSelected(true);
+        bIonsJCheckBox.setText("b");
+        bIonsJCheckBox.setToolTipText("Show b-ions");
+        bIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
+        bIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        bIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
+        bIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bIonsJCheckBoxActionPerformed(evt);
+            }
+        });
+
+        cIonsJCheckBox.setSelected(true);
+        cIonsJCheckBox.setText("c");
+        cIonsJCheckBox.setToolTipText("Show c-ions");
+        cIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
+        cIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        cIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
+        cIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cIonsJCheckBoxActionPerformed(evt);
+            }
+        });
+
+        yIonsJCheckBox.setSelected(true);
+        yIonsJCheckBox.setText("y");
+        yIonsJCheckBox.setToolTipText("Show y-ions");
+        yIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
+        yIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        yIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
+        yIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yIonsJCheckBoxActionPerformed(evt);
+            }
+        });
+
+        xIonsJCheckBox.setSelected(true);
+        xIonsJCheckBox.setText("x");
+        xIonsJCheckBox.setToolTipText("Show x-ions");
+        xIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
+        xIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        xIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
+        xIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                xIonsJCheckBoxActionPerformed(evt);
+            }
+        });
+
+        zIonsJCheckBox.setSelected(true);
+        zIonsJCheckBox.setText("z");
+        zIonsJCheckBox.setToolTipText("Show z-ions");
+        zIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
+        zIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        zIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
+        zIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zIonsJCheckBoxActionPerformed(evt);
+            }
+        });
+
+        chargeOneJCheckBox.setSelected(true);
+        chargeOneJCheckBox.setText("+");
+        chargeOneJCheckBox.setToolTipText("Show ions with charge 1");
+        chargeOneJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
+        chargeOneJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        chargeOneJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
+        chargeOneJCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chargeOneJCheckBoxActionPerformed(evt);
+            }
+        });
+
+        chargeTwoJCheckBox.setSelected(true);
+        chargeTwoJCheckBox.setText("++");
+        chargeTwoJCheckBox.setToolTipText("Show ions with charge 2");
+        chargeTwoJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
+        chargeTwoJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        chargeTwoJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
+        chargeTwoJCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chargeTwoJCheckBoxActionPerformed(evt);
+            }
+        });
+
+        chargeOverTwoJCheckBox.setSelected(true);
+        chargeOverTwoJCheckBox.setText(">2");
+        chargeOverTwoJCheckBox.setToolTipText("Show ions with charge >2");
+        chargeOverTwoJCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chargeOverTwoJCheckBoxActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(yIonsJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(chargeOneJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                        .addGap(2, 2, 2))
+                    .addComponent(zIonsJCheckBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addComponent(xIonsJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(chargeTwoJCheckBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(chargeOverTwoJCheckBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addComponent(bIonsJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addComponent(aIonsJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addComponent(cIonsJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(aIonsJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bIonsJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cIonsJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(xIonsJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(yIonsJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(zIonsJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(5, 5, 5)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
+                .addComponent(chargeOneJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chargeTwoJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chargeOverTwoJCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(13, 13, 13))
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -679,15 +849,20 @@ public class OmssaViewer extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(spectrumJPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                    .addComponent(spectrumJScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
+                    .addComponent(spectrumJScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(spectrumJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(spectrumJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(spectrumJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(spectrumJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -788,14 +963,14 @@ public class OmssaViewer extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -803,8 +978,8 @@ public class OmssaViewer extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -989,7 +1164,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 // add ion coverage to peptide sequence
                 Iterator<MSMZHit> mzHits = tempMSHit.MSHits_mzhits.MSMZHit.iterator();
 
-                Vector currentAnnotations = new Vector();
+                Vector<DefaultSpectrumAnnotation> currentAnnotations = new Vector();
 
                 // annotate precursor ion
 //                annotations.add(new DefaultSpectrumAnnotation(
@@ -1070,7 +1245,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                     // only add the annotations for the first identification
                     if (allAnnotations.size() == 1) {
                         // add the ion coverage annotations to the spectrum panel
-                        spectrumPanel.setAnnotations(currentAnnotations);
+                        spectrumPanel.setAnnotations(filterAnnotations(currentAnnotations));
                         spectrumPanel.validate();
                         spectrumPanel.repaint();
                     }
@@ -1288,16 +1463,86 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                 if (identificationsJTable.getRowCount() > 1) {
 
-                    // update the ion coverage annotations
-                    spectrumPanel.setAnnotations(allAnnotations.get(
+                    Vector<DefaultSpectrumAnnotation> currentAnnotations = allAnnotations.get(
                             identificationsJTable.getValueAt(identificationsJTable.getSelectedRow(), 1) + "_" +
-                            identificationsJTable.getValueAt(identificationsJTable.getSelectedRow(), 8)));
+                            identificationsJTable.getValueAt(identificationsJTable.getSelectedRow(), 8));
+
+                    // update the ion coverage annotations
+                    spectrumPanel.setAnnotations(filterAnnotations(currentAnnotations));
                     spectrumPanel.validate();
                     spectrumPanel.repaint();
                 }
             }
         }
     }//GEN-LAST:event_identificationsJTableMouseClicked
+
+    /**
+     * Filters the annotations and returns the annotations matching the selected
+     * list next to the spectrum panel.
+     * 
+     * @param annotations the annotations to be filtered
+     * @return the filtered annotations
+     */
+    private Vector<DefaultSpectrumAnnotation> filterAnnotations(Vector<DefaultSpectrumAnnotation> annotations) {
+
+        Vector<DefaultSpectrumAnnotation> filteredAnnotations = new Vector();
+
+        for (int i = 0; i < annotations.size(); i++) {
+            String currentLabel = annotations.get(i).getLabel();
+
+            boolean useAnnotation = true;
+
+            // check ion type
+            if (currentLabel.lastIndexOf("a") != -1) {
+                if (!aIonsJCheckBox.isSelected()) {
+                    useAnnotation = false;
+                }
+            } else if (currentLabel.lastIndexOf("b") != -1) {
+                if (!bIonsJCheckBox.isSelected()) {
+                    useAnnotation = false;
+                }
+            } else if (currentLabel.lastIndexOf("c") != -1) {
+                if (!cIonsJCheckBox.isSelected()) {
+                    useAnnotation = false;
+                }
+            } else if (currentLabel.lastIndexOf("x") != -1) {
+                if (!xIonsJCheckBox.isSelected()) {
+                    useAnnotation = false;
+                }
+            } else if (currentLabel.lastIndexOf("y") != -1) {
+                if (!yIonsJCheckBox.isSelected()) {
+                    useAnnotation = false;
+                }
+            } else if (currentLabel.lastIndexOf("z") != -1) {
+                if (!zIonsJCheckBox.isSelected()) {
+                    useAnnotation = false;
+                }
+            }
+
+            // check ion charge
+            if (useAnnotation) {
+                if (currentLabel.lastIndexOf("+") == -1) {
+                    if (!chargeOneJCheckBox.isSelected()) {
+                        useAnnotation = false;
+                    }
+                } else if (currentLabel.lastIndexOf("+++") != -1) {
+                    if (!chargeOverTwoJCheckBox.isSelected()) {
+                        useAnnotation = false;
+                    }
+                } else if (currentLabel.lastIndexOf("++") != -1) {
+                    if (!chargeTwoJCheckBox.isSelected()) {
+                        useAnnotation = false;
+                    }
+                }
+            }
+
+            if (useAnnotation) {
+                filteredAnnotations.add(annotations.get(i));
+            }
+        }
+
+        return filteredAnnotations;
+    }
 
     /**
      * Opens a OmssaViewerFileSelection dialog for opening a different omx file.
@@ -1858,13 +2103,13 @@ public class OmssaViewer extends javax.swing.JFrame {
      * @param evt
      */
     private void identificationsJTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_identificationsJTableKeyReleased
-        
+
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
 
         // update the ion coverage annotations
-        spectrumPanel.setAnnotations(allAnnotations.get(
+        spectrumPanel.setAnnotations(filterAnnotations(allAnnotations.get(
                 identificationsJTable.getValueAt(identificationsJTable.getSelectedRow(), 1) + "_" +
-                identificationsJTable.getValueAt(identificationsJTable.getSelectedRow(), 8)));
+                identificationsJTable.getValueAt(identificationsJTable.getSelectedRow(), 8))));
         spectrumPanel.validate();
         spectrumPanel.repaint();
 
@@ -1924,8 +2169,67 @@ public class OmssaViewer extends javax.swing.JFrame {
         }
 }//GEN-LAST:event_exportAllSpectraJMenuItemActionPerformed
 
+    private void aIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aIonsJCheckBoxActionPerformed
+        if(identificationsJTable.getRowCount() > 0){
+
+            int selectedRow = 0;
+
+            if(identificationsJTable.getRowCount() > 1 &&
+                    identificationsJTable.getSelectedRow() != -1){
+                selectedRow = identificationsJTable.getSelectedRow();
+            }
+
+            Vector<DefaultSpectrumAnnotation> currentAnnotations = allAnnotations.get(
+                    identificationsJTable.getValueAt(selectedRow, 1) + "_" +
+                    identificationsJTable.getValueAt(selectedRow, 8));
+
+            // update the ion coverage annotations
+            spectrumPanel.setAnnotations(filterAnnotations(currentAnnotations));
+            spectrumPanel.validate();
+            spectrumPanel.repaint();
+        }
+    }//GEN-LAST:event_aIonsJCheckBoxActionPerformed
+
+    private void bIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIonsJCheckBoxActionPerformed
+        aIonsJCheckBoxActionPerformed(null);
+    }//GEN-LAST:event_bIonsJCheckBoxActionPerformed
+
+    private void cIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cIonsJCheckBoxActionPerformed
+        aIonsJCheckBoxActionPerformed(null);
+    }//GEN-LAST:event_cIonsJCheckBoxActionPerformed
+
+    private void xIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xIonsJCheckBoxActionPerformed
+        aIonsJCheckBoxActionPerformed(null);
+    }//GEN-LAST:event_xIonsJCheckBoxActionPerformed
+
+    private void yIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yIonsJCheckBoxActionPerformed
+        aIonsJCheckBoxActionPerformed(null);
+    }//GEN-LAST:event_yIonsJCheckBoxActionPerformed
+
+    private void zIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zIonsJCheckBoxActionPerformed
+        aIonsJCheckBoxActionPerformed(null);
+    }//GEN-LAST:event_zIonsJCheckBoxActionPerformed
+
+    private void chargeOneJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargeOneJCheckBoxActionPerformed
+        aIonsJCheckBoxActionPerformed(null);
+    }//GEN-LAST:event_chargeOneJCheckBoxActionPerformed
+
+    private void chargeTwoJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargeTwoJCheckBoxActionPerformed
+        aIonsJCheckBoxActionPerformed(null);
+    }//GEN-LAST:event_chargeTwoJCheckBoxActionPerformed
+
+    private void chargeOverTwoJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargeOverTwoJCheckBoxActionPerformed
+        aIonsJCheckBoxActionPerformed(null);
+    }//GEN-LAST:event_chargeOverTwoJCheckBoxActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox aIonsJCheckBox;
     private javax.swing.JMenuItem aboutJMenuItem;
+    private javax.swing.JCheckBox bIonsJCheckBox;
+    private javax.swing.JCheckBox cIonsJCheckBox;
+    private javax.swing.JCheckBox chargeOneJCheckBox;
+    private javax.swing.JCheckBox chargeOverTwoJCheckBox;
+    private javax.swing.JCheckBox chargeTwoJCheckBox;
     private javax.swing.JMenuItem copyIdentificationsJMenuItem;
     private javax.swing.JPopupMenu copyIdentificationsJPopupMenu;
     private javax.swing.JMenuItem copySpectraJMenuItem;
@@ -1947,13 +2251,19 @@ public class OmssaViewer extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel modificationDetailsJLabel;
     private javax.swing.JMenuItem openJMenuItem;
     private javax.swing.JTable spectraJTable;
     private javax.swing.JPanel spectrumJPanel;
     private javax.swing.JScrollPane spectrumJScrollPane;
     private javax.swing.JTable spectrumJTable;
+    private javax.swing.JCheckBox xIonsJCheckBox;
+    private javax.swing.JCheckBox yIonsJCheckBox;
+    private javax.swing.JCheckBox zIonsJCheckBox;
     // End of variables declaration//GEN-END:variables
 }
