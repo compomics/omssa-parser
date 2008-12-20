@@ -1840,6 +1840,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 List<Integer> fixedModifications =
                         omssaOmxFile.getParserResult().MSSearch_request.MSRequest.get(0).MSRequest_settings.MSSearchSettings.MSSearchSettings_fixed.MSMod;
 
+
                 // iterate all the identifications and print them to the file
 
                 Iterator<MSSpectrum> iterator = spectrumHitSetMap.keySet().iterator();
