@@ -3,6 +3,14 @@
 
 ----
 
+*Changes in omssa-parser 0.9.6:*
+ * Removed two unused libs (mail and activation).
+ * Fixed the problem with the labels on the vertical axis in the SpectrumPanel where the font size was too small to read.
+ * Updated the utilites jar to version 2.9.1.
+
+
+----
+
 *Changes in omssa-parser 0.9.5:*
  * Added a way of turning on/off the different annotations in the spectrum panel.
  * Fixed the scale issue yet again. Now individual MSSpectrum_iscale scales are used for each spectrum.
