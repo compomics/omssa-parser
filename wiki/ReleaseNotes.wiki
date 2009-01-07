@@ -11,7 +11,7 @@
 
 ----
 
-*Changes in omssa-parser 0.9.5:*
+*Changes in omssa-parser 0.9.5 (Dec. 16. 2008):*
  * Added a way of turning on/off the different annotations in the spectrum panel.
  * Fixed the scale issue yet again. Now individual MSSpectrum_iscale scales are used for each spectrum.
  * Added charge to the spectrum panel ion coverage. 
@@ -22,7 +22,7 @@
 
 ----
 
-*Changes in omssa-parser 0.9.4:*
+*Changes in omssa-parser 0.9.4 (Dec. 14. 2008):*
  * Added a simple, lightweight viewer for omx files: OMSSA Viewer v1.0.
  * Removed the hardcoding of the scale value. The scale is now extracted from the omx file.
  * The OMSSA modifications are now also parsed if the mods.xml and usermods.xml files are provided.
