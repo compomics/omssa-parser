@@ -1052,7 +1052,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                     abundanceValuesAsDouble,
                     ((Double) spectraJTable.getValueAt(row, 2)),
                     "" + spectraJTable.getValueAt(row, 3),
-                    ((String) spectraJTable.getValueAt(row, 1)));
+                    ((String) spectraJTable.getValueAt(row, 1)),
+                    60, true, false);
 
             spectrumJPanel.add(spectrumPanel);
             spectrumJPanel.validate();

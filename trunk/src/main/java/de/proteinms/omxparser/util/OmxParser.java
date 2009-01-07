@@ -473,7 +473,7 @@ public class OmxParser {
                 // logger.error("Error processing the text element: " + e.toString());
                 // e.printStackTrace();
                 // @TODO exception always thrown for all the MSResponse_bioseqs tags!!!
-                } catch (InvocationTargetException e) {
+            } catch (InvocationTargetException e) {
                 logger.error("Error processing the text element: " + e.toString());
                 e.printStackTrace();
             }
