@@ -77,8 +77,8 @@ public class OmssaViewer extends javax.swing.JFrame {
     private List<Integer> usedIonTypes;
     private String ionCoverageLegend = "Ion Coverage: b-ions underlined, y-ions red font";
     private String lastSelectedFolder = "user.home";
-    private String ommsaViewerVersion = "v1.1";
-    private static String ommsaParserVersion = "0.9.5";
+    private String ommsaViewerVersion = "v1.2";
+    private static String ommsaParserVersion = "0.9.7";
     private static boolean useErrorLog = true;
 
     /**
