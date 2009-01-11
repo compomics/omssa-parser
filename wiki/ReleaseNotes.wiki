@@ -5,7 +5,7 @@
 
 *Changes in omssa-parser 0.9.7 (Jan. 11. 2009):*
  * Fixed a bug that resulted in the OMSSA Viewer not being able to start.
- * Upgraded the OMSSA Viewer version to version 1.2
+ * Upgraded the OMSSA Viewer to version 1.2
 
 
 ----
