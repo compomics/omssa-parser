@@ -183,6 +183,9 @@ public class OmssaViewer extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().
                 getResource("/de/proteinms/omxparser/icons/omssaviewer.GIF")));
 
+        // use scientific notation for the P- and E-values in the identification table
+        identificationsJTable.setDefaultRenderer(Float.class, new ScientificNumberTableCellRenderer());
+
         // sets the column sizes
         spectraJTable.getColumn(" ").setMaxWidth(35);
         spectraJTable.getColumn(" ").setMinWidth(35);
@@ -206,8 +209,10 @@ public class OmssaViewer extends javax.swing.JFrame {
         identificationsJTable.getColumn("Exp. Mass").setMinWidth(75);
         identificationsJTable.getColumn("Theo. Mass").setMaxWidth(75);
         identificationsJTable.getColumn("Theo. Mass").setMinWidth(75);
-        identificationsJTable.getColumn("E-value").setPreferredWidth(10);
-        identificationsJTable.getColumn("P-value").setPreferredWidth(10);
+        identificationsJTable.getColumn("E-value").setMinWidth(75);
+        identificationsJTable.getColumn("E-value").setMaxWidth(75);
+        identificationsJTable.getColumn("P-value").setMinWidth(75);
+        identificationsJTable.getColumn("P-value").setMaxWidth(75);
         identificationsJTable.getColumn("Accession").setPreferredWidth(10);
 
         // adds auto row sorters
@@ -595,7 +600,7 @@ public class OmssaViewer extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.Float.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false, false, false
@@ -873,6 +878,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         openJMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         openJMenuItem.setMnemonic('O');
         openJMenuItem.setText("Open");
+        openJMenuItem.setToolTipText("Open a New OMX File");
         openJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openJMenuItemActionPerformed(evt);
@@ -882,6 +888,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
         exitJMenuItem.setMnemonic('x');
         exitJMenuItem.setText("Exit");
+        exitJMenuItem.setToolTipText("Exit the OMSSA Viewer");
         exitJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitJMenuItemActionPerformed(evt);
@@ -896,6 +903,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
         exportSpectraFilesTableJMenuItem.setMnemonic('P');
         exportSpectraFilesTableJMenuItem.setText("Spectra Files Table");
+        exportSpectraFilesTableJMenuItem.setToolTipText("Export the Spectra Files Table as Tab Delimited Text File");
         exportSpectraFilesTableJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exportSpectraFilesTableJMenuItemActionPerformed(evt);
@@ -905,6 +913,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
         exportAllIdentificationsJMenuItem.setMnemonic('I');
         exportAllIdentificationsJMenuItem.setText("All Identifications");
+        exportAllIdentificationsJMenuItem.setToolTipText("Export All Identifications as Tab Delimited Text File");
         exportAllIdentificationsJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exportAllIdentificationsJMenuItemActionPerformed(evt);
@@ -914,6 +923,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
         exportSelectedSpectrumJMenuItem.setMnemonic('S');
         exportSelectedSpectrumJMenuItem.setText("Selected Spectrum");
+        exportSelectedSpectrumJMenuItem.setToolTipText("Export the Selected Spectrum as Tab Delimited Text File");
         exportSelectedSpectrumJMenuItem.setEnabled(false);
         exportSelectedSpectrumJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -924,6 +934,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
         exportAllSpectraJMenuItem.setMnemonic('S');
         exportAllSpectraJMenuItem.setText("All Spectra");
+        exportAllSpectraJMenuItem.setToolTipText("Export all the Spectra as DTA Files");
         exportAllSpectraJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exportAllSpectraJMenuItemActionPerformed(evt);
@@ -1375,8 +1386,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                                 tempPepHit.MSPepHit_stop,
                                 new Double(((double) tempMSHit.MSHits_mass) / omssaResponseScale),
                                 new Double(((double) tempMSHit.MSHits_theomass) / omssaResponseScale),
-                                tempMSHit.MSHits_evalue,
-                                tempMSHit.MSHits_pvalue,
+                                new Float(tempMSHit.MSHits_evalue),
+                                new Float(tempMSHit.MSHits_pvalue),
                                 tempPepHit.MSPepHit_accession,
                                 tempPepHit.MSPepHit_defline
                             });
