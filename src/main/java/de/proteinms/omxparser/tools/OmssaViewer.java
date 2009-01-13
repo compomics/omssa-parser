@@ -77,8 +77,8 @@ public class OmssaViewer extends javax.swing.JFrame {
     private List<Integer> usedIonTypes;
     private String ionCoverageLegend = "Ion Coverage: b-ions underlined, y-ions red font";
     private String lastSelectedFolder = "user.home";
-    private String ommsaViewerVersion = "v1.2";
-    private static String ommsaParserVersion = "0.9.7";
+    private String ommsaViewerVersion = "v1.3";
+    private static String ommsaParserVersion = "1.0.0";
     private static boolean useErrorLog = true;
 
     /**
@@ -115,11 +115,11 @@ public class OmssaViewer extends javax.swing.JFrame {
                     // which again means that a never version is available.
                     if (respons == 404) {
                         int option = JOptionPane.showConfirmDialog(null,
-                                "A newer version of the omssa-parser is available. \n" +
+                                "A newer version of the OMSSA Parser is available. \n" +
                                 "Do you want to upgrade?\n\n" +
-                                "Selecting \'Yes\' will open the omssa-parser web page\n" +
+                                "Selecting \'Yes\' will open the OMSSA Parser web page\n" +
                                 "where you can download the latest version.",
-                                "omssa-parser - Upgrade Available",
+                                "OMSSA Parser - Upgrade Available",
                                 JOptionPane.YES_NO_CANCEL_OPTION);
                         if (option == JOptionPane.YES_OPTION) {
                             Desktop.getDesktop().browse(new URI("http://code.google.com/p/omssa-parser/"));
@@ -859,11 +859,11 @@ public class OmssaViewer extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spectrumJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(spectrumJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(spectrumJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spectrumJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1555,14 +1555,14 @@ public class OmssaViewer extends javax.swing.JFrame {
     }//GEN-LAST:event_openJMenuItemActionPerformed
 
     /**
-     * Export the contents of the spectra files table to a cvs file.
+     * Export the contents of the spectra files table to a tab delimited text file.
      *
      * @param evt
      */
     private void exportSpectraFilesTableJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportSpectraFilesTableJMenuItemActionPerformed
         JFileChooser chooser = new JFileChooser(lastSelectedFolder);
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "CSV (Comma delimited) (*.csv)", "csv");
+                "Text (Tab delimited) (*.txt)", "txt");
         chooser.setFileFilter(filter);
         chooser.setMultiSelectionEnabled(false);
         chooser.setDialogTitle("Export Spectra File Details");
@@ -1575,8 +1575,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
             selectedFile = chooser.getSelectedFile();
 
-            if (!selectedFile.getName().toLowerCase().endsWith(".csv")) {
-                selectedFile = new File(selectedFile.getAbsolutePath() + ".csv");
+            if (!selectedFile.getName().toLowerCase().endsWith(".txt")) {
+                selectedFile = new File(selectedFile.getAbsolutePath() + ".txt");
             }
 
             while (selectedFile.exists()) {
@@ -1588,7 +1588,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 if (option == JOptionPane.NO_OPTION) {
                     chooser = new JFileChooser(lastSelectedFolder);
                     filter = new FileNameExtensionFilter(
-                            "CSV (Comma delimited) (*.csv)", "csv");
+                            "Text (Tab delimited) (*.txt)", "txt");
                     chooser.setFileFilter(filter);
                     chooser.setMultiSelectionEnabled(false);
                     chooser.setDialogTitle("Export Spectra File Details");
@@ -1600,8 +1600,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                     } else {
                         selectedFile = chooser.getSelectedFile();
 
-                        if (!selectedFile.getName().toLowerCase().endsWith(".csv")) {
-                            selectedFile = new File(selectedFile.getAbsolutePath() + ".csv");
+                        if (!selectedFile.getName().toLowerCase().endsWith(".txt")) {
+                            selectedFile = new File(selectedFile.getAbsolutePath() + ".txt");
                         }
                     }
                 } else { // YES option
@@ -1615,8 +1615,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                 selectedFile = chooser.getSelectedFile();
 
-                if (!selectedFile.getName().toLowerCase().endsWith(".csv")) {
-                    selectedFile = new File(selectedFile.getAbsolutePath() + ".csv");
+                if (!selectedFile.getName().toLowerCase().endsWith(".txt")) {
+                    selectedFile = new File(selectedFile.getAbsolutePath() + ".txt");
                 }
 
                 if (selectedFile.exists()) {
@@ -1629,7 +1629,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                 // add the column headers
                 for (int j = 0; j < spectraJTable.getColumnCount() - 1; j++) {
-                    f.write(spectraJTable.getColumnName(j) + ";");
+                    f.write(spectraJTable.getColumnName(j) + "\t");
                 }
 
                 f.write(spectraJTable.getColumnName(spectraJTable.getColumnCount() - 1) + "\n");
@@ -1637,7 +1637,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 // add the table contents
                 for (int i = 0; i < spectraJTable.getRowCount(); i++) {
                     for (int j = 0; j < spectraJTable.getColumnCount() - 1; j++) {
-                        f.write(spectraJTable.getValueAt(i, j) + ";");
+                        f.write(spectraJTable.getValueAt(i, j) + "\t");
                     }
 
                     f.write(spectraJTable.getValueAt(i, spectraJTable.getColumnCount() - 1) + "\n");
@@ -1655,14 +1655,14 @@ public class OmssaViewer extends javax.swing.JFrame {
 }//GEN-LAST:event_exportSpectraFilesTableJMenuItemActionPerformed
 
     /**
-     * Export the contents of the identification table to a cvs file.
+     * Export the contents of the identification table to a tab delimited text file.
      *
      * @param evt
      */
     private void exportSelectedSpectrumJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportSelectedSpectrumJMenuItemActionPerformed
         JFileChooser chooser = new JFileChooser(lastSelectedFolder);
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "CSV (Comma delimited) (*.csv)", "csv");
+                "Text (Tab delimited) (*.txt)", "txt");
         chooser.setFileFilter(filter);
         chooser.setMultiSelectionEnabled(false);
         chooser.setDialogTitle("Export Selected Spectrum");
@@ -1675,8 +1675,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
             selectedFile = chooser.getSelectedFile();
 
-            if (!selectedFile.getName().toLowerCase().endsWith(".csv")) {
-                selectedFile = new File(selectedFile.getAbsolutePath() + ".csv");
+            if (!selectedFile.getName().toLowerCase().endsWith(".txt")) {
+                selectedFile = new File(selectedFile.getAbsolutePath() + ".txt");
             }
 
             while (selectedFile.exists()) {
@@ -1688,7 +1688,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 if (option == JOptionPane.NO_OPTION) {
                     chooser = new JFileChooser(lastSelectedFolder);
                     filter = new FileNameExtensionFilter(
-                            "CSV (Comma delimited) (*.csv)", "csv");
+                            "Text (Tab delimited) (*.txt)", "txt");
                     chooser.setFileFilter(filter);
                     chooser.setMultiSelectionEnabled(false);
                     chooser.setDialogTitle("Export Selected Spectrum");
@@ -1700,8 +1700,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                     } else {
                         selectedFile = chooser.getSelectedFile();
 
-                        if (!selectedFile.getName().toLowerCase().endsWith(".csv")) {
-                            selectedFile = new File(selectedFile.getAbsolutePath() + ".csv");
+                        if (!selectedFile.getName().toLowerCase().endsWith(".txt")) {
+                            selectedFile = new File(selectedFile.getAbsolutePath() + ".txt");
                         }
                     }
                 } else { // YES option
@@ -1715,8 +1715,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                 selectedFile = chooser.getSelectedFile();
 
-                if (!selectedFile.getName().toLowerCase().endsWith(".csv")) {
-                    selectedFile = new File(selectedFile.getAbsolutePath() + ".csv");
+                if (!selectedFile.getName().toLowerCase().endsWith(".txt")) {
+                    selectedFile = new File(selectedFile.getAbsolutePath() + ".txt");
                 }
 
                 if (selectedFile.exists()) {
@@ -1729,7 +1729,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                 // add the column headers
                 for (int j = 0; j < spectrumJTable.getColumnCount() - 1; j++) {
-                    f.write(spectrumJTable.getColumnName(j) + ";");
+                    f.write(spectrumJTable.getColumnName(j) + "\t");
                 }
 
                 f.write(spectrumJTable.getColumnName(spectrumJTable.getColumnCount() - 1) + "\n");
@@ -1737,7 +1737,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 // add the table contents
                 for (int i = 0; i < spectrumJTable.getRowCount(); i++) {
                     for (int j = 0; j < spectrumJTable.getColumnCount() - 1; j++) {
-                        f.write(spectrumJTable.getValueAt(i, j) + ";");
+                        f.write(spectrumJTable.getValueAt(i, j) + "\t");
                     }
 
                     f.write(spectrumJTable.getValueAt(i, spectrumJTable.getColumnCount() - 1) + "\n");
@@ -1755,14 +1755,14 @@ public class OmssaViewer extends javax.swing.JFrame {
 }//GEN-LAST:event_exportSelectedSpectrumJMenuItemActionPerformed
 
     /**
-     * Export all identifications to a cvs file.
+     * Export all identifications to a tab delimited text file.
      *
      * @param evt
      */
     private void exportAllIdentificationsJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportAllIdentificationsJMenuItemActionPerformed
         JFileChooser chooser = new JFileChooser(lastSelectedFolder);
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "CSV (Comma delimited) (*.csv)", "csv");
+                "Text (Tab delimited) (*.txt)", "txt");
         chooser.setFileFilter(filter);
         chooser.setMultiSelectionEnabled(false);
         chooser.setDialogTitle("Export All Identifications");
@@ -1775,8 +1775,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
             selectedFile = chooser.getSelectedFile();
 
-            if (!selectedFile.getName().toLowerCase().endsWith(".csv")) {
-                selectedFile = new File(selectedFile.getAbsolutePath() + ".csv");
+            if (!selectedFile.getName().toLowerCase().endsWith(".txt")) {
+                selectedFile = new File(selectedFile.getAbsolutePath() + ".txt");
             }
 
             while (selectedFile.exists()) {
@@ -1788,7 +1788,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 if (option == JOptionPane.NO_OPTION) {
                     chooser = new JFileChooser(lastSelectedFolder);
                     filter = new FileNameExtensionFilter(
-                            "CSV (Comma delimited) (*.csv)", "csv");
+                            "Text (Tab delimited) (*.txt)", "txt");
                     chooser.setFileFilter(filter);
                     chooser.setMultiSelectionEnabled(false);
                     chooser.setDialogTitle("Export All Identifications");
@@ -1800,8 +1800,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                     } else {
                         selectedFile = chooser.getSelectedFile();
 
-                        if (!selectedFile.getName().toLowerCase().endsWith(".csv")) {
-                            selectedFile = new File(selectedFile.getAbsolutePath() + ".csv");
+                        if (!selectedFile.getName().toLowerCase().endsWith(".txt")) {
+                            selectedFile = new File(selectedFile.getAbsolutePath() + ".txt");
                         }
                     }
                 } else { // YES option
@@ -1815,8 +1815,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                 selectedFile = chooser.getSelectedFile();
 
-                if (!selectedFile.getName().toLowerCase().endsWith(".csv")) {
-                    selectedFile = new File(selectedFile.getAbsolutePath() + ".csv");
+                if (!selectedFile.getName().toLowerCase().endsWith(".txt")) {
+                    selectedFile = new File(selectedFile.getAbsolutePath() + ".txt");
                 }
 
                 if (selectedFile.exists()) {
@@ -1829,7 +1829,13 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                 // add the column headers
                 for (int j = 0; j < identificationsJTable.getColumnCount() - 1; j++) {
-                    f.write(identificationsJTable.getColumnName(j) + ";");
+
+                    if (j == 2) {
+                        f.write("Modified Sequence" + "\t");
+                        f.write("Ion Coverage" + "\t");
+                    } else{
+                        f.write(identificationsJTable.getColumnName(j) + "\t");
+                    }
                 }
 
                 f.write(identificationsJTable.getColumnName(identificationsJTable.getColumnCount() - 1) + "\n");
@@ -2050,16 +2056,17 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                             MSPepHit tempPepHit = pepHitIterator.next();
 
-                            f.write(msHitSet.MSHitSet_number + ";" +
-                                    sequence + ";" +
-                                    modifiedSequenceColorCoded + ";" +
-                                    tempPepHit.MSPepHit_start + ";" +
-                                    tempPepHit.MSPepHit_stop + ";" +
-                                    new Double(((double) tempMSHit.MSHits_mass) / omssaResponseScale) + ";" +
-                                    new Double(((double) tempMSHit.MSHits_theomass) / omssaResponseScale) + ";" +
-                                    tempMSHit.MSHits_evalue + ";" +
-                                    tempMSHit.MSHits_pvalue + ";" +
-                                    tempPepHit.MSPepHit_accession + ";" +
+                            f.write(msHitSet.MSHitSet_number + "\t" +
+                                    sequence + "\t" +
+                                    modifiedSequence + "\t" +
+                                    modifiedSequenceColorCoded + "\t" +
+                                    tempPepHit.MSPepHit_start + "\t" +
+                                    tempPepHit.MSPepHit_stop + "\t" +
+                                    new Double(((double) tempMSHit.MSHits_mass) / omssaResponseScale) + "\t" +
+                                    new Double(((double) tempMSHit.MSHits_theomass) / omssaResponseScale) + "\t" +
+                                    tempMSHit.MSHits_evalue + "\t" +
+                                    tempMSHit.MSHits_pvalue + "\t" +
+                                    tempPepHit.MSPepHit_accession + "\t" +
                                     tempPepHit.MSPepHit_defline + "\n");
                         }
                     }
@@ -2172,12 +2179,12 @@ public class OmssaViewer extends javax.swing.JFrame {
 }//GEN-LAST:event_exportAllSpectraJMenuItemActionPerformed
 
     private void aIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aIonsJCheckBoxActionPerformed
-        if(identificationsJTable.getRowCount() > 0){
+        if (identificationsJTable.getRowCount() > 0) {
 
             int selectedRow = 0;
 
-            if(identificationsJTable.getRowCount() > 1 &&
-                    identificationsJTable.getSelectedRow() != -1){
+            if (identificationsJTable.getRowCount() > 1 &&
+                    identificationsJTable.getSelectedRow() != -1) {
                 selectedRow = identificationsJTable.getSelectedRow();
             }
 

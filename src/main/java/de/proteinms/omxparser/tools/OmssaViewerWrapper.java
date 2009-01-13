@@ -20,7 +20,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class OmssaViewerWrapper {
 
     private boolean debug = false;
-    private String jarFileName = "omssaparser-0.9.7.jar";
+    private String jarFileName = "omssaparser-1.0.0.jar";
 
     /**
      * Starts the launcher by calling the launch method. Use this as the 
