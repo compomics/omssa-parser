@@ -386,7 +386,7 @@ public class OmxParser {
         nameStack.push(xpp.getName());
 
         try {
-            if (classes.get(nameStack.peek()) == null) {
+            if (!classes.containsKey(nameStack.peek())) {
                 lockStack.add(true);
             } else {
                 Class<?> c = classes.get(nameStack.peek());
@@ -405,6 +405,9 @@ public class OmxParser {
 
         // @TODO verifiy that using lockStack here is correct. Otherwise NoSuchMethodException
         // is thrown for all the MSResponse_bioseqs tags.
+        //
+        // Note: This should work now, please verify and delete this tag
+        
         if (!lockStack.peek()) {
 
             if (xpp.getAttributeCount() > 0) {
@@ -449,34 +452,38 @@ public class OmxParser {
         int start = indexBuffer[0];
         int length = indexBuffer[1];
         StringBuffer buffer = new StringBuffer();
+        
+        if (!lockStack.peek()) {
 
-        for (int i = start; i < start + length; i++) {
-            buffer.append(ch[i]);
-        }
+        	for (int i = start; i < start + length; i++) {
+        		buffer.append(ch[i]);
+        	}
 
-        String buffer2 = buffer.toString().trim();
+        	String buffer2 = buffer.toString().trim();
 
-        if (buffer2.equals("")) {
-        } else {
-            try {
-                Object peek = objectStack.peek();
-                Class<?> c = peek.getClass();
-                Method setX = c.getDeclaredMethod("set" + nameStack.peek(), String.class);
-                setX.invoke(peek, buffer2);
-            } catch (EmptyStackException e) {
-                logger.error("Error processing the text element: " + e.toString());
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                logger.error("Error processing the text element: " + e.toString());
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                // logger.error("Error processing the text element: " + e.toString());
-                // e.printStackTrace();
+        	if (buffer2.equals("")) {
+        	} else {
+        		try {
+        			Object peek = objectStack.peek();
+        			Class<?> c = peek.getClass();
+        			Method setX = c.getDeclaredMethod("set" + nameStack.peek(), String.class);
+        			setX.invoke(peek, buffer2);
+        		} catch (EmptyStackException e) {
+        			logger.error("Error processing the text element: " + e.toString());
+        			e.printStackTrace();
+        		} catch (IllegalAccessException e) {
+        			logger.error("Error processing the text element: " + e.toString());
+        			e.printStackTrace();
+        		} catch (NoSuchMethodException e) {
+        			logger.error("Error processing the text element: " + e.toString());
+        			e.printStackTrace();
                 // @TODO exception always thrown for all the MSResponse_bioseqs tags!!!
-            } catch (InvocationTargetException e) {
-                logger.error("Error processing the text element: " + e.toString());
-                e.printStackTrace();
-            }
+        		// Note: This should work now, please verify and delete this tag
+        		} catch (InvocationTargetException e) {
+        			logger.error("Error processing the text element: " + e.toString());
+        			e.printStackTrace();
+        		}
+        	}
         }
     }
 
