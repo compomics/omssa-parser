@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * A cell renderer for Float values. Formats all numbers under a defined limit
+ * A cell renderer for Number values. Formats all numbers under a defined limit
  * using a scientific notation, and all numbers over the limit using a standard
  * notation.
  *
@@ -46,7 +46,7 @@ public class ScientificNumberTableCellRenderer extends DefaultTableCellRenderer 
     public void setValue(Object value) {
 
         // formats the number using either a scientific or a standard notation
-        if (((Float) value).floatValue() > upperScientificFormattingLevel) {
+        if (((Number) value).floatValue() > upperScientificFormattingLevel) {
             formattedValue = decimalFormatterNormal.format(value);
         } else {
             formattedValue = decimalFormatterScientific.format(value);

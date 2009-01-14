@@ -368,7 +368,14 @@ public class OmssaViewer extends javax.swing.JFrame {
                     // OMSSA question: possible with more than one file name per spectrum??
                     String fileName = tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.get(0);
 
-                    String chargeString = "" + tempSpectrum.MSSpectrum_charge.MSSpectrum_charge_E.get(0);
+                    // extract the charge of the precursor
+                    String chargeString = "0";
+
+                    // if more than one charge is found the charge is considered as unknown and is set to 0
+                    if(tempSpectrum.MSSpectrum_charge.MSSpectrum_charge_E.size() == 1){
+                        chargeString = "" + tempSpectrum.MSSpectrum_charge.MSSpectrum_charge_E.get(0);
+                    }
+
                     chargeString = chargeString.replaceFirst("\\+", "");
 
                     int omssaAbundanceScale = tempSpectrum.MSSpectrum_iscale;
