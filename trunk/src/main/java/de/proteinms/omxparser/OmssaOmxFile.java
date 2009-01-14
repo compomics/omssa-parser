@@ -163,7 +163,6 @@ public class OmssaOmxFile {
 //        System.out.println((b - a));
 //        System.out.println(((double) (b - a) / 1000));
 //        System.out.println("Done.");
-
     }
 
     /**
@@ -188,12 +187,12 @@ public class OmssaOmxFile {
     }
 
     /**
-     * Returns a hashmap if the omssa modification details. Where the key is
+     * Returns a hashmap of the omssa modification details. Where the key is
      * the integer value used by omssa for the modification, and the element
      * is a OmssaModification object containing all the information about the
      * modification.
      *
-     * @return
+     * @return HashMap<Integer, OmssaModification>
      */
     public HashMap<Integer, OmssaModification> getModifications() {
         return parser.getOmssaModificationDetails();
