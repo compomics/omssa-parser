@@ -3,6 +3,17 @@
 
 ----
 
+*Changes in omssa-parser 1.0.0 (Jan. 14. 2009):*
+ * The m/z-axis now starts at 0.0 and not at the lowest m/z value in the spectrum.
+ * Changed the export format from csv files to tab separated text files.
+ * Updated OMSSA Viewer to version 1.3.
+ * Increased the default height of the Spectrum table.
+ * Added some tooltips to the File and Export menus.
+ * Improved the representation of the E- and P-values in the Identifications table by using scientific notation.
+ * If more than one charge is found the charge is now considered as unknown and is set to 0 in the Spectra Files table.
+
+----
+
 *Changes in omssa-parser 0.9.7 (Jan. 11. 2009):*
  * Fixed a bug that resulted in the OMSSA Viewer not being able to start.
  * Upgraded the OMSSA Viewer to version 1.2
