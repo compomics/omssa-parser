@@ -222,8 +222,10 @@ public class OmxParser {
     }
 
     /**
-     * 
-     * @param modsFile
+     * Parses a mod.xml or usermod.xml file and builds a HashMap containing the
+     * modification details.
+     *
+     * @param modsFile the path to the mods.xml or usermods.xml file
      */
     private void parseModificationFile(String modsFile) {
 
@@ -250,6 +252,7 @@ public class OmxParser {
 
                     NodeList modNodes = nodes.item(i).getChildNodes();
                     int modNumber = -1;
+                    int modType = 0;
                     String modName = "";
                     Double modMonoMass = 0.0;
                     Vector modResidues = new Vector();
@@ -263,6 +266,15 @@ public class OmxParser {
                             for (int m = 0; m < tempNodes.getLength(); m++) {
                                 if (tempNodes.item(m).getNodeName().equalsIgnoreCase("MSMod")) {
                                     modNumber = new Integer(tempNodes.item(m).getTextContent());
+                                }
+                            }
+                        } else if (modNodes.item(j).getNodeName().equalsIgnoreCase("MSModSpec_type")) {
+
+                            NodeList tempNodes = modNodes.item(j).getChildNodes();
+
+                            for (int m = 0; m < tempNodes.getLength(); m++) {
+                                if (tempNodes.item(m).getNodeName().equalsIgnoreCase("MSModType")) {
+                                    modType = new Integer(tempNodes.item(m).getTextContent());
                                 }
                             }
                         } else if (modNodes.item(j).getNodeName().equalsIgnoreCase("MSModSpec_name")) {
@@ -292,7 +304,7 @@ public class OmxParser {
 
                     omssaModificationDetails.put(modNumber,
                             new OmssaModification(modNumber, modName,
-                            modMonoMass, modResidues));
+                            modMonoMass, modResidues, modType));
                 }
             }
         } catch (Exception e) {
@@ -407,7 +419,7 @@ public class OmxParser {
         // is thrown for all the MSResponse_bioseqs tags.
         //
         // Note: This should work now, please verify and delete this tag
-        
+
         if (!lockStack.peek()) {
 
             if (xpp.getAttributeCount() > 0) {
@@ -452,38 +464,38 @@ public class OmxParser {
         int start = indexBuffer[0];
         int length = indexBuffer[1];
         StringBuffer buffer = new StringBuffer();
-        Boolean lockStackBuffer=lockStack.pop();
+        Boolean lockStackBuffer = lockStack.pop();
         if (!lockStack.peek()) {
 
-        	for (int i = start; i < start + length; i++) {
-        		buffer.append(ch[i]);
-        	}
+            for (int i = start; i < start + length; i++) {
+                buffer.append(ch[i]);
+            }
 
-        	String buffer2 = buffer.toString().trim();
+            String buffer2 = buffer.toString().trim();
 
-        	if (buffer2.equals("")) {
-        	} else {
-        		try {
-        			Object peek = objectStack.peek();
-        			Class<?> c = peek.getClass();
-        			Method setX = c.getDeclaredMethod("set" + nameStack.peek(), String.class);
-        			setX.invoke(peek, buffer2);
-        		} catch (EmptyStackException e) {
-        			logger.error("Error processing the text element: " + e.toString());
-        			e.printStackTrace();
-        		} catch (IllegalAccessException e) {
-        			logger.error("Error processing the text element: " + e.toString());
-        			e.printStackTrace();
-        		} catch (NoSuchMethodException e) {
-        			logger.error("Error processing the text element: " + e.toString());
-        			e.printStackTrace();
+            if (buffer2.equals("")) {
+            } else {
+                try {
+                    Object peek = objectStack.peek();
+                    Class<?> c = peek.getClass();
+                    Method setX = c.getDeclaredMethod("set" + nameStack.peek(), String.class);
+                    setX.invoke(peek, buffer2);
+                } catch (EmptyStackException e) {
+                    logger.error("Error processing the text element: " + e.toString());
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    logger.error("Error processing the text element: " + e.toString());
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    logger.error("Error processing the text element: " + e.toString());
+                    e.printStackTrace();
                 // @TODO exception always thrown for all the MSResponse_bioseqs tags!!!
-        		// Note: This should work now, please verify and delete this tag
-        		} catch (InvocationTargetException e) {
-        			logger.error("Error processing the text element: " + e.toString());
-        			e.printStackTrace();
-        		}
-        	}
+                // Note: This should work now, please verify and delete this tag
+                } catch (InvocationTargetException e) {
+                    logger.error("Error processing the text element: " + e.toString());
+                    e.printStackTrace();
+                }
+            }
         }
         lockStack.push(lockStackBuffer);
     }
