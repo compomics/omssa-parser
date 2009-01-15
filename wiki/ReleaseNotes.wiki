@@ -3,6 +3,18 @@
 
 ----
 
+*Changes in omssa-parser 1.1.0 (Jan. 15. 2009):*
+ * OMSSA Viewer: Modified peptide terminals are now supported.
+ * OMSSA Viewer: Modification that are not found in mods.xml or usermods.xml (when these files are provided), no longer results in an error. The modification is simply labeled as "unknown".
+ * OMSSA Viewer: Fixed a bug that resulted in an incorrect mapping of modifications that had modification numbers higher than 9.
+ * OMSSA Viewer: Fixed a bug that occured when opening a new omx file after having sorted the previous file in the Spectra Files table. (An exception was previously thrown.)
+ * OMSSA Viewer: Fixed a bug that resulted in making it imposible to update the ion coverage annotations by using the ion type selection or by selecting a different hit in the Identification table.
+ * OMSSA Viewer The Spectrum panel ion coverage now also displays parent, internal, immonium and unknown ions if they are annotated in the omx file.
+ * Fixed the lockstack issue in the XML parsing.
+
+
+----
+
 *Changes in omssa-parser 1.0.0 (Jan. 14. 2009):*
  * The m/z-axis now starts at 0.0 and not at the lowest m/z value in the spectrum.
  * Changed the export format from csv files to tab separated text files.
