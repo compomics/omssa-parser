@@ -452,7 +452,7 @@ public class OmxParser {
         int start = indexBuffer[0];
         int length = indexBuffer[1];
         StringBuffer buffer = new StringBuffer();
-        
+        Boolean lockStackBuffer=lockStack.pop();
         if (!lockStack.peek()) {
 
         	for (int i = start; i < start + length; i++) {
@@ -485,6 +485,7 @@ public class OmxParser {
         		}
         	}
         }
+        lockStack.push(lockStackBuffer);
     }
 
     /**
