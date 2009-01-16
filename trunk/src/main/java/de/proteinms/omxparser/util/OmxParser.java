@@ -72,7 +72,6 @@ public class OmxParser {
     /**
      * Classes is used by the Parser to lookup classtypes from XML Tags<br>
      * avoiding the use of slow Reflection methods like class.forName()
-     * 
      */
     private static HashMap<String, Class<?>> classes = new HashMap<String, Class<?>>();
     /**
@@ -414,12 +413,6 @@ public class OmxParser {
             e.printStackTrace();
         }
 
-
-        // @TODO verifiy that using lockStack here is correct. Otherwise NoSuchMethodException
-        // is thrown for all the MSResponse_bioseqs tags.
-        //
-        // Note: This should work now, please verify and delete this tag
-
         if (!lockStack.peek()) {
 
             if (xpp.getAttributeCount() > 0) {
@@ -489,14 +482,13 @@ public class OmxParser {
                 } catch (NoSuchMethodException e) {
                     logger.error("Error processing the text element: " + e.toString());
                     e.printStackTrace();
-                // @TODO exception always thrown for all the MSResponse_bioseqs tags!!!
-                // Note: This should work now, please verify and delete this tag
                 } catch (InvocationTargetException e) {
                     logger.error("Error processing the text element: " + e.toString());
                     e.printStackTrace();
                 }
             }
         }
+
         lockStack.push(lockStackBuffer);
     }
 
