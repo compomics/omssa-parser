@@ -11,45 +11,60 @@ import java.util.Vector;
  */
 public class OmssaModification {
 
+    /**
+     * The modification number
+     */
     private Integer modNumber;
+    /**
+     * The modification type
+     */
     private Integer modType;
+    /**
+     * The modification name
+     */
     private String modName;
+    /**
+     * The modification mono mass
+     */
     private Double modMonoMass;
+    /**
+     * The residues the modification can modidy
+     */
     private Vector<String> modResidues;
     /**
-     * at particular amino acids
+     * modification at particular amino acids
      */
     public static final int MODAA = 0;
     /**
-     * at the N terminus of a protein
+     * modification at the N terminus of a protein
      */
     public static final int MODN = 1;
     /**
-     * at the N terminus of a protein
+     * modification at the N terminus of a protein
      */
     public static final int MODNAA = 2;
     /**
-     * at the C terminus of a protein
+     * modification at the C terminus of a protein
      */
     public static final int MODC = 3;
     /**
-     * at the C terminus of a protein at particular amino acids
+     * modification at the C terminus of a protein at particular amino acids
      */
     public static final int MODCAA = 4;
     /**
-     * at the N terminus of a peptide
+     * modification at the N terminus of a peptide
      */
     public static final int MODNP = 5;
     /**
-     * at the N terminus of a peptide at particular amino acids
+     * modification at the N terminus of a peptide at particular amino acids
      */
     public static final int MODNPAA = 6;
     /**
-     * at the C terminus of a peptide
+     * modification at the C terminus of a peptide
      */
     public static final int MODCP = 7;
     /**
-     * at the C terminus of a peptide at particular amino acids
+     * modification at the C terminus of a peptide at particular amino acids
      */
     public static final int MODCPAA = 8;
     /**

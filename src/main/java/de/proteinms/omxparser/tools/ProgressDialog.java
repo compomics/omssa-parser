@@ -17,6 +17,11 @@ public class ProgressDialog extends javax.swing.JDialog {
 
     private Frame parentFrame;
     private JDialog parentDialog;
+    /**
+     * If set to true the progress dialog ignores all closing attemts. This
+     * can be used when the progess monitored is a process that is not possible
+     * to stop.
+     */
     private boolean doNothingOnClose = false;
 
     /**

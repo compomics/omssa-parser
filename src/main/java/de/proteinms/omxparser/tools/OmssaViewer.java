@@ -76,10 +76,27 @@ public class OmssaViewer extends javax.swing.JFrame {
      * The list of ionstypes used in the omx file.
      */
     private List<Integer> usedIonTypes;
+    /**
+     * The ion coverage legend shown at the bottom of the OMSSA Viewer.
+     */
     private String ionCoverageLegend = "Ion Coverage: b-ions underlined, y-ions red font";
+    /**
+     * The last folder opened by the user. Defaults to user.home.
+     */
     private String lastSelectedFolder = "user.home";
-    private String ommsaViewerVersion = "v1.4";
-    private static String ommsaParserVersion = "1.1.0";
+    /**
+     * The version number of the OMSSA Viewer. (Just a number. Not referenced in pom file.)
+     */
+    private String ommsaViewerVersion = "v1.4.1";
+    /**
+     * The version number of the OMSSA Parser. Should be the same as the
+     * version number in the pom file.
+     */
+    private static String ommsaParserVersion = "1.1.1";
+    /**
+     * If set to true all the output that is normally sent to the terminal will
+     * be sent to a file called ErrorLog.txt in the Properties folder.
+     */
     private static boolean useErrorLog = true;
 
     /**
@@ -100,6 +117,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                     PlasticLookAndFeel.setPlasticTheme(new SkyKrupp());
                     UIManager.setLookAndFeel(new PlasticXPLookAndFeel());
                 } catch (UnsupportedLookAndFeelException e) {
+                    Util.writeToErrorLog("Error setting the look and feel: ");
                     e.printStackTrace();
                 }
 
@@ -159,8 +177,13 @@ public class OmssaViewer extends javax.swing.JFrame {
                             w.close();
                         }
                     } catch (Exception e) {
-                        Util.writeToErrorLog("Error when creating ErrorLog!!! " +
-                                e.toString());
+                        JOptionPane.showMessageDialog(null,
+                                "An error occured when creating the ErrorLog.\n" +
+                                e.getMessage(),
+                                "Error Creating ErrorLog",
+                                JOptionPane.ERROR_MESSAGE);
+                        System.out.println("Error when creating ErrorLog: ");
+                        e.printStackTrace();
                     }
                 }
 
@@ -1179,18 +1202,12 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                                         // "normal" modification
                                         modifiedSequence += sequence.substring(i, i + 1) + modifications[i];
-                                    } else if (tempOmssaModification.getModType() == OmssaModification.MODN
-                                            || tempOmssaModification.getModType() == OmssaModification.MODNAA
-                                            || tempOmssaModification.getModType() == OmssaModification.MODNP
-                                            || tempOmssaModification.getModType() == OmssaModification.MODNPAA) {
+                                    } else if (tempOmssaModification.getModType() == OmssaModification.MODN || tempOmssaModification.getModType() == OmssaModification.MODNAA || tempOmssaModification.getModType() == OmssaModification.MODNP || tempOmssaModification.getModType() == OmssaModification.MODNPAA) {
 
                                         // n-terminal modification
                                         nTerminal = modifications[i] + "-";
                                         modifiedSequence += sequence.substring(i, i + 1);
-                                    } else if (tempOmssaModification.getModType() == OmssaModification.MODC
-                                            || tempOmssaModification.getModType() == OmssaModification.MODCAA
-                                            || tempOmssaModification.getModType() == OmssaModification.MODCP
-                                            || tempOmssaModification.getModType() == OmssaModification.MODCPAA) {
+                                    } else if (tempOmssaModification.getModType() == OmssaModification.MODC || tempOmssaModification.getModType() == OmssaModification.MODCAA || tempOmssaModification.getModType() == OmssaModification.MODCP || tempOmssaModification.getModType() == OmssaModification.MODCPAA) {
 
                                         // c-terminal modification
                                         cTerminal = "-" + modifications[i];
@@ -1718,7 +1735,12 @@ public class OmssaViewer extends javax.swing.JFrame {
                 f.close();
 
             } catch (IOException ex) {
-                Util.writeToErrorLog("Error when exporting spectra file details");
+                JOptionPane.showMessageDialog(this,
+                        "An error occured when exporting the spectra file details.\n" +
+                        "See ../Properties/ErrorLog.txt for more details.",
+                        "Error Exporting Spectra Files",
+                        JOptionPane.ERROR_MESSAGE);
+                Util.writeToErrorLog("Error when exporting spectra file details: ");
                 ex.printStackTrace();
             }
 
@@ -1818,7 +1840,12 @@ public class OmssaViewer extends javax.swing.JFrame {
                 f.close();
 
             } catch (IOException ex) {
-                Util.writeToErrorLog("Error when exporting selected spectrum");
+                JOptionPane.showMessageDialog(this,
+                        "An error occured when exporting the selected spectrum.\n" +
+                        "See ../Properties/ErrorLog.txt for more details.",
+                        "Error Exporting Selected Spectrum",
+                        JOptionPane.ERROR_MESSAGE);
+                Util.writeToErrorLog("Error when exporting selected spectrum: ");
                 ex.printStackTrace();
             }
 
@@ -2004,18 +2031,12 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                                                 // "normal" modification
                                                 modifiedSequence += sequence.substring(i, i + 1) + modifications[i];
-                                            } else if (tempOmssaModification.getModType() == OmssaModification.MODN
-                                                    || tempOmssaModification.getModType() == OmssaModification.MODNAA
-                                                    || tempOmssaModification.getModType() == OmssaModification.MODNP
-                                                    || tempOmssaModification.getModType() == OmssaModification.MODNPAA) {
+                                            } else if (tempOmssaModification.getModType() == OmssaModification.MODN || tempOmssaModification.getModType() == OmssaModification.MODNAA || tempOmssaModification.getModType() == OmssaModification.MODNP || tempOmssaModification.getModType() == OmssaModification.MODNPAA) {
 
                                                 // n-terminal modification
                                                 nTerminal = modifications[i] + "-";
                                                 modifiedSequence += sequence.substring(i, i + 1);
-                                            } else if (tempOmssaModification.getModType() == OmssaModification.MODC
-                                                    || tempOmssaModification.getModType() == OmssaModification.MODCAA
-                                                    || tempOmssaModification.getModType() == OmssaModification.MODCP
-                                                    || tempOmssaModification.getModType() == OmssaModification.MODCPAA) {
+                                            } else if (tempOmssaModification.getModType() == OmssaModification.MODC || tempOmssaModification.getModType() == OmssaModification.MODCAA || tempOmssaModification.getModType() == OmssaModification.MODCP || tempOmssaModification.getModType() == OmssaModification.MODCPAA) {
 
                                                 // c-terminal modification
                                                 cTerminal = "-" + modifications[i];
@@ -2201,7 +2222,12 @@ public class OmssaViewer extends javax.swing.JFrame {
                 f.close();
 
             } catch (IOException ex) {
-                Util.writeToErrorLog("Error when exporting selected spectrum");
+                JOptionPane.showMessageDialog(this,
+                        "An error occured when exporting the identifications.\n" +
+                        "See ../Properties/ErrorLog.txt for more details.",
+                        "Error Exporting Identifications",
+                        JOptionPane.ERROR_MESSAGE);
+                Util.writeToErrorLog("Error when exporting identifications: ");
                 ex.printStackTrace();
             }
         }
@@ -2295,7 +2321,12 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                     f.close();
                 } catch (IOException ex) {
-                    Util.writeToErrorLog("Error when exporting spectra as DTA files.");
+                    JOptionPane.showMessageDialog(this,
+                            "An error occured when exporting the spectra.\n" +
+                            "See ../Properties/ErrorLog.txt for more details.",
+                            "Error Exporting Spectra",
+                            JOptionPane.ERROR_MESSAGE);
+                    Util.writeToErrorLog("Error when exporting spectra: ");
                     ex.printStackTrace();
                 }
             }

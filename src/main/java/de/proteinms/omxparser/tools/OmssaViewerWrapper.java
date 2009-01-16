@@ -19,8 +19,15 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class OmssaViewerWrapper {
 
+    /**
+     * If set to true debug output will be written to the screen.
+     */
     private boolean debug = false;
-    private String jarFileName = "omssaparser-1.1.0.jar";
+    /**
+     * The name of the omssa parser jar file. Must be equal to the name 
+     * given in the pom file.
+     */
+    private String jarFileName = "omssaparser-1.1.1.jar";
 
     /**
      * Starts the launcher by calling the launch method. Use this as the 
@@ -82,8 +89,6 @@ public class OmssaViewerWrapper {
         } else {
             options = "-Xms128M -Xmx768M";
         }
-
-        //path = path + "lib" + File.separator;
 
         File tempFile = new File(path);
 
