@@ -5,7 +5,7 @@
 
 *Changes in omssa-parser 1.1.2 (Feb. 04. 2009):*
  * The automatic check for new versions now also handles deprecated downloads.
- * Minor updates to the help files.
+ * Minor updates of the help files.
 
 
 ----
