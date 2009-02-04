@@ -18,11 +18,13 @@ import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -92,7 +94,7 @@ public class OmssaViewer extends javax.swing.JFrame {
      * The version number of the OMSSA Parser. Should be the same as the
      * version number in the pom file.
      */
-    private static String ommsaParserVersion = "1.1.1";
+    private static String ommsaParserVersion = "1.1.2";
     /**
      * If set to true all the output that is normally sent to the terminal will
      * be sent to a file called ErrorLog.txt in the Properties folder.
@@ -123,9 +125,13 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                 // check if a newer version of the omssa-parser is available
                 try {
+
+                    boolean deprecatedOrDeleted = false;
+
                     URL downloadPage = new URL(
                             "http://code.google.com/p/omssa-parser/downloads/detail?name=omssaparser-" +
                             ommsaParserVersion + ".zip");
+
                     int respons =
                             ((java.net.HttpURLConnection) downloadPage.openConnection()).getResponseCode();
 
@@ -133,8 +139,30 @@ public class OmssaViewer extends javax.swing.JFrame {
                     // the running version is no longer available for download,
                     // which again means that a never version is available.
                     if (respons == 404) {
+                        deprecatedOrDeleted = true;
+                    } else {
+
+                        // also need to check if the available running version has been
+                        // deprecated (but not deleted)
+                        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(downloadPage.openStream()));
+
+                        String inputLine;
+
+                        while ((inputLine = in.readLine()) != null && !deprecatedOrDeleted) {
+                            if (inputLine.lastIndexOf("Deprecated") != -1 &&
+                                    inputLine.lastIndexOf("Deprecated Downloads") == -1) {
+                                deprecatedOrDeleted = true;
+                            //JOptionPane.showMessageDialog(null, "Deprecated!!!!");
+                            }
+                        }
+
+                        in.close();
+                    }
+
+                    if (deprecatedOrDeleted) {
                         int option = JOptionPane.showConfirmDialog(null,
-                                "A newer version of the OMSSA Parser is available. \n" +
+                                "A newer version of OMSSA Parser is available.\n" +
                                 "Do you want to upgrade?\n\n" +
                                 "Selecting \'Yes\' will open the OMSSA Parser web page\n" +
                                 "where you can download the latest version.",
