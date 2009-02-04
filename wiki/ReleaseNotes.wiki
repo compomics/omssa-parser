@@ -3,6 +3,13 @@
 
 ----
 
+*Changes in omssa-parser 1.1.2 (Feb. 04. 2009):*
+ * The automatic check for new versions now also handles deprecated downloads.
+ * Minor updates to the help files.
+
+
+----
+
 *Changes in omssa-parser 1.1.1 (Jan. 16. 2009):*
  * A dialog with details about the error now appears if an exception is caught.
 
