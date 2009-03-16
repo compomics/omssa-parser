@@ -174,7 +174,7 @@ public class OmssaOmxFile {
      * @param modsFile the file name of the mods.xml file
      */
     public OmssaOmxFile(String omxFile, String modsFile) {
-        new OmssaOmxFile(omxFile, modsFile, null);
+        this(omxFile, modsFile, null);
     }
 
     /**
@@ -183,7 +183,7 @@ public class OmssaOmxFile {
      * @param omxFile the file name of the omx file to be parsed
      */
     public OmssaOmxFile(String omxFile) {
-        new OmssaOmxFile(omxFile, null, null);
+        this(omxFile, null, null);
     }
 
     /**
