@@ -3,6 +3,12 @@
 
 ----
 
+*Changes in omssa-parser 1.2.1 (Mar. 26. 2009):*
+ * Updated the check for new versions, due to a minor change in the way google code annotated deprecated downloads.
+
+----
+
+
 *Changes in omssa-parser 1.2.0 (Mar. 16. 2009):*
  * Fixed a bug in the overloading of constructors in the OmssaOmxFile class. Now all constructors should work.
 
