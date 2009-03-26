@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- * A dialog that lets you choose the files the to be viewed in the OMSSA Viewer.
+ * A dialog that lets you choose the files the to be viewed in OMSSA Viewer.
  *
  * @author Harald Barsnes
  *
@@ -446,7 +446,7 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
     }//GEN-LAST:event_okJButtonActionPerformed
 
     /**
-     * If the dialog is opened from the OMSSA Viewer, the dialog is simply closed.
+     * If the dialog is opened from OMSSA Viewer, the dialog is simply closed.
      * If the dialog has no parent, the program is terminated.
      *
      * @param evt
