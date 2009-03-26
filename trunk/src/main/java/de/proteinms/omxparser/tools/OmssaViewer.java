@@ -79,7 +79,7 @@ public class OmssaViewer extends javax.swing.JFrame {
      */
     private List<Integer> usedIonTypes;
     /**
-     * The ion coverage legend shown at the bottom of the OMSSA Viewer.
+     * The ion coverage legend shown at the bottom of OMSSA Viewer.
      */
     private String ionCoverageLegend = "Ion Coverage: b-ions underlined, y-ions red font";
     /**
@@ -87,14 +87,14 @@ public class OmssaViewer extends javax.swing.JFrame {
      */
     private String lastSelectedFolder = "user.home";
     /**
-     * The version number of the OMSSA Viewer. (Just a number. Not referenced in pom file.)
+     * The version number of OMSSA Viewer. (Just a number. Not referenced in pom file.)
      */
     private String ommsaViewerVersion = "v1.4.1";
     /**
-     * The version number of the OMSSA Parser. Should be the same as the
+     * The version number of OMSSA Parser. Should be the same as the
      * version number in the pom file.
      */
-    private static String ommsaParserVersion = "1.2.0";
+    private static String ommsaParserVersion = "1.2.1";
     /**
      * If set to true all the output that is normally sent to the terminal will
      * be sent to a file called ErrorLog.txt in the Properties folder.
@@ -151,7 +151,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                         while ((inputLine = in.readLine()) != null && !deprecatedOrDeleted) {
                             if (inputLine.lastIndexOf("Deprecated") != -1 &&
-                                    inputLine.lastIndexOf("Deprecated Downloads") == -1) {
+                                    inputLine.lastIndexOf("Deprecated Downloads") == -1 ||
+                                    inputLine.lastIndexOf("Deprecated downloads") == -1) {
                                 deprecatedOrDeleted = true;
                             //JOptionPane.showMessageDialog(null, "Deprecated!!!!");
                             }
@@ -957,7 +958,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
         exitJMenuItem.setMnemonic('x');
         exitJMenuItem.setText("Exit");
-        exitJMenuItem.setToolTipText("Exit the OMSSA Viewer");
+        exitJMenuItem.setToolTipText("Exit OMSSA Viewer");
         exitJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitJMenuItemActionPerformed(evt);

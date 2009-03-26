@@ -78,7 +78,7 @@
               <Properties>
                 <Property name="mnemonic" type="int" value="120"/>
                 <Property name="text" type="java.lang.String" value="Exit"/>
-                <Property name="toolTipText" type="java.lang.String" value="Exit the OMSSA Viewer"/>
+                <Property name="toolTipText" type="java.lang.String" value="Exit OMSSA Viewer"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exitJMenuItemActionPerformed"/>

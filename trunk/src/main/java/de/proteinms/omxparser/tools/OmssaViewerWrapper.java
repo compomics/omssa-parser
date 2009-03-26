@@ -27,7 +27,7 @@ public class OmssaViewerWrapper {
      * The name of the omssa parser jar file. Must be equal to the name 
      * given in the pom file.
      */
-    private String jarFileName = "omssaparser-1.2.0.jar";
+    private String jarFileName = "omssaparser-1.2.1.jar";
 
     /**
      * Starts the launcher by calling the launch method. Use this as the 
@@ -148,8 +148,8 @@ public class OmssaViewerWrapper {
             if (error) {
 
                 javax.swing.JOptionPane.showMessageDialog(null,
-                        "Failed to start the OMSSA Viewer.\n\n" +
-                        "Make sure that the OMSSA Viewer is installed in a path not containing\n" +
+                        "Failed to start OMSSA Viewer.\n\n" +
+                        "Make sure that OMSSA Viewer is installed in a path not containing\n" +
                         "special characters. On Linux it has to be run from a path without spaces.\n\n" +
                         "The upper memory limit used may be too high for you computer to handle.\n" +
                         "Try reducing it and see if this helps.\n\n" +

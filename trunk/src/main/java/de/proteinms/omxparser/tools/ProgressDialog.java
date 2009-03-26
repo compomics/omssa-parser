@@ -177,7 +177,7 @@ public class ProgressDialog extends javax.swing.JDialog {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         if (!doNothingOnClose) {
             int option = JOptionPane.showConfirmDialog(this.getParent(),
-                    "Closing the progress bar will close the OMSSA Viewer.\n" +
+                    "Closing the progress bar will close OMSSA Viewer.\n" +
                     "Do you still want to close the progress bar?",
                     "Close OMSSA Viewer?",
                     JOptionPane.YES_NO_OPTION);
