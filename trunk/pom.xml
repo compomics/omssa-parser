@@ -4,7 +4,7 @@
     <groupId>de.proteinms.omxparser</groupId>
     <artifactId>omssaparser</artifactId>
     <packaging>jar</packaging>
-    <version>1.2.1</version>
+    <version>1.3.0</version>
     <name>omssaparser</name>
     <url>http://code.google.com/p/omssa-parser/</url>
 
@@ -64,8 +64,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.5</source>
+                    <target>1.5</target>
                 </configuration>
             </plugin>
 
@@ -231,6 +231,31 @@
             <groupId>lennart</groupId>
             <artifactId>utilities</artifactId>
             <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>swing-layout</artifactId>
+            <version>1.0.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>swingx</artifactId>
+            <version>0.9.1</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>swing-worker</artifactId>
+                    <groupId>org.swinglabs</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>multiplegradientpaint</artifactId>
+                    <groupId>org.swinglabs</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>filters</artifactId>
+                    <groupId>com.jhlabs</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>
