@@ -632,6 +632,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        spectraJXTable.setOpaque(false);
         spectraJXTable.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 spectraJXTableKeyReleased(evt);
@@ -690,6 +691,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        identificationsJXTable.setOpaque(false);
         identificationsJXTable.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 identificationsJXTableKeyReleased(evt);
@@ -911,6 +913,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        spectrumJXTable.setOpaque(false);
         spectrumJXTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 spectrumJXTableMouseClicked(evt);
