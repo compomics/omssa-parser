@@ -1,7 +1,6 @@
 package de.proteinms.omxparser.tools;
 
 import java.awt.Frame;
-import java.awt.Toolkit;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -431,6 +430,7 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
         }
 
         if (parent != null) {
+            parent.setVisible(true);
             ((OmssaViewer) parent).insertOmxFile(omxFileJTextField.getText(), modsFile, userModsFile, lastSelectedFolder);
         } else {
             new OmssaViewer(omxFileJTextField.getText(), modsFile, userModsFile, lastSelectedFolder);

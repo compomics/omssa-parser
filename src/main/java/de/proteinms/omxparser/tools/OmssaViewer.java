@@ -210,9 +210,98 @@ public class OmssaViewer extends javax.swing.JFrame {
                     }
                 }
 
-                new OmssaViewerFileSelection(null, false, null, null, null, "user.home");
+                new OmssaViewerFileSelection(new OmssaViewer(), false, null, null, null, "user.home");
             }
         });
+    }
+
+    /**
+     * Creates an empty non-visible OmssaViewer frame.
+     */
+    public OmssaViewer(){
+
+        initComponents();
+
+        setMinimumSize(new java.awt.Dimension(900, 600));
+
+        // sets the frames icon image
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().
+                getResource("/de/proteinms/omxparser/icons/omssaviewer.GIF")));
+
+        // use scientific notation for the P- and E-values in the identification table
+        identificationsJXTable.setDefaultRenderer(Float.class, new ScientificNumberTableCellRenderer());
+
+        // sets the column sizes
+        spectraJXTable.getColumn(" ").setMaxWidth(35);
+        spectraJXTable.getColumn(" ").setMinWidth(35);
+        spectraJXTable.getColumn("m/z").setMaxWidth(65);
+        spectraJXTable.getColumn("m/z").setMinWidth(65);
+        spectraJXTable.getColumn("Charge").setMaxWidth(65);
+        spectraJXTable.getColumn("Charge").setMinWidth(65);
+        spectraJXTable.getColumn("Identified").setMaxWidth(80);
+        spectraJXTable.getColumn("Identified").setMinWidth(80);
+
+        spectrumJXTable.getColumn(" ").setMaxWidth(35);
+        spectrumJXTable.getColumn(" ").setMinWidth(35);
+
+        identificationsJXTable.getColumn(" ").setMaxWidth(35);
+        identificationsJXTable.getColumn(" ").setMinWidth(35);
+        identificationsJXTable.getColumn("Start").setMaxWidth(45);
+        identificationsJXTable.getColumn("Start").setMinWidth(45);
+        identificationsJXTable.getColumn("End").setMaxWidth(45);
+        identificationsJXTable.getColumn("End").setMinWidth(45);
+        identificationsJXTable.getColumn("Exp. Mass").setMaxWidth(75);
+        identificationsJXTable.getColumn("Exp. Mass").setMinWidth(75);
+        identificationsJXTable.getColumn("Theo. Mass").setMaxWidth(75);
+        identificationsJXTable.getColumn("Theo. Mass").setMinWidth(75);
+        identificationsJXTable.getColumn("E-value").setMinWidth(75);
+        identificationsJXTable.getColumn("E-value").setMaxWidth(75);
+        identificationsJXTable.getColumn("P-value").setMinWidth(75);
+        identificationsJXTable.getColumn("P-value").setMaxWidth(75);
+        identificationsJXTable.getColumn("Accession").setPreferredWidth(10);
+
+        // adds auto row sorters
+//        spectraJTable.setAutoCreateRowSorter(true);
+//        spectrumJTable.setAutoCreateRowSorter(true);
+//        identificationsJTable.setAutoCreateRowSorter(true);
+
+        // disables column reordering
+        spectraJXTable.getTableHeader().setReorderingAllowed(false);
+        spectrumJXTable.getTableHeader().setReorderingAllowed(false);
+        identificationsJXTable.getTableHeader().setReorderingAllowed(false);
+
+        // adds column header tooltips
+        spectraJXTableColumnToolTips = new Vector();
+        spectraJXTableColumnToolTips.add("Spectrum Number");
+        spectraJXTableColumnToolTips.add("Spectrum File Name");
+        spectraJXTableColumnToolTips.add("Precursor Mass Over Charge Ratio");
+        spectraJXTableColumnToolTips.add("Precursor Charge");
+        spectraJXTableColumnToolTips.add("Spectrum Identified");
+
+        spectrumJTableColumnToolTips = new Vector();
+        spectrumJTableColumnToolTips.add(null);
+        spectrumJTableColumnToolTips.add("Mass Over Charge Ratio");
+        spectrumJTableColumnToolTips.add("Abundance");
+
+        spectrumJXTableColumnToolTips = new Vector();
+        spectrumJXTableColumnToolTips.add(null);
+        spectrumJXTableColumnToolTips.add("Mass Over Charge Ratio");
+        spectrumJXTableColumnToolTips.add("Abundance");
+
+        identificationsJXTableColumnToolTips = new Vector();
+        identificationsJXTableColumnToolTips.add("Spectrum Number");
+        identificationsJXTableColumnToolTips.add("Peptide Sequence");
+        identificationsJXTableColumnToolTips.add("Modified Peptide Sequence");
+        identificationsJXTableColumnToolTips.add("Peptide Start Index");
+        identificationsJXTableColumnToolTips.add("Peptide End Index");
+        identificationsJXTableColumnToolTips.add("Experimental Mass");
+        identificationsJXTableColumnToolTips.add("Theoretical Mass");
+        identificationsJXTableColumnToolTips.add("E-value");
+        identificationsJXTableColumnToolTips.add("P-value");
+        identificationsJXTableColumnToolTips.add("Protein Accession Number");
+        identificationsJXTableColumnToolTips.add("Protein Description");
+
+        setLocationRelativeTo(null);
     }
 
     /**
