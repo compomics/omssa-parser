@@ -269,6 +269,7 @@
                     <Column editable="false" title="Identified" type="java.lang.Boolean"/>
                   </Table>
                 </Property>
+                <Property name="opaque" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="spectraJXTableKeyReleased"/>
@@ -367,6 +368,7 @@
                     <Column editable="false" title="Description" type="java.lang.String"/>
                   </Table>
                 </Property>
+                <Property name="opaque" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="identificationsJXTableKeyReleased"/>
@@ -680,6 +682,7 @@
                     <Column editable="false" title="Abundance" type="java.lang.Integer"/>
                   </Table>
                 </Property>
+                <Property name="opaque" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="spectrumJXTableMouseClicked"/>
