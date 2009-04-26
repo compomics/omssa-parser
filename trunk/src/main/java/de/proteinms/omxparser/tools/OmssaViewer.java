@@ -136,6 +136,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                     // which again means that a never version is available.
                     if (respons == 404) {
                         deprecatedOrDeleted = true;
+                        //JOptionPane.showMessageDialog(null, "Deprecated!!!!");
                     } else {
 
                         // also need to check if the available running version has been
@@ -143,15 +144,20 @@ public class OmssaViewer extends javax.swing.JFrame {
                         BufferedReader in = new BufferedReader(
                                 new InputStreamReader(downloadPage.openStream()));
 
-                        String inputLine;
+                        String inputLine = in.readLine();
 
-                        while ((inputLine = in.readLine()) != null && !deprecatedOrDeleted) {
+                        while (inputLine != null && !deprecatedOrDeleted) {
+
+                            //JOptionPane.showMessageDialog(null, inputLine);
+
                             if (inputLine.lastIndexOf("Deprecated") != -1 &&
-                                    inputLine.lastIndexOf("Deprecated Downloads") == -1 ||
+                                    inputLine.lastIndexOf("Deprecated Downloads") == -1 &&
                                     inputLine.lastIndexOf("Deprecated downloads") == -1) {
                                 deprecatedOrDeleted = true;
-                            //JOptionPane.showMessageDialog(null, "Deprecated!!!!");
+                                //JOptionPane.showMessageDialog(null, "Deprecated 2!!!!);
                             }
+
+                            inputLine = in.readLine();
                         }
 
                         in.close();
