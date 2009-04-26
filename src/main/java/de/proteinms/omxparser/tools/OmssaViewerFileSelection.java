@@ -449,8 +449,12 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
         if (parent == null) {
             System.exit(0);
         } else {
-            this.setVisible(false);
-            this.dispose();
+            if(!parent.isVisible()){
+                System.exit(0);
+            } else{
+                this.setVisible(false);
+                this.dispose();
+            }
         }
     }//GEN-LAST:event_cancelJButtonActionPerformed
 
