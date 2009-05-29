@@ -63,6 +63,7 @@ public class OmssaViewer extends javax.swing.JFrame {
     private Vector spectrumJXTableColumnToolTips;
     private Vector identificationsJXTableColumnToolTips;
     private HashMap<String, Vector<DefaultSpectrumAnnotation>> allAnnotations;
+    public final double HYDROGEN_MASS = 1.00794;
     /**
      * The MSSearchSettings_msmstol used in the omx file
      */
@@ -86,12 +87,12 @@ public class OmssaViewer extends javax.swing.JFrame {
     /**
      * The version number of OMSSA Viewer. (Just a number. Not referenced in pom file.)
      */
-    private String ommsaViewerVersion = "v1.5.0";
+    private String ommsaViewerVersion = "v1.5.1";
     /**
      * The version number of OMSSA Parser. Should be the same as the
      * version number in the pom file.
      */
-    private static String ommsaParserVersion = "1.3.0";
+    private static String ommsaParserVersion = "1.3.1";
     /**
      * If set to true all the output that is normally sent to the terminal will
      * be sent to a file called ErrorLog.txt in the Properties folder.
@@ -564,7 +565,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                                 new Integer(tempSpectrum.MSSpectrum_number),
                                 fileName,
                                 ((double) tempSpectrum.MSSpectrum_precursormz) / omssaResponseScale,
-                                chargeString,
+                                new Integer(chargeString),
                                 new Boolean(identified)
                             });
                 }
@@ -1940,8 +1941,16 @@ public class OmssaViewer extends javax.swing.JFrame {
                 try {
                     f = new FileWriter(currentFile);
 
-                    // write the precursor mass and charge
-                    f.write(spectraJXTable.getValueAt(j, 2) + " " + spectraJXTable.getValueAt(j, 3) + "\n");
+                    // write the precursor MH+ and charge
+                    // precusor MH+ has to be converted from the m/z value in the file
+
+                    double precusorMz = ((Double) spectraJXTable.getValueAt(j, 2)).doubleValue();
+                    int precursorCharge = ((Integer) spectraJXTable.getValueAt(j, 3)).intValue();
+                    double precursorMh = precusorMz*precursorCharge - 
+                            precursorCharge*HYDROGEN_MASS + HYDROGEN_MASS;
+
+                    f.write("" + precursorMh);
+                    f.write(" " + precursorCharge + "\n");
 
                     // write all the m/z abundance pairs
                     for (int i = 0; i < mzValues.size(); i++) {
