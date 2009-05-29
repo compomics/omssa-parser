@@ -3,10 +3,17 @@
 
 ----
 
+*Changes in omssa-parser 1.3.1 (May 29. 2009):*
+  * Fixed a bug in the dta export function in OMSSA Viewer. The m/z values have to be converted to MH+ values, and this was previously not done (the m/z values were used directly).
+
+----
+
 *Changes in omssa-parser 1.3.0 (Apr. 26. 2009):*
  * Now only requires Java version 1.5 (previously 1.6).
  * Two new dependencies added (swingx-0.9.1 (for JXTable) and swing-layout-1.0.3 (for Java 1.6 GUI stuff).
  * Fixed a minor bug in the "automatic check for updates" feature.
+
+Download count: 3
 
 ----
 
