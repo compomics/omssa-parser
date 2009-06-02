@@ -31,7 +31,7 @@ package de.proteinms.omxparser.util;
 public class MSResponse {
 
     public MSResponse_hitsets MSResponse_hitsets = new MSResponse_hitsets();
-    public int MSResponse_scale;
+    public int MSResponse_scale = 100; // default scale from www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd
     public String MSResponse_rid;
     public MSResponse_error MSResponse_error = new MSResponse_error();
     public String MSResponse_version;

@@ -87,12 +87,12 @@ public class OmssaViewer extends javax.swing.JFrame {
     /**
      * The version number of OMSSA Viewer. (Just a number. Not referenced in pom file.)
      */
-    private String ommsaViewerVersion = "v1.5.1";
+    private String ommsaViewerVersion = "v1.5.2";
     /**
      * The version number of OMSSA Parser. Should be the same as the
      * version number in the pom file.
      */
-    private static String ommsaParserVersion = "1.3.1";
+    private static String ommsaParserVersion = "1.3.2";
     /**
      * If set to true all the output that is normally sent to the terminal will
      * be sent to a file called ErrorLog.txt in the Properties folder.
@@ -239,8 +239,8 @@ public class OmssaViewer extends javax.swing.JFrame {
         identificationsJXTable.setDefaultRenderer(Float.class, new ScientificNumberTableCellRenderer());
 
         // sets the column sizes
-        spectraJXTable.getColumn(" ").setMaxWidth(35);
-        spectraJXTable.getColumn(" ").setMinWidth(35);
+        spectraJXTable.getColumn(" ").setMaxWidth(45);
+        spectraJXTable.getColumn(" ").setMinWidth(45);
         spectraJXTable.getColumn("m/z").setMaxWidth(65);
         spectraJXTable.getColumn("m/z").setMinWidth(65);
         spectraJXTable.getColumn("Charge").setMaxWidth(65);
@@ -521,7 +521,14 @@ public class OmssaViewer extends javax.swing.JFrame {
                     spectra.put(new Integer(tempSpectrum.MSSpectrum_number), tempSpectrum);
 
                     // OMSSA question: possible with more than one file name per spectrum??
-                    String fileName = tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.get(0);
+                    String fileName;
+
+                    // spectrum name is not mandatory, use spectrum number if no name is given
+                    if(tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.size() == 0){
+                        fileName = "" + tempSpectrum.MSSpectrum_number;
+                    } else{
+                        fileName = tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.get(0);
+                    }
 
                     // extract the charge of the precursor
                     String chargeString = "0";
