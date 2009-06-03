@@ -3,10 +3,11 @@
 
 ----
 
-*Changes in omssa-parser 1.3.2 (Jun. 02. 2009):*
+*Changes in omssa-parser 1.3.2 (Jun. 03. 2009):*
  * Default MSResponse_scale (for scaling m/z values) is 100, if not given.
  * OMSSA Viewer: Spectrum name is not mandatory, use spectrum number if no name is given.
  * OMSSA Viewer: Increased the size of the first column in the Spectrum Files table somewhat to support longer row ids, i.e., bigger omx files.
+ * Fixed a bug where the OMSSA Viewer tried to validate the modification files. Validation is now turned off.
 
 ----
 
