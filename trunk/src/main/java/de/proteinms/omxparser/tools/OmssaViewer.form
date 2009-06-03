@@ -105,11 +105,21 @@
             <MenuItem class="javax.swing.JMenuItem" name="exportAllIdentificationsJMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="73"/>
-                <Property name="text" type="java.lang.String" value="All Identifications"/>
-                <Property name="toolTipText" type="java.lang.String" value="Export All Identifications as Tab Delimited Text File"/>
+                <Property name="text" type="java.lang.String" value="All Identifications (all hits)"/>
+                <Property name="toolTipText" type="java.lang.String" value="Export All Identifications (all hits) as Tab Delimited Text File"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportAllIdentificationsJMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="exportBestIdentificationsJMenuItem">
+              <Properties>
+                <Property name="mnemonic" type="int" value="73"/>
+                <Property name="text" type="java.lang.String" value="All Identifications (best hits only)"/>
+                <Property name="toolTipText" type="java.lang.String" value="Export All Identifications (best hits only) as Tab Delimited Text File"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportBestIdentificationsJMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="exportSelectedSpectrumJMenuItem">
@@ -441,7 +451,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="yIonsJCheckBox" alignment="0" pref="44" max="32767" attributes="1"/>
@@ -455,14 +465,17 @@
                               <Component id="chargeTwoJCheckBox" alignment="1" max="32767" attributes="1"/>
                               <Component id="chargeOverTwoJCheckBox" alignment="1" min="-2" pref="44" max="-2" attributes="1"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jSeparator2" pref="34" max="32767" attributes="1"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
                           <Component id="bIonsJCheckBox" alignment="0" pref="44" max="32767" attributes="1"/>
                           <Component id="aIonsJCheckBox" alignment="0" pref="44" max="32767" attributes="1"/>
                           <Component id="cIonsJCheckBox" alignment="0" pref="44" max="32767" attributes="1"/>
-                          <Component id="jSeparator1" alignment="0" pref="44" max="32767" attributes="1"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jSeparator2" pref="34" max="32767" attributes="1"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jSeparator1" pref="34" max="32767" attributes="1"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -477,16 +490,16 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cIonsJCheckBox" pref="24" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jSeparator1" pref="13" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Component id="xIonsJCheckBox" pref="24" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="yIonsJCheckBox" pref="24" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="zIonsJCheckBox" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                      <Component id="jSeparator2" pref="14" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="jSeparator2" min="-2" pref="8" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="chargeOneJCheckBox" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="chargeTwoJCheckBox" max="32767" attributes="0"/>

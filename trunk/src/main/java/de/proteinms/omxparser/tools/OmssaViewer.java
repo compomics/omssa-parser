@@ -137,7 +137,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                     // which again means that a never version is available.
                     if (respons == 404) {
                         deprecatedOrDeleted = true;
-                        //JOptionPane.showMessageDialog(null, "Deprecated!!!!");
+                    //JOptionPane.showMessageDialog(null, "Deprecated!!!!");
                     } else {
 
                         // also need to check if the available running version has been
@@ -155,7 +155,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                                     inputLine.lastIndexOf("Deprecated Downloads") == -1 &&
                                     inputLine.lastIndexOf("Deprecated downloads") == -1) {
                                 deprecatedOrDeleted = true;
-                                //JOptionPane.showMessageDialog(null, "Deprecated 2!!!!);
+                            //JOptionPane.showMessageDialog(null, "Deprecated 2!!!!);
                             }
 
                             inputLine = in.readLine();
@@ -225,7 +225,7 @@ public class OmssaViewer extends javax.swing.JFrame {
     /**
      * Creates an empty non-visible OmssaViewer frame.
      */
-    public OmssaViewer(){
+    public OmssaViewer() {
 
         initComponents();
 
@@ -251,8 +251,8 @@ public class OmssaViewer extends javax.swing.JFrame {
         spectrumJXTable.getColumn(" ").setMaxWidth(35);
         spectrumJXTable.getColumn(" ").setMinWidth(35);
 
-        identificationsJXTable.getColumn(" ").setMaxWidth(35);
-        identificationsJXTable.getColumn(" ").setMinWidth(35);
+        identificationsJXTable.getColumn(" ").setMaxWidth(45);
+        identificationsJXTable.getColumn(" ").setMinWidth(45);
         identificationsJXTable.getColumn("Start").setMaxWidth(45);
         identificationsJXTable.getColumn("Start").setMinWidth(45);
         identificationsJXTable.getColumn("End").setMaxWidth(45);
@@ -323,7 +323,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         initComponents();
 
         setMinimumSize(new java.awt.Dimension(900, 600));
-        
+
         // sets the frames icon image
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().
                 getResource("/de/proteinms/omxparser/icons/omssaviewer.GIF")));
@@ -433,7 +433,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         final Thread t = new Thread(new Runnable() {
 
             public void run() {
-                progressDialog.setTitle("Parsing OMX File. Please Wait.");
+                progressDialog.setTitle("Parsing OMX File. Please Wait...");
                 progressDialog.setIntermidiate(true);
                 progressDialog.setVisible(true);
             }
@@ -524,9 +524,9 @@ public class OmssaViewer extends javax.swing.JFrame {
                     String fileName;
 
                     // spectrum name is not mandatory, use spectrum number if no name is given
-                    if(tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.size() == 0){
+                    if (tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.size() == 0) {
                         fileName = "" + tempSpectrum.MSSpectrum_number;
-                    } else{
+                    } else {
                         fileName = tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.get(0);
                     }
 
@@ -674,6 +674,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         exportJMenu = new javax.swing.JMenu();
         exportSpectraFilesTableJMenuItem = new javax.swing.JMenuItem();
         exportAllIdentificationsJMenuItem = new javax.swing.JMenuItem();
+        exportBestIdentificationsJMenuItem = new javax.swing.JMenuItem();
         exportSelectedSpectrumJMenuItem = new javax.swing.JMenuItem();
         exportAllSpectraJMenuItem = new javax.swing.JMenuItem();
         helpJMenu = new javax.swing.JMenu();
@@ -945,7 +946,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
+            .add(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(yIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
@@ -957,13 +958,15 @@ public class OmssaViewer extends javax.swing.JFrame {
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                         .add(org.jdesktop.layout.GroupLayout.TRAILING, chargeTwoJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(org.jdesktop.layout.GroupLayout.TRAILING, chargeOverTwoJCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 44, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .add(jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                        .addContainerGap())
                     .add(bIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                     .add(aIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                     .add(cIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .add(jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)))
+                    .add(jPanel4Layout.createSequentialGroup()
+                        .add(jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .add(jPanel4Layout.createSequentialGroup()
+                        .add(jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -975,16 +978,16 @@ public class OmssaViewer extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(cIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 13, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(13, 13, 13)
                 .add(xIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(yIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(zIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(5, 5, 5)
-                .add(jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
-                .add(3, 3, 3)
+                .add(12, 12, 12)
+                .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(chargeOneJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(chargeTwoJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1089,14 +1092,24 @@ public class OmssaViewer extends javax.swing.JFrame {
         exportJMenu.add(exportSpectraFilesTableJMenuItem);
 
         exportAllIdentificationsJMenuItem.setMnemonic('I');
-        exportAllIdentificationsJMenuItem.setText("All Identifications");
-        exportAllIdentificationsJMenuItem.setToolTipText("Export All Identifications as Tab Delimited Text File");
+        exportAllIdentificationsJMenuItem.setText("All Identifications (all hits)");
+        exportAllIdentificationsJMenuItem.setToolTipText("Export All Identifications (all hits) as Tab Delimited Text File");
         exportAllIdentificationsJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exportAllIdentificationsJMenuItemActionPerformed(evt);
             }
         });
         exportJMenu.add(exportAllIdentificationsJMenuItem);
+
+        exportBestIdentificationsJMenuItem.setMnemonic('I');
+        exportBestIdentificationsJMenuItem.setText("All Identifications (best hits only)");
+        exportBestIdentificationsJMenuItem.setToolTipText("Export All Identifications (best hits only) as Tab Delimited Text File");
+        exportBestIdentificationsJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportBestIdentificationsJMenuItemActionPerformed(evt);
+            }
+        });
+        exportJMenu.add(exportBestIdentificationsJMenuItem);
 
         exportSelectedSpectrumJMenuItem.setMnemonic('S');
         exportSelectedSpectrumJMenuItem.setText("Selected Spectrum");
@@ -1185,14 +1198,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitJMenuItemActionPerformed
 
-    /**
-     * When the user selects a row in the spectra files table, the identifications (if any)
-     * are inserted in the identification table at the bottom of the frame, and the spectrum
-     * details are shown in the spectrum panel and table to the right.
-     *
-     * @param evt
-     */
-    
     /**
      * Enables copy to clipboard functionality from a popup menu.
      *
@@ -1512,11 +1517,21 @@ public class OmssaViewer extends javax.swing.JFrame {
 }//GEN-LAST:event_exportSelectedSpectrumJMenuItemActionPerformed
 
     /**
-     * Export all identifications to a tab delimited text file.
+     * Export all identifications (all hits) to a tab delimited text file.
      *
      * @param evt
      */
     private void exportAllIdentificationsJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportAllIdentificationsJMenuItemActionPerformed
+        exportAllIdentifications(false);
+}//GEN-LAST:event_exportAllIdentificationsJMenuItemActionPerformed
+
+    /**
+     * Export all identifications to a tab delimited text file.
+     *
+     * @param includeBestHitOnly - if true only the best hits are included, otherwise all hits are included
+     */
+    private void exportAllIdentifications(boolean includeBestHitOnly){
+
         JFileChooser chooser = new JFileChooser(lastSelectedFolder);
         chooser.setFileFilter(new TxtFileFilter());
         chooser.setMultiSelectionEnabled(false);
@@ -1604,16 +1619,18 @@ public class OmssaViewer extends javax.swing.JFrame {
                 // iterate all the identifications and print them to the file
 
                 Iterator<MSSpectrum> iterator = spectrumHitSetMap.keySet().iterator();
+                
+                boolean allWantedHitsAdded = false;
 
                 while (iterator.hasNext()) {
 
+                    allWantedHitsAdded = false;
+
                     MSHitSet msHitSet = spectrumHitSetMap.get(iterator.next());
-
                     List<MSHits> allMSHits = msHitSet.MSHitSet_hits.MSHits;
-
                     Iterator<MSHits> msHitIterator = allMSHits.iterator();
 
-                    while (msHitIterator.hasNext()) {
+                    while (msHitIterator.hasNext() && !allWantedHitsAdded) {
 
                         MSHits tempMSHit = msHitIterator.next();
 
@@ -1625,8 +1642,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                         }
 
                         String modifiedSequence = "";
-                        String nTerminal = "NH2-";
-                        String cTerminal = "-COOH";
+                        String nTerminal = "";//"NH2-";
+                        String cTerminal = "";//"-COOH";
 
                         // handle modifications
                         if (omssaOmxFile.getModifications().size() > 0) {
@@ -1664,64 +1681,67 @@ public class OmssaViewer extends javax.swing.JFrame {
                                         "<" + currentMSModHit.MSModHit_modtype.MSMod + ">";
                             }
 
-                            String modificationDetails = "";
-
+                            // cycle through all the modifications and extract the modification type if possible
                             for (int i = 0; i < modifications.length; i++) {
+
+                                // add the amino acid itself to the sequence
+                                modifiedSequence += sequence.substring(i, i + 1);
 
                                 if (!modifications[i].equalsIgnoreCase("")) {
 
-                                    if (modificationDetails.lastIndexOf(modifications[i]) == -1) {
+                                    // have to check for multiple modifications on one residue
+                                    String[] residueMods = modifications[i].split(">");
+
+                                    for (int j = 0; j < residueMods.length; j++) {
+
+                                        String currentMod = residueMods[j] + ">";
 
                                         OmssaModification tempOmssaModification = omssaOmxFile.getModifications().get(
-                                                new Integer(modifications[i].substring(1, modifications[i].length() - 1)));
+                                                new Integer(residueMods[j].substring(1)));
 
                                         if (tempOmssaModification != null) {
-
-                                            modificationDetails += modifications[i] + " " + tempOmssaModification.getModName() +
-                                                    " (" + tempOmssaModification.getModMonoMass() + "), ";
-
 
                                             if (tempOmssaModification.getModType() == OmssaModification.MODAA) {
 
                                                 // "normal" modification
-                                                modifiedSequence += sequence.substring(i, i + 1) + modifications[i];
-                                            } else if (tempOmssaModification.getModType() == OmssaModification.MODN || tempOmssaModification.getModType() == OmssaModification.MODNAA || tempOmssaModification.getModType() == OmssaModification.MODNP || tempOmssaModification.getModType() == OmssaModification.MODNPAA) {
+                                                modifiedSequence += currentMod;
+                                            } else if (tempOmssaModification.getModType() == OmssaModification.MODN
+                                                    || tempOmssaModification.getModType() == OmssaModification.MODNAA
+                                                    || tempOmssaModification.getModType() == OmssaModification.MODNP
+                                                    || tempOmssaModification.getModType() == OmssaModification.MODNPAA) {
 
                                                 // n-terminal modification
-                                                nTerminal = modifications[i] + "-";
-                                                modifiedSequence += sequence.substring(i, i + 1);
-                                            } else if (tempOmssaModification.getModType() == OmssaModification.MODC || tempOmssaModification.getModType() == OmssaModification.MODCAA || tempOmssaModification.getModType() == OmssaModification.MODCP || tempOmssaModification.getModType() == OmssaModification.MODCPAA) {
+                                                nTerminal += currentMod;
+                                            } else if (tempOmssaModification.getModType() == OmssaModification.MODC
+                                                    || tempOmssaModification.getModType() == OmssaModification.MODCAA
+                                                    || tempOmssaModification.getModType() == OmssaModification.MODCP
+                                                    || tempOmssaModification.getModType() == OmssaModification.MODCPAA) {
 
                                                 // c-terminal modification
-                                                cTerminal = "-" + modifications[i];
-                                                modifiedSequence += sequence.substring(i, i + 1);
+                                                cTerminal += currentMod;
                                             }
                                         } else {
-                                            modifiedSequence += sequence.substring(i, i + 1) + modifications[i];
-                                            modificationDetails += modifications[i] + " unknown, ";
+                                            modifiedSequence += currentMod;
                                         }
-                                    } else {
-                                        modifiedSequence += sequence.substring(i, i + 1) + modifications[i];
                                     }
-                                } else {
-                                    modifiedSequence += sequence.substring(i, i + 1) + modifications[i];
                                 }
                             }
-
-                            if (modificationDetails.endsWith(", ")) {
-                                modificationDetails = modificationDetails.substring(0, modificationDetails.length() - 2);
-                            }
-
-                            if (modificationDetails.length() > 0) {
-                                modificationDetailsJLabel.setText("Modifications: " + modificationDetails +
-                                        "    /    " + ionCoverageLegend);
-                            } else {
-                                modificationDetailsJLabel.setText(ionCoverageLegend);
-                            }
                         } else {
-                            modificationDetailsJLabel.setText("Modifications: (Files with modification details were not provided. " +
-                                    "No modifications are shown.)" + "    /    " + ionCoverageLegend);
                             modifiedSequence = sequence;
+                        }
+
+                        // set the n terminal
+                        if (nTerminal.length() == 0) {
+                            nTerminal = "NH2-"; // no terminal (or terminal modification) given
+                        } else {
+                            nTerminal += "-"; // add the "-" at the end, i.e. "NH2-"
+                        }
+
+                        // set the c terminal
+                        if (cTerminal.length() == 0) {
+                            cTerminal = "-COOH"; // no terminal (or terminal modification) given
+                        } else {
+                            cTerminal = "-" + cTerminal; // add the "-" at the beginning, i.e. "-COOH"
                         }
 
                         // add ion coverage to peptide sequence
@@ -1733,9 +1753,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                             MSMZHit tempMzHit = mzHits.next();
 
                             int ionType = tempMzHit.MSMZHit_ion.MSIonType;
-                            int charge = tempMzHit.MSMZHit_charge;
                             int ionNumber = tempMzHit.MSMZHit_number;
-                            double mzValue = ((double) tempMzHit.MSMZHit_mz) / omssaResponseScale;
 
                             // Note: assumes that 0 is a, 1 is b, 2 is c, 3 is x, 4 is y and 5 is z
                             if (ionType == 0) {
@@ -1849,11 +1867,14 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                         modifiedSequenceColorCoded += "</html>";
 
+                        // add terminals to modified sequence (the non-color coded version)
+                        modifiedSequence = nTerminal + modifiedSequence + cTerminal;
+
                         List<MSPepHit> pepHits = tempMSHit.MSHits_pephits.MSPepHit;
 
                         Iterator<MSPepHit> pepHitIterator = pepHits.iterator();
 
-                        while (pepHitIterator.hasNext()) {
+                        while (pepHitIterator.hasNext() && !allWantedHitsAdded) {
 
                             MSPepHit tempPepHit = pepHitIterator.next();
 
@@ -1869,6 +1890,14 @@ public class OmssaViewer extends javax.swing.JFrame {
                                     tempMSHit.MSHits_pvalue + "\t" +
                                     tempPepHit.MSPepHit_accession + "\t" +
                                     tempPepHit.MSPepHit_defline + "\n");
+
+                            if(includeBestHitOnly){
+                                allWantedHitsAdded = true;
+                            }
+                        }
+
+                        if(includeBestHitOnly){
+                            allWantedHitsAdded = true;
                         }
                     }
                 }
@@ -1889,8 +1918,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         }
 
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-}//GEN-LAST:event_exportAllIdentificationsJMenuItemActionPerformed
+    }
 
     /**
      * Opens a frame containing the help manual for OMSSA Viewer.
@@ -1953,8 +1981,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                     double precusorMz = ((Double) spectraJXTable.getValueAt(j, 2)).doubleValue();
                     int precursorCharge = ((Integer) spectraJXTable.getValueAt(j, 3)).intValue();
-                    double precursorMh = precusorMz*precursorCharge - 
-                            precursorCharge*HYDROGEN_MASS + HYDROGEN_MASS;
+                    double precursorMh = precusorMz * precursorCharge -
+                            precursorCharge * HYDROGEN_MASS + HYDROGEN_MASS;
 
                     f.write("" + precursorMh);
                     f.write(" " + precursorCharge + "\n");
@@ -2073,7 +2101,7 @@ public class OmssaViewer extends javax.swing.JFrame {
      * @param evt
      */
     private void spectraJXTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spectraJXTableMouseClicked
-        
+
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
 
         int row = spectraJXTable.getSelectedRow();
@@ -2147,6 +2175,8 @@ public class OmssaViewer extends javax.swing.JFrame {
             List<MSHits> allMSHits = msHitSet.MSHitSet_hits.MSHits;
             Iterator<MSHits> msHitIterator = allMSHits.iterator();
 
+            String modificationDetails = "";
+
             while (msHitIterator.hasNext()) {
 
                 MSHits tempMSHit = msHitIterator.next();
@@ -2159,8 +2189,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                 }
 
                 String modifiedSequence = "";
-                String nTerminal = "NH2-";
-                String cTerminal = "-COOH";
+                String nTerminal = "";
+                String cTerminal = "";
 
                 // handle modifications
                 if (omssaOmxFile.getModifications().size() > 0) {
@@ -2198,63 +2228,79 @@ public class OmssaViewer extends javax.swing.JFrame {
                                 "<" + currentMSModHit.MSModHit_modtype.MSMod + ">";
                     }
 
-                    String modificationDetails = "";
-
+                    // cycle through all the modifications and extract the modification type if possible
                     for (int i = 0; i < modifications.length; i++) {
+
+                        // add the amino acid itself to the sequence
+                        modifiedSequence += sequence.substring(i, i + 1);
 
                         if (!modifications[i].equalsIgnoreCase("")) {
 
-                            if (modificationDetails.lastIndexOf(modifications[i]) == -1) {
+                            // have to check for multiple modifications on one residue
+                            String[] residueMods = modifications[i].split(">");
 
-                                OmssaModification tempOmssaModification = omssaOmxFile.getModifications().get(
-                                        new Integer(modifications[i].substring(1, modifications[i].length() - 1)));
+                            for (int j = 0; j < residueMods.length; j++) {
 
-                                if (tempOmssaModification != null) {
+                                String currentMod = residueMods[j] + ">";
 
-                                    modificationDetails += modifications[i] + " " + tempOmssaModification.getModName() +
-                                            " (" + tempOmssaModification.getModMonoMass() + "), ";
+                                // check if we've already mapped the modification
+                                if (modificationDetails.lastIndexOf(currentMod) == -1) {
 
-                                    if (tempOmssaModification.getModType() == OmssaModification.MODAA) {
+                                    OmssaModification tempOmssaModification = omssaOmxFile.getModifications().get(
+                                            new Integer(residueMods[j].substring(1)));
 
-                                        // "normal" modification
-                                        modifiedSequence += sequence.substring(i, i + 1) + modifications[i];
-                                    } else if (tempOmssaModification.getModType() == OmssaModification.MODN || tempOmssaModification.getModType() == OmssaModification.MODNAA || tempOmssaModification.getModType() == OmssaModification.MODNP || tempOmssaModification.getModType() == OmssaModification.MODNPAA) {
+                                    if (tempOmssaModification != null) {
 
-                                        // n-terminal modification
-                                        nTerminal = modifications[i] + "-";
-                                        modifiedSequence += sequence.substring(i, i + 1);
-                                    } else if (tempOmssaModification.getModType() == OmssaModification.MODC || tempOmssaModification.getModType() == OmssaModification.MODCAA || tempOmssaModification.getModType() == OmssaModification.MODCP || tempOmssaModification.getModType() == OmssaModification.MODCPAA) {
+                                        modificationDetails += currentMod + " " + tempOmssaModification.getModName() +
+                                                " (" + tempOmssaModification.getModMonoMass() + "), ";
 
-                                        // c-terminal modification
-                                        cTerminal = "-" + modifications[i];
-                                        modifiedSequence += sequence.substring(i, i + 1);
+                                        if (tempOmssaModification.getModType() == OmssaModification.MODAA) {
+
+                                            // "normal" modification
+                                            modifiedSequence += currentMod;
+                                        } else if (tempOmssaModification.getModType() == OmssaModification.MODN
+                                                || tempOmssaModification.getModType() == OmssaModification.MODNAA
+                                                || tempOmssaModification.getModType() == OmssaModification.MODNP
+                                                || tempOmssaModification.getModType() == OmssaModification.MODNPAA) {
+
+                                            // n-terminal modification
+                                            nTerminal += currentMod;
+                                        } else if (tempOmssaModification.getModType() == OmssaModification.MODC
+                                                || tempOmssaModification.getModType() == OmssaModification.MODCAA
+                                                || tempOmssaModification.getModType() == OmssaModification.MODCP
+                                                || tempOmssaModification.getModType() == OmssaModification.MODCPAA) {
+
+                                            // c-terminal modification
+                                            cTerminal += currentMod;
+                                        }
+                                    } else {
+                                        modifiedSequence += currentMod;
+                                        modificationDetails += currentMod + " unknown, ";
                                     }
                                 } else {
-                                    modifiedSequence += sequence.substring(i, i + 1) + modifications[i];
-                                    modificationDetails += modifications[i] + " unknown, ";
+                                    modifiedSequence += currentMod;
                                 }
-                            } else {
-                                modifiedSequence += sequence.substring(i, i + 1) + modifications[i];
                             }
-                        } else {
-                            modifiedSequence += sequence.substring(i, i + 1) + modifications[i];
                         }
-                    }
-
-                    if (modificationDetails.endsWith(", ")) {
-                        modificationDetails = modificationDetails.substring(0, modificationDetails.length() - 2);
-                    }
-
-                    if (modificationDetails.length() > 0) {
-                        modificationDetailsJLabel.setText("Modifications: " + modificationDetails +
-                                "    /    " + ionCoverageLegend);
-                    } else {
-                        modificationDetailsJLabel.setText(ionCoverageLegend);
                     }
                 } else {
                     modificationDetailsJLabel.setText("Modifications: (Files with modification details were not provided. " +
                             "No modifications are shown.)" + "    /    " + ionCoverageLegend);
                     modifiedSequence = sequence;
+                }
+
+                // set the n-terminal
+                if(nTerminal.length() == 0){
+                    nTerminal = "NH2-"; // no terminal (or terminal modification) given
+                } else{
+                    nTerminal += "-"; // add the "-" at the end, i.e. "NH2-"
+                }
+
+                // set the c-terminal
+                if(cTerminal.length() == 0){
+                    cTerminal = "-COOH"; // no terminal (or terminal modification) given
+                } else{
+                    cTerminal = "-" + cTerminal; // add the "-" at the beginning, i.e. "-COOH"
                 }
 
                 // add ion coverage to peptide sequence
@@ -2488,6 +2534,17 @@ public class OmssaViewer extends javax.swing.JFrame {
                 }
             }
 
+            if (modificationDetails.endsWith(", ")) {
+                modificationDetails = modificationDetails.substring(0, modificationDetails.length() - 2);
+            }
+
+            if (modificationDetails.length() > 0) {
+                modificationDetailsJLabel.setText("Modifications: " + modificationDetails +
+                        "    /    " + ionCoverageLegend);
+            } else {
+                modificationDetailsJLabel.setText(ionCoverageLegend);
+            }
+
             if (evt != null && evt.getButton() == MouseEvent.BUTTON3) {
                 copySpectraJPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
             }
@@ -2567,6 +2624,15 @@ public class OmssaViewer extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_identificationsJXTableMouseClicked
 
+    /**
+     * Export all identifications (best hits only) to a tab delimited text file.
+     *
+     * @param evt
+     */
+    private void exportBestIdentificationsJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBestIdentificationsJMenuItemActionPerformed
+        exportAllIdentifications(true);
+}//GEN-LAST:event_exportBestIdentificationsJMenuItemActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox aIonsJCheckBox;
     private javax.swing.JMenuItem aboutJMenuItem;
@@ -2584,6 +2650,7 @@ public class OmssaViewer extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitJMenuItem;
     private javax.swing.JMenuItem exportAllIdentificationsJMenuItem;
     private javax.swing.JMenuItem exportAllSpectraJMenuItem;
+    private javax.swing.JMenuItem exportBestIdentificationsJMenuItem;
     private javax.swing.JMenu exportJMenu;
     private javax.swing.JMenuItem exportSelectedSpectrumJMenuItem;
     private javax.swing.JMenuItem exportSpectraFilesTableJMenuItem;
