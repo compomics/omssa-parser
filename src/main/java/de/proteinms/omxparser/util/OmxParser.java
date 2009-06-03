@@ -234,6 +234,11 @@ public class OmxParser {
             //get the factory
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
+            dbf.setValidating(false);
+            dbf.setAttribute("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
+            dbf.setAttribute("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            dbf.setAttribute("http://xml.org/sax/features/validation", false);
+
             //Using factory get an instance of document builder
             DocumentBuilder db = dbf.newDocumentBuilder();
 
