@@ -29,7 +29,7 @@ package de.proteinms.omxparser.util;
  */
 public class MSIon_neutralloss {
 
-    public Boolean MSIonNeutralLoss;
+    public int MSIonNeutralLoss = -1;
 
     /**
      * Sets the MSIonNeutralLoss value.
@@ -37,6 +37,6 @@ public class MSIon_neutralloss {
      * @param s the MSIonNeutralLoss value as a String
      */
     public void setMSIonNeutralLoss(String s) {
-        this.MSIonNeutralLoss = Boolean.valueOf(s);
+        this.MSIonNeutralLoss = Integer.valueOf(s);
     }
 }
