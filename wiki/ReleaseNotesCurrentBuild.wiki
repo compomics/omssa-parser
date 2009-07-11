@@ -1,0 +1,5 @@
+#summary Short summary of changes for the current build of the ommsa-parser. (Note that this may not be the same as the released version.)
+
+----
+
+ * Updated the parsing of neutral losses to return the type of neutral loss, and not just if there is a neutral loss or not.
