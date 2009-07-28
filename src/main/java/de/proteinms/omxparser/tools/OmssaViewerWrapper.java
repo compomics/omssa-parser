@@ -34,6 +34,8 @@ public class OmssaViewerWrapper {
      * main class in the jar file.
      */
     public OmssaViewerWrapper() {
+
+        // set the look and feel
         try {
             PlasticLookAndFeel.setPlasticTheme(new SkyKrupp());
             UIManager.setLookAndFeel(new PlasticXPLookAndFeel());

@@ -87,12 +87,12 @@ public class OmssaViewer extends javax.swing.JFrame {
     /**
      * The version number of OMSSA Viewer. (Just a number. Not referenced in pom file.)
      */
-    private String ommsaViewerVersion = "v1.5.2";
+    private String ommsaViewerVersion = "v1.6.0";
     /**
      * The version number of OMSSA Parser. Should be the same as the
      * version number in the pom file.
      */
-    private static String ommsaParserVersion = "1.3.2";
+    private static String ommsaParserVersion = "1.3.3";
     /**
      * If set to true all the output that is normally sent to the terminal will
      * be sent to a file called ErrorLog.txt in the Properties folder.
@@ -1530,7 +1530,7 @@ public class OmssaViewer extends javax.swing.JFrame {
      *
      * @param includeBestHitOnly - if true only the best hits are included, otherwise all hits are included
      */
-    private void exportAllIdentifications(boolean includeBestHitOnly){
+    private void exportAllIdentifications(boolean includeBestHitOnly) {
 
         JFileChooser chooser = new JFileChooser(lastSelectedFolder);
         chooser.setFileFilter(new TxtFileFilter());
@@ -1619,7 +1619,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 // iterate all the identifications and print them to the file
 
                 Iterator<MSSpectrum> iterator = spectrumHitSetMap.keySet().iterator();
-                
+
                 boolean allWantedHitsAdded = false;
 
                 while (iterator.hasNext()) {
@@ -1891,12 +1891,12 @@ public class OmssaViewer extends javax.swing.JFrame {
                                     tempPepHit.MSPepHit_accession + "\t" +
                                     tempPepHit.MSPepHit_defline + "\n");
 
-                            if(includeBestHitOnly){
+                            if (includeBestHitOnly) {
                                 allWantedHitsAdded = true;
                             }
                         }
 
-                        if(includeBestHitOnly){
+                        if (includeBestHitOnly) {
                             allWantedHitsAdded = true;
                         }
                     }
@@ -2290,16 +2290,16 @@ public class OmssaViewer extends javax.swing.JFrame {
                 }
 
                 // set the n-terminal
-                if(nTerminal.length() == 0){
+                if (nTerminal.length() == 0) {
                     nTerminal = "NH2-"; // no terminal (or terminal modification) given
-                } else{
+                } else {
                     nTerminal += "-"; // add the "-" at the end, i.e. "NH2-"
                 }
 
                 // set the c-terminal
-                if(cTerminal.length() == 0){
+                if (cTerminal.length() == 0) {
                     cTerminal = "-COOH"; // no terminal (or terminal modification) given
-                } else{
+                } else {
                     cTerminal = "-" + cTerminal; // add the "-" at the beginning, i.e. "-COOH"
                 }
 
@@ -2319,6 +2319,29 @@ public class OmssaViewer extends javax.swing.JFrame {
                     MSMZHit tempMzHit = mzHits.next();
 
                     int ionType = tempMzHit.MSMZHit_ion.MSIonType;
+
+                    int msIonNeutralLossType = tempMzHit.MSMZHit_moreion.MSIon.MSIon_neutralloss.MSIonNeutralLoss;
+
+                    String neturalLossTag = "";
+                    String immoniumTag = "";
+
+                    // -1 means no neutral loss reported
+                    if (msIonNeutralLossType == -1) {
+                        // check for immonium ions
+                        // note: assumes that an immonium ion can not have a neutral loss
+                        if (tempMzHit.MSMZHit_moreion.MSIon.MSIon_immonium.MSImmonium.MSImmonium_parent != null) {
+                            immoniumTag = "i" + tempMzHit.MSMZHit_moreion.MSIon.MSIon_immonium.MSImmonium.MSImmonium_parent;
+                        }
+                    } else{
+                        if(msIonNeutralLossType == 0){
+                            // water neutral loss
+                            neturalLossTag = " -H20";
+                        } else if(msIonNeutralLossType == 1){
+                            // ammonia neutral loss
+                            neturalLossTag = " -NH3";
+                        }
+                    }
+
                     int charge = tempMzHit.MSMZHit_charge;
                     int ionNumber = tempMzHit.MSMZHit_number;
                     double mzValue = ((double) tempMzHit.MSMZHit_mz) / omssaResponseScale;
@@ -2327,7 +2350,6 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                     // add the charge to the label if higher than 1
                     if (charge > 1) {
-
                         for (int i = 0; i < charge; i++) {
                             chargeAsString += "+";
                         }
@@ -2339,63 +2361,61 @@ public class OmssaViewer extends javax.swing.JFrame {
                         unusedIon = "#";
                     }
 
-                    // assumes that 0 is a, 1 is b, 2 is c, 3 is x, 4 is y and 5 is z
-                    //
                     // from OMSSA.mod.xsd:
                     // <xs:enumeration value="a" ncbi:intvalue="0" />
                     // <xs:enumeration value="b" ncbi:intvalue="1" />
                     // <xs:enumeration value="c" ncbi:intvalue="2" />
-                    //  <xs:enumeration value="x" ncbi:intvalue="3" />
-                    //  <xs:enumeration value="y" ncbi:intvalue="4" />
-                    //  <xs:enumeration value="z" ncbi:intvalue="5" />
-                    //  <xs:enumeration value="parent" ncbi:intvalue="6" />
-                    //  <xs:enumeration value="internal" ncbi:intvalue="7" />
-                    //  <xs:enumeration value="immonium" ncbi:intvalue="8" />
-                    //  <xs:enumeration value="unknown" ncbi:intvalue="9" />
-                    //  <xs:enumeration value="max" ncbi:intvalue="10" />
+                    // <xs:enumeration value="x" ncbi:intvalue="3" />
+                    // <xs:enumeration value="y" ncbi:intvalue="4" />
+                    // <xs:enumeration value="z" ncbi:intvalue="5" />
+                    // <xs:enumeration value="parent" ncbi:intvalue="6" />
+                    // <xs:enumeration value="internal" ncbi:intvalue="7" />
+                    // <xs:enumeration value="immonium" ncbi:intvalue="8" />
+                    // <xs:enumeration value="unknown" ncbi:intvalue="9" />
+                    // <xs:enumeration value="max" ncbi:intvalue="10" />
 
                     if (ionType == 0) {
                         currentAnnotations.add(new DefaultSpectrumAnnotation(
                                 mzValue, ionCoverageErrorMargin, Color.BLUE,
-                                unusedIon + "a" + (ionNumber + 1) + chargeAsString));
+                                unusedIon + "a" + (ionNumber + 1) + chargeAsString + neturalLossTag));
                     } else if (ionType == 1) {
                         currentAnnotations.add(new DefaultSpectrumAnnotation(
                                 mzValue, ionCoverageErrorMargin, Color.BLUE,
-                                unusedIon + "b" + (ionNumber + 1) + chargeAsString));
+                                unusedIon + "b" + (ionNumber + 1) + chargeAsString + neturalLossTag));
                         ionCoverage[ionNumber][0]++;
                     } else if (ionType == 2) {
                         currentAnnotations.add(new DefaultSpectrumAnnotation(
                                 mzValue, ionCoverageErrorMargin, Color.BLUE,
-                                unusedIon + "c" + (ionNumber + 1) + chargeAsString));
+                                unusedIon + "c" + (ionNumber + 1) + chargeAsString + neturalLossTag));
                     } else if (ionType == 3) {
                         currentAnnotations.add(new DefaultSpectrumAnnotation(
                                 mzValue, ionCoverageErrorMargin, Color.BLACK,
-                                unusedIon + "x" + (ionNumber + 1) + chargeAsString));
+                                unusedIon + "x" + (ionNumber + 1) + chargeAsString + neturalLossTag));
                     } else if (ionType == 4) {
                         currentAnnotations.add(new DefaultSpectrumAnnotation(
                                 mzValue, ionCoverageErrorMargin, Color.BLACK,
-                                unusedIon + "y" + (ionNumber + 1) + chargeAsString));
+                                unusedIon + "y" + (ionNumber + 1) + chargeAsString + neturalLossTag));
                         ionCoverage[ionNumber][1]++;
                     } else if (ionType == 5) {
                         currentAnnotations.add(new DefaultSpectrumAnnotation(
                                 mzValue, ionCoverageErrorMargin, Color.BLACK,
-                                unusedIon + "z" + (ionNumber + 1) + chargeAsString));
+                                unusedIon + "z" + (ionNumber + 1) + chargeAsString + neturalLossTag));
                     } else if (ionType == 6) {
                         currentAnnotations.add(new DefaultSpectrumAnnotation(
                                 mzValue, ionCoverageErrorMargin, Color.GRAY,
-                                unusedIon + "parent" + chargeAsString));
+                                unusedIon + "parent" + chargeAsString + neturalLossTag));
                     } else if (ionType == 7) {
                         currentAnnotations.add(new DefaultSpectrumAnnotation(
                                 mzValue, ionCoverageErrorMargin, Color.GRAY,
-                                unusedIon + "internal" + chargeAsString));
+                                unusedIon + "internal" + chargeAsString + neturalLossTag));
                     } else if (ionType == 8) {
                         currentAnnotations.add(new DefaultSpectrumAnnotation(
                                 mzValue, ionCoverageErrorMargin, Color.GRAY,
-                                unusedIon + "immonium" + chargeAsString));
+                                unusedIon + immoniumTag /* + chargeAsString  + neturalLossTag*/));
                     } else if (ionType == 9) {
                         currentAnnotations.add(new DefaultSpectrumAnnotation(
                                 mzValue, ionCoverageErrorMargin, Color.GRAY,
-                                unusedIon + "unknown" + chargeAsString));
+                                unusedIon + "unknown" + chargeAsString + neturalLossTag));
                     }
 
                     allAnnotations.put((sequence + "_" + new Float(tempMSHit.MSHits_pvalue)), currentAnnotations);
