@@ -2,4 +2,4 @@
 
 ----
 
- * Updated the parsing of neutral losses to return the type of neutral loss, and not just if there is a neutral loss or not.
+ * Updated the utilities library to version 2.9.7.
