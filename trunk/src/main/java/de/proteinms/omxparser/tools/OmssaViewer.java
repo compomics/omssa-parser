@@ -2335,7 +2335,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                     } else{
                         if(msIonNeutralLossType == 0){
                             // water neutral loss
-                            neturalLossTag = " -H20";
+                            neturalLossTag = " -H2O";
                         } else if(msIonNeutralLossType == 1){
                             // ammonia neutral loss
                             neturalLossTag = " -NH3";
