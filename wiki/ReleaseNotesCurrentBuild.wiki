@@ -2,5 +2,4 @@
 
 ----
 
- * OMSSA Viewer: Fixed a bug where the neutral loss of 'H2O' was written using the number '0' instead of the letter 'O'.
- * Updated the utilities library to version 2.9.9.
+ * (currently no changes)
