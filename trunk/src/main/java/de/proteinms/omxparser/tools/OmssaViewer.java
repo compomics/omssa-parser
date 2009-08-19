@@ -87,12 +87,12 @@ public class OmssaViewer extends javax.swing.JFrame {
     /**
      * The version number of OMSSA Viewer. (Just a number. Not referenced in pom file.)
      */
-    private String ommsaViewerVersion = "v1.6.0";
+    private String ommsaViewerVersion = "v1.6.1";
     /**
      * The version number of OMSSA Parser. Should be the same as the
      * version number in the pom file.
      */
-    private static String ommsaParserVersion = "1.3.3";
+    private static String ommsaParserVersion = "1.3.4";
     /**
      * If set to true all the output that is normally sent to the terminal will
      * be sent to a file called ErrorLog.txt in the Properties folder.
