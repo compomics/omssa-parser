@@ -155,12 +155,12 @@ public class OmssaViewerWrapper {
                         "Failed to start OMSSA Viewer.\n\n" +
                         "Make sure that OMSSA Viewer is installed in a path not containing\n" +
                         "special characters. On Linux it has to be run from a path without spaces.\n\n" +
-                        "The upper memory limit used may be too high for you computer to handle.\n" +
+                        "The upper memory limit used may be too high for your computer to handle.\n" +
                         "Try reducing it and see if this helps.\n\n" +
                         "For more details see:\n" +
                         System.getProperty("user.home") +
                         File.separator + "ommsa_viewer_.log\n\n" +
-                        "Or see \'Troubleshooting\' at http://code.google.com/p/omssa-parser",
+                        "Or see \'Troubleshooting\' at http://omssa-parser.googlecode.com",
                         "OMSSA Viewer - Startup Failed", JOptionPane.OK_OPTION);
 
                 File logFile = new File(System.getProperty("user.home") +
