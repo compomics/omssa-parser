@@ -1,8 +1,5 @@
 package de.proteinms.omxparser.tools;
 
-import java.awt.Frame;
-import java.awt.Toolkit;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -15,8 +12,6 @@ import javax.swing.SwingUtilities;
  */
 public class ProgressDialog extends javax.swing.JDialog {
 
-    private Frame parentFrame;
-    private JDialog parentDialog;
     /**
      * If set to true the progress dialog ignores all closing attemts. This
      * can be used when the progess monitored is a process that is not possible
@@ -39,7 +34,6 @@ public class ProgressDialog extends javax.swing.JDialog {
 //                getResource("/de/proteinms/omxparser/icons/omssaviewer.GIF")));
 
         setLocationRelativeTo(parent);
-        parentFrame = parent;
     }
 
     /**
@@ -58,7 +52,6 @@ public class ProgressDialog extends javax.swing.JDialog {
 //                getResource("/de/proteinms/omxparser/icons/omssaviewer.GIF")));
 
         setLocationRelativeTo(parent);
-        parentDialog = parent;
     }
 
     /**
@@ -180,7 +173,7 @@ public class ProgressDialog extends javax.swing.JDialog {
         if (!doNothingOnClose) {
             int option = JOptionPane.showConfirmDialog(this.getParent(),
                     "Closing the progress bar will close OMSSA Viewer.\n" +
-                    "Do you still want to close the progress bar?",
+                    "Close the progress bar?",
                     "Close OMSSA Viewer?",
                     JOptionPane.YES_NO_OPTION);
 

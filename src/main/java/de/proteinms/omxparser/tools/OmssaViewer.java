@@ -485,7 +485,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,
                             "The task used up all the available memory and had to be stopped.\n" +
                             "Memory boundaries are set in ../Properties/JavaOptions.txt.",
-                            "Out of Memory Error",
+                            "Out Of Memory Error",
                             JOptionPane.ERROR_MESSAGE);
                     Util.writeToErrorLog("OMSSA Viewer: Ran out of memory!");
                     error.printStackTrace();
@@ -1336,7 +1336,7 @@ public class OmssaViewer extends javax.swing.JFrame {
             while (selectedFile.exists()) {
                 int option = JOptionPane.showConfirmDialog(this,
                         "The  file " + chooser.getSelectedFile().getName() +
-                        " already exists. Do you want to replace this file?",
+                        " already exists. Replace file?",
                         "Replace File?", JOptionPane.YES_NO_CANCEL_OPTION);
 
                 if (option == JOptionPane.NO_OPTION) {
@@ -1439,7 +1439,7 @@ public class OmssaViewer extends javax.swing.JFrame {
             while (selectedFile.exists()) {
                 int option = JOptionPane.showConfirmDialog(this,
                         "The  file " + chooser.getSelectedFile().getName() +
-                        " already exists. Do you want to replace this file?",
+                        " already exists. Replace file?",
                         "Replace File?", JOptionPane.YES_NO_CANCEL_OPTION);
 
                 if (option == JOptionPane.NO_OPTION) {
@@ -1552,7 +1552,7 @@ public class OmssaViewer extends javax.swing.JFrame {
             while (selectedFile.exists()) {
                 int option = JOptionPane.showConfirmDialog(this,
                         "The  file " + chooser.getSelectedFile().getName() +
-                        " already exists. Do you want to replace this file?",
+                        " already exists. Replace file?",
                         "Replace File?", JOptionPane.YES_NO_CANCEL_OPTION);
 
                 if (option == JOptionPane.NO_OPTION) {
