@@ -167,9 +167,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                     if (deprecatedOrDeleted) {
                         int option = JOptionPane.showConfirmDialog(null,
                                 "A newer version of OMSSA Parser is available.\n" +
-                                "Do you want to upgrade?\n\n" +
-                                "Selecting \'Yes\' will open the OMSSA Parser web page\n" +
-                                "where you can download the latest version.",
+                                "Do you want to upgrade?",
                                 "OMSSA Parser - Upgrade Available",
                                 JOptionPane.YES_NO_CANCEL_OPTION);
                         if (option == JOptionPane.YES_OPTION) {
