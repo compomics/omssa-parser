@@ -1,4 +1,4 @@
-#summary Short summary of changes for each version of the parser.
+#summary Short summary of changes for each version of OMSSA Parser.
 #labels Featured
 
 ----
