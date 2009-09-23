@@ -1,4 +1,4 @@
-#summary Short summary of changes for the current build of the OMSSA Parser. (Note that this may not be the same as the released version.)
+#summary Short summary of changes for the current build of OMSSA Parser. (Note that this may not be the same as the released version.)
 
 ----
 
