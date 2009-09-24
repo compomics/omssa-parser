@@ -2,5 +2,5 @@
 
 ----
 
- * Updated the JOptionPane dialogs by simplifying and shortening the text. Also fixed some minor typos.
- * Fixed the default subject in the mailto links in order to work on non-windows platforms.
+ * FEATURE IMPROVEMENT: Updated the JOptionPane dialogs by simplifying and shortening the text. Also fixed some minor typos.
+ * BUG FIX: Altered the default subject in the mailto links in order to work on non-windows platforms.
