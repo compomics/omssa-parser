@@ -1210,7 +1210,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 }//GEN-LAST:event_copySpectraJMenuItemActionPerformed
 
     /**
-     * See copySpectraJMenuItemActionPerformed
+     * @see #copySpectraJMenuItemActionPerformed(java.awt.event.ActionEvent)
      */
     private void copySpectrumJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copySpectrumJMenuItemActionPerformed
         TransferHandler th = spectrumJXTable.getTransferHandler();
@@ -1221,7 +1221,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 }//GEN-LAST:event_copySpectrumJMenuItemActionPerformed
 
     /**
-     * See copySpectraJMenuItemActionPerformed
+     * @see #copySpectraJMenuItemActionPerformed(java.awt.event.ActionEvent)
      */
     private void copyIdentificationsJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyIdentificationsJMenuItemActionPerformed
         TransferHandler th = identificationsJXTable.getTransferHandler();
@@ -2036,56 +2036,56 @@ public class OmssaViewer extends javax.swing.JFrame {
     }//GEN-LAST:event_aIonsJCheckBoxActionPerformed
 
     /**
-     * See aIonsJCheckBoxActionPerformed
+     * @see #aIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent)
      */
     private void bIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIonsJCheckBoxActionPerformed
         aIonsJCheckBoxActionPerformed(null);
     }//GEN-LAST:event_bIonsJCheckBoxActionPerformed
 
     /**
-     * See aIonsJCheckBoxActionPerformed
+     * @see #aIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent)
      */
     private void cIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cIonsJCheckBoxActionPerformed
         aIonsJCheckBoxActionPerformed(null);
     }//GEN-LAST:event_cIonsJCheckBoxActionPerformed
 
     /**
-     * See aIonsJCheckBoxActionPerformed
+     * @see #aIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent)
      */
     private void xIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xIonsJCheckBoxActionPerformed
         aIonsJCheckBoxActionPerformed(null);
     }//GEN-LAST:event_xIonsJCheckBoxActionPerformed
 
     /**
-     * See aIonsJCheckBoxActionPerformed
+     * @see #aIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent)
      */
     private void yIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yIonsJCheckBoxActionPerformed
         aIonsJCheckBoxActionPerformed(null);
     }//GEN-LAST:event_yIonsJCheckBoxActionPerformed
 
     /**
-     * See aIonsJCheckBoxActionPerformed
+     * @see #aIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent)
      */
     private void zIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zIonsJCheckBoxActionPerformed
         aIonsJCheckBoxActionPerformed(null);
     }//GEN-LAST:event_zIonsJCheckBoxActionPerformed
 
     /**
-     * See aIonsJCheckBoxActionPerformed
+     * @see #aIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent)
      */
     private void chargeOneJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargeOneJCheckBoxActionPerformed
         aIonsJCheckBoxActionPerformed(null);
     }//GEN-LAST:event_chargeOneJCheckBoxActionPerformed
 
     /**
-     * See aIonsJCheckBoxActionPerformed
+     * @see #aIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent)
      */
     private void chargeTwoJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargeTwoJCheckBoxActionPerformed
         aIonsJCheckBoxActionPerformed(null);
     }//GEN-LAST:event_chargeTwoJCheckBoxActionPerformed
 
     /**
-     * See aIonsJCheckBoxActionPerformed
+     * @see #aIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent) 
      */
     private void chargeOverTwoJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargeOverTwoJCheckBoxActionPerformed
         aIonsJCheckBoxActionPerformed(null);
