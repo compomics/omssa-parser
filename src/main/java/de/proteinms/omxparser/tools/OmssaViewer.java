@@ -85,15 +85,6 @@ public class OmssaViewer extends javax.swing.JFrame {
      */
     private String lastSelectedFolder = "user.home";
     /**
-     * The version number of OMSSA Viewer. (Just a number. Not referenced in pom file.)
-     */
-    private String ommsaViewerVersion = "v1.6.1";
-    /**
-     * The version number of OMSSA Parser. Should be the same as the
-     * version number in the pom file.
-     */
-    private static String ommsaParserVersion = "1.3.4";
-    /**
      * If set to true all the output that is normally sent to the terminal will
      * be sent to a file called ErrorLog.txt in the Properties folder.
      */
@@ -126,8 +117,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                     boolean deprecatedOrDeleted = false;
 
                     URL downloadPage = new URL(
-                            "http://code.google.com/p/omssa-parser/downloads/detail?name=omssaparser-" +
-                            ommsaParserVersion + ".zip");
+                            "http://code.google.com/p/omssa-parser/downloads/detail?name=omssa-parser-" +
+                            new Properties().getVersion() + ".zip");
 
                     int respons =
                             ((java.net.HttpURLConnection) downloadPage.openConnection()).getResponseCode();
@@ -416,7 +407,7 @@ public class OmssaViewer extends javax.swing.JFrame {
      */
     public void insertOmxFile(String aOmxFile, String aModsFile, String aUserModsFile, String lastSelectedFolder) {
 
-        setTitle("OMSSA Viewer " + ommsaViewerVersion + "  -  [" + new File(aOmxFile).getPath() + "]");
+        setTitle("OMSSA Viewer " + new Properties().getVersion() + "  -  [" + new File(aOmxFile).getPath() + "]");
 
         this.lastSelectedFolder = lastSelectedFolder;
 

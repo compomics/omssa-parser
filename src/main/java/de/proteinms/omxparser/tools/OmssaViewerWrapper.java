@@ -27,7 +27,7 @@ public class OmssaViewerWrapper {
      * The name of the omssa parser jar file. Must be equal to the name 
      * given in the pom file.
      */
-    private String jarFileName = "omssaparser-1.3.4.jar";
+    private String jarFileName = "omssa-parser-";
 
     /**
      * Starts the launcher by calling the launch method. Use this as the 
@@ -58,6 +58,8 @@ public class OmssaViewerWrapper {
     private void launch() throws Exception {
 
         String temp = "", cmdLine, path;
+
+        jarFileName = jarFileName + new Properties().getVersion() + ".jar";
 
         path = this.getClass().getResource("OmssaViewerWrapper.class").getPath();
         path = path.substring(5, path.indexOf(jarFileName));
