@@ -101,8 +101,14 @@ public class OmssaViewerWrapper {
         String javaHome = System.getProperty("java.home") + File.separator +
                 "bin" + File.separator;
 
-        cmdLine = javaHome + "java " + options + " -cp "
-                + new File(tempFile, jarFileName).getAbsolutePath()
+        String quote = "";
+
+        if (System.getProperty("os.name").lastIndexOf("Windows") != -1) {
+            quote = "\"";
+        }
+
+        cmdLine = javaHome + "java " + options + " -cp " 
+                + quote + new File(tempFile, jarFileName).getAbsolutePath() + quote
                 + " de.proteinms.omxparser.tools.OmssaViewer";
 
         if (debug) {
