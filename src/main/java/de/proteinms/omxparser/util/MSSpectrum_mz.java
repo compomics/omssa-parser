@@ -23,6 +23,7 @@ package de.proteinms.omxparser.util;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * This Class stores MSSpectrum_mz specific information.
@@ -31,7 +32,7 @@ import java.util.List;
  * @author Steffen Huber
  * @author Harald Barsnes (added a way of extracting the "real" m/z value, and adding Javadoc)
  */
-public class MSSpectrum_mz {
+public class MSSpectrum_mz implements Serializable {
 
     /**
      * The list of MSSpectrum_mz_E values from the omx file.

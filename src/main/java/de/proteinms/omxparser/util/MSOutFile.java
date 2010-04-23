@@ -21,6 +21,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores MSOutFile_outfiletype specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -28,7 +30,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSOutFile {
+public class MSOutFile implements Serializable {
 
     public String MSOutFile_outfile;
     public MSOutFile_outfiletype MSOutFile_outfiletype = new MSOutFile_outfiletype();

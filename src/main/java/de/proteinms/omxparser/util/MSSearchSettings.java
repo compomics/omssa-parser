@@ -21,6 +21,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores MSSearchSettings specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -28,7 +30,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSSearchSettings {
+public class MSSearchSettings implements Serializable {
 
     public MSSearchSettings_precursorsearchtype MSSearchSettings_precursorsearchtype = new MSSearchSettings_precursorsearchtype();
     public MSSearchSettings_productsearchtype MSSearchSettings_productsearchtype = new MSSearchSettings_productsearchtype();

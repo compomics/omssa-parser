@@ -21,6 +21,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores MSResponse specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -28,7 +30,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSResponse {
+public class MSResponse implements Serializable {
 
     public MSResponse_hitsets MSResponse_hitsets = new MSResponse_hitsets();
     public int MSResponse_scale = 100; // default scale from www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd

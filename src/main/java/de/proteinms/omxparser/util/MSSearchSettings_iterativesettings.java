@@ -21,6 +21,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores MSSearchSettings_iterativesettings specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -28,7 +30,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSSearchSettings_iterativesettings {
+public class MSSearchSettings_iterativesettings implements Serializable {
 
     public MSIterativeSettings MSIterativeSettings = new MSIterativeSettings();
 

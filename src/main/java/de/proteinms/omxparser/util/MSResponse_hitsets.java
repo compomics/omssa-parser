@@ -23,6 +23,7 @@ package de.proteinms.omxparser.util;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * This Class stores MSResponse_hitsets specific information.
@@ -31,7 +32,7 @@ import java.util.List;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSResponse_hitsets {
+public class MSResponse_hitsets implements Serializable {
 
     public List<MSHitSet> MSHitSet = new LinkedList<MSHitSet>();
 

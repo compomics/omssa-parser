@@ -20,6 +20,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores MSHits specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -27,7 +29,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * @author Harald Barsnes (added a way of extracting the "real" mass values, and added Javadoc)
  */
-public class MSHits {
+public class MSHits implements Serializable {
 
     public double MSHits_evalue;
     public double MSHits_pvalue;

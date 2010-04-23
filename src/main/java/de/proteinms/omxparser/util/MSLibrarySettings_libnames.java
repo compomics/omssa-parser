@@ -22,6 +22,7 @@ package de.proteinms.omxparser.util;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * This Class stores MSLibrarySettings_libnames specific information.
@@ -30,7 +31,7 @@ import java.util.List;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSLibrarySettings_libnames {
+public class MSLibrarySettings_libnames implements Serializable {
 
     public List<String> MSLibrarySettings_libnames_E = new LinkedList<String>();
 

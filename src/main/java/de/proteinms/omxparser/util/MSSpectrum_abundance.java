@@ -23,6 +23,7 @@ package de.proteinms.omxparser.util;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * This Class stores MSSpectrum_abundance specific information.
@@ -31,7 +32,7 @@ import java.util.List;
  * @author Steffen Huber
  * @author Harald Barsnes (added a way of extracting the "real" abundance value, and added Javadoc)
  */
-public class MSSpectrum_abundance {
+public class MSSpectrum_abundance implements Serializable {
 
     /**
      * The list of MSSpectrum_abundance_E values from the omx file.

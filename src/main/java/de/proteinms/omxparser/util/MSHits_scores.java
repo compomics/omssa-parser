@@ -22,6 +22,7 @@ package de.proteinms.omxparser.util;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * This Class stores MSHits_scores specific information.
@@ -30,7 +31,7 @@ import java.util.List;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSHits_scores {
+public class MSHits_scores implements Serializable {
 
     public List<MSScoreSet> MSScoreSet = new LinkedList<MSScoreSet>();
 

@@ -23,6 +23,7 @@ package de.proteinms.omxparser.util;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * This Class stores MSSpectrum_charge specific information.
@@ -31,7 +32,7 @@ import java.util.List;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSSpectrum_charge {
+public class MSSpectrum_charge implements Serializable {
 
     public List<Integer> MSSpectrum_charge_E = new LinkedList<Integer>();
 

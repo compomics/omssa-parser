@@ -20,6 +20,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores MSIon specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -27,7 +29,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSIon {
+public class MSIon implements Serializable {
 
     public MSIon_neutralloss MSIon_neutralloss = new MSIon_neutralloss();
     public MSIon_isotope MSIon_isotope = new MSIon_isotope();

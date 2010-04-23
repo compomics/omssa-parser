@@ -21,6 +21,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores MSSpectrum specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -28,7 +30,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * @author Harald Barsnes (added Javadoc)
  */
-public class MSSpectrum {
+public class MSSpectrum implements Serializable {
 
     public int MSSpectrum_number;
     public int MSSpectrum_precursormz;
