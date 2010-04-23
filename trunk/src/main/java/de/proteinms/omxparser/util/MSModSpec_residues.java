@@ -23,6 +23,7 @@ package de.proteinms.omxparser.util;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * This Class stores MSModSpec_residues specific information.
@@ -31,7 +32,7 @@ import java.util.List;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSModSpec_residues {
+public class MSModSpec_residues implements Serializable {
 
     public List<String> MSModSpec_residues_E = new LinkedList<String>();
 

@@ -21,6 +21,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores NameValue specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -28,7 +30,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class NameValue {
+public class NameValue implements Serializable {
 
     public String NameValue_name;
     public String NameValue_value;

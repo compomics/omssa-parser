@@ -1,6 +1,7 @@
 package de.proteinms.omxparser.util;
 
 import java.util.Vector;
+import java.io.Serializable;
 
 /**
  * This class contains the details on a OMSSA modification.
@@ -9,7 +10,7 @@ import java.util.Vector;
  * 
  * Created August 2008
  */
-public class OmssaModification {
+public class OmssaModification implements Serializable {
 
     /**
      * The modification number

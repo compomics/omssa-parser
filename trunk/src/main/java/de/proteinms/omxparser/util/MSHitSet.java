@@ -20,6 +20,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores MSHitSet specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -27,7 +29,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSHitSet {
+public class MSHitSet implements Serializable {
 
     public int MSHitSet_number;
     public MSHitSet_error MSHitSet_error = new MSHitSet_error();

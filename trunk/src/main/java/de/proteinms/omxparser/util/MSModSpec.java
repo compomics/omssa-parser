@@ -21,6 +21,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores MSModSpec specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -28,7 +30,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSModSpec {
+public class MSModSpec implements Serializable {
 
     public MSModSpec_mod MSModSpec_mod = new MSModSpec_mod();
     public MSModSpec_type MSModSpec_type = new MSModSpec_type();

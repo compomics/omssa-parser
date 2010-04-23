@@ -20,6 +20,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores MSIonAnnot specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -27,7 +29,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSIonAnnot {
+public class MSIonAnnot implements Serializable {
 
     public Boolean MSIonAnnot_suspect;
     public double MSIonAnnot_massdiff;

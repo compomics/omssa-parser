@@ -23,6 +23,7 @@ package de.proteinms.omxparser.util;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * This Class stores MSSearchSettings_noprolineions specific information.
@@ -31,7 +32,7 @@ import java.util.List;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSSearchSettings_noprolineions {
+public class MSSearchSettings_noprolineions implements Serializable {
 
     public List<Integer> MSIonType = new LinkedList<Integer>();
 

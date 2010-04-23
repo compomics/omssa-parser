@@ -20,6 +20,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores MSMZHit specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -27,7 +29,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSMZHit {
+public class MSMZHit implements Serializable {
 
     public MSMZHit_ion MSMZHit_ion = new MSMZHit_ion();
     public int MSMZHit_charge;

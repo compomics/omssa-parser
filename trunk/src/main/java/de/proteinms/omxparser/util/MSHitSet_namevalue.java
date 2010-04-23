@@ -22,6 +22,7 @@ package de.proteinms.omxparser.util;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * This Class stores MSHitSet_namevalue specific information.
@@ -30,7 +31,7 @@ import java.util.List;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSHitSet_namevalue {
+public class MSHitSet_namevalue implements Serializable {
 
     public List<NameValue> NameValue = new LinkedList<NameValue>();
 

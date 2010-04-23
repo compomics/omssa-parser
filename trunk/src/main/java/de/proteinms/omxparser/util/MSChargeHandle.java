@@ -20,6 +20,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores MSChargeHandle specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -27,7 +29,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (mainly fixing the Javadoc)
  */
-public class MSChargeHandle {
+public class MSChargeHandle implements Serializable {
 
     public MSChargeHandle_calcplusone MSChargeHandle_calcplusone = new MSChargeHandle_calcplusone();
     public MSChargeHandle_calccharge MSChargeHandle_calccharge = new MSChargeHandle_calccharge();

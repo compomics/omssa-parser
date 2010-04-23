@@ -23,6 +23,7 @@ package de.proteinms.omxparser.util;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.io.Serializable;
 
 /**
  * This Class stores MSSpectrumset specific information.
@@ -31,7 +32,7 @@ import java.util.Map;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSSpectrumset {
+public class MSSpectrumset implements Serializable {
 
     public Map<Integer, MSSpectrum> MSSpectrum = new HashMap<Integer, MSSpectrum>();
 

@@ -21,6 +21,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores MSRequest_spectra specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -28,7 +30,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSRequest_spectra {
+public class MSRequest_spectra implements Serializable {
 
     public MSSpectrumset MSSpectrumset = new MSSpectrumset();
 

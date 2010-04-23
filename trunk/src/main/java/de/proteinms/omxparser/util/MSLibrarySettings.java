@@ -20,6 +20,8 @@
  */
 package de.proteinms.omxparser.util;
 
+import java.io.Serializable;
+
 /**
  * This Class stores MSLibrarySettings specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
@@ -27,7 +29,7 @@ package de.proteinms.omxparser.util;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSLibrarySettings {
+public class MSLibrarySettings implements Serializable {
 
     public MSLibrarySettings_libnames MSLibrarySettings_libnames = new MSLibrarySettings_libnames();
     public Boolean MSLibrarySettings_presearch;

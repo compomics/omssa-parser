@@ -22,6 +22,7 @@ package de.proteinms.omxparser.util;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * This Class stores MSHitSet_ids specific information.
@@ -30,7 +31,7 @@ import java.util.List;
  * @author Steffen Huber
  * Modified by: Harald Barsnes (adding Javadoc)
  */
-public class MSHitSet_ids {
+public class MSHitSet_ids implements Serializable {
 
     public List<String> MSHitSet_ids_E = new LinkedList<String>();
 

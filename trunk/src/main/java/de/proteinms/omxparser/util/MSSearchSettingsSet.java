@@ -23,13 +23,14 @@ package de.proteinms.omxparser.util;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * This Class stores MSSearchSettingsSet specific information.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
  * @author Steffen Huber
  */
-public class MSSearchSettingsSet {
+public class MSSearchSettingsSet implements Serializable {
 		public List<MSSearchSettings> MSSearchSettings=new LinkedList<MSSearchSettings>();
 		
 		public void setMSSearchSettings(MSSearchSettings s){
