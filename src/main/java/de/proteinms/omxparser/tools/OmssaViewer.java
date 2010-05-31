@@ -1,7 +1,7 @@
 package de.proteinms.omxparser.tools;
 
-import be.proteomics.util.gui.spectrum.DefaultSpectrumAnnotation;
-import be.proteomics.util.gui.spectrum.SpectrumPanel;
+import com.compomics.util.gui.spectrum.DefaultSpectrumAnnotation;
+import com.compomics.util.gui.spectrum.SpectrumPanel;
 import com.jgoodies.looks.plastic.PlasticLookAndFeel;
 import com.jgoodies.looks.plastic.PlasticXPLookAndFeel;
 import com.jgoodies.looks.plastic.theme.SkyKrupp;
