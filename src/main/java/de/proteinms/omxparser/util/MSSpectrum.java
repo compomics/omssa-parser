@@ -37,7 +37,7 @@ public class MSSpectrum implements Serializable {
     public MSSpectrum_mz MSSpectrum_mz = new MSSpectrum_mz();
     public MSSpectrum_charge MSSpectrum_charge = new MSSpectrum_charge();
     public MSSpectrum_abundance MSSpectrum_abundance = new MSSpectrum_abundance();
-    public int MSSpectrum_iscale;
+    public long MSSpectrum_iscale;
     public MSSpectrum_ids MSSpectrum_ids = new MSSpectrum_ids();
     public MSSpectrum_namevalue MSSpectrum_namevalue = new MSSpectrum_namevalue();
 
@@ -93,7 +93,7 @@ public class MSSpectrum implements Serializable {
      * @param s the MSSpectrum_iscale value as a String
      */
     public void setMSSpectrum_iscale(String s) {
-        this.MSSpectrum_iscale = Integer.valueOf(s);
+        this.MSSpectrum_iscale = Long.valueOf(s);
     }
 
     /**
