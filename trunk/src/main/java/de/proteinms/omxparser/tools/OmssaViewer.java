@@ -754,7 +754,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Spectrum"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Identifications"));
 
         modificationDetailsJLabel.setFont(modificationDetailsJLabel.getFont().deriveFont((modificationDetailsJLabel.getFont().getStyle() | java.awt.Font.ITALIC)));
 
