@@ -27,7 +27,7 @@ import java.io.Serializable;
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (mainly fixing the Javadoc)
+ * @author Harald Barsnes
  */
 public class MSChargeHandle implements Serializable {
 
@@ -39,6 +39,10 @@ public class MSChargeHandle implements Serializable {
     public double MSChargeHandle_plusone;
     public int MSChargeHandle_maxproductcharge;
     public Boolean MSChargeHandle_prodlesspre;
+    /**
+     * Negative ion search if -1, positive ion if 1.
+     */
+    public int MSChargeHandle_negative;
 
     /**
      * Sets the MSChargeHandle_prodlesspre value.
@@ -111,5 +115,15 @@ public class MSChargeHandle implements Serializable {
      */
     public void setMSChargeHandle_calcplusone(MSChargeHandle_calcplusone s) {
         this.MSChargeHandle_calcplusone = s;
+    }
+
+    /**
+     * Sets the MSChargeHandle_negative value.
+     * Negative ion search if -1, positive ion if 1.
+     *
+     * @param s the MSChargeHandle_negative value
+     */
+    public void setMSChargeHandle_negative(String s) {
+        this.MSChargeHandle_negative = Integer.valueOf(s);
     }
 }
