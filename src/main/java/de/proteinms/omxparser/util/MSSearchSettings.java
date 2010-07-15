@@ -28,7 +28,7 @@ import java.io.Serializable;
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSSearchSettings implements Serializable {
 
@@ -81,6 +81,22 @@ public class MSSearchSettings implements Serializable {
     public MSSearchSettings_noprolineions MSSearchSettings_noprolineions = new MSSearchSettings_noprolineions();
     public Boolean MSSearchSettings_reversesearch;
     public MSSearchSettings_othersettings MSSearchSettings_othersettings = new MSSearchSettings_othersettings();
+    /**
+     * Number of isotopic peaks to search when using MSSearchType multiisotope.
+     */
+    public int MSSearchSettings_numisotopes;
+    /**
+     * Search precursor as ppm.
+     */
+    public boolean MSSearchSettings_pepppm;
+    /**
+     * Search product as ppm.
+     */
+    public boolean MSSearchSettings_msmsppm;
+    /**
+     * The maximum number of hits to report per spectrum, 0=all.
+     */
+    public int MSSearchSettings_reportedhitcount;
 
     /**
      * Sets the MSSearchSettings_othersettings value.
@@ -521,5 +537,41 @@ public class MSSearchSettings implements Serializable {
      */
     public void setMSSearchSettings_msmstol(String s) {
         this.MSSearchSettings_msmstol = Double.valueOf(s);
+    }
+
+    /**
+     * Sets the MSSearchSettings_numisotopes value.
+     *
+     * @param s the MSSearchSettings_numisotopes value as a String
+     */
+    public void setMSSearchSettings_numisotopes(String s) {
+        this.MSSearchSettings_numisotopes = Integer.valueOf(s);
+    }
+
+    /**
+     * Sets the MSSearchSettings_pepppm value.
+     *
+     * @param s theMSSearchSettings_pepppm value as a String
+     */
+    public void setMSSearchSettings_pepppm(String s) {
+        this.MSSearchSettings_pepppm = Boolean.valueOf(s);
+    }
+
+    /**
+     * Sets the MSSearchSettings_msmsppm value.
+     *
+     * @param s the MSSearchSettings_msmsppm value as a String
+     */
+    public void setMSSearchSettings_msmsppm(String s) {
+        this.MSSearchSettings_msmsppm = Boolean.valueOf(s);
+    }
+
+    /**
+     * Sets the MSSearchSettings_reportedhitcount value.
+     *
+     * @param s the MSSearchSettings_reportedhitcount value as a String
+     */
+    public void setMSSearchSettings_reportedhitcount(String s) {
+        this.MSSearchSettings_reportedhitcount = Integer.valueOf(s);
     }
 }
