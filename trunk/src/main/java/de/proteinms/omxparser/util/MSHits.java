@@ -23,28 +23,76 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSHits specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
- * 
+ * Hits to a given spectrum.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
+ *
  * @author Steffen Huber
- * @author Harald Barsnes (added a way of extracting the "real" mass values, and added Javadoc)
+ * @author Harald Barsnes
  */
 public class MSHits implements Serializable {
 
+    /**
+     * E-value (expect value).
+     */
     public double MSHits_evalue;
+    /**
+     * P-value (probability value).
+     */
     public double MSHits_pvalue;
+    /**
+     * The charge state used in search.  -1 == not +1.
+     */
     public int MSHits_charge;
+    /**
+     * Peptides that match this hit.
+     */
     public MSHits_pephits MSHits_pephits = new MSHits_pephits();
+    /**
+     * Ions hits.
+     */
     public MSHits_mzhits MSHits_mzhits = new MSHits_mzhits();
+    /**
+     * The peptide sequence.
+     */
     public String MSHits_pepstring;
+    /**
+     * Scaled experimental mass of peptide in Da.
+     */
     public int MSHits_mass;
+    /**
+     * Modifications to sequence.
+     */
     public MSHits_mods MSHits_mods = new MSHits_mods();
+    /**
+     * AA before the peptide (depricated).
+     */
     public String MSHits_pepstart;
+    /**
+     * AA after the peptide (depricated).
+     */
     public String MSHits_pepstop;
+    /**
+     * Length of protein hit (depricated).
+     */
     public int MSHits_protlength;
+    /**
+     * Scaled theoretical mass of peptide hit.
+     */
     public int MSHits_theomass;
+    /**
+     * Blast library oid (depricated).
+     */
     public int MSHits_oid;
+    /**
+     * Optional scores (for library search).
+     */
     public MSHits_scores MSHits_scores = new MSHits_scores();
+    /**
+     * Library search accesssion.
+     */
     public String MSHits_libaccession;
 
     /**

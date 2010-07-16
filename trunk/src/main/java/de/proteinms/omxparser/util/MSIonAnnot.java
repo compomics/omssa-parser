@@ -23,16 +23,28 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSIonAnnot specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * Annotated comments about the ion.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSIonAnnot implements Serializable {
 
+    /**
+     * Is this peak suspect?
+     */
     public Boolean MSIonAnnot_suspect;
+    /**
+     * What is the difference in mass from library spectrum?
+     */
     public double MSIonAnnot_massdiff;
+    /**
+     * Are the lower mass peaks missing?
+     */
     public Boolean MSIonAnnot_missingisotope;
 
     /**

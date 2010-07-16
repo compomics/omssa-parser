@@ -24,21 +24,51 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSResponse specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * Search results.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSResponse implements Serializable {
 
+    /**
+     * Hits grouped by spectrum.
+     */
     public MSResponse_hitsets MSResponse_hitsets = new MSResponse_hitsets();
+    /**
+     * Scale to change m/z float to integer.
+     */
     public int MSResponse_scale = 100; // default scale from www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd
+    /**
+     * Request id.
+     */
     public String MSResponse_rid;
+    /**
+     * Error response.
+     */
     public MSResponse_error MSResponse_error = new MSResponse_error();
+    /**
+     * Version of OMSSA.
+     */
     public String MSResponse_version;
+    /**
+     * E-mail address for notification.
+     */
     public String MSResponse_email;
+    /**
+     * Version of db searched (usually size).
+     */
     public int MSResponse_dbversion;
+    /**
+     * Sequences found in search.
+     *
+     * @TODO: This element references the Bioseq module FROM NCBI-Sequence.
+     */
+    public String MSResponse_bioseqs = "References Bioseq module FROM NCBI-Sequence! Currently not supported";
     //public MSResponse_bioseqs MSResponse_bioseqs = new MSResponse_bioseqs();
 
     /**

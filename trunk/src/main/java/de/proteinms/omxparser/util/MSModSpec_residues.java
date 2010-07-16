@@ -26,14 +26,20 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This Class stores MSModSpec_residues specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * List of residues the modification is to be applied to.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSModSpec_residues implements Serializable {
 
+    /**
+     * List of residues the modification is to be applied to.
+     */
     public List<String> MSModSpec_residues_E = new LinkedList<String>();
 
     /**

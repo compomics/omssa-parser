@@ -24,21 +24,48 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSSpectrum specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * Holds a single spectrum.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * @author Harald Barsnes (added Javadoc)
+ * @author Harald Barsnes
  */
 public class MSSpectrum implements Serializable {
 
+    /**
+     * Number of unique spectra.
+     */
     public int MSSpectrum_number;
+    /**
+     * Scaled precursor m/z, scale is in MSSearchSettings.
+     */
     public int MSSpectrum_precursormz;
+    /**
+     * Scaled product m/z.
+     */
     public MSSpectrum_mz MSSpectrum_mz = new MSSpectrum_mz();
+    /**
+     * Spectrum charge. May be more than one if unknown.
+     */
     public MSSpectrum_charge MSSpectrum_charge = new MSSpectrum_charge();
+    /**
+     * Scaled product abundance.
+     */
     public MSSpectrum_abundance MSSpectrum_abundance = new MSSpectrum_abundance();
+    /**
+     * Abundance scale, float to integer.
+     */
     public long MSSpectrum_iscale;
+    /**
+     * IDs/filenames.
+     */
     public MSSpectrum_ids MSSpectrum_ids = new MSSpectrum_ids();
+    /**
+     * Extra info: retention times, etc.
+     */
     public MSSpectrum_namevalue MSSpectrum_namevalue = new MSSpectrum_namevalue();
 
 

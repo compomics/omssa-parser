@@ -24,15 +24,22 @@ import java.io.Serializable;
 
 /**
  * This Class stores MSChargeHandle_calccharge specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (fixing the Javadoc)
+ * @author Harald Barsnes
  */
 public class MSChargeHandle_calccharge implements Serializable {
 
     /**
-     * This Integer stores how to handle charges.
+     * User instructions on whether to believe charges in input file.
+     * <br><br>
+     * 0 - calculate - guess the charge(s) from the data<br>
+     * 1 - usefile - use what the input file says<br>
+     * 2 - userange - use the charge range specified
      */
     public Integer MSCalcCharge;
 

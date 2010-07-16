@@ -26,14 +26,20 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This Class stores MSSearch_response specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * The search results.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSSearch_response implements Serializable {
 
+    /**
+     * List of all the search results.
+     */
     public List<MSResponse> MSResponse = new LinkedList<MSResponse>();
 
     /**

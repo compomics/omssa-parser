@@ -23,18 +23,36 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSLibrarySettings specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * Library search settings.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSLibrarySettings implements Serializable {
 
+    /**
+     * Names of search libraries.
+     */
     public MSLibrarySettings_libnames MSLibrarySettings_libnames = new MSLibrarySettings_libnames();
+    /**
+     * should there be a restriction on precursor mass?
+     */
     public Boolean MSLibrarySettings_presearch;
+    /**
+     * Use the omssa score?
+     */
     public Boolean MSLibrarySettings_useomssascore;
+    /**
+     * Use the number of replicates score?
+     */
     public Boolean MSLibrarySettings_usereplicatescore;
+    /**
+     * Use the qtof score?
+     */
     public Boolean MSLibrarySettings_qtofscore;
 
     /**
