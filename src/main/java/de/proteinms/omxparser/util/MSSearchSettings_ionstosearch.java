@@ -26,14 +26,22 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This Class stores MSSearchSettings_ionstosearch specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * List of ion types to search for.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSSearchSettings_ionstosearch implements Serializable {
 
+    /**
+     * List of ion types to search for.
+     * <br><br>
+     * Hint: To get the ion type as text use the OmssaEnumerators class.
+     */
     public List<Integer> MSIonType = new LinkedList<Integer>();
 
     /**

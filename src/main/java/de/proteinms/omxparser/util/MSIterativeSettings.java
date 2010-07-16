@@ -23,16 +23,28 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSIterativeSettings specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * Iterative search settings.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSIterativeSettings implements Serializable {
 
+    /**
+     * E-value threshold for re-searching spectra, 0 = always re-search.
+     */
     public double MSIterativeSettings_researchthresh;
+    /**
+     * E-value threshold for picking sequence subset, 0 = all sequences.
+     */
     public double MSIterativeSettings_subsetthresh;
+    /**
+     * E-value threshold for replacing hitset, 0 = only if.
+     */
     public double MSIterativeSettings_replacethresh;
 
     /**

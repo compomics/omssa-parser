@@ -24,18 +24,36 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSRequest specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * The search request that is given to the OMSSA algorithm.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSRequest implements Serializable {
 
+    /**
+     * The set of spectra.
+     */
     public MSRequest_spectra MSRequest_spectra = new MSRequest_spectra();
+    /**
+     * The search settings.
+     */
     public MSRequest_settings MSRequest_settings = new MSRequest_settings();
+    /**
+     * Request ID.
+     */
     public String MSRequest_rid;
+    /**
+     * Additional search runs.
+     */
     public MSRequest_moresettings MSRequest_moresettings = new MSRequest_moresettings();
+    /**
+     * List of modificatinos that can be used in search.
+     */
     public MSRequest_modset MSRequest_modset = new MSRequest_modset();
 
     /**

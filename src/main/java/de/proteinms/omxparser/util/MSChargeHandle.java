@@ -23,21 +23,48 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSChargeHandle specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * How to handle charges.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
  * @author Harald Barsnes
  */
 public class MSChargeHandle implements Serializable {
 
+    /**
+     * Do we guess charge one?
+     */
     public MSChargeHandle_calcplusone MSChargeHandle_calcplusone = new MSChargeHandle_calcplusone();
+    /**
+     * How do we handle charges?
+     */
     public MSChargeHandle_calccharge MSChargeHandle_calccharge = new MSChargeHandle_calccharge();
+    /**
+     * If userange, what is the min?
+     */
     public int MSChargeHandle_mincharge;
+    /**
+     * If userange, what is the max?
+     */
     public int MSChargeHandle_maxcharge;
+    /**
+     * At which precursor charge to consider +2 ions?
+     */
     public int MSChargeHandle_considermult;
+    /**
+     * What % of peaks below precursor needed to call as +1.
+     */
     public double MSChargeHandle_plusone;
+    /**
+     * Maximum product ion charge.
+     */
     public int MSChargeHandle_maxproductcharge;
+    /**
+     * Product charge always less thanor equal to precursor?
+     */
     public Boolean MSChargeHandle_prodlesspre;
     /**
      * Negative ion search if -1, positive ion if 1.
@@ -46,7 +73,6 @@ public class MSChargeHandle implements Serializable {
 
     /**
      * Sets the MSChargeHandle_prodlesspre value.
-     * (to check: prodlesspre Syntax correct?)
      *
      * @param s the MSChargeHandle_prodlesspre value
      */

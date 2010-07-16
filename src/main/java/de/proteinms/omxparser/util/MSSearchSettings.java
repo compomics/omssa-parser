@@ -24,62 +24,214 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSSearchSettings specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * Generic search settings.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
  * @author Harald Barsnes
  */
 public class MSSearchSettings implements Serializable {
 
+    /**
+     * Precursor ion type.
+     */
     public MSSearchSettings_precursorsearchtype MSSearchSettings_precursorsearchtype = new MSSearchSettings_precursorsearchtype();
+    /**
+     * Product ion type.
+     */
     public MSSearchSettings_productsearchtype MSSearchSettings_productsearchtype = new MSSearchSettings_productsearchtype();
+    /**
+     * Which ions to search?
+     */
     public MSSearchSettings_ionstosearch MSSearchSettings_ionstosearch = new MSSearchSettings_ionstosearch();
+    /**
+     * Peptide mass tolerance.
+     */
     public double MSSearchSettings_peptol;
+    /**
+     * MSMS mass tolerance.
+     */
     public double MSSearchSettings_msmstol;
+    /**
+     * What is the charge dependence of the mass tolerance?
+     */
     public MSSearchSettings_zdep MSSearchSettings_zdep = new MSSearchSettings_zdep();
+    /**
+     * Intensity fraction below which peaks will be discard.
+     */
     public double MSSearchSettings_cutoff;
+    /**
+     * The start of the cutoff, fraction of most intense peak.
+     * Intensity fraction below which peaks will be discard.
+     */
     public double MSSearchSettings_cutlo;
+    /**
+     * The end of the cutoff.
+     * Intensity fraction below which peaks will be discard.
+     */
     public double MSSearchSettings_cuthi;
+    /**
+     * The increment of the cutoff.
+     */
     public double MSSearchSettings_cutinc;
+    /**
+     * The size of the single charge filtering window.
+     */
     public int MSSearchSettings_singlewin;
+    /**
+     * The size of the double charge filtering window.
+     */
     public int MSSearchSettings_doublewin;
+    /**
+     * The number of peaks allowed in the single window.
+     */
     public int MSSearchSettings_singlenum;
+    /**
+     * The number of peaks allowed in the double window.
+     */
     public int MSSearchSettings_doublenum;
+    /**
+     * Fixed PTMs.
+     */
     public MSSearchSettings_fixed MSSearchSettings_fixed = new MSSearchSettings_fixed();
+    /**
+     * Variable PTMs.
+     */
     public MSSearchSettings_variable MSSearchSettings_variable = new MSSearchSettings_variable();
+    /**
+     * Digestion enzyme.
+     */
     public MSSearchSettings_enzyme MSSearchSettings_enzyme = new MSSearchSettings_enzyme();
+    /**
+     * Number of missed cleaves allowed.
+     */
     public int MSSearchSettings_missedcleave;
+    /**
+     * The number of hits kept in memory for a spectrum.
+     */
     public int MSSearchSettings_hitlistlen;
+    /**
+     * Sequence set to search, e.g. "nr".
+     */
     public String MSSearchSettings_db;
+    /**
+     * Number of m/z to consider in first pass.
+     */
     public int MSSearchSettings_tophitnum;
+    /**
+     * Minimum number of m/z values for a valid hit.
+     */
     public int MSSearchSettings_minhit;
+    /**
+     * Minimum number of m/z for a valid spectra.
+     */
     public int MSSearchSettings_minspectra;
+    /**
+     * Scale for m/z float to integer.
+     */
     public int MSSearchSettings_scale;
+    /**
+     * Maximum number of mass ladders per database peptide.
+     */
     public int MSSearchSettings_maxmods;
+    /**
+     * Taxonomy ids to limit search.
+     */
     public MSSearchSettings_taxids MSSearchSettings_taxids = new MSSearchSettings_taxids();
+    /**
+     * How to deal with charges.
+     */
     public MSSearchSettings_chargehandling MSSearchSettings_chargehandling = new MSSearchSettings_chargehandling();
+    /**
+     * User defined modifications.
+     */
     public MSSearchSettings_usermods MSSearchSettings_usermods = new MSSearchSettings_usermods();
+    /**
+     * Minimum number of counts per precursor bin.
+     */
     public int MSSearchSettings_pseudocount;
+    /**
+     * Should b1 product be in search (1=no, 0=yes).
+     */
     public int MSSearchSettings_searchb1;
+    /**
+     * Should c terminus ion be searched (1=no, 0=yes).
+     */
     public int MSSearchSettings_searchctermproduct;
+    /**
+     * Max number of ions in each series (0=all).
+     */
     public int MSSearchSettings_maxproductions;
+    /**
+     * Min number of AA in peptide for noenzyme search.
+     */
     public int MSSearchSettings_minnoenzyme;
+    /**
+     * Max number of AA in peptide for noenzyme search (0=none).
+     */
     public int MSSearchSettings_maxnoenzyme;
+    /**
+     * The threshold in Da for adding neutron.
+     */
     public double MSSearchSettings_exactmass;
+    /**
+     * ID of the search settings.
+     */
     public int MSSearchSettings_settingid;
+    /**
+     * Iterative search settings.
+     */
     public MSSearchSettings_iterativesettings MSSearchSettings_iterativesettings = new MSSearchSettings_iterativesettings();
+    /**
+     * Turn on aggressive precursor culling for ETD (0=none).
+     */
     public int MSSearchSettings_precursorcull;
+    /**
+     * Input files.
+     */
     public MSSearchSettings_infiles MSSearchSettings_infiles = new MSSearchSettings_infiles();
+    /**
+     * Output files.
+     */
     public MSSearchSettings_outfiles MSSearchSettings_outfiles = new MSSearchSettings_outfiles();
+    /**
+     * Turn on correlation score (1=nocorr).
+     */
     public int MSSearchSettings_nocorrelationscore;
+    /**
+     * Probability of a consecutive ion (used in correlation).
+     */
     public double MSSearchSettings_probfollowingion;
+    /**
+     * Should nmethionine be cleaved?
+     */
     public Boolean MSSearchSettings_nmethionine;
+    /**
+     * Fraction allowable adjustment of product mass tolerance.
+     */
     public double MSSearchSettings_automassadjust;
+    /**
+     * Low mass filter in Daltons, unscaled.
+     */
     public double MSSearchSettings_lomasscutoff;
+    /**
+     * Library search settings.
+     */
     public MSSearchSettings_libsearchsettings MSSearchSettings_libsearchsettings = new MSSearchSettings_libsearchsettings();
+    /**
+     * Which ions to use no proline rule.
+     */
     public MSSearchSettings_noprolineions MSSearchSettings_noprolineions = new MSSearchSettings_noprolineions();
+    /**
+     * Do reverse search.
+     */
     public Boolean MSSearchSettings_reversesearch;
+    /**
+     * Extra search settings.
+     */
     public MSSearchSettings_othersettings MSSearchSettings_othersettings = new MSSearchSettings_othersettings();
     /**
      * Number of isotopic peaks to search when using MSSearchType multiisotope.

@@ -23,14 +23,22 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSMZHit_ion specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * Ion type, e.g. b.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSMZHit_ion implements Serializable {
 
+    /**
+     * Ion type, e.g. b.
+     * <br><br>
+     * Hint: To get the ion type as text use the OmssaEnumerators class.
+     */
     public int MSIonType;
 
     /**

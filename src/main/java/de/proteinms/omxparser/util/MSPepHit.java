@@ -24,11 +24,14 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSPepHit specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * Contains information about sequences with identical peptide sequences.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSPepHit implements Serializable {
 
@@ -42,13 +45,37 @@ public class MSPepHit implements Serializable {
      * NB: The indexing starts at 0, not at 1.
      */
     public int MSPepHit_stop;
+    /**
+     * Genbank identifier.
+     */
     public int MSPepHit_gi;
+    /**
+     * Sequence accession.
+     */
     public String MSPepHit_accession;
+    /**
+     * Sequence description.
+     */
     public String MSPepHit_defline;
+    /**
+     * Length of protein.
+     */
     public int MSPepHit_protlength;
+    /**
+     * Blast library oid.
+     */
     public int MSPepHit_oid;
+    /**
+     * Reversed sequence.
+     */
     public Boolean MSPepHit_reversed;
+    /**
+     * AA before the peptide.
+     */
     public String MSPepHit_pepstart;
+    /**
+     * AA after the peptide.
+     */
     public String MSPepHit_pepstop;
 
     /**

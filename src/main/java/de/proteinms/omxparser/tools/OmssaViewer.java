@@ -12,6 +12,7 @@ import de.proteinms.omxparser.util.MSMZHit;
 import de.proteinms.omxparser.util.MSModHit;
 import de.proteinms.omxparser.util.MSPepHit;
 import de.proteinms.omxparser.util.MSSpectrum;
+import de.proteinms.omxparser.util.OmssaEnumerators;
 import de.proteinms.omxparser.util.OmssaModification;
 import java.awt.Color;
 import java.awt.Toolkit;

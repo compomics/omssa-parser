@@ -24,16 +24,28 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSMassSet specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * Mass container.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSMassSet implements Serializable {
 
+    /**
+     * The MSMassSet_monomass value.
+     */
     public double MSMassSet_monomass;
+    /**
+     * The MSMassSet_averagemass value.
+     */
     public double MSMassSet_averagemass;
+    /**
+     * The MSMassSet_n15mass value.
+     */
     public double MSMassSet_n15mass;
 
     /**

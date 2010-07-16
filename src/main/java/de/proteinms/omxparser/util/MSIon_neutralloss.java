@@ -23,14 +23,25 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSIon_neutralloss specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * Types of neutral loss.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSIon_neutralloss implements Serializable {
 
+    /**
+     * The neutral loss type.<br><br>
+     * 0 - water - minus 18 Da<br>
+     * 1 - ammonia - minus 17 Da<br>
+     * -1 - no neutral loss<br>
+     * <br>
+     * Hint: To get the neutral loss as text use the OmssaEnumerators class.
+     */
     public int MSIonNeutralLoss = -1;
 
     /**

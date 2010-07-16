@@ -26,14 +26,21 @@ import java.util.Map;
 import java.io.Serializable;
 
 /**
- * This Class stores MSSpectrumset specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * Holds a set of spectra.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSSpectrumset implements Serializable {
 
+    /**
+     * A map containting the set of spectra. The key is the index number of the
+     * spectrum and the value is the MSSpectrum.
+     */
     public Map<Integer, MSSpectrum> MSSpectrum = new HashMap<Integer, MSSpectrum>();
 
     /**

@@ -26,14 +26,28 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This Class stores MSSearchSettingsSet specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * The set of MS search settings.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
+ *
  * @author Steffen Huber
+ * @author Harald Barsnes
  */
 public class MSSearchSettingsSet implements Serializable {
-		public List<MSSearchSettings> MSSearchSettings=new LinkedList<MSSearchSettings>();
-		
-		public void setMSSearchSettings(MSSearchSettings s){
-			MSSearchSettings.add(s);
-		}
+
+    /**
+     * The list of MS search settings.
+     */
+    public List<MSSearchSettings> MSSearchSettings = new LinkedList<MSSearchSettings>();
+
+    /**
+     * Set the MS search settings.
+     *
+     * @param s the MS search settings to set
+     */
+    public void setMSSearchSettings(MSSearchSettings s) {
+        MSSearchSettings.add(s);
+    }
 }

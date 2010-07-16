@@ -25,7 +25,7 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This Class stores MSHits_pephits specific information.
+ * Peptides that match this hit.
  * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
  *
  * @author Steffen Huber
@@ -33,6 +33,9 @@ import java.io.Serializable;
  */
 public class MSHits_pephits implements Serializable {
 
+    /**
+     * List of peptides that match this hit.
+     */
     public List<MSPepHit> MSPepHit = new LinkedList<MSPepHit>();
 
     /**

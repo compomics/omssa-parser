@@ -24,13 +24,24 @@ import java.io.Serializable;
 
 /**
  * This Class stores MSChargeHandle_calcplusone specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSChargeHandle_calcplusone implements Serializable {
 
+    /**
+     * How is charge to be handled?  Some input files are not clear
+     * on this.  For example, a dta file only specifies one charge,
+     * even though the charge is not really known.
+     * <br><br>
+     * 0: don't guess charge one<br>
+     * 1: guess charge one
+     */
     public Integer MSCalcPlusOne;
 
     /**

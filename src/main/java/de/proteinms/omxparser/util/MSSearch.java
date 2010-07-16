@@ -24,15 +24,24 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSSearch specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * Holds both search requests and results.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSSearch implements Serializable {
 
+    /**
+     * The search requests.
+     */
     public MSSearch_request MSSearch_request = new MSSearch_request();
+    /**
+     * The search results.
+     */
     public MSSearch_response MSSearch_response = new MSSearch_response();
 
     /**

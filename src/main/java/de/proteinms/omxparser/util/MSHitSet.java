@@ -23,20 +23,44 @@ package de.proteinms.omxparser.util;
 import java.io.Serializable;
 
 /**
- * This Class stores MSHitSet specific information.
- * <br>Please read "OMSSA.mod.dtd" and "OMSSA.xsd" for further information.
+ * Contains a set of hits to a single spectrum.
+ * <br><br>
+ * Please see "OMSSA.mod.xsd" for further information:
+ * <br><br>
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
- * Modified by: Harald Barsnes (adding Javadoc)
+ * @author Harald Barsnes
  */
 public class MSHitSet implements Serializable {
 
+    /**
+     * Unique number of spectrum.
+     */
     public int MSHitSet_number;
+    /**
+     * Error, if any.
+     */
     public MSHitSet_error MSHitSet_error = new MSHitSet_error();
+    /**
+     * Set of hits to spectrum.
+     */
     public MSHitSet_hits MSHitSet_hits = new MSHitSet_hits();
+    /**
+     * Filenames or other ids of spectra searched.
+     */
     public MSHitSet_ids MSHitSet_ids = new MSHitSet_ids();
+    /**
+     * Extra info: retention times, etc.
+     */
     public MSHitSet_namevalue MSHitSet_namevalue = new MSHitSet_namevalue();
+    /**
+     * ID of the search setting used.
+     */
     public int MSHitSet_settingid;
+    /**
+     * Allows users to flag certain sets.
+     */
     public MSHitSet_userannotation MSHitSet_userannotation = new MSHitSet_userannotation();
 
     /**
