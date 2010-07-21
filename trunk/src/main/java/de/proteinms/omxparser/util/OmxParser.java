@@ -49,13 +49,14 @@ import org.w3c.dom.NodeList;
  * (in this case XPP3/MXP1).
  * <br><br>
  * It stores the information from the specified Omx File into the Attribute "parserResult"<br>
- * The information structure is very similar to the XML structure defined in "OMSSA.xsd"
+ * The information structure is very similar to the XML structure defined in "OMSSA.xsd".
+ * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>.
  * <br><br>
  * Every originally XML Tag is now represented as a name-corresponding Object, except<br>
  * the XML Tags which hold information, they are represented by an Attribute inside<br> the corresponding Object.
  * 
  * @author Steffen Huber
- * <br>Modified by: Harald Barsnes (adding modification support and extending Javadoc)
+ * @author  Harald Barsnes
  */
 public class OmxParser {
 
