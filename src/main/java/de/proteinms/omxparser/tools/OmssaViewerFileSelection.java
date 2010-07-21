@@ -16,8 +16,8 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
     /**
      * The last selected folder. Defaults to user.home.
      */
-    String lastSelectedFolder = "user.home";
-    Frame parent;
+    private String lastSelectedFolder = "user.home";
+    private Frame parent;
 
     /**
      * Creates new OmssaViewerFileSelection dialog and makes it visible.

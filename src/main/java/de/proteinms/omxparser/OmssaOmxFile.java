@@ -51,24 +51,49 @@ public class OmssaOmxFile {
      */
     private static Logger logger = Logger.getLogger(OmssaOmxFile.class);
     /**
-     * This HashMap contains pairs of (MSSpectrum,MSHitSet) <br>
-     * It returns the corresponding MSHitSet for a specific MSSpectrum <br>
-     *
-     * @param key MSSpectrum
-     * @param value MSHitSet
+     * A HashMap where every Spectrum (key) is allocated to the corresponding HitSet (value).
+     * This HashMap is a good basis for searching specific information.
      */
     private HashMap<MSSpectrum, MSHitSet> spectrumToHitSetMap = new HashMap<MSSpectrum, MSHitSet>();
+    /**
+     * Returns a HashMap where every Spectrum (key) is allocated to the corresponding found Peptides.
+     * <br><br>Note: In this HashMap the Peptides are only represented through their sequences which
+     * are stored as a HashSet of Strings. For further information about the Peptide ("at what position
+     * in the corresponding protein does the Peptide start/end?") you´ll need to search in the MSPepHit
+     * object.
+     */
     private HashMap<MSSpectrum, HashSet<String>> spectrumToPeptideMap = new HashMap<MSSpectrum, HashSet<String>>();
+    /**
+     * A HashMap where every Peptide (represented by the sequence) is allocated
+     * to the corresponding Spectra.
+     */
     private HashMap<String, LinkedList<MSSpectrum>> peptideToSpectrumMap = new HashMap<String, LinkedList<MSSpectrum>>();
+    /**
+     * A HashMap where every Peptide (represented by the sequence) is allocated
+     * to the corresponding proteins (in most cases only one Protein).
+     * <br><br>Note: In this case the Proteins are represented by a MSPepHit object. This
+     * object stores among other things the position of the Peptide in the Protein.
+     */
     private HashMap<String, LinkedList<MSPepHit>> peptideToProteinMap = new HashMap<String, LinkedList<MSPepHit>>();
+    /**
+     * A HashMap where every Protein (represented by its accession) is allocated to the corresponding
+     * Peptides (represented by their sequence), found by the omssa algorithm.
+     */
     private HashMap<String, LinkedList<String>> proteinToPeptideMap = new HashMap<String, LinkedList<String>>();
+    /**
+     * The search result object.
+     */
     private MSSearch parserResult;
+    /**
+     * A reference to the OmxParser object.
+     */
     private OmxParser parser;
 
     /**
-     * Returns ALL data from the original Omx file gathered by the OmxParser as a MSSearch object.
+     * Returns ALL data from the original OMX file gathered by the OmxParser as a MSSearch object.
      * <br><br>Note: To understand the structure of the MSSearch and child objects it is very helpful 
-     * to read "OMSSA.mod.dtd" and "OMSSA.xsd"
+     * to read 
+     * <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
      *
      * @return MSSearch
      */
@@ -142,9 +167,6 @@ public class OmssaOmxFile {
      */
     public OmssaOmxFile(String omxFile, String modsFile, String userModsFile) {
 
-//        System.out.println("Start");
-//        long a = System.currentTimeMillis();
-
         parser = new OmxParser(omxFile, modsFile, userModsFile);
         parserResult = parser.parserResult;
 
@@ -158,11 +180,6 @@ public class OmssaOmxFile {
         processProteineToPeptideMap(parserResult);
 
         logger.debug("parsing completed");
-
-//        long b = System.currentTimeMillis();
-//        System.out.println((b - a));
-//        System.out.println(((double) (b - a) / 1000));
-//        System.out.println("Done.");
     }
 
     /**

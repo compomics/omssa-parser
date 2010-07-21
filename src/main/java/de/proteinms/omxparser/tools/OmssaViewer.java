@@ -64,6 +64,9 @@ public class OmssaViewer extends javax.swing.JFrame {
     private Vector spectrumJXTableColumnToolTips;
     private Vector identificationsJXTableColumnToolTips;
     private HashMap<String, Vector<DefaultSpectrumAnnotation>> allAnnotations;
+    /**
+     * The hardcoded mass of a hydrogen atom.
+     */
     public final double HYDROGEN_MASS = 1.00794;
     /**
      * The MSSearchSettings_msmstol used in the omx file
