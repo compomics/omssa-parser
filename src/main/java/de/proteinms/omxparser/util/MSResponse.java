@@ -64,11 +64,11 @@ public class MSResponse implements Serializable {
      */
     public int MSResponse_dbversion;
     /**
-     * Sequences found in search.
+     * Sequences found in search. NB: References Bioseq module FROM NCBI-Sequence! Currently not supported.
      *
      * @TODO: This element references the Bioseq module FROM NCBI-Sequence.
      */
-    public String MSResponse_bioseqs = "References Bioseq module FROM NCBI-Sequence! Currently not supported";
+    public String MSResponse_bioseqs = "References Bioseq module FROM NCBI-Sequence! Currently not supported.";
     //public MSResponse_bioseqs MSResponse_bioseqs = new MSResponse_bioseqs();
 
     /**
