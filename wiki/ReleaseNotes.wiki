@@ -3,10 +3,17 @@
 
 ----
 
+*Changes in omssa-parser 1.4.1 (September. 2010):*
+ * FEATURE IMPROVEMENT: Export option now includes spectral filenames (or [not available] if not specified).
+
+----
+
 *Changes in omssa-parser 1.4 (July 16. 2010):*
  * NEW FEATURE: OMSSA Parser has been extended to support OMSSA 2.1.9.
  * NEW FEATURE: All variables corresponding to XML tags in the OMSSA.mod.xsd file are now annotated with Javadoc based on the annotation used in the OMSSA.mod.xsd file.
  * NEW FEATURE: Mappings of all enumerations used in the OMSSA.mod.xsd file (see OmssaEnumerators.java) has been implemented, making it possible to map an integer ID to the corresponding text description.
+
+Download count: 15
 
 ----
 
