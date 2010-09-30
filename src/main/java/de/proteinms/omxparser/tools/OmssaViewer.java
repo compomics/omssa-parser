@@ -1590,8 +1590,10 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                 // add the column headers
                 for (int j = 0; j < identificationsJXTable.getColumnCount() - 1; j++) {
-
-                    if (j == 2) {
+                    if(j == 0) {
+                        f.write("Spectrum number\t");
+                        f.write("Spectrum name\t");
+                    } else if (j == 2) {
                         f.write("Modified Sequence" + "\t");
                         f.write("Ion Coverage" + "\t");
                     } else {
@@ -1871,7 +1873,14 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                             MSPepHit tempPepHit = pepHitIterator.next();
 
+                            MSSpectrum tempSpectrum = spectra.get(new Integer(msHitSet.MSHitSet_number));
+                            String filename = "[no filename specified]";
+                            if (tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.size() != 0) {
+                                filename = tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.get(0);
+                            }
+
                             f.write(msHitSet.MSHitSet_number + "\t" +
+                                    filename + "\t" +
                                     sequence + "\t" +
                                     modifiedSequence + "\t" +
                                     modifiedSequenceColorCoded + "\t" +
