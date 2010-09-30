@@ -4,7 +4,7 @@
 ----
 
 *Changes in omssa-parser 1.4.1 (September 30. 2010):*
- * FEATURE IMPROVEMENT: Export option now includes spectral filenames (or [not available] if not specified).
+ * FEATURE IMPROVEMENT: Export option now includes spectral filenames (or ´not available´ if not specified).
 
 ----
 
