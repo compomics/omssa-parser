@@ -3,8 +3,17 @@
 
 ----
 
+*Changes in omssa-parser 1.4.2 (December 5. 2010):*
+ * FEATURE IMPROVEMENT: Made some minor GUI changes to the viewer.
+ * BUG FIX: Fixed an index bug in Spectrum to HitSetMap that occurred if not all spectrum indices were used.
+ * LIBRARY UPDATE: utilities library to version 3.0.30.
+
+----
+
 *Changes in omssa-parser 1.4.1 (September 30. 2010):*
  * FEATURE IMPROVEMENT: Export option now includes spectral filenames (or ´not available´ if not specified).
+
+Download count: 30
 
 ----
 
