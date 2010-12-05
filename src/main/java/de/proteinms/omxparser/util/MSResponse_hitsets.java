@@ -21,9 +21,9 @@
  */
 package de.proteinms.omxparser.util;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Hits grouped by spectrum.
@@ -38,16 +38,17 @@ import java.io.Serializable;
 public class MSResponse_hitsets implements Serializable {
 
     /**
-     * List of hits grouped by spectrum.
+     * A map containting the hits for each spectrum. The key is the index number of the
+     * hits and the value is the MSHitSet.
      */
-    public List<MSHitSet> MSHitSet = new LinkedList<MSHitSet>();
+    public Map<Integer, MSHitSet> MSHitSet = new HashMap<Integer, MSHitSet>();
 
     /**
-     * Add a MSHitSet element to the MSHitSet list.
+     * Add a MSHitSet element to the MSHitSet map.
      * 
      * @param s a MSHitSet
      */
     public void setMSHitSet(MSHitSet s) {
-        this.MSHitSet.add(s);
+        this.MSHitSet.put(s.MSHitSet_number, s);
     }
 }

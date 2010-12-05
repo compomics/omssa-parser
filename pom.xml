@@ -12,7 +12,7 @@
 
     <!-- Set the version number for the whole project -->
     <properties>
-        <version.number>1.4.1</version.number>
+        <version.number>1.4.2</version.number>
     </properties>
 
 
@@ -74,22 +74,28 @@
                 <configuration>
                     <source>1.5</source>
                     <target>1.5</target>
+                    <showDeprecation>true</showDeprecation>
+                    <debug>true</debug>
                 </configuration>
             </plugin>
 
-            <!-- Javadoc plugin -->
-            <!--<plugin>
+            <!-- Jar plugin -->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>-->
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <mainClass>de.proteinms.omxparser.tools.OmssaViewerWrapper</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib</classpathPrefix>
+                        </manifest>
+                    </archive>
+                    <outputDirectory>${project.build.directory}/${project.name}-${project.version}/</outputDirectory>
+                </configuration>
+            </plugin>
 
             <!-- Dependency plugin -->
             <plugin>
@@ -106,26 +112,10 @@
                             <outputDirectory>${project.build.directory}/${project.name}-${project.version}/lib</outputDirectory>
                             <overWriteReleases>true</overWriteReleases>
                             <overWriteSnapshots>true</overWriteSnapshots>
-                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <excludeTransitive>false</excludeTransitive>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-
-            <!-- Jar plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>de.proteinms.omxparser.tools.OmssaViewerWrapper</mainClass>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib</classpathPrefix>
-                        </manifest>
-                    </archive>
-                    <outputDirectory>${project.build.directory}/${project.name}-${project.version}/</outputDirectory>
-                </configuration>
             </plugin>
 
             <!-- Resources plugin -->
@@ -165,6 +155,20 @@
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
                     <execution>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
+
+            <!-- Javadoc plugin -->
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
@@ -235,11 +239,6 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.compomics</groupId>
-            <artifactId>utilities</artifactId>
-            <version>3.0.9</version>
-        </dependency>
-        <dependency>
             <groupId>org.swinglabs</groupId>
             <artifactId>swing-layout</artifactId>
             <version>1.0.3</version>
@@ -263,6 +262,12 @@
                     <groupId>com.jhlabs</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.compomics</groupId>
+            <artifactId>utilities</artifactId>
+            <version>3.0.30</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 </project>
