@@ -266,22 +266,8 @@
         <dependency>
             <groupId>com.compomics</groupId>
             <artifactId>utilities</artifactId>
-            <version>3.0.30</version>
+            <version>3.0.31</version>
             <type>jar</type>
-        </dependency>
-
-        <!--
-            Transitive dependencies from utilities that ought to be added automatically...
-        -->
-        <dependency>
-            <groupId>batik</groupId>
-            <artifactId>batik-all</artifactId>
-            <version>1.6</version>
-        </dependency>
-        <dependency>
-            <groupId>batik</groupId>
-            <artifactId>pdf-transcoder</artifactId>
-            <version>1.0</version>
         </dependency>
     </dependencies>
 </project>
