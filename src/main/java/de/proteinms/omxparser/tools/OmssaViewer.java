@@ -2,6 +2,7 @@ package de.proteinms.omxparser.tools;
 
 import com.compomics.util.gui.spectrum.DefaultSpectrumAnnotation;
 import com.compomics.util.gui.spectrum.SpectrumPanel;
+import com.compomics.util.protein.Header;
 import com.jgoodies.looks.plastic.PlasticLookAndFeel;
 import com.jgoodies.looks.plastic.PlasticXPLookAndFeel;
 import com.jgoodies.looks.plastic.theme.SkyKrupp;
@@ -39,6 +40,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.JXTableHeader;
+import org.jdesktop.swingx.decorator.SortOrder;
 
 /**
  * A simply viewer for OMMSA omx files to show how the omssa-parser library
@@ -50,10 +52,15 @@ import org.jdesktop.swingx.JXTableHeader;
  */
 public class OmssaViewer extends javax.swing.JFrame {
 
+    /**
+     * Defines how the protein accession details are extracted from the oms file.
+     * Either from the MSPepHit_defline or from MSPepHit_accession.
+     */
+    private boolean extractAccessionDetailsFromMSPepHit_defline = true;
     private OmssaOmxFile omssaOmxFile;
     private ProgressDialog progressDialog;
     private SpectrumPanel spectrumPanel;
-    private String omxFile,  modsFile,  userModsFile;
+    private String omxFile, modsFile, userModsFile;
     private HashMap<Integer, ArrayList<Double>> allMzValues;
     private HashMap<Integer, ArrayList<Double>> allAbundanceValues;
     private HashMap<MSSpectrum, MSHitSet> spectrumHitSetMap;
@@ -120,18 +127,17 @@ public class OmssaViewer extends javax.swing.JFrame {
                     boolean deprecatedOrDeleted = false;
 
                     URL downloadPage = new URL(
-                            "http://code.google.com/p/omssa-parser/downloads/detail?name=omssa-parser-" +
-                            new Properties().getVersion() + ".zip");
+                            "http://code.google.com/p/omssa-parser/downloads/detail?name=omssa-parser-"
+                            + new Properties().getVersion() + ".zip");
 
-                    int respons =
-                            ((java.net.HttpURLConnection) downloadPage.openConnection()).getResponseCode();
+                    int respons = ((java.net.HttpURLConnection) downloadPage.openConnection()).getResponseCode();
 
                     // 404 means that the file no longer exists, which means that
                     // the running version is no longer available for download,
                     // which again means that a never version is available.
                     if (respons == 404) {
                         deprecatedOrDeleted = true;
-                    //JOptionPane.showMessageDialog(null, "Deprecated!!!!");
+                        //JOptionPane.showMessageDialog(null, "Deprecated!!!!");
                     } else {
 
                         // also need to check if the available running version has been
@@ -145,11 +151,11 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                             //JOptionPane.showMessageDialog(null, inputLine);
 
-                            if (inputLine.lastIndexOf("Deprecated") != -1 &&
-                                    inputLine.lastIndexOf("Deprecated Downloads") == -1 &&
-                                    inputLine.lastIndexOf("Deprecated downloads") == -1) {
+                            if (inputLine.lastIndexOf("Deprecated") != -1
+                                    && inputLine.lastIndexOf("Deprecated Downloads") == -1
+                                    && inputLine.lastIndexOf("Deprecated downloads") == -1) {
                                 deprecatedOrDeleted = true;
-                            //JOptionPane.showMessageDialog(null, "Deprecated 2!!!!);
+                                //JOptionPane.showMessageDialog(null, "Deprecated 2!!!!);
                             }
 
                             inputLine = in.readLine();
@@ -160,8 +166,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                     if (deprecatedOrDeleted) {
                         int option = JOptionPane.showConfirmDialog(null,
-                                "A newer version of OMSSA Parser is available.\n" +
-                                "Do you want to upgrade?",
+                                "A newer version of OMSSA Parser is available.\n"
+                                + "Do you want to upgrade?",
                                 "OMSSA Parser - Upgrade Available",
                                 JOptionPane.YES_NO_CANCEL_OPTION);
                         if (option == JOptionPane.YES_OPTION) {
@@ -200,8 +206,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                         }
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null,
-                                "An error occured when creating the ErrorLog.\n" +
-                                e.getMessage(),
+                                "An error occured when creating the ErrorLog.\n"
+                                + e.getMessage(),
                                 "Error Creating ErrorLog",
                                 JOptionPane.ERROR_MESSAGE);
                         System.out.println("Error when creating ErrorLog: ");
@@ -258,11 +264,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         identificationsJXTable.getColumn("P-value").setMinWidth(75);
         identificationsJXTable.getColumn("P-value").setMaxWidth(75);
         identificationsJXTable.getColumn("Accession").setPreferredWidth(10);
-
-        // adds auto row sorters
-//        spectraJTable.setAutoCreateRowSorter(true);
-//        spectrumJTable.setAutoCreateRowSorter(true);
-//        identificationsJTable.setAutoCreateRowSorter(true);
 
         // disables column reordering
         spectraJXTable.getTableHeader().setReorderingAllowed(false);
@@ -352,11 +353,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         identificationsJXTable.getColumn("P-value").setMaxWidth(75);
         identificationsJXTable.getColumn("Accession").setPreferredWidth(10);
 
-        // adds auto row sorters
-//        spectraJTable.setAutoCreateRowSorter(true);
-//        spectrumJTable.setAutoCreateRowSorter(true);
-//        identificationsJTable.setAutoCreateRowSorter(true);
-
         // disables column reordering
         spectraJXTable.getTableHeader().setReorderingAllowed(false);
         spectrumJXTable.getTableHeader().setReorderingAllowed(false);
@@ -441,9 +437,6 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                 // turn off the auto row sorting
                 spectraJXTable.setSortable(false);
-//                spectraJTable.setRowSorter(null);
-//                spectrumJTable.setRowSorter(null);
-//                identificationsJTable.setRowSorter(null);
 
                 // empty the tables and clear the spectrum panel
                 while (((DefaultTableModel) spectraJXTable.getModel()).getRowCount() > 0) {
@@ -475,8 +468,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                     progressDialog.dispose();
                     Runtime.getRuntime().gc();
                     JOptionPane.showMessageDialog(null,
-                            "The task used up all the available memory and had to be stopped.\n" +
-                            "Memory boundaries are set in ../Properties/JavaOptions.txt.",
+                            "The task used up all the available memory and had to be stopped.\n"
+                            + "Memory boundaries are set in ../Properties/JavaOptions.txt.",
                             "Out Of Memory Error",
                             JOptionPane.ERROR_MESSAGE);
                     Util.writeToErrorLog("OMSSA Viewer: Ran out of memory!");
@@ -571,9 +564,13 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                 // switch the auto row sorting back on
                 spectraJXTable.setSortable(true);
-//                spectraJTable.setAutoCreateRowSorter(true);
-//                spectrumJTable.setAutoCreateRowSorter(true);
-//                identificationsJTable.setAutoCreateRowSorter(true);
+                spectraJXTable.setSortOrder(0, SortOrder.ASCENDING);
+
+                // select the first spectra in the table
+                if (spectraJXTable.getRowCount() > 0) {
+                    spectraJXTable.setRowSelectionInterval(0, 0);
+                    spectraJXTableMouseClicked(null);
+                }
 
                 progressDialog.setVisible(false);
                 progressDialog.dispose();
@@ -596,6 +593,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         copySpectrumJMenuItem = new javax.swing.JMenuItem();
         copyIdentificationsJPopupMenu = new javax.swing.JPopupMenu();
         copyIdentificationsJMenuItem = new javax.swing.JMenuItem();
+        accesionDetailsButtonGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         spectraJXTable = new JXTable() {
@@ -663,6 +661,10 @@ public class OmssaViewer extends javax.swing.JFrame {
         fileJMenu = new javax.swing.JMenu();
         openJMenuItem = new javax.swing.JMenuItem();
         exitJMenuItem = new javax.swing.JMenuItem();
+        editMenu = new javax.swing.JMenu();
+        accessionParsingMenu = new javax.swing.JMenu();
+        accessionTagJRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
+        defLineJRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
         exportJMenu = new javax.swing.JMenu();
         exportSpectraFilesTableJMenuItem = new javax.swing.JMenuItem();
         exportAllIdentificationsJMenuItem = new javax.swing.JMenuItem();
@@ -729,14 +731,14 @@ public class OmssaViewer extends javax.swing.JFrame {
             }
         });
         spectraJXTable.setOpaque(false);
-        spectraJXTable.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                spectraJXTableKeyReleased(evt);
-            }
-        });
         spectraJXTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 spectraJXTableMouseClicked(evt);
+            }
+        });
+        spectraJXTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                spectraJXTableKeyReleased(evt);
             }
         });
         jScrollPane3.setViewportView(spectraJXTable);
@@ -1070,6 +1072,34 @@ public class OmssaViewer extends javax.swing.JFrame {
 
         jMenuBar1.add(fileJMenu);
 
+        editMenu.setMnemonic('E');
+        editMenu.setText("Edit");
+
+        accessionParsingMenu.setText("Extract Accession Details From:");
+
+        accesionDetailsButtonGroup.add(accessionTagJRadioButtonMenuItem);
+        accessionTagJRadioButtonMenuItem.setText("From MSPepHit_accession");
+        accessionTagJRadioButtonMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accessionTagJRadioButtonMenuItemActionPerformed(evt);
+            }
+        });
+        accessionParsingMenu.add(accessionTagJRadioButtonMenuItem);
+
+        accesionDetailsButtonGroup.add(defLineJRadioButtonMenuItem);
+        defLineJRadioButtonMenuItem.setSelected(true);
+        defLineJRadioButtonMenuItem.setText("From MSPepHit_defline");
+        defLineJRadioButtonMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                defLineJRadioButtonMenuItemActionPerformed(evt);
+            }
+        });
+        accessionParsingMenu.add(defLineJRadioButtonMenuItem);
+
+        editMenu.add(accessionParsingMenu);
+
+        jMenuBar1.add(editMenu);
+
         exportJMenu.setMnemonic('E');
         exportJMenu.setText("Export");
 
@@ -1327,8 +1357,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
             while (selectedFile.exists()) {
                 int option = JOptionPane.showConfirmDialog(this,
-                        "The  file " + chooser.getSelectedFile().getName() +
-                        " already exists. Replace file?",
+                        "The  file " + chooser.getSelectedFile().getName()
+                        + " already exists. Replace file?",
                         "Replace File?", JOptionPane.YES_NO_CANCEL_OPTION);
 
                 if (option == JOptionPane.NO_OPTION) {
@@ -1393,8 +1423,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this,
-                        "An error occured when exporting the spectra file details.\n" +
-                        "See ../Properties/ErrorLog.txt for more details.",
+                        "An error occured when exporting the spectra file details.\n"
+                        + "See ../Properties/ErrorLog.txt for more details.",
                         "Error Exporting Spectra Files",
                         JOptionPane.ERROR_MESSAGE);
                 Util.writeToErrorLog("Error when exporting spectra file details: ");
@@ -1430,8 +1460,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
             while (selectedFile.exists()) {
                 int option = JOptionPane.showConfirmDialog(this,
-                        "The  file " + chooser.getSelectedFile().getName() +
-                        " already exists. Replace file?",
+                        "The  file " + chooser.getSelectedFile().getName()
+                        + " already exists. Replace file?",
                         "Replace File?", JOptionPane.YES_NO_CANCEL_OPTION);
 
                 if (option == JOptionPane.NO_OPTION) {
@@ -1496,8 +1526,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this,
-                        "An error occured when exporting the selected spectrum.\n" +
-                        "See ../Properties/ErrorLog.txt for more details.",
+                        "An error occured when exporting the selected spectrum.\n"
+                        + "See ../Properties/ErrorLog.txt for more details.",
                         "Error Exporting Selected Spectrum",
                         JOptionPane.ERROR_MESSAGE);
                 Util.writeToErrorLog("Error when exporting selected spectrum: ");
@@ -1543,8 +1573,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
             while (selectedFile.exists()) {
                 int option = JOptionPane.showConfirmDialog(this,
-                        "The  file " + chooser.getSelectedFile().getName() +
-                        " already exists. Replace file?",
+                        "The  file " + chooser.getSelectedFile().getName()
+                        + " already exists. Replace file?",
                         "Replace File?", JOptionPane.YES_NO_CANCEL_OPTION);
 
                 if (option == JOptionPane.NO_OPTION) {
@@ -1589,7 +1619,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                 // add the column headers
                 for (int j = 0; j < identificationsJXTable.getColumnCount() - 1; j++) {
-                    if(j == 0) {
+                    if (j == 0) {
                         f.write("Spectrum number\t");
                         f.write("Spectrum name\t");
                     } else if (j == 2) {
@@ -1611,7 +1641,6 @@ public class OmssaViewer extends javax.swing.JFrame {
 
 
                 // iterate all the identifications and print them to the file
-
                 Iterator<MSSpectrum> iterator = spectrumHitSetMap.keySet().iterator();
 
                 boolean allWantedHitsAdded = false;
@@ -1874,23 +1903,23 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                             MSSpectrum tempSpectrum = spectra.get(new Integer(msHitSet.MSHitSet_number));
                             String filename = "[no filename specified]";
-                            if (tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.size() != 0) {
+                            if (!tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.isEmpty()) {
                                 filename = tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.get(0);
                             }
 
-                            f.write(msHitSet.MSHitSet_number + "\t" +
-                                    filename + "\t" +
-                                    sequence + "\t" +
-                                    modifiedSequence + "\t" +
-                                    modifiedSequenceColorCoded + "\t" +
-                                    tempPepHit.MSPepHit_start + "\t" +
-                                    tempPepHit.MSPepHit_stop + "\t" +
-                                    new Double(((double) tempMSHit.MSHits_mass) / omssaResponseScale) + "\t" +
-                                    new Double(((double) tempMSHit.MSHits_theomass) / omssaResponseScale) + "\t" +
-                                    tempMSHit.MSHits_evalue + "\t" +
-                                    tempMSHit.MSHits_pvalue + "\t" +
-                                    tempPepHit.MSPepHit_accession + "\t" +
-                                    tempPepHit.MSPepHit_defline + "\n");
+                            f.write(msHitSet.MSHitSet_number + "\t"
+                                    + filename + "\t"
+                                    + sequence + "\t"
+                                    + modifiedSequence + "\t"
+                                    + modifiedSequenceColorCoded + "\t"
+                                    + tempPepHit.MSPepHit_start + "\t"
+                                    + tempPepHit.MSPepHit_stop + "\t"
+                                    + new Double(((double) tempMSHit.MSHits_mass) / omssaResponseScale) + "\t"
+                                    + new Double(((double) tempMSHit.MSHits_theomass) / omssaResponseScale) + "\t"
+                                    + tempMSHit.MSHits_evalue + "\t"
+                                    + tempMSHit.MSHits_pvalue + "\t"
+                                    + tempPepHit.MSPepHit_accession + "\t"
+                                    + tempPepHit.MSPepHit_defline + "\n");
 
                             if (includeBestHitOnly) {
                                 allWantedHitsAdded = true;
@@ -1909,8 +1938,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this,
-                        "An error occured when exporting the identifications.\n" +
-                        "See ../Properties/ErrorLog.txt for more details.",
+                        "An error occured when exporting the identifications.\n"
+                        + "See ../Properties/ErrorLog.txt for more details.",
                         "Error Exporting Identifications",
                         JOptionPane.ERROR_MESSAGE);
                 Util.writeToErrorLog("Error when exporting identifications: ");
@@ -1982,8 +2011,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                     double precusorMz = ((Double) spectraJXTable.getValueAt(j, 2)).doubleValue();
                     int precursorCharge = ((Integer) spectraJXTable.getValueAt(j, 3)).intValue();
-                    double precursorMh = precusorMz * precursorCharge -
-                            precursorCharge * HYDROGEN_MASS + HYDROGEN_MASS;
+                    double precursorMh = precusorMz * precursorCharge - precursorCharge * HYDROGEN_MASS + HYDROGEN_MASS;
 
                     f.write("" + precursorMh);
                     f.write(" " + precursorCharge + "\n");
@@ -1999,8 +2027,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this,
-                            "An error occured when exporting the spectra.\n" +
-                            "See ../Properties/ErrorLog.txt for more details.",
+                            "An error occured when exporting the spectra.\n"
+                            + "See ../Properties/ErrorLog.txt for more details.",
                             "Error Exporting Spectra",
                             JOptionPane.ERROR_MESSAGE);
                     Util.writeToErrorLog("Error when exporting spectra: ");
@@ -2022,14 +2050,14 @@ public class OmssaViewer extends javax.swing.JFrame {
 
             int selectedRow = 0;
 
-            if (identificationsJXTable.getRowCount() > 1 &&
-                    identificationsJXTable.getSelectedRow() != -1) {
+            if (identificationsJXTable.getRowCount() > 1
+                    && identificationsJXTable.getSelectedRow() != -1) {
                 selectedRow = identificationsJXTable.getSelectedRow();
             }
 
             Vector<DefaultSpectrumAnnotation> currentAnnotations = allAnnotations.get(
-                    identificationsJXTable.getValueAt(selectedRow, 1) + "_" +
-                    identificationsJXTable.getValueAt(selectedRow, 8));
+                    identificationsJXTable.getValueAt(selectedRow, 1) + "_"
+                    + identificationsJXTable.getValueAt(selectedRow, 8));
 
             // update the ion coverage annotations
             spectrumPanel.setAnnotations(filterAnnotations(currentAnnotations));
@@ -2252,8 +2280,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                                     if (tempOmssaModification != null) {
 
-                                        modificationDetails += currentMod + " " + tempOmssaModification.getModName() +
-                                                " (" + tempOmssaModification.getModMonoMass() + "), ";
+                                        modificationDetails += currentMod + " " + tempOmssaModification.getModName()
+                                                + " (" + tempOmssaModification.getModMonoMass() + "), ";
 
                                         if (tempOmssaModification.getModType() == OmssaModification.MODAA) {
 
@@ -2285,8 +2313,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                         }
                     }
                 } else {
-                    modificationDetailsJLabel.setText("Modifications: (Files with modification details were not provided. " +
-                            "No modifications are shown.)" + "    /    " + ionCoverageLegend);
+                    modificationDetailsJLabel.setText("Modifications: (Files with modification details were not provided. "
+                            + "No modifications are shown.)" + "    /    " + ionCoverageLegend);
                     modifiedSequence = sequence;
                 }
 
@@ -2333,11 +2361,11 @@ public class OmssaViewer extends javax.swing.JFrame {
                         if (tempMzHit.MSMZHit_moreion.MSIon.MSIon_immonium.MSImmonium.MSImmonium_parent != null) {
                             immoniumTag = "i" + tempMzHit.MSMZHit_moreion.MSIon.MSIon_immonium.MSImmonium.MSImmonium_parent;
                         }
-                    } else{
-                        if(msIonNeutralLossType == 0){
+                    } else {
+                        if (msIonNeutralLossType == 0) {
                             // water neutral loss
                             neturalLossTag = " -H2O";
-                        } else if(msIonNeutralLossType == 1){
+                        } else if (msIonNeutralLossType == 1) {
                             // ammonia neutral loss
                             neturalLossTag = " -NH3";
                         }
@@ -2539,6 +2567,15 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                     MSPepHit tempPepHit = pepHitIterator.next();
 
+                    // parse the header
+                    Header header;
+
+                    if (extractAccessionDetailsFromMSPepHit_defline) {
+                        header = Header.parseFromFASTA(tempPepHit.MSPepHit_defline);
+                    } else {
+                        header = Header.parseFromFASTA(tempPepHit.MSPepHit_accession);
+                    }
+
                     ((DefaultTableModel) identificationsJXTable.getModel()).addRow(new Object[]{
                                 msHitSet.MSHitSet_number,
                                 sequence,
@@ -2549,8 +2586,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                                 new Double(((double) tempMSHit.MSHits_theomass) / omssaResponseScale),
                                 new Float(tempMSHit.MSHits_evalue),
                                 new Float(tempMSHit.MSHits_pvalue),
-                                tempPepHit.MSPepHit_accession,
-                                tempPepHit.MSPepHit_defline
+                                header.getAccession(),
+                                header.getDescription()
                             });
                 }
             }
@@ -2560,8 +2597,8 @@ public class OmssaViewer extends javax.swing.JFrame {
             }
 
             if (modificationDetails.length() > 0) {
-                modificationDetailsJLabel.setText("Modifications: " + modificationDetails +
-                        "    /    " + ionCoverageLegend);
+                modificationDetailsJLabel.setText("Modifications: " + modificationDetails
+                        + "    /    " + ionCoverageLegend);
             } else {
                 modificationDetailsJLabel.setText(ionCoverageLegend);
             }
@@ -2608,8 +2645,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 
         // update the ion coverage annotations
         spectrumPanel.setAnnotations(filterAnnotations(allAnnotations.get(
-                identificationsJXTable.getValueAt(identificationsJXTable.getSelectedRow(), 1) + "_" +
-                identificationsJXTable.getValueAt(identificationsJXTable.getSelectedRow(), 8))));
+                identificationsJXTable.getValueAt(identificationsJXTable.getSelectedRow(), 1) + "_"
+                + identificationsJXTable.getValueAt(identificationsJXTable.getSelectedRow(), 8))));
         spectrumPanel.validate();
         spectrumPanel.repaint();
 
@@ -2633,8 +2670,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                 if (identificationsJXTable.getRowCount() > 1) {
 
                     Vector<DefaultSpectrumAnnotation> currentAnnotations = allAnnotations.get(
-                            identificationsJXTable.getValueAt(identificationsJXTable.getSelectedRow(), 1) + "_" +
-                            identificationsJXTable.getValueAt(identificationsJXTable.getSelectedRow(), 8));
+                            identificationsJXTable.getValueAt(identificationsJXTable.getSelectedRow(), 1) + "_"
+                            + identificationsJXTable.getValueAt(identificationsJXTable.getSelectedRow(), 8));
 
                     // update the ion coverage annotations
                     spectrumPanel.setAnnotations(filterAnnotations(currentAnnotations));
@@ -2654,9 +2691,33 @@ public class OmssaViewer extends javax.swing.JFrame {
         exportAllIdentifications(true);
 }//GEN-LAST:event_exportBestIdentificationsJMenuItemActionPerformed
 
+    /**
+     * Update how the protein accession details are extracted.
+     *
+     * @param evt
+     */
+    private void accessionTagJRadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accessionTagJRadioButtonMenuItemActionPerformed
+        extractAccessionDetailsFromMSPepHit_defline = !accessionTagJRadioButtonMenuItem.isSelected();
+
+        if (spectraJXTable.getSelectedRow() != -1) {
+            spectraJXTableMouseClicked(null);
+        }
+    }//GEN-LAST:event_accessionTagJRadioButtonMenuItemActionPerformed
+
+    /**
+     * Update how the protein accession details are extracted.
+     * 
+     * @param evt
+     */
+    private void defLineJRadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_defLineJRadioButtonMenuItemActionPerformed
+        accessionTagJRadioButtonMenuItemActionPerformed(null);
+    }//GEN-LAST:event_defLineJRadioButtonMenuItemActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox aIonsJCheckBox;
     private javax.swing.JMenuItem aboutJMenuItem;
+    private javax.swing.ButtonGroup accesionDetailsButtonGroup;
+    private javax.swing.JMenu accessionParsingMenu;
+    private javax.swing.JRadioButtonMenuItem accessionTagJRadioButtonMenuItem;
     private javax.swing.JCheckBox bIonsJCheckBox;
     private javax.swing.JCheckBox cIonsJCheckBox;
     private javax.swing.JCheckBox chargeOneJCheckBox;
@@ -2668,6 +2729,8 @@ public class OmssaViewer extends javax.swing.JFrame {
     private javax.swing.JPopupMenu copySpectraJPopupMenu;
     private javax.swing.JMenuItem copySpectrumJMenuItem;
     private javax.swing.JPopupMenu copySpectrumJPopupMenu;
+    private javax.swing.JRadioButtonMenuItem defLineJRadioButtonMenuItem;
+    private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitJMenuItem;
     private javax.swing.JMenuItem exportAllIdentificationsJMenuItem;
     private javax.swing.JMenuItem exportAllSpectraJMenuItem;
