@@ -3,10 +3,18 @@
 
 ----
 
+*Changes in omssa-parser 1.4.3 (February 22. 2011):*
+ * Improved the parsing of the protein accession number details from the omx file in OMSSA Viewer.
+
+----
+
+
 *Changes in omssa-parser 1.4.2 (December 5. 2010):*
  * FEATURE IMPROVEMENT: Made some minor GUI changes to the viewer.
  * BUG FIX: Fixed an index bug in Spectrum to HitSetMap that occurred if not all spectrum indices were used.
  * LIBRARY UPDATE: utilities library to version 3.0.30.
+
+Download count: 49
 
 ----
 
