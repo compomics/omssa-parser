@@ -52,11 +52,6 @@ import org.jdesktop.swingx.decorator.SortOrder;
  */
 public class OmssaViewer extends javax.swing.JFrame {
 
-    /**
-     * Defines how the protein accession details are extracted from the oms file.
-     * Either from the MSPepHit_defline or from MSPepHit_accession.
-     */
-    private boolean extractAccessionDetailsFromMSPepHit_defline = true;
     private OmssaOmxFile omssaOmxFile;
     private ProgressDialog progressDialog;
     private SpectrumPanel spectrumPanel;
@@ -661,10 +656,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         fileJMenu = new javax.swing.JMenu();
         openJMenuItem = new javax.swing.JMenuItem();
         exitJMenuItem = new javax.swing.JMenuItem();
-        editMenu = new javax.swing.JMenu();
-        accessionParsingMenu = new javax.swing.JMenu();
-        accessionTagJRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
-        defLineJRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
         exportJMenu = new javax.swing.JMenu();
         exportSpectraFilesTableJMenuItem = new javax.swing.JMenuItem();
         exportAllIdentificationsJMenuItem = new javax.swing.JMenuItem();
@@ -1071,34 +1062,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         fileJMenu.add(exitJMenuItem);
 
         jMenuBar1.add(fileJMenu);
-
-        editMenu.setMnemonic('E');
-        editMenu.setText("Edit");
-
-        accessionParsingMenu.setText("Extract Accession Details From:");
-
-        accesionDetailsButtonGroup.add(accessionTagJRadioButtonMenuItem);
-        accessionTagJRadioButtonMenuItem.setText("From MSPepHit_accession");
-        accessionTagJRadioButtonMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                accessionTagJRadioButtonMenuItemActionPerformed(evt);
-            }
-        });
-        accessionParsingMenu.add(accessionTagJRadioButtonMenuItem);
-
-        accesionDetailsButtonGroup.add(defLineJRadioButtonMenuItem);
-        defLineJRadioButtonMenuItem.setSelected(true);
-        defLineJRadioButtonMenuItem.setText("From MSPepHit_defline");
-        defLineJRadioButtonMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                defLineJRadioButtonMenuItemActionPerformed(evt);
-            }
-        });
-        accessionParsingMenu.add(defLineJRadioButtonMenuItem);
-
-        editMenu.add(accessionParsingMenu);
-
-        jMenuBar1.add(editMenu);
 
         exportJMenu.setMnemonic('E');
         exportJMenu.setText("Export");
@@ -2568,12 +2531,16 @@ public class OmssaViewer extends javax.swing.JFrame {
                     MSPepHit tempPepHit = pepHitIterator.next();
 
                     // parse the header
-                    Header header;
+                    String accession = "unknown";
+                    String description = "unknown";
 
-                    if (extractAccessionDetailsFromMSPepHit_defline) {
-                        header = Header.parseFromFASTA(tempPepHit.MSPepHit_defline);
+                    if (tempPepHit.MSPepHit_accession.startsWith("BL_ORD_ID:")) {
+                        Header header = Header.parseFromFASTA(tempPepHit.MSPepHit_defline);
+                        accession = header.getAccession();
+                        description = header.getDescription();
                     } else {
-                        header = Header.parseFromFASTA(tempPepHit.MSPepHit_accession);
+                        accession = tempPepHit.MSPepHit_accession;
+                        description = tempPepHit.MSPepHit_defline;
                     }
 
                     ((DefaultTableModel) identificationsJXTable.getModel()).addRow(new Object[]{
@@ -2586,8 +2553,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                                 new Double(((double) tempMSHit.MSHits_theomass) / omssaResponseScale),
                                 new Float(tempMSHit.MSHits_evalue),
                                 new Float(tempMSHit.MSHits_pvalue),
-                                header.getAccession(),
-                                header.getDescription()
+                                accession,
+                                description
                             });
                 }
             }
@@ -2691,33 +2658,10 @@ public class OmssaViewer extends javax.swing.JFrame {
         exportAllIdentifications(true);
 }//GEN-LAST:event_exportBestIdentificationsJMenuItemActionPerformed
 
-    /**
-     * Update how the protein accession details are extracted.
-     *
-     * @param evt
-     */
-    private void accessionTagJRadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accessionTagJRadioButtonMenuItemActionPerformed
-        extractAccessionDetailsFromMSPepHit_defline = !accessionTagJRadioButtonMenuItem.isSelected();
-
-        if (spectraJXTable.getSelectedRow() != -1) {
-            spectraJXTableMouseClicked(null);
-        }
-    }//GEN-LAST:event_accessionTagJRadioButtonMenuItemActionPerformed
-
-    /**
-     * Update how the protein accession details are extracted.
-     * 
-     * @param evt
-     */
-    private void defLineJRadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_defLineJRadioButtonMenuItemActionPerformed
-        accessionTagJRadioButtonMenuItemActionPerformed(null);
-    }//GEN-LAST:event_defLineJRadioButtonMenuItemActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox aIonsJCheckBox;
     private javax.swing.JMenuItem aboutJMenuItem;
     private javax.swing.ButtonGroup accesionDetailsButtonGroup;
-    private javax.swing.JMenu accessionParsingMenu;
-    private javax.swing.JRadioButtonMenuItem accessionTagJRadioButtonMenuItem;
     private javax.swing.JCheckBox bIonsJCheckBox;
     private javax.swing.JCheckBox cIonsJCheckBox;
     private javax.swing.JCheckBox chargeOneJCheckBox;
@@ -2729,8 +2673,6 @@ public class OmssaViewer extends javax.swing.JFrame {
     private javax.swing.JPopupMenu copySpectraJPopupMenu;
     private javax.swing.JMenuItem copySpectrumJMenuItem;
     private javax.swing.JPopupMenu copySpectrumJPopupMenu;
-    private javax.swing.JRadioButtonMenuItem defLineJRadioButtonMenuItem;
-    private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitJMenuItem;
     private javax.swing.JMenuItem exportAllIdentificationsJMenuItem;
     private javax.swing.JMenuItem exportAllSpectraJMenuItem;
