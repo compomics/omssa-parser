@@ -1,7 +1,6 @@
 package de.proteinms.omxparser.tools;
 
 import com.compomics.util.gui.spectrum.DefaultSpectrumAnnotation;
-import com.compomics.util.gui.spectrum.ReferenceArea;
 import com.compomics.util.gui.spectrum.SpectrumPanel;
 import com.compomics.util.protein.Header;
 import com.jgoodies.looks.plastic.PlasticLookAndFeel;
@@ -179,47 +178,56 @@ public class OmssaViewer extends javax.swing.JFrame {
                     //e.printStackTrace();
                 }
 
-                // creates the error log file
-                if (useErrorLog) {
-                    try {
-                        String path = "" + this.getClass().getProtectionDomain().getCodeSource().getLocation();
-                        path = path.substring(5, path.lastIndexOf("/")) + File.separator + "Properties/ErrorLog.txt";
-                        path = path.replace("%20", " ");
-
-                        File file = new File(path);
-                        System.setOut(new java.io.PrintStream(new FileOutputStream(file, true)));
-                        System.setErr(new java.io.PrintStream(new FileOutputStream(file, true)));
-
-                        // creates a new error log file if it does not exist
-                        if (!file.exists()) {
-                            file.createNewFile();
-
-                            FileWriter w = new FileWriter(file);
-                            BufferedWriter bw = new BufferedWriter(w);
-
-                            bw.close();
-                            w.close();
-                        }
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null,
-                                "An error occured when creating the ErrorLog.\n"
-                                + e.getMessage(),
-                                "Error Creating ErrorLog",
-                                JOptionPane.ERROR_MESSAGE);
-                        System.out.println("Error when creating ErrorLog: ");
-                        e.printStackTrace();
-                    }
-                }
-
                 new OmssaViewerFileSelection(new OmssaViewer(), false, null, null, null, "user.home");
             }
         });
     }
 
     /**
+     * Set up the error log.
+     */
+    private void setUpErrorLog() {
+
+        // creates the error log file
+        if (useErrorLog) {
+            try {
+                String path = "" + this.getClass().getProtectionDomain().getCodeSource().getLocation();
+                path = path.substring(5, path.lastIndexOf("/")) + File.separator + "Properties/ErrorLog.txt";
+                path = path.replace("%20", " ");
+
+                File file = new File(path);
+                System.setOut(new java.io.PrintStream(new FileOutputStream(file, true)));
+                System.setErr(new java.io.PrintStream(new FileOutputStream(file, true)));
+
+                // creates a new error log file if it does not exist
+                if (!file.exists()) {
+                    file.createNewFile();
+
+                    FileWriter w = new FileWriter(file);
+                    BufferedWriter bw = new BufferedWriter(w);
+
+                    bw.close();
+                    w.close();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,
+                        "An error occured when creating the ErrorLog.\n"
+                        + e.getMessage(),
+                        "Error Creating ErrorLog",
+                        JOptionPane.ERROR_MESSAGE);
+                System.out.println("Error when creating ErrorLog: ");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
      * Creates an empty non-visible OmssaViewer frame.
      */
     public OmssaViewer() {
+
+        // creates the error log file
+        setUpErrorLog();
 
         initComponents();
 
@@ -309,6 +317,9 @@ public class OmssaViewer extends javax.swing.JFrame {
      * @param lastSelectedFolder the last selected folder
      */
     public OmssaViewer(String aOmxFile, String aModsFile, String aUserModsFile, String lastSelectedFolder) {
+
+        setUpErrorLog();
+
         initComponents();
 
         setMinimumSize(new java.awt.Dimension(900, 600));
@@ -2140,7 +2151,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                     "" + spectraJXTable.getValueAt(row, 3),
                     ((String) spectraJXTable.getValueAt(row, 1)),
                     60, false);
-            
+ 
             spectrumJPanel.add(spectrumPanel);
             spectrumJPanel.validate();
             spectrumJPanel.repaint();
