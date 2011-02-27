@@ -3,11 +3,18 @@
 
 ----
 
-*Changes in omssa-parser 1.4.3 (February 22. 2011):*
- * Improved the parsing of the protein accession number details from the omx file in OMSSA Viewer.
+*Changes in omssa-parser 1.4.4 (February 27. 2011):*
+ * BUG FIX: Fixed some minor GUI details in the OMSSA Viewer.
+ * LIBRARY UPDATE: utilities library to version 3.0.40. 
 
 ----
 
+*Changes in omssa-parser 1.4.3 (February 22. 2011):*
+ * FEATURE IMPROVEMENT: Improved the parsing of the protein accession number details from the omx file in OMSSA Viewer.
+
+Download count: 6
+
+----
 
 *Changes in omssa-parser 1.4.2 (December 5. 2010):*
  * FEATURE IMPROVEMENT: Made some minor GUI changes to the viewer.
