@@ -172,7 +172,7 @@ public class OmssaViewerWrapper {
                         "OMSSA Viewer - Startup Failed", JOptionPane.OK_OPTION);
 
                 File logFile = new File(System.getProperty("user.home") +
-                        File.separator + "ommsa_viewer_.log");
+                        File.separator + "ommsa_viewer.log");
 
                 FileWriter f = new FileWriter(logFile);
                 f.write(temp);
