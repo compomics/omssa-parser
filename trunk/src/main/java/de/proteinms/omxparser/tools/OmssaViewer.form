@@ -447,20 +447,13 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="chargeOverTwoJCheckBox" alignment="0" pref="44" max="32767" attributes="1"/>
                           <Component id="yIonsJCheckBox" alignment="0" pref="44" max="32767" attributes="1"/>
-                          <Group type="102" alignment="1" attributes="1">
-                              <Component id="chargeOneJCheckBox" pref="42" max="32767" attributes="1"/>
-                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          </Group>
                           <Component id="zIonsJCheckBox" alignment="1" pref="44" max="32767" attributes="1"/>
                           <Component id="xIonsJCheckBox" alignment="0" pref="44" max="32767" attributes="1"/>
-                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="chargeTwoJCheckBox" alignment="1" max="32767" attributes="1"/>
-                              <Component id="chargeOverTwoJCheckBox" alignment="1" min="-2" pref="44" max="-2" attributes="1"/>
-                          </Group>
                           <Component id="bIonsJCheckBox" alignment="0" pref="44" max="32767" attributes="1"/>
                           <Component id="aIonsJCheckBox" alignment="0" pref="44" max="32767" attributes="1"/>
                           <Component id="cIonsJCheckBox" alignment="0" pref="44" max="32767" attributes="1"/>
@@ -472,6 +465,8 @@
                               <Component id="jSeparator1" pref="34" max="32767" attributes="1"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
+                          <Component id="chargeOneJCheckBox" alignment="0" pref="44" max="32767" attributes="1"/>
+                          <Component id="chargeTwoJCheckBox" alignment="1" pref="44" max="32767" attributes="1"/>
                       </Group>
                   </Group>
               </Group>
@@ -480,28 +475,28 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="aIonsJCheckBox" max="32767" attributes="0"/>
+                      <Component id="aIonsJCheckBox" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bIonsJCheckBox" pref="24" max="32767" attributes="0"/>
+                      <Component id="bIonsJCheckBox" min="-2" pref="24" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cIonsJCheckBox" pref="24" max="32767" attributes="0"/>
+                      <Component id="cIonsJCheckBox" min="-2" pref="24" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                      <Component id="xIonsJCheckBox" pref="24" max="32767" attributes="0"/>
+                      <Component id="xIonsJCheckBox" min="-2" pref="24" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="yIonsJCheckBox" pref="24" max="32767" attributes="0"/>
+                      <Component id="yIonsJCheckBox" min="-2" pref="24" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="zIonsJCheckBox" max="32767" attributes="0"/>
+                      <Component id="zIonsJCheckBox" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="jSeparator2" min="-2" pref="8" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="chargeOneJCheckBox" max="32767" attributes="0"/>
+                      <Component id="chargeOneJCheckBox" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="chargeTwoJCheckBox" max="32767" attributes="0"/>
+                      <Component id="chargeTwoJCheckBox" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="chargeOverTwoJCheckBox" pref="31" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                      <Component id="chargeOverTwoJCheckBox" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="21" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
