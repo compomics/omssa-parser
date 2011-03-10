@@ -3,9 +3,16 @@
 
 ----
 
+*Changes in omssa-parser 1.4.5 (March 10. 2011):*
+ * LIBRARY UPDATE: utilities library to version 3.0.46. 
+
+----
+
 *Changes in omssa-parser 1.4.4 (February 27. 2011):*
  * BUG FIX: Fixed some minor GUI details in the OMSSA Viewer.
  * LIBRARY UPDATE: utilities library to version 3.0.40. 
+
+Download count: 14
 
 ----
 
