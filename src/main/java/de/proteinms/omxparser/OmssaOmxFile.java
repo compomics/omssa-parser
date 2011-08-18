@@ -166,8 +166,21 @@ public class OmssaOmxFile {
      * @param userModsFile the file name of the usermods.xml file
      */
     public OmssaOmxFile(String omxFile, String modsFile, String userModsFile) {
+        this(omxFile, modsFile, userModsFile, true);
+    }
 
-        parser = new OmxParser(omxFile, modsFile, userModsFile);
+    /**
+     * This constructor initializes the Parser with the file name of the omx file,
+     * and the file names of the two OMSSA modification files (mods.xml and usermods.xml).
+     *
+     * @param omxFile the file name of the omx file to be parsed
+     * @param modsFile the file name of the mods.xml file
+     * @param userModsFile the file name of the usermods.xml file
+     * @param importSpectra a boolean indicating whether spectra shall be imported
+     */
+    public OmssaOmxFile(String omxFile, String modsFile, String userModsFile, boolean importSpectra) {
+
+        parser = new OmxParser(omxFile, modsFile, userModsFile, importSpectra);
         parserResult = parser.parserResult;
 
         logger.debug("processing Information...");
@@ -201,6 +214,16 @@ public class OmssaOmxFile {
      */
     public OmssaOmxFile(String omxFile) {
         this(omxFile, null, null);
+    }
+
+    /**
+     * This constructor initializes the Parser with the file name of the omx file.
+     *
+     * @param omxFile the file name of the omx file to be parsed
+     * @param importSpectra a boolean indicating whether spectra shall be imported
+     */
+    public OmssaOmxFile(String omxFile, boolean importSpectra) {
+        this(omxFile, null, null, importSpectra);
     }
 
     /**

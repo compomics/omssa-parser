@@ -91,7 +91,7 @@ public class OmxParser {
      * If a Class should be parsed by OmxParser, it has to be initialzed by<br>
      * writing it into the HashMap classes
      */
-    public static void initializeClasses() {
+    public static void initializeClasses(boolean importSpectra) {
 
         classes.put("MSChargeHandle_calccharge", MSChargeHandle_calccharge.class);
         classes.put("MSChargeHandle_calcplusone", MSChargeHandle_calcplusone.class);
@@ -163,14 +163,16 @@ public class OmxParser {
         classes.put("MSSearchSettings_zdep", MSSearchSettings_zdep.class);
         classes.put("MSSearchSettings", MSSearchSettings.class);
         classes.put("MSSearchSettingsSet", MSSearchSettingsSet.class);
-        classes.put("MSSpectrum_abundance", MSSpectrum_abundance.class);
         classes.put("MSSpectrum_charge", MSSpectrum_charge.class);
         classes.put("MSSpectrum_ids", MSSpectrum_ids.class);
-        classes.put("MSSpectrum_mz", MSSpectrum_mz.class);
         classes.put("MSSpectrum_namevalue", MSSpectrum_namevalue.class);
         classes.put("MSSpectrum", MSSpectrum.class);
         classes.put("MSSpectrumset", MSSpectrumset.class);
         classes.put("NameValue", NameValue.class);
+        if (importSpectra) {
+            classes.put("MSSpectrum_abundance", MSSpectrum_abundance.class);
+            classes.put("MSSpectrum_mz", MSSpectrum_mz.class);
+        }
     }
 
     /**
@@ -182,6 +184,19 @@ public class OmxParser {
      * @param userModsFile
      */
     public OmxParser(String omxFile, String modsFile, String userModsFile) {
+        this(omxFile, modsFile, userModsFile, true);
+    }
+
+    /**
+     * Initializes the parser and parses the omx file. Also parses
+     * the modification files (if any).
+     *
+     * @param omxFile
+     * @param modsFile
+     * @param userModsFile
+     * @param importSpectra 
+     */
+    public OmxParser(String omxFile, String modsFile, String userModsFile, boolean importSpectra) {
 
         omssaModificationDetails = new HashMap();
 
@@ -203,7 +218,7 @@ public class OmxParser {
             XmlPullParser xpp = factory.newPullParser();
 
             //write every class from which objects should be created into the hashmap classes
-            initializeClasses();
+            initializeClasses(importSpectra);
 
             logger.debug("Parsing file: " + omxFile);
             xpp.setInput(new BufferedReader(new FileReader(omxFile)));
@@ -291,8 +306,8 @@ public class OmxParser {
 
                             modResidues = new Vector();
 
-                            for (int m = 0; m <
-                                    residueNodes.getLength(); m++) {
+                            for (int m = 0; m
+                                    < residueNodes.getLength(); m++) {
 
                                 if (residueNodes.item(m).getNodeName().equalsIgnoreCase(
                                         "MSModSpec_residues_E")) {
