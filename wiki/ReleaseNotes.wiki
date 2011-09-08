@@ -3,8 +3,15 @@
 
 ----
 
+*Changes in omssa-parser 1.4.6 (September 9. 2011):*
+ * NEW FEATURE: Added the possibility to not import peak lists. 
+
+----
+
 *Changes in omssa-parser 1.4.5 (March 10. 2011):*
  * LIBRARY UPDATE: utilities library to version 3.0.46. 
+
+Download count: 117 
 
 ----
 
