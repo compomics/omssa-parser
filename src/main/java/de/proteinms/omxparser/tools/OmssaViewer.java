@@ -532,7 +532,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                     chargeString = chargeString.replaceFirst("\\+", "");
 
-                    long omssaAbundanceScale = tempSpectrum.MSSpectrum_iscale;
+                    double omssaAbundanceScale = tempSpectrum.MSSpectrum_iscale;
 
                     ArrayList<Double> currentRealMzValues = new ArrayList();
                     ArrayList<Double> currentRealAbundanceValues = new ArrayList();
