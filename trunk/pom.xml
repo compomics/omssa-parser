@@ -12,7 +12,7 @@
 
     <!-- Set the version number for the whole project -->
     <properties>
-        <version.number>1.4.6</version.number>
+        <version.number>1.4.7</version.number>
     </properties>
 
 
@@ -30,8 +30,8 @@
         <developer>
             <name>Harald Barsnes</name>
             <id>harald</id>
-            <email>harald.barsnes@ii.uib.no</email>
-            <organization>Department of Informatics, University of Bergen, Norway</organization>
+            <email>harald.barsnes@biomed.uib.no</email>
+            <organization>Department of Biomedicine, University of Bergen, Norway</organization>
         </developer>
         <developer>
             <name>Lennart Martens</name>
@@ -43,6 +43,15 @@
             <name>Steffen Huber</name>
             <id>steffen</id>
             <email>s.ch.h@gmx.de</email>
+        </developer>
+        <developer>
+            <name>Marc Vaudel</name>
+            <id>marc</id>
+            <email>marc.vaudel AT isas.de</email>
+            <organization>ISAS</organization>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
         </developer>
     </developers>
 

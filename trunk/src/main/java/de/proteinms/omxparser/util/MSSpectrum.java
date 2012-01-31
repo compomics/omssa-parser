@@ -58,7 +58,7 @@ public class MSSpectrum implements Serializable {
     /**
      * Abundance scale, float to integer.
      */
-    public long MSSpectrum_iscale;
+    public Double MSSpectrum_iscale;
     /**
      * IDs/filenames.
      */
@@ -120,7 +120,7 @@ public class MSSpectrum implements Serializable {
      * @param s the MSSpectrum_iscale value as a String
      */
     public void setMSSpectrum_iscale(String s) {
-        this.MSSpectrum_iscale = Long.valueOf(s);
+        this.MSSpectrum_iscale = Double.valueOf(s);
     }
 
     /**
