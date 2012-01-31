@@ -3,8 +3,15 @@
 
 ----
 
+*Changes in omssa-parser 1.4.7 (January 31. 2012):*
+ * BUG FIX: Changed the OMSSA abundance scale from a long to a double (as detailed in OMSSA.mod.xsd).
+
+----
+
 *Changes in omssa-parser 1.4.6 (September 9. 2011):*
  * NEW FEATURE: Added the possibility to not import peak lists. 
+
+Download count: 109
 
 ----
 
