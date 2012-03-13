@@ -128,9 +128,9 @@ public class OmssaModification implements Serializable {
     }
 
     /**
-     * Returns the modified residues as a String
+     * Returns the modified residues as a comma separated String.
      * 
-     * @return the modified residues
+     * @return the modified residues, comma separated
      */
     public String getModResiduesAsString() {
 
@@ -142,6 +142,22 @@ public class OmssaModification implements Serializable {
 
         temp = temp.substring(0, temp.length() - 2);
 
+        return temp;
+    }
+    
+    /**
+     * Returns the modified residues as a String without spaces or comma.
+     * 
+     * @return the modified residues, without spaces or comma
+     */
+    public String getModResiduesAsCompactString() {
+
+        String temp = "";
+
+        for (int i = 0; i < modResidues.size(); i++) {
+            temp += modResidues.get(i);
+        }
+        
         return temp;
     }
 
