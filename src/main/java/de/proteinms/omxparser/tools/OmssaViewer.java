@@ -469,7 +469,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                     ((DefaultTableModel) identificationsJTable.getModel()).removeRow(0);
                 }
 
-                modificationDetailsJLabel.setText("");
+                legendJLabel.setText("");
+                ptmsJTextField.setText("");
 
                 while (spectrumJPanel.getComponents().length > 0) {
                     spectrumJPanel.remove(0);
@@ -630,7 +631,7 @@ public class OmssaViewer extends javax.swing.JFrame {
             }
         };
         jPanel2 = new javax.swing.JPanel();
-        modificationDetailsJLabel = new javax.swing.JLabel();
+        legendJLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         identificationsJScrollPane = new javax.swing.JScrollPane();
         identificationsJTable = new JTable() {
@@ -645,6 +646,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                 };
             }
         };
+        jLabel2 = new javax.swing.JLabel();
+        ptmsJTextField = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         spectrumJPanel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -762,7 +765,7 @@ public class OmssaViewer extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(spectraJScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
+                .add(spectraJScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -776,7 +779,8 @@ public class OmssaViewer extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Identifications"));
         jPanel2.setOpaque(false);
 
-        modificationDetailsJLabel.setFont(modificationDetailsJLabel.getFont().deriveFont((modificationDetailsJLabel.getFont().getStyle() | java.awt.Font.ITALIC)));
+        legendJLabel.setFont(legendJLabel.getFont().deriveFont((legendJLabel.getFont().getStyle() | java.awt.Font.ITALIC)));
+        legendJLabel.setText("-");
 
         jLabel1.setFont(jLabel1.getFont().deriveFont((jLabel1.getFont().getStyle() | java.awt.Font.ITALIC)));
         jLabel1.setText("Legend:   ");
@@ -816,6 +820,14 @@ public class OmssaViewer extends javax.swing.JFrame {
         });
         identificationsJScrollPane.setViewportView(identificationsJTable);
 
+        jLabel2.setFont(jLabel2.getFont().deriveFont((jLabel2.getFont().getStyle() | java.awt.Font.ITALIC)));
+        jLabel2.setText("PTMs:");
+
+        ptmsJTextField.setEditable(false);
+        ptmsJTextField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        ptmsJTextField.setBorder(null);
+        ptmsJTextField.setOpaque(false);
+
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -823,23 +835,33 @@ public class OmssaViewer extends javax.swing.JFrame {
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(identificationsJScrollPane)
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(jLabel1)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel1)
+                            .add(jLabel2))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(modificationDetailsJLabel)
-                        .add(0, 0, Short.MAX_VALUE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, identificationsJScrollPane))
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel2Layout.createSequentialGroup()
+                                .add(legendJLabel)
+                                .add(0, 0, Short.MAX_VALUE))
+                            .add(ptmsJTextField))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(identificationsJScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(identificationsJScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 95, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
-                    .add(modificationDetailsJLabel)))
+                    .add(legendJLabel))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel2)
+                    .add(ptmsJTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Selected Spectrum"));
@@ -1052,25 +1074,23 @@ public class OmssaViewer extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel3Layout.createSequentialGroup()
-                        .add(4, 4, 4)
-                        .add(spectrumJScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE))
-                    .add(jPanel3Layout.createSequentialGroup()
                         .add(spectrumJPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(spectrumJScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .add(spectrumJPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(spectrumJScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 164, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .add(22, 22, 22))
         );
 
         org.jdesktop.layout.GroupLayout backgroundPanelLayout = new org.jdesktop.layout.GroupLayout(backgroundPanel);
@@ -1084,7 +1104,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                         .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         backgroundPanelLayout.setVerticalGroup(
@@ -1092,11 +1112,11 @@ public class OmssaViewer extends javax.swing.JFrame {
             .add(backgroundPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(backgroundPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .add(6, 6, 6))
         );
 
         fileJMenu.setMnemonic('F');
@@ -1215,7 +1235,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(backgroundPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(backgroundPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -2221,7 +2241,8 @@ public class OmssaViewer extends javax.swing.JFrame {
             }
 
             // clear the modification details legend
-            modificationDetailsJLabel.setText("");
+            legendJLabel.setText("");
+            ptmsJTextField.setText("");
 
             // get the list of fixed modifications
             List<Integer> fixedModifications =
@@ -2344,8 +2365,9 @@ public class OmssaViewer extends javax.swing.JFrame {
                         }
                     }
                 } else {
-                    modificationDetailsJLabel.setText("Modifications: (Files with modification details were not provided. "
-                            + "No modifications are shown.)" + "    /    " + ionCoverageLegend);
+                    ptmsJTextField.setText("(Files with modification details were not provided. "
+                            + "No modifications are shown.)");
+                    legendJLabel.setText(ionCoverageLegend);
                     modifiedSequence = sequence;
                 }
 
@@ -2634,11 +2656,12 @@ public class OmssaViewer extends javax.swing.JFrame {
             }
 
             if (modificationDetails.length() > 0) {
-                modificationDetailsJLabel.setText("Modifications: " + modificationDetails
-                        + "    /    " + ionCoverageLegend);
+                ptmsJTextField.setText(modificationDetails);
             } else {
-                modificationDetailsJLabel.setText(ionCoverageLegend);
+                legendJLabel.setText(ionCoverageLegend);
             }
+            
+            legendJLabel.setText(ionCoverageLegend);
 
             if (evt != null && evt.getButton() == MouseEvent.BUTTON3) {
                 copySpectraJPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
@@ -2735,6 +2758,7 @@ public class OmssaViewer extends javax.swing.JFrame {
     private javax.swing.JScrollPane identificationsJScrollPane;
     private javax.swing.JTable identificationsJTable;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -2742,8 +2766,9 @@ public class OmssaViewer extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel modificationDetailsJLabel;
+    private javax.swing.JLabel legendJLabel;
     private javax.swing.JMenuItem openJMenuItem;
+    private javax.swing.JTextField ptmsJTextField;
     private javax.swing.JScrollPane spectraJScrollPane;
     private javax.swing.JTable spectraJTable;
     private javax.swing.JPanel spectrumJPanel;
