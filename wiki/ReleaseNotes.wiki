@@ -3,8 +3,18 @@
 
 ----
 
+*Changes in omssa-parser 1.5 (April 16. 2012):*
+ * FEATURE IMPROVEMENT: Upgraded the OMSSA Viewer to the PeptideShaker look and feel.
+ * FEATURE IMPROVEMENT: Updated the help and about texts.
+ * LIBRARY UPDATE: Added jsparklines as a dependency.
+ * LIBRARY UPDATE: Removed jgoodies and swingx as a dependencies.
+
+----
+
 *Changes in omssa-parser 1.4.7 (January 31. 2012):*
  * BUG FIX: Changed the OMSSA abundance scale from a long to a double (as detailed in OMSSA.mod.xsd).
+
+Download count: 61
 
 ----
 
