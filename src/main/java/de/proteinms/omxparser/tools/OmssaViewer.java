@@ -3,9 +3,6 @@ package de.proteinms.omxparser.tools;
 import com.compomics.util.gui.spectrum.DefaultSpectrumAnnotation;
 import com.compomics.util.gui.spectrum.SpectrumPanel;
 import com.compomics.util.protein.Header;
-import com.jgoodies.looks.plastic.PlasticLookAndFeel;
-import com.jgoodies.looks.plastic.PlasticXPLookAndFeel;
-import com.jgoodies.looks.plastic.theme.SkyKrupp;
 import de.proteinms.omxparser.OmssaOmxFile;
 import de.proteinms.omxparser.util.MSHitSet;
 import de.proteinms.omxparser.util.MSHits;
@@ -27,24 +24,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Vector;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.TransferHandler;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import java.util.*;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import org.jdesktop.swingx.JXTable;
-import org.jdesktop.swingx.JXTableHeader;
-import org.jdesktop.swingx.decorator.SortOrder;
+import javax.swing.table.JTableHeader;
+import no.uib.jsparklines.extra.NimbusCheckBoxRenderer;
 
 /**
- * A simply viewer for OMMSA omx files to show how the omssa-parser library
- * can be used.
+ * A simply viewer for OMMSA omx files to show how the omssa-parser library can
+ * be used.
  *
  * @author Harald Barsnes
  *
@@ -60,10 +48,9 @@ public class OmssaViewer extends javax.swing.JFrame {
     private HashMap<Integer, ArrayList<Double>> allAbundanceValues;
     private HashMap<MSSpectrum, MSHitSet> spectrumHitSetMap;
     private HashMap<Integer, MSSpectrum> spectra;
-    private Vector spectraJXTableColumnToolTips;
+    private Vector spectraJTableColumnToolTips;
     private Vector spectrumJTableColumnToolTips;
-    private Vector spectrumJXTableColumnToolTips;
-    private Vector identificationsJXTableColumnToolTips;
+    private Vector identificationsJTableColumnToolTips;
     private HashMap<String, Vector<DefaultSpectrumAnnotation>> allAnnotations;
     /**
      * The hardcoded mass of a hydrogen atom.
@@ -96,9 +83,9 @@ public class OmssaViewer extends javax.swing.JFrame {
     private static boolean useErrorLog = true;
 
     /**
-     * First checks if a newer version of the omssa-parser is available,
-     * then creates an error log file (if useErrorLog == true) and finally
-     * opens the OmssaViewerFileSelection dialog.
+     * First checks if a newer version of the omssa-parser is available, then
+     * creates an error log file (if useErrorLog == true) and finally opens the
+     * OmssaViewerFileSelection dialog.
      *
      * @param args
      */
@@ -109,11 +96,14 @@ public class OmssaViewer extends javax.swing.JFrame {
             public void run() {
 
                 try {
-                    PlasticLookAndFeel.setPlasticTheme(new SkyKrupp());
-                    UIManager.setLookAndFeel(new PlasticXPLookAndFeel());
-                } catch (UnsupportedLookAndFeelException e) {
-                    Util.writeToErrorLog("Error setting the look and feel: ");
-                    e.printStackTrace();
+                    for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                        if ("Nimbus".equals(info.getName())) {
+                            UIManager.setLookAndFeel(info.getClassName());
+                            break;
+                        }
+                    }
+                } catch (Exception e) {
+                    // ignore error, use look and feel below
                 }
 
                 // check if a newer version of the omssa-parser is available
@@ -184,17 +174,34 @@ public class OmssaViewer extends javax.swing.JFrame {
     }
 
     /**
+     * Returns the path to the jar file.
+     *
+     * @return the path to the jar file
+     */
+    public String getJarFilePath() {
+        String path = this.getClass().getResource("OmssaViewer.class").getPath();
+
+        if (path.lastIndexOf("/omssa-parser-") != -1) {
+            path = path.substring(5, path.lastIndexOf("/omssa-parser-"));
+            path = path.replace("%20", " ");
+            path = path.replace("%5b", "[");
+            path = path.replace("%5d", "]");
+        } else {
+            path = ".";
+        }
+
+        return path;
+    }
+
+    /**
      * Set up the error log.
      */
     private void setUpErrorLog() {
 
         // creates the error log file
-        if (useErrorLog) {
+        if (useErrorLog && !getJarFilePath().equalsIgnoreCase(".")) {
             try {
-                String path = "" + this.getClass().getProtectionDomain().getCodeSource().getLocation();
-                path = path.substring(5, path.lastIndexOf("/")) + File.separator + "Properties/ErrorLog.txt";
-                path = path.replace("%20", " ");
-
+                String path = getJarFilePath() + "/Properties/ErrorLog.txt";
                 File file = new File(path);
                 System.setOut(new java.io.PrintStream(new FileOutputStream(file, true)));
                 System.setErr(new java.io.PrintStream(new FileOutputStream(file, true)));
@@ -238,78 +245,86 @@ public class OmssaViewer extends javax.swing.JFrame {
                 getResource("/de/proteinms/omxparser/icons/omssaviewer.GIF")));
 
         // use scientific notation for the P- and E-values in the identification table
-        identificationsJXTable.setDefaultRenderer(Float.class, new ScientificNumberTableCellRenderer());
+        identificationsJTable.setDefaultRenderer(Float.class, new ScientificNumberTableCellRenderer());
+        
+        identificationsJTable.getColumn("Modified Sequence").setCellRenderer(new BlackWhiteTextColorRenderer());
+        spectraJTable.getColumn("Identified").setCellRenderer(new NimbusCheckBoxRenderer());
+
+        // make sure that the scroll panes are see-through
+        spectraJScrollPane.getViewport().setOpaque(false);
+        spectrumJScrollPane.getViewport().setOpaque(false);
+        identificationsJScrollPane.getViewport().setOpaque(false);
+
+        spectraJTable.setAutoCreateRowSorter(true);
+        spectrumJTable.setAutoCreateRowSorter(true);
+        identificationsJTable.setAutoCreateRowSorter(true);
 
         // sets the column sizes
-        spectraJXTable.getColumn(" ").setMaxWidth(45);
-        spectraJXTable.getColumn(" ").setMinWidth(45);
-        spectraJXTable.getColumn("m/z").setMaxWidth(65);
-        spectraJXTable.getColumn("m/z").setMinWidth(65);
-        spectraJXTable.getColumn("Charge").setMaxWidth(65);
-        spectraJXTable.getColumn("Charge").setMinWidth(65);
-        spectraJXTable.getColumn("Identified").setMaxWidth(80);
-        spectraJXTable.getColumn("Identified").setMinWidth(80);
+        spectraJTable.getColumn(" ").setMaxWidth(45);
+        spectraJTable.getColumn(" ").setMinWidth(45);
+        spectraJTable.getColumn("m/z").setMaxWidth(65);
+        spectraJTable.getColumn("m/z").setMinWidth(65);
+        spectraJTable.getColumn("Charge").setMaxWidth(65);
+        spectraJTable.getColumn("Charge").setMinWidth(65);
+        spectraJTable.getColumn("Identified").setMaxWidth(80);
+        spectraJTable.getColumn("Identified").setMinWidth(80);
 
-        spectrumJXTable.getColumn(" ").setMaxWidth(35);
-        spectrumJXTable.getColumn(" ").setMinWidth(35);
+        spectrumJTable.getColumn(" ").setMaxWidth(35);
+        spectrumJTable.getColumn(" ").setMinWidth(35);
 
-        identificationsJXTable.getColumn(" ").setMaxWidth(45);
-        identificationsJXTable.getColumn(" ").setMinWidth(45);
-        identificationsJXTable.getColumn("Start").setMaxWidth(45);
-        identificationsJXTable.getColumn("Start").setMinWidth(45);
-        identificationsJXTable.getColumn("End").setMaxWidth(45);
-        identificationsJXTable.getColumn("End").setMinWidth(45);
-        identificationsJXTable.getColumn("Exp. Mass").setMaxWidth(75);
-        identificationsJXTable.getColumn("Exp. Mass").setMinWidth(75);
-        identificationsJXTable.getColumn("Theo. Mass").setMaxWidth(75);
-        identificationsJXTable.getColumn("Theo. Mass").setMinWidth(75);
-        identificationsJXTable.getColumn("E-value").setMinWidth(75);
-        identificationsJXTable.getColumn("E-value").setMaxWidth(75);
-        identificationsJXTable.getColumn("P-value").setMinWidth(75);
-        identificationsJXTable.getColumn("P-value").setMaxWidth(75);
-        identificationsJXTable.getColumn("Accession").setPreferredWidth(10);
+        identificationsJTable.getColumn(" ").setMaxWidth(45);
+        identificationsJTable.getColumn(" ").setMinWidth(45);
+        identificationsJTable.getColumn("Start").setMaxWidth(45);
+        identificationsJTable.getColumn("Start").setMinWidth(45);
+        identificationsJTable.getColumn("End").setMaxWidth(45);
+        identificationsJTable.getColumn("End").setMinWidth(45);
+        identificationsJTable.getColumn("Exp. Mass").setMaxWidth(75);
+        identificationsJTable.getColumn("Exp. Mass").setMinWidth(75);
+        identificationsJTable.getColumn("Theo. Mass").setMaxWidth(75);
+        identificationsJTable.getColumn("Theo. Mass").setMinWidth(75);
+        identificationsJTable.getColumn("E-value").setMinWidth(75);
+        identificationsJTable.getColumn("E-value").setMaxWidth(75);
+        identificationsJTable.getColumn("P-value").setMinWidth(75);
+        identificationsJTable.getColumn("P-value").setMaxWidth(75);
+        identificationsJTable.getColumn("Accession").setPreferredWidth(10);
 
         // disables column reordering
-        spectraJXTable.getTableHeader().setReorderingAllowed(false);
-        spectrumJXTable.getTableHeader().setReorderingAllowed(false);
-        identificationsJXTable.getTableHeader().setReorderingAllowed(false);
+        spectraJTable.getTableHeader().setReorderingAllowed(false);
+        spectrumJTable.getTableHeader().setReorderingAllowed(false);
+        identificationsJTable.getTableHeader().setReorderingAllowed(false);
 
         // adds column header tooltips
-        spectraJXTableColumnToolTips = new Vector();
-        spectraJXTableColumnToolTips.add("Spectrum Number");
-        spectraJXTableColumnToolTips.add("Spectrum File Name");
-        spectraJXTableColumnToolTips.add("Precursor Mass Over Charge Ratio");
-        spectraJXTableColumnToolTips.add("Precursor Charge");
-        spectraJXTableColumnToolTips.add("Spectrum Identified");
+        spectraJTableColumnToolTips = new Vector();
+        spectraJTableColumnToolTips.add("Spectrum Number");
+        spectraJTableColumnToolTips.add("Spectrum File Name");
+        spectraJTableColumnToolTips.add("Precursor Mass Over Charge Ratio");
+        spectraJTableColumnToolTips.add("Precursor Charge");
+        spectraJTableColumnToolTips.add("Spectrum Identified");
 
         spectrumJTableColumnToolTips = new Vector();
         spectrumJTableColumnToolTips.add(null);
         spectrumJTableColumnToolTips.add("Mass Over Charge Ratio");
         spectrumJTableColumnToolTips.add("Abundance");
 
-        spectrumJXTableColumnToolTips = new Vector();
-        spectrumJXTableColumnToolTips.add(null);
-        spectrumJXTableColumnToolTips.add("Mass Over Charge Ratio");
-        spectrumJXTableColumnToolTips.add("Abundance");
-
-        identificationsJXTableColumnToolTips = new Vector();
-        identificationsJXTableColumnToolTips.add("Spectrum Number");
-        identificationsJXTableColumnToolTips.add("Peptide Sequence");
-        identificationsJXTableColumnToolTips.add("Modified Peptide Sequence");
-        identificationsJXTableColumnToolTips.add("Peptide Start Index");
-        identificationsJXTableColumnToolTips.add("Peptide End Index");
-        identificationsJXTableColumnToolTips.add("Experimental Mass");
-        identificationsJXTableColumnToolTips.add("Theoretical Mass");
-        identificationsJXTableColumnToolTips.add("E-value");
-        identificationsJXTableColumnToolTips.add("P-value");
-        identificationsJXTableColumnToolTips.add("Protein Accession Number");
-        identificationsJXTableColumnToolTips.add("Protein Description");
+        identificationsJTableColumnToolTips = new Vector();
+        identificationsJTableColumnToolTips.add("Spectrum Number");
+        identificationsJTableColumnToolTips.add("Peptide Sequence");
+        identificationsJTableColumnToolTips.add("Modified Peptide Sequence");
+        identificationsJTableColumnToolTips.add("Peptide Start Index");
+        identificationsJTableColumnToolTips.add("Peptide End Index");
+        identificationsJTableColumnToolTips.add("Experimental Mass");
+        identificationsJTableColumnToolTips.add("Theoretical Mass");
+        identificationsJTableColumnToolTips.add("E-value");
+        identificationsJTableColumnToolTips.add("P-value");
+        identificationsJTableColumnToolTips.add("Protein Accession Number");
+        identificationsJTableColumnToolTips.add("Protein Description");
 
         setLocationRelativeTo(null);
     }
 
     /**
-     * Creates new OmssaViewer frame, makes it visible and starts parsing the input files.
+     * Creates new OmssaViewer frame, makes it visible and starts parsing the
+     * input files.
      *
      * @param aOmxFile the OMSSA omx file to parse
      * @param aModsFile the mods.xml file
@@ -329,72 +344,71 @@ public class OmssaViewer extends javax.swing.JFrame {
                 getResource("/de/proteinms/omxparser/icons/omssaviewer.GIF")));
 
         // use scientific notation for the P- and E-values in the identification table
-        identificationsJXTable.setDefaultRenderer(Float.class, new ScientificNumberTableCellRenderer());
+        identificationsJTable.setDefaultRenderer(Float.class, new ScientificNumberTableCellRenderer());
 
         // sets the column sizes
-        spectraJXTable.getColumn(" ").setMaxWidth(35);
-        spectraJXTable.getColumn(" ").setMinWidth(35);
-        spectraJXTable.getColumn("m/z").setMaxWidth(65);
-        spectraJXTable.getColumn("m/z").setMinWidth(65);
-        spectraJXTable.getColumn("Charge").setMaxWidth(65);
-        spectraJXTable.getColumn("Charge").setMinWidth(65);
-        spectraJXTable.getColumn("Identified").setMaxWidth(80);
-        spectraJXTable.getColumn("Identified").setMinWidth(80);
+        spectraJTable.getColumn(" ").setMaxWidth(35);
+        spectraJTable.getColumn(" ").setMinWidth(35);
+        spectraJTable.getColumn("m/z").setMaxWidth(65);
+        spectraJTable.getColumn("m/z").setMinWidth(65);
+        spectraJTable.getColumn("Charge").setMaxWidth(65);
+        spectraJTable.getColumn("Charge").setMinWidth(65);
+        spectraJTable.getColumn("Identified").setMaxWidth(80);
+        spectraJTable.getColumn("Identified").setMinWidth(80);
 
-        spectrumJXTable.getColumn(" ").setMaxWidth(35);
-        spectrumJXTable.getColumn(" ").setMinWidth(35);
+        spectrumJTable.getColumn(" ").setMaxWidth(35);
+        spectrumJTable.getColumn(" ").setMinWidth(35);
 
-        identificationsJXTable.getColumn(" ").setMaxWidth(35);
-        identificationsJXTable.getColumn(" ").setMinWidth(35);
-        identificationsJXTable.getColumn("Start").setMaxWidth(45);
-        identificationsJXTable.getColumn("Start").setMinWidth(45);
-        identificationsJXTable.getColumn("End").setMaxWidth(45);
-        identificationsJXTable.getColumn("End").setMinWidth(45);
-        identificationsJXTable.getColumn("Exp. Mass").setMaxWidth(75);
-        identificationsJXTable.getColumn("Exp. Mass").setMinWidth(75);
-        identificationsJXTable.getColumn("Theo. Mass").setMaxWidth(75);
-        identificationsJXTable.getColumn("Theo. Mass").setMinWidth(75);
-        identificationsJXTable.getColumn("E-value").setMinWidth(75);
-        identificationsJXTable.getColumn("E-value").setMaxWidth(75);
-        identificationsJXTable.getColumn("P-value").setMinWidth(75);
-        identificationsJXTable.getColumn("P-value").setMaxWidth(75);
-        identificationsJXTable.getColumn("Accession").setPreferredWidth(10);
+        identificationsJTable.getColumn(" ").setMaxWidth(35);
+        identificationsJTable.getColumn(" ").setMinWidth(35);
+        identificationsJTable.getColumn("Start").setMaxWidth(45);
+        identificationsJTable.getColumn("Start").setMinWidth(45);
+        identificationsJTable.getColumn("End").setMaxWidth(45);
+        identificationsJTable.getColumn("End").setMinWidth(45);
+        identificationsJTable.getColumn("Exp. Mass").setMaxWidth(75);
+        identificationsJTable.getColumn("Exp. Mass").setMinWidth(75);
+        identificationsJTable.getColumn("Theo. Mass").setMaxWidth(75);
+        identificationsJTable.getColumn("Theo. Mass").setMinWidth(75);
+        identificationsJTable.getColumn("E-value").setMinWidth(75);
+        identificationsJTable.getColumn("E-value").setMaxWidth(75);
+        identificationsJTable.getColumn("P-value").setMinWidth(75);
+        identificationsJTable.getColumn("P-value").setMaxWidth(75);
+        identificationsJTable.getColumn("Accession").setPreferredWidth(10);
 
         // disables column reordering
-        spectraJXTable.getTableHeader().setReorderingAllowed(false);
-        spectrumJXTable.getTableHeader().setReorderingAllowed(false);
-        identificationsJXTable.getTableHeader().setReorderingAllowed(false);
+        spectraJTable.getTableHeader().setReorderingAllowed(false);
+        spectrumJTable.getTableHeader().setReorderingAllowed(false);
+        identificationsJTable.getTableHeader().setReorderingAllowed(false);
+
+        spectraJTable.setAutoCreateRowSorter(true);
+        spectrumJTable.setAutoCreateRowSorter(true);
+        identificationsJTable.setAutoCreateRowSorter(true);
 
         // adds column header tooltips
-        spectraJXTableColumnToolTips = new Vector();
-        spectraJXTableColumnToolTips.add("Spectrum Number");
-        spectraJXTableColumnToolTips.add("Spectrum File Name");
-        spectraJXTableColumnToolTips.add("Precursor Mass Over Charge Ratio");
-        spectraJXTableColumnToolTips.add("Precursor Charge");
-        spectraJXTableColumnToolTips.add("Spectrum Identified");
+        spectraJTableColumnToolTips = new Vector();
+        spectraJTableColumnToolTips.add("Spectrum Number");
+        spectraJTableColumnToolTips.add("Spectrum File Name");
+        spectraJTableColumnToolTips.add("Precursor Mass Over Charge Ratio");
+        spectraJTableColumnToolTips.add("Precursor Charge");
+        spectraJTableColumnToolTips.add("Spectrum Identified");
 
         spectrumJTableColumnToolTips = new Vector();
         spectrumJTableColumnToolTips.add(null);
         spectrumJTableColumnToolTips.add("Mass Over Charge Ratio");
         spectrumJTableColumnToolTips.add("Abundance");
 
-        spectrumJXTableColumnToolTips = new Vector();
-        spectrumJXTableColumnToolTips.add(null);
-        spectrumJXTableColumnToolTips.add("Mass Over Charge Ratio");
-        spectrumJXTableColumnToolTips.add("Abundance");
-
-        identificationsJXTableColumnToolTips = new Vector();
-        identificationsJXTableColumnToolTips.add("Spectrum Number");
-        identificationsJXTableColumnToolTips.add("Peptide Sequence");
-        identificationsJXTableColumnToolTips.add("Modified Peptide Sequence");
-        identificationsJXTableColumnToolTips.add("Peptide Start Index");
-        identificationsJXTableColumnToolTips.add("Peptide End Index");
-        identificationsJXTableColumnToolTips.add("Experimental Mass");
-        identificationsJXTableColumnToolTips.add("Theoretical Mass");
-        identificationsJXTableColumnToolTips.add("E-value");
-        identificationsJXTableColumnToolTips.add("P-value");
-        identificationsJXTableColumnToolTips.add("Protein Accession Number");
-        identificationsJXTableColumnToolTips.add("Protein Description");
+        identificationsJTableColumnToolTips = new Vector();
+        identificationsJTableColumnToolTips.add("Spectrum Number");
+        identificationsJTableColumnToolTips.add("Peptide Sequence");
+        identificationsJTableColumnToolTips.add("Modified Peptide Sequence");
+        identificationsJTableColumnToolTips.add("Peptide Start Index");
+        identificationsJTableColumnToolTips.add("Peptide End Index");
+        identificationsJTableColumnToolTips.add("Experimental Mass");
+        identificationsJTableColumnToolTips.add("Theoretical Mass");
+        identificationsJTableColumnToolTips.add("E-value");
+        identificationsJTableColumnToolTips.add("P-value");
+        identificationsJTableColumnToolTips.add("Protein Accession Number");
+        identificationsJTableColumnToolTips.add("Protein Description");
 
         setLocationRelativeTo(null);
         setVisible(true);
@@ -403,8 +417,8 @@ public class OmssaViewer extends javax.swing.JFrame {
     }
 
     /**
-     * Parses the given omx file (and modification files) and inserts the details
-     * into the OMSSA Viewer tables.
+     * Parses the given omx file (and modification files) and inserts the
+     * details into the OMSSA Viewer tables.
      *
      * @param aOmxFile the OMSSA omx file to parse
      * @param aModsFile the mods.xml file
@@ -442,20 +456,17 @@ public class OmssaViewer extends javax.swing.JFrame {
             @Override
             public void run() {
 
-                // turn off the auto row sorting
-                spectraJXTable.setSortable(false);
-
                 // empty the tables and clear the spectrum panel
-                while (((DefaultTableModel) spectraJXTable.getModel()).getRowCount() > 0) {
-                    ((DefaultTableModel) spectraJXTable.getModel()).removeRow(0);
+                while (((DefaultTableModel) spectraJTable.getModel()).getRowCount() > 0) {
+                    ((DefaultTableModel) spectraJTable.getModel()).removeRow(0);
                 }
 
-                while (((DefaultTableModel) spectrumJXTable.getModel()).getRowCount() > 0) {
-                    ((DefaultTableModel) spectrumJXTable.getModel()).removeRow(0);
+                while (((DefaultTableModel) spectrumJTable.getModel()).getRowCount() > 0) {
+                    ((DefaultTableModel) spectrumJTable.getModel()).removeRow(0);
                 }
 
-                while (((DefaultTableModel) identificationsJXTable.getModel()).getRowCount() > 0) {
-                    ((DefaultTableModel) identificationsJXTable.getModel()).removeRow(0);
+                while (((DefaultTableModel) identificationsJTable.getModel()).getRowCount() > 0) {
+                    ((DefaultTableModel) identificationsJTable.getModel()).removeRow(0);
                 }
 
                 modificationDetailsJLabel.setText("");
@@ -506,17 +517,24 @@ public class OmssaViewer extends javax.swing.JFrame {
                 allAbundanceValues = new HashMap<Integer, ArrayList<Double>>();
                 spectra = new HashMap<Integer, MSSpectrum>();
 
+                // iterate the spectra
                 while (iterator.hasNext()) {
-
                     MSSpectrum tempSpectrum = iterator.next();
-
                     spectra.put(new Integer(tempSpectrum.MSSpectrum_number), tempSpectrum);
+                }
+
+                // add the spectra to the table
+                Object[] keys = spectra.keySet().toArray();
+                Arrays.sort(keys);
+
+                for (int i = 0; i < keys.length; i++) {
+                    MSSpectrum tempSpectrum = spectra.get((Integer) keys[i]);
 
                     // OMSSA question: possible with more than one file name per spectrum??
                     String fileName;
 
                     // spectrum name is not mandatory, use spectrum number if no name is given
-                    if (tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.size() == 0) {
+                    if (tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.isEmpty()) {
                         fileName = "" + tempSpectrum.MSSpectrum_number;
                     } else {
                         fileName = tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.get(0);
@@ -540,16 +558,15 @@ public class OmssaViewer extends javax.swing.JFrame {
                     List<Integer> currentMzValuesAsIntegers = tempSpectrum.MSSpectrum_mz.MSSpectrum_mz_E;
                     List<Integer> currentAbundanceValuesAsIntegers = tempSpectrum.MSSpectrum_abundance.MSSpectrum_abundance_E;
 
-                    for (int i = 0; i < currentMzValuesAsIntegers.size(); i++) {
-                        currentRealMzValues.add(currentMzValuesAsIntegers.get(i).doubleValue() / omssaResponseScale);
-                        currentRealAbundanceValues.add(currentAbundanceValuesAsIntegers.get(i).doubleValue() / omssaAbundanceScale);
+                    for (int j = 0; j < currentMzValuesAsIntegers.size(); j++) {
+                        currentRealMzValues.add(currentMzValuesAsIntegers.get(j).doubleValue() / omssaResponseScale);
+                        currentRealAbundanceValues.add(currentAbundanceValuesAsIntegers.get(j).doubleValue() / omssaAbundanceScale);
                     }
 
                     allMzValues.put(new Integer(tempSpectrum.MSSpectrum_number),
                             currentRealMzValues);
                     allAbundanceValues.put(new Integer(tempSpectrum.MSSpectrum_number),
                             currentRealAbundanceValues);
-
 
                     boolean identified = false;
 
@@ -560,23 +577,19 @@ public class OmssaViewer extends javax.swing.JFrame {
                         identified = true;
                     }
 
-                    ((DefaultTableModel) spectraJXTable.getModel()).addRow(new Object[]{
+                    ((DefaultTableModel) spectraJTable.getModel()).addRow(new Object[]{
                                 new Integer(tempSpectrum.MSSpectrum_number),
                                 fileName,
                                 ((double) tempSpectrum.MSSpectrum_precursormz) / omssaResponseScale,
                                 new Integer(chargeString),
-                                new Boolean(identified)
+                                identified
                             });
                 }
 
-                // switch the auto row sorting back on
-                spectraJXTable.setSortable(true);
-                spectraJXTable.setSortOrder(0, SortOrder.ASCENDING);
-
                 // select the first spectra in the table
-                if (spectraJXTable.getRowCount() > 0) {
-                    spectraJXTable.setRowSelectionInterval(0, 0);
-                    spectraJXTableMouseClicked(null);
+                if (spectraJTable.getRowCount() > 0) {
+                    spectraJTable.setRowSelectionInterval(0, 0);
+                    spectraJTableMouseClicked(null);
                 }
 
                 progressDialog.setVisible(false);
@@ -585,10 +598,10 @@ public class OmssaViewer extends javax.swing.JFrame {
         }.start();
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -601,18 +614,17 @@ public class OmssaViewer extends javax.swing.JFrame {
         copyIdentificationsJPopupMenu = new javax.swing.JPopupMenu();
         copyIdentificationsJMenuItem = new javax.swing.JMenuItem();
         accesionDetailsButtonGroup = new javax.swing.ButtonGroup();
+        backgroundPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        spectraJXTable = new JXTable() {
-            protected JXTableHeader createDefaultTableHeader() {
-                return new JXTableHeader(columnModel) {
+        spectraJScrollPane = new javax.swing.JScrollPane();
+        spectraJTable = new JTable() {
+            protected JTableHeader createDefaultTableHeader() {
+                return new JTableHeader(columnModel) {
                     public String getToolTipText(MouseEvent e) {
-                        String tip = null;
                         java.awt.Point p = e.getPoint();
                         int index = columnModel.getColumnIndexAtX(p.x);
                         int realIndex = columnModel.getColumn(index).getModelIndex();
-                        tip = (String) spectraJXTableColumnToolTips.get(realIndex);
-                        return tip;
+                        return (String) spectraJTableColumnToolTips.get(realIndex);
                     }
                 };
             }
@@ -620,17 +632,15 @@ public class OmssaViewer extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         modificationDetailsJLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        identificationsJXTable = new JXTable() {
-            protected JXTableHeader createDefaultTableHeader() {
-                return new JXTableHeader(columnModel) {
+        identificationsJScrollPane = new javax.swing.JScrollPane();
+        identificationsJTable = new JTable() {
+            protected JTableHeader createDefaultTableHeader() {
+                return new JTableHeader(columnModel) {
                     public String getToolTipText(MouseEvent e) {
-                        String tip = null;
                         java.awt.Point p = e.getPoint();
                         int index = columnModel.getColumnIndexAtX(p.x);
                         int realIndex = columnModel.getColumn(index).getModelIndex();
-                        tip = (String) identificationsJXTableColumnToolTips.get(realIndex);
-                        return tip;
+                        return (String) identificationsJTableColumnToolTips.get(realIndex);
                     }
                 };
             }
@@ -649,17 +659,15 @@ public class OmssaViewer extends javax.swing.JFrame {
         chargeOneJCheckBox = new javax.swing.JCheckBox();
         chargeTwoJCheckBox = new javax.swing.JCheckBox();
         chargeOverTwoJCheckBox = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        spectrumJXTable = new JXTable() {
-            protected JXTableHeader createDefaultTableHeader() {
-                return new JXTableHeader(columnModel) {
+        spectrumJScrollPane = new javax.swing.JScrollPane();
+        spectrumJTable = new JTable() {
+            protected JTableHeader createDefaultTableHeader() {
+                return new JTableHeader(columnModel) {
                     public String getToolTipText(MouseEvent e) {
-                        String tip = null;
                         java.awt.Point p = e.getPoint();
                         int index = columnModel.getColumnIndexAtX(p.x);
                         int realIndex = columnModel.getColumn(index).getModelIndex();
-                        tip = (String) spectrumJXTableColumnToolTips.get(realIndex);
-                        return tip;
+                        return (String) spectrumJTableColumnToolTips.get(realIndex);
                     }
                 };
             }
@@ -708,9 +716,12 @@ public class OmssaViewer extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OMSSA Viewer v1.0");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Spectra Files"));
+        backgroundPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        spectraJXTable.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Spectrum Files"));
+        jPanel1.setOpaque(false);
+
+        spectraJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -733,43 +744,44 @@ public class OmssaViewer extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        spectraJXTable.setOpaque(false);
-        spectraJXTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        spectraJTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                spectraJXTableMouseClicked(evt);
+                spectraJTableMouseClicked(evt);
             }
         });
-        spectraJXTable.addKeyListener(new java.awt.event.KeyAdapter() {
+        spectraJTable.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                spectraJXTableKeyReleased(evt);
+                spectraJTableKeyReleased(evt);
             }
         });
-        jScrollPane3.setViewportView(spectraJXTable);
+        spectraJScrollPane.setViewportView(spectraJTable);
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
+                .add(spectraJScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(spectraJScrollPane)
                 .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Identifications"));
+        jPanel2.setOpaque(false);
 
         modificationDetailsJLabel.setFont(modificationDetailsJLabel.getFont().deriveFont((modificationDetailsJLabel.getFont().getStyle() | java.awt.Font.ITALIC)));
 
         jLabel1.setFont(jLabel1.getFont().deriveFont((jLabel1.getFont().getStyle() | java.awt.Font.ITALIC)));
         jLabel1.setText("Legend:   ");
 
-        identificationsJXTable.setModel(new javax.swing.table.DefaultTableModel(
+        identificationsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -792,18 +804,17 @@ public class OmssaViewer extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        identificationsJXTable.setOpaque(false);
-        identificationsJXTable.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                identificationsJXTableKeyReleased(evt);
-            }
-        });
-        identificationsJXTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        identificationsJTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                identificationsJXTableMouseClicked(evt);
+                identificationsJTableMouseClicked(evt);
             }
         });
-        jScrollPane4.setViewportView(identificationsJXTable);
+        identificationsJTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                identificationsJTableKeyReleased(evt);
+            }
+        });
+        identificationsJScrollPane.setViewportView(identificationsJTable);
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -815,30 +826,36 @@ public class OmssaViewer extends javax.swing.JFrame {
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabel1)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(modificationDetailsJLabel))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1237, Short.MAX_VALUE))
+                        .add(modificationDetailsJLabel)
+                        .add(0, 0, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, identificationsJScrollPane))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(identificationsJScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
                     .add(modificationDetailsJLabel)))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Spectrum"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Selected Spectrum"));
+        jPanel3.setOpaque(false);
 
-        spectrumJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        spectrumJPanel.setOpaque(false);
         spectrumJPanel.setLayout(new javax.swing.BoxLayout(spectrumJPanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel4.setOpaque(false);
 
         aIonsJCheckBox.setSelected(true);
         aIonsJCheckBox.setText("a");
         aIonsJCheckBox.setToolTipText("Show a-ions");
         aIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         aIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        aIonsJCheckBox.setOpaque(false);
         aIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         aIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -851,6 +868,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         bIonsJCheckBox.setToolTipText("Show b-ions");
         bIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         bIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        bIonsJCheckBox.setOpaque(false);
         bIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         bIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -863,6 +881,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         cIonsJCheckBox.setToolTipText("Show c-ions");
         cIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         cIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        cIonsJCheckBox.setOpaque(false);
         cIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         cIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -875,6 +894,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         yIonsJCheckBox.setToolTipText("Show y-ions");
         yIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         yIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        yIonsJCheckBox.setOpaque(false);
         yIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         yIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -887,6 +907,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         xIonsJCheckBox.setToolTipText("Show x-ions");
         xIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         xIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        xIonsJCheckBox.setOpaque(false);
         xIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         xIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -899,6 +920,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         zIonsJCheckBox.setToolTipText("Show z-ions");
         zIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         zIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        zIonsJCheckBox.setOpaque(false);
         zIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         zIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -911,6 +933,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         chargeOneJCheckBox.setToolTipText("Show ions with charge 1");
         chargeOneJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         chargeOneJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        chargeOneJCheckBox.setOpaque(false);
         chargeOneJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         chargeOneJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -923,6 +946,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         chargeTwoJCheckBox.setToolTipText("Show ions with charge 2");
         chargeTwoJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         chargeTwoJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
+        chargeTwoJCheckBox.setOpaque(false);
         chargeTwoJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         chargeTwoJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -933,6 +957,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         chargeOverTwoJCheckBox.setSelected(true);
         chargeOverTwoJCheckBox.setText(">2");
         chargeOverTwoJCheckBox.setToolTipText("Show ions with charge >2");
+        chargeOverTwoJCheckBox.setOpaque(false);
         chargeOverTwoJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chargeOverTwoJCheckBoxActionPerformed(evt);
@@ -947,20 +972,19 @@ public class OmssaViewer extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(chargeOverTwoJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .add(yIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, zIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .add(xIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .add(bIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .add(aIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .add(cIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .add(yIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, zIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(xIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(bIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(aIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(cIonsJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(chargeOneJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, chargeTwoJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel4Layout.createSequentialGroup()
-                        .add(jSeparator2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .add(jPanel4Layout.createSequentialGroup()
-                        .add(jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .add(chargeOneJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, chargeTwoJCheckBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)))
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jSeparator2)
+                            .add(jSeparator1))
+                        .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -987,10 +1011,10 @@ public class OmssaViewer extends javax.swing.JFrame {
                 .add(chargeTwoJCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(chargeOverTwoJCheckBox)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        spectrumJXTable.setModel(new javax.swing.table.DefaultTableModel(
+        spectrumJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -1013,24 +1037,25 @@ public class OmssaViewer extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        spectrumJXTable.setOpaque(false);
-        spectrumJXTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        spectrumJTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                spectrumJXTableMouseClicked(evt);
+                spectrumJTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(spectrumJXTable);
+        spectrumJScrollPane.setViewportView(spectrumJTable);
 
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+            .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel3Layout.createSequentialGroup()
-                        .add(spectrumJPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                        .add(4, 4, 4)
+                        .add(spectrumJScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(spectrumJPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -1040,9 +1065,37 @@ public class OmssaViewer extends javax.swing.JFrame {
             .add(jPanel3Layout.createSequentialGroup()
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, spectrumJPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(spectrumJPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .add(18, 18, 18)
+                .add(spectrumJScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 164, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        org.jdesktop.layout.GroupLayout backgroundPanelLayout = new org.jdesktop.layout.GroupLayout(backgroundPanel);
+        backgroundPanel.setLayout(backgroundPanelLayout);
+        backgroundPanelLayout.setHorizontalGroup(
+            backgroundPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(backgroundPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(backgroundPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(backgroundPanelLayout.createSequentialGroup()
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        backgroundPanelLayout.setVerticalGroup(
+            backgroundPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(backgroundPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(backgroundPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -1158,26 +1211,11 @@ public class OmssaViewer extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .add(backgroundPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .add(backgroundPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -1198,10 +1236,10 @@ public class OmssaViewer extends javax.swing.JFrame {
      * @param evt
      */
     private void copySpectraJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copySpectraJMenuItemActionPerformed
-        TransferHandler th = spectraJXTable.getTransferHandler();
+        TransferHandler th = spectraJTable.getTransferHandler();
         if (th != null) {
             Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
-            th.exportToClipboard(spectraJXTable, cb, TransferHandler.COPY);
+            th.exportToClipboard(spectraJTable, cb, TransferHandler.COPY);
         }
 }//GEN-LAST:event_copySpectraJMenuItemActionPerformed
 
@@ -1209,10 +1247,10 @@ public class OmssaViewer extends javax.swing.JFrame {
      * @see #copySpectraJMenuItemActionPerformed(java.awt.event.ActionEvent)
      */
     private void copySpectrumJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copySpectrumJMenuItemActionPerformed
-        TransferHandler th = spectrumJXTable.getTransferHandler();
+        TransferHandler th = spectrumJTable.getTransferHandler();
         if (th != null) {
             Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
-            th.exportToClipboard(spectrumJXTable, cb, TransferHandler.COPY);
+            th.exportToClipboard(spectrumJTable, cb, TransferHandler.COPY);
         }
 }//GEN-LAST:event_copySpectrumJMenuItemActionPerformed
 
@@ -1220,17 +1258,17 @@ public class OmssaViewer extends javax.swing.JFrame {
      * @see #copySpectraJMenuItemActionPerformed(java.awt.event.ActionEvent)
      */
     private void copyIdentificationsJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyIdentificationsJMenuItemActionPerformed
-        TransferHandler th = identificationsJXTable.getTransferHandler();
+        TransferHandler th = identificationsJTable.getTransferHandler();
         if (th != null) {
             Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
-            th.exportToClipboard(identificationsJXTable, cb, TransferHandler.COPY);
+            th.exportToClipboard(identificationsJTable, cb, TransferHandler.COPY);
         }
 }//GEN-LAST:event_copyIdentificationsJMenuItemActionPerformed
 
     /**
      * Filters the annotations and returns the annotations matching the selected
      * list next to the spectrum panel.
-     * 
+     *
      * @param annotations the annotations to be filtered
      * @return the filtered annotations
      */
@@ -1305,7 +1343,8 @@ public class OmssaViewer extends javax.swing.JFrame {
     }//GEN-LAST:event_openJMenuItemActionPerformed
 
     /**
-     * Export the contents of the spectra files table to a tab delimited text file.
+     * Export the contents of the spectra files table to a tab delimited text
+     * file.
      *
      * @param evt
      */
@@ -1374,19 +1413,19 @@ public class OmssaViewer extends javax.swing.JFrame {
                 FileWriter f = new FileWriter(selectedFile);
 
                 // add the column headers
-                for (int j = 0; j < spectraJXTable.getColumnCount() - 1; j++) {
-                    f.write(spectraJXTable.getColumnName(j) + "\t");
+                for (int j = 0; j < spectraJTable.getColumnCount() - 1; j++) {
+                    f.write(spectraJTable.getColumnName(j) + "\t");
                 }
 
-                f.write(spectraJXTable.getColumnName(spectraJXTable.getColumnCount() - 1) + "\n");
+                f.write(spectraJTable.getColumnName(spectraJTable.getColumnCount() - 1) + "\n");
 
                 // add the table contents
-                for (int i = 0; i < spectraJXTable.getRowCount(); i++) {
-                    for (int j = 0; j < spectraJXTable.getColumnCount() - 1; j++) {
-                        f.write(spectraJXTable.getValueAt(i, j) + "\t");
+                for (int i = 0; i < spectraJTable.getRowCount(); i++) {
+                    for (int j = 0; j < spectraJTable.getColumnCount() - 1; j++) {
+                        f.write(spectraJTable.getValueAt(i, j) + "\t");
                     }
 
-                    f.write(spectraJXTable.getValueAt(i, spectraJXTable.getColumnCount() - 1) + "\n");
+                    f.write(spectraJTable.getValueAt(i, spectraJTable.getColumnCount() - 1) + "\n");
                 }
 
                 f.close();
@@ -1408,7 +1447,8 @@ public class OmssaViewer extends javax.swing.JFrame {
 }//GEN-LAST:event_exportSpectraFilesTableJMenuItemActionPerformed
 
     /**
-     * Export the contents of the identification table to a tab delimited text file.
+     * Export the contents of the identification table to a tab delimited text
+     * file.
      *
      * @param evt
      */
@@ -1477,19 +1517,19 @@ public class OmssaViewer extends javax.swing.JFrame {
                 FileWriter f = new FileWriter(selectedFile);
 
                 // add the column headers
-                for (int j = 0; j < spectrumJXTable.getColumnCount() - 1; j++) {
-                    f.write(spectrumJXTable.getColumnName(j) + "\t");
+                for (int j = 0; j < spectrumJTable.getColumnCount() - 1; j++) {
+                    f.write(spectrumJTable.getColumnName(j) + "\t");
                 }
 
-                f.write(spectrumJXTable.getColumnName(spectrumJXTable.getColumnCount() - 1) + "\n");
+                f.write(spectrumJTable.getColumnName(spectrumJTable.getColumnCount() - 1) + "\n");
 
                 // add the table contents
-                for (int i = 0; i < spectrumJXTable.getRowCount(); i++) {
-                    for (int j = 0; j < spectrumJXTable.getColumnCount() - 1; j++) {
-                        f.write(spectrumJXTable.getValueAt(i, j) + "\t");
+                for (int i = 0; i < spectrumJTable.getRowCount(); i++) {
+                    for (int j = 0; j < spectrumJTable.getColumnCount() - 1; j++) {
+                        f.write(spectrumJTable.getValueAt(i, j) + "\t");
                     }
 
-                    f.write(spectrumJXTable.getValueAt(i, spectrumJXTable.getColumnCount() - 1) + "\n");
+                    f.write(spectrumJTable.getValueAt(i, spectrumJTable.getColumnCount() - 1) + "\n");
                 }
 
                 f.close();
@@ -1522,7 +1562,8 @@ public class OmssaViewer extends javax.swing.JFrame {
     /**
      * Export all identifications to a tab delimited text file.
      *
-     * @param includeBestHitOnly - if true only the best hits are included, otherwise all hits are included
+     * @param includeBestHitOnly - if true only the best hits are included,
+     * otherwise all hits are included
      */
     private void exportAllIdentifications(boolean includeBestHitOnly) {
 
@@ -1590,7 +1631,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 FileWriter f = new FileWriter(selectedFile);
 
                 // add the column headers
-                for (int j = 0; j < identificationsJXTable.getColumnCount() - 1; j++) {
+                for (int j = 0; j < identificationsJTable.getColumnCount() - 1; j++) {
                     if (j == 0) {
                         f.write("Spectrum number\t");
                         f.write("Spectrum name\t");
@@ -1598,11 +1639,11 @@ public class OmssaViewer extends javax.swing.JFrame {
                         f.write("Modified Sequence" + "\t");
                         f.write("Ion Coverage" + "\t");
                     } else {
-                        f.write(identificationsJXTable.getColumnName(j) + "\t");
+                        f.write(identificationsJTable.getColumnName(j) + "\t");
                     }
                 }
 
-                f.write(identificationsJXTable.getColumnName(identificationsJXTable.getColumnCount() - 1) + "\n");
+                f.write(identificationsJTable.getColumnName(identificationsJTable.getColumnCount() - 1) + "\n");
 
 
                 // add the identification details
@@ -1615,11 +1656,9 @@ public class OmssaViewer extends javax.swing.JFrame {
                 // iterate all the identifications and print them to the file
                 Iterator<MSSpectrum> iterator = spectrumHitSetMap.keySet().iterator();
 
-                boolean allWantedHitsAdded = false;
-
                 while (iterator.hasNext()) {
 
-                    allWantedHitsAdded = false;
+                    boolean allWantedHitsAdded = false;
 
                     MSHitSet msHitSet = spectrumHitSetMap.get(iterator.next());
                     List<MSHits> allMSHits = msHitSet.MSHitSet_hits.MSHits;
@@ -1966,12 +2005,12 @@ public class OmssaViewer extends javax.swing.JFrame {
 
             selectedFolder = chooser.getSelectedFile();
 
-            for (int j = 0; j < spectraJXTable.getRowCount(); j++) {
+            for (int j = 0; j < spectraJTable.getRowCount(); j++) {
 
-                List<Double> mzValues = allMzValues.get((Integer) spectraJXTable.getValueAt(j, 0));
-                List<Double> abundanceValues = allAbundanceValues.get((Integer) spectraJXTable.getValueAt(j, 0));
+                List<Double> mzValues = allMzValues.get((Integer) spectraJTable.getValueAt(j, 0));
+                List<Double> abundanceValues = allAbundanceValues.get((Integer) spectraJTable.getValueAt(j, 0));
 
-                File currentFile = new File(selectedFolder, "" + spectraJXTable.getValueAt(j, 1));
+                File currentFile = new File(selectedFolder, "" + spectraJTable.getValueAt(j, 1));
 
                 FileWriter f;
 
@@ -1981,8 +2020,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                     // write the precursor MH+ and charge
                     // precusor MH+ has to be converted from the m/z value in the file
 
-                    double precusorMz = ((Double) spectraJXTable.getValueAt(j, 2)).doubleValue();
-                    int precursorCharge = ((Integer) spectraJXTable.getValueAt(j, 3)).intValue();
+                    double precusorMz = ((Double) spectraJTable.getValueAt(j, 2)).doubleValue();
+                    int precursorCharge = ((Integer) spectraJTable.getValueAt(j, 3)).intValue();
                     double precursorMh = precusorMz * precursorCharge - precursorCharge * HYDROGEN_MASS + HYDROGEN_MASS;
 
                     f.write("" + precursorMh);
@@ -2018,18 +2057,18 @@ public class OmssaViewer extends javax.swing.JFrame {
      * @param evt
      */
     private void aIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aIonsJCheckBoxActionPerformed
-        if (identificationsJXTable.getRowCount() > 0) {
+        if (identificationsJTable.getRowCount() > 0) {
 
             int selectedRow = 0;
 
-            if (identificationsJXTable.getRowCount() > 1
-                    && identificationsJXTable.getSelectedRow() != -1) {
-                selectedRow = identificationsJXTable.getSelectedRow();
+            if (identificationsJTable.getRowCount() > 1
+                    && identificationsJTable.getSelectedRow() != -1) {
+                selectedRow = identificationsJTable.getSelectedRow();
             }
 
             Vector<DefaultSpectrumAnnotation> currentAnnotations = allAnnotations.get(
-                    identificationsJXTable.getValueAt(selectedRow, 1) + "_"
-                    + identificationsJXTable.getValueAt(selectedRow, 8));
+                    identificationsJTable.getValueAt(selectedRow, 1) + "_"
+                    + identificationsJTable.getValueAt(selectedRow, 8));
 
             // update the ion coverage annotations
             spectrumPanel.setAnnotations(filterAnnotations(currentAnnotations));
@@ -2088,36 +2127,54 @@ public class OmssaViewer extends javax.swing.JFrame {
     }//GEN-LAST:event_chargeTwoJCheckBoxActionPerformed
 
     /**
-     * @see #aIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent) 
+     * @see #aIonsJCheckBoxActionPerformed(java.awt.event.ActionEvent)
      */
     private void chargeOverTwoJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargeOverTwoJCheckBoxActionPerformed
         aIonsJCheckBoxActionPerformed(null);
     }//GEN-LAST:event_chargeOverTwoJCheckBoxActionPerformed
 
     /**
-     * When the user selects a row in the spectra files table, the identifications (if any)
-     * are inserted in the identification table at the bottom of the frame, and the spectrum
-     * details are shown in the spectrum panel and table to the right.
+     * Export all identifications (best hits only) to a tab delimited text file.
      *
      * @param evt
      */
-    private void spectraJXTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spectraJXTableMouseClicked
+    private void exportBestIdentificationsJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBestIdentificationsJMenuItemActionPerformed
+        exportAllIdentifications(true);
+}//GEN-LAST:event_exportBestIdentificationsJMenuItemActionPerformed
 
+    /**
+     * Opens a popup menu if the user right clicks in the spectrum table.
+     *
+     * @param evt
+     */
+    private void spectraJTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spectraJTableKeyReleased
+        spectraJTableMouseClicked(null);
+    }//GEN-LAST:event_spectraJTableKeyReleased
+
+    /**
+     * When the user selects a row in the spectra files table, the
+     * identifications (if any) are inserted in the identification table at the
+     * bottom of the frame, and the spectrum details are shown in the spectrum
+     * panel and table to the right.
+     *
+     * @param evt
+     */
+    private void spectraJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spectraJTableMouseClicked
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
 
-        int row = spectraJXTable.getSelectedRow();
+        int row = spectraJTable.getSelectedRow();
 
         if (row != -1) {
-            List<Double> mzValues = allMzValues.get((Integer) spectraJXTable.getValueAt(row, 0));
-            List<Double> abundanceValues = allAbundanceValues.get((Integer) spectraJXTable.getValueAt(row, 0));
+            List<Double> mzValues = allMzValues.get((Integer) spectraJTable.getValueAt(row, 0));
+            List<Double> abundanceValues = allAbundanceValues.get((Integer) spectraJTable.getValueAt(row, 0));
 
             // empty the spectrum table
-            while (spectrumJXTable.getRowCount() > 0) {
-                ((DefaultTableModel) spectrumJXTable.getModel()).removeRow(0);
+            while (spectrumJTable.getRowCount() > 0) {
+                ((DefaultTableModel) spectrumJTable.getModel()).removeRow(0);
             }
 
             // scrolls the scrollbar to the top of the spectrum table
-            spectrumJXTable.scrollRectToVisible(spectrumJXTable.getCellRect(0, 0, false));
+            spectrumJTable.scrollRectToVisible(spectrumJTable.getCellRect(0, 0, false));
 
             // epmty the spectrum panel
             while (spectrumJPanel.getComponents().length > 0) {
@@ -2131,7 +2188,7 @@ public class OmssaViewer extends javax.swing.JFrame {
             // insert the spectrum details in the spectrum table
             for (int i = 0; i < mzValues.size(); i++) {
 
-                ((DefaultTableModel) spectrumJXTable.getModel()).addRow(new Object[]{
+                ((DefaultTableModel) spectrumJTable.getModel()).addRow(new Object[]{
                             new Integer(i + 1),
                             mzValues.get(i),
                             abundanceValues.get(i)
@@ -2147,18 +2204,20 @@ public class OmssaViewer extends javax.swing.JFrame {
             spectrumPanel = new SpectrumPanel(
                     mzValuesAsDouble,
                     abundanceValuesAsDouble,
-                    ((Double) spectraJXTable.getValueAt(row, 2)),
-                    "" + spectraJXTable.getValueAt(row, 3),
-                    ((String) spectraJXTable.getValueAt(row, 1)),
+                    ((Double) spectraJTable.getValueAt(row, 2)),
+                    "" + spectraJTable.getValueAt(row, 3),
+                    ((String) spectraJTable.getValueAt(row, 1)),
                     60, false);
- 
+
+            spectrumPanel.setBorder(null);
+
             spectrumJPanel.add(spectrumPanel);
             spectrumJPanel.validate();
             spectrumJPanel.repaint();
 
             // empty the identification table
-            while (identificationsJXTable.getRowCount() > 0) {
-                ((DefaultTableModel) identificationsJXTable.getModel()).removeRow(0);
+            while (identificationsJTable.getRowCount() > 0) {
+                ((DefaultTableModel) identificationsJTable.getModel()).removeRow(0);
             }
 
             // clear the modification details legend
@@ -2169,7 +2228,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                     omssaOmxFile.getParserResult().MSSearch_request.MSRequest.get(0).MSRequest_settings.MSSearchSettings.MSSearchSettings_fixed.MSMod;
 
             // iterate all the identifications and insert them into the identification table
-            MSHitSet msHitSet = spectrumHitSetMap.get(spectra.get((Integer) spectraJXTable.getValueAt(row, 0)));
+            MSHitSet msHitSet = spectrumHitSetMap.get(spectra.get((Integer) spectraJTable.getValueAt(row, 0)));
 
             allAnnotations = new HashMap();
 
@@ -2412,7 +2471,9 @@ public class OmssaViewer extends javax.swing.JFrame {
                     } else if (ionType == 8) {
                         currentAnnotations.add(new DefaultSpectrumAnnotation(
                                 mzValue, ionCoverageErrorMargin, Color.GRAY,
-                                unusedIon + immoniumTag /* + chargeAsString  + neturalLossTag*/));
+                                unusedIon + immoniumTag /*
+                                 * + chargeAsString + neturalLossTag
+                                 */));
                     } else if (ionType == 9) {
                         currentAnnotations.add(new DefaultSpectrumAnnotation(
                                 mzValue, ionCoverageErrorMargin, Color.GRAY,
@@ -2447,7 +2508,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                     }
                 }
 
-                String modifiedSequenceColorCoded = "<html>";
+                String modifiedSequenceColorCoded = "<html><font color=\"black\">";
 
                 // add nTerminal
                 if (!nTerminal.startsWith("<")) {
@@ -2529,7 +2590,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                     modifiedSequenceColorCoded += "&gt;";
                 }
 
-                modifiedSequenceColorCoded += "</html>";
+                modifiedSequenceColorCoded += "</font></html>";
 
                 List<MSPepHit> pepHits = tempMSHit.MSHits_pephits.MSPepHit;
 
@@ -2540,8 +2601,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                     MSPepHit tempPepHit = pepHitIterator.next();
 
                     // parse the header
-                    String accession = "unknown";
-                    String description = "unknown";
+                    String accession;
+                    String description;
 
                     if (tempPepHit.MSPepHit_accession.startsWith("BL_ORD_ID:")) {
                         Header header = Header.parseFromFASTA(tempPepHit.MSPepHit_defline);
@@ -2552,7 +2613,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                         description = tempPepHit.MSPepHit_defline;
                     }
 
-                    ((DefaultTableModel) identificationsJXTable.getModel()).addRow(new Object[]{
+                    ((DefaultTableModel) identificationsJTable.getModel()).addRow(new Object[]{
                                 msHitSet.MSHitSet_number,
                                 sequence,
                                 modifiedSequenceColorCoded,
@@ -2584,70 +2645,39 @@ public class OmssaViewer extends javax.swing.JFrame {
             }
         }
 
-        if (identificationsJXTable.getRowCount() > 1) {
-            identificationsJXTable.setRowSelectionInterval(0, 0);
+        if (identificationsJTable.getRowCount() > 1) {
+            identificationsJTable.setRowSelectionInterval(0, 0);
         }
 
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-}//GEN-LAST:event_spectraJXTableMouseClicked
+    }//GEN-LAST:event_spectraJTableMouseClicked
 
-    /**
-     * Opens a popup menu if the user right clicks in the spectrum table.
-     *
-     * @param evt
-     */
-    private void spectraJXTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spectraJXTableKeyReleased
-        spectraJXTableMouseClicked(null);
-    }//GEN-LAST:event_spectraJXTableKeyReleased
-
-    /**
-     * Opens a popup menu if the user right clicks in the spectrum table.
-     *
-     * @param evt
-     */
-    private void spectrumJXTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spectrumJXTableMouseClicked
-        if (spectrumJXTable.getSelectedRow() != -1 && evt.getButton() == MouseEvent.BUTTON3) {
+    private void spectrumJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spectrumJTableMouseClicked
+        if (spectrumJTable.getSelectedRow() != -1 && evt.getButton() == MouseEvent.BUTTON3) {
             copySpectrumJPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
         }
-    }//GEN-LAST:event_spectrumJXTableMouseClicked
+    }//GEN-LAST:event_spectrumJTableMouseClicked
 
     /**
-     * Updates the ion coverage relative in the spectrum to the selected identification.
-     *
-     * @param evt
-     */
-    private void identificationsJXTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_identificationsJXTableKeyReleased
-        this.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-
-        // update the ion coverage annotations
-        spectrumPanel.setAnnotations(filterAnnotations(allAnnotations.get(
-                identificationsJXTable.getValueAt(identificationsJXTable.getSelectedRow(), 1) + "_"
-                + identificationsJXTable.getValueAt(identificationsJXTable.getSelectedRow(), 8))));
-        spectrumPanel.validate();
-        spectrumPanel.repaint();
-
-        this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_identificationsJXTableKeyReleased
-
-    /**
-     * Updates the ion coverage relative in the spectrum to the selected identification.
+     * Updates the ion coverage relative in the spectrum to the selected
+     * identification.
      *
      * Right clicking opens a popup menu.
      *
      * @param evt
      */
-    private void identificationsJXTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_identificationsJXTableMouseClicked
-        if (identificationsJXTable.getSelectedRow() != -1) {
+    private void identificationsJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_identificationsJTableMouseClicked
+        if (identificationsJTable.getSelectedRow() != -1) {
 
             if (evt.getButton() == MouseEvent.BUTTON3) {
                 copyIdentificationsJPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
             } else {
 
-                if (identificationsJXTable.getRowCount() > 1) {
+                if (identificationsJTable.getRowCount() > 1) {
 
                     Vector<DefaultSpectrumAnnotation> currentAnnotations = allAnnotations.get(
-                            identificationsJXTable.getValueAt(identificationsJXTable.getSelectedRow(), 1) + "_"
-                            + identificationsJXTable.getValueAt(identificationsJXTable.getSelectedRow(), 8));
+                            identificationsJTable.getValueAt(identificationsJTable.getSelectedRow(), 1) + "_"
+                            + identificationsJTable.getValueAt(identificationsJTable.getSelectedRow(), 8));
 
                     // update the ion coverage annotations
                     spectrumPanel.setAnnotations(filterAnnotations(currentAnnotations));
@@ -2656,22 +2686,32 @@ public class OmssaViewer extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_identificationsJXTableMouseClicked
+    }//GEN-LAST:event_identificationsJTableMouseClicked
 
     /**
-     * Export all identifications (best hits only) to a tab delimited text file.
+     * Updates the ion coverage relative in the spectrum to the selected
+     * identification.
      *
      * @param evt
      */
-    private void exportBestIdentificationsJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBestIdentificationsJMenuItemActionPerformed
-        exportAllIdentifications(true);
-}//GEN-LAST:event_exportBestIdentificationsJMenuItemActionPerformed
+    private void identificationsJTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_identificationsJTableKeyReleased
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
 
+        // update the ion coverage annotations
+        spectrumPanel.setAnnotations(filterAnnotations(allAnnotations.get(
+                identificationsJTable.getValueAt(identificationsJTable.getSelectedRow(), 1) + "_"
+                + identificationsJTable.getValueAt(identificationsJTable.getSelectedRow(), 8))));
+        spectrumPanel.validate();
+        spectrumPanel.repaint();
+
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_identificationsJTableKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox aIonsJCheckBox;
     private javax.swing.JMenuItem aboutJMenuItem;
     private javax.swing.ButtonGroup accesionDetailsButtonGroup;
     private javax.swing.JCheckBox bIonsJCheckBox;
+    private javax.swing.JPanel backgroundPanel;
     private javax.swing.JCheckBox cIonsJCheckBox;
     private javax.swing.JCheckBox chargeOneJCheckBox;
     private javax.swing.JCheckBox chargeOverTwoJCheckBox;
@@ -2692,23 +2732,23 @@ public class OmssaViewer extends javax.swing.JFrame {
     private javax.swing.JMenu fileJMenu;
     private javax.swing.JMenu helpJMenu;
     private javax.swing.JMenuItem helpJMenuItem;
-    private org.jdesktop.swingx.JXTable identificationsJXTable;
+    private javax.swing.JScrollPane identificationsJScrollPane;
+    private javax.swing.JTable identificationsJTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel modificationDetailsJLabel;
     private javax.swing.JMenuItem openJMenuItem;
-    private org.jdesktop.swingx.JXTable spectraJXTable;
+    private javax.swing.JScrollPane spectraJScrollPane;
+    private javax.swing.JTable spectraJTable;
     private javax.swing.JPanel spectrumJPanel;
-    private org.jdesktop.swingx.JXTable spectrumJXTable;
+    private javax.swing.JScrollPane spectrumJScrollPane;
+    private javax.swing.JTable spectrumJTable;
     private javax.swing.JCheckBox xIonsJCheckBox;
     private javax.swing.JCheckBox yIonsJCheckBox;
     private javax.swing.JCheckBox zIonsJCheckBox;

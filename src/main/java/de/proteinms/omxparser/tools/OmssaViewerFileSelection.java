@@ -71,21 +71,20 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        omxFileJTextField = new javax.swing.JTextField();
-        findUserModsFileJButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        modsFileJTextField = new javax.swing.JTextField();
-        findModsFileJButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        userModsJTextField = new javax.swing.JTextField();
-        findOmxFileJButton = new javax.swing.JButton();
-        okJButton = new javax.swing.JButton();
-        cancelJButton = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel4 = new javax.swing.JLabel();
         helpJButton = new javax.swing.JButton();
         aboutJButton = new javax.swing.JButton();
+        filesPanel = new javax.swing.JPanel();
+        omxFileJTextField = new javax.swing.JTextField();
+        findUserModsFileJButton = new javax.swing.JButton();
+        findModsFileJButton = new javax.swing.JButton();
+        userModsJTextField = new javax.swing.JTextField();
+        modsFileJTextField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        findOmxFileJButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        okJButton = new javax.swing.JButton();
+        cancelJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OMSSA Viewer - File Selection");
@@ -96,85 +95,10 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Search Results File:");
-        jLabel1.setToolTipText("The OMSSA omx file");
-
-        omxFileJTextField.setEditable(false);
-        omxFileJTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        omxFileJTextField.setToolTipText("The OMSSA omx file");
-
-        findUserModsFileJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/proteinms/omxparser/icons/Directory.gif"))); // NOI18N
-        findUserModsFileJButton.setToolTipText("Select File");
-        findUserModsFileJButton.setBorderPainted(false);
-        findUserModsFileJButton.setContentAreaFilled(false);
-        findUserModsFileJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                findUserModsFileJButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Modifications File:");
-        jLabel2.setToolTipText("The OMSSA mods.xml file");
-
-        modsFileJTextField.setEditable(false);
-        modsFileJTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        modsFileJTextField.setText("(optional)");
-        modsFileJTextField.setToolTipText("The OMSSA mods.xml file");
-
-        findModsFileJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/proteinms/omxparser/icons/Directory.gif"))); // NOI18N
-        findModsFileJButton.setToolTipText("Select File");
-        findModsFileJButton.setBorderPainted(false);
-        findModsFileJButton.setContentAreaFilled(false);
-        findModsFileJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                findModsFileJButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("User Modifications File:");
-        jLabel3.setToolTipText("The OMSSA usermods.xml file");
-
-        userModsJTextField.setEditable(false);
-        userModsJTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        userModsJTextField.setText("(optional)");
-        userModsJTextField.setToolTipText("The OMSSA usermods.xml file");
-
-        findOmxFileJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/proteinms/omxparser/icons/Directory.gif"))); // NOI18N
-        findOmxFileJButton.setToolTipText("Select File");
-        findOmxFileJButton.setBorderPainted(false);
-        findOmxFileJButton.setContentAreaFilled(false);
-        findOmxFileJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                findOmxFileJButtonActionPerformed(evt);
-            }
-        });
-
-        okJButton.setText("Ok");
-        okJButton.setEnabled(false);
-        okJButton.setMaximumSize(new java.awt.Dimension(80, 20));
-        okJButton.setMinimumSize(new java.awt.Dimension(80, 20));
-        okJButton.setPreferredSize(new java.awt.Dimension(80, 20));
-        okJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okJButtonActionPerformed(evt);
-            }
-        });
-
-        cancelJButton.setText("Cancel");
-        cancelJButton.setMaximumSize(new java.awt.Dimension(80, 20));
-        cancelJButton.setMinimumSize(new java.awt.Dimension(80, 20));
-        cancelJButton.setPreferredSize(new java.awt.Dimension(80, 20));
-        cancelJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelJButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setFont(jLabel4.getFont().deriveFont((jLabel4.getFont().getStyle() | java.awt.Font.ITALIC)));
-        jLabel4.setText("Select the OMSSA omx file you want to view, the modification files (optional), and click OK.");
-
         helpJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/proteinms/omxparser/icons/help.GIF"))); // NOI18N
         helpJButton.setToolTipText("Help");
+        helpJButton.setBorderPainted(false);
+        helpJButton.setContentAreaFilled(false);
         helpJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 helpJButtonActionPerformed(evt);
@@ -183,9 +107,126 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
 
         aboutJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/de/proteinms/omxparser/icons/omssaviewer16.GIF"))); // NOI18N
         aboutJButton.setToolTipText("About");
+        aboutJButton.setBorderPainted(false);
+        aboutJButton.setContentAreaFilled(false);
         aboutJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aboutJButtonActionPerformed(evt);
+            }
+        });
+
+        filesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Input Files"));
+
+        omxFileJTextField.setEditable(false);
+        omxFileJTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        omxFileJTextField.setToolTipText("The OMSSA omx file");
+
+        findUserModsFileJButton.setText("Browse");
+        findUserModsFileJButton.setToolTipText("Select File");
+        findUserModsFileJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findUserModsFileJButtonActionPerformed(evt);
+            }
+        });
+
+        findModsFileJButton.setText("Browse");
+        findModsFileJButton.setToolTipText("Select File");
+        findModsFileJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findModsFileJButtonActionPerformed(evt);
+            }
+        });
+
+        userModsJTextField.setEditable(false);
+        userModsJTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        userModsJTextField.setText("(optional)");
+        userModsJTextField.setToolTipText("The OMSSA usermods.xml file");
+
+        modsFileJTextField.setEditable(false);
+        modsFileJTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        modsFileJTextField.setText("(optional)");
+        modsFileJTextField.setToolTipText("The OMSSA mods.xml file");
+
+        jLabel3.setText("User Modifications File:");
+        jLabel3.setToolTipText("The OMSSA usermods.xml file");
+
+        jLabel2.setText("Modifications File:");
+        jLabel2.setToolTipText("The OMSSA mods.xml file");
+
+        findOmxFileJButton.setText("Browse");
+        findOmxFileJButton.setToolTipText("Select File");
+        findOmxFileJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findOmxFileJButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Search Results File:");
+        jLabel1.setToolTipText("The OMSSA omx file");
+
+        org.jdesktop.layout.GroupLayout filesPanelLayout = new org.jdesktop.layout.GroupLayout(filesPanel);
+        filesPanel.setLayout(filesPanelLayout);
+        filesPanelLayout.setHorizontalGroup(
+            filesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(filesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(filesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel1)
+                    .add(filesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel3)
+                        .add(jLabel2)))
+                .add(18, 18, 18)
+                .add(filesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(filesPanelLayout.createSequentialGroup()
+                        .add(userModsJTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 381, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(findUserModsFileJButton))
+                    .add(filesPanelLayout.createSequentialGroup()
+                        .add(modsFileJTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 383, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(findModsFileJButton))
+                    .add(filesPanelLayout.createSequentialGroup()
+                        .add(omxFileJTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 383, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(findOmxFileJButton)))
+                .addContainerGap())
+        );
+
+        filesPanelLayout.linkSize(new java.awt.Component[] {modsFileJTextField, omxFileJTextField, userModsJTextField}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+
+        filesPanelLayout.setVerticalGroup(
+            filesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(filesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(filesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(omxFileJTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel1)
+                    .add(findOmxFileJButton))
+                .add(7, 7, 7)
+                .add(filesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(findModsFileJButton)
+                    .add(modsFileJTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel2))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(filesPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(findUserModsFileJButton)
+                    .add(userModsJTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel3))
+                .addContainerGap())
+        );
+
+        okJButton.setText("OK");
+        okJButton.setEnabled(false);
+        okJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okJButtonActionPerformed(evt);
+            }
+        });
+
+        cancelJButton.setText("Cancel");
+        cancelJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelJButtonActionPerformed(evt);
             }
         });
 
@@ -194,82 +235,34 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
-                        .addContainerGap())
+                .add(10, 10, 10)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(filesPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createSequentialGroup()
-                        .add(jLabel4)
-                        .addContainerGap(132, Short.MAX_VALUE))
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel3)
-                            .add(jLabel1)
-                            .add(jLabel2))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 30, Short.MAX_VALUE)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(layout.createSequentialGroup()
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                                        .add(modsFileJTextField)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(findModsFileJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                                        .add(omxFileJTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 383, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(findOmxFileJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap())
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                                .add(userModsJTextField)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(findUserModsFileJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(12, 12, 12))))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(10, 10, 10)
                         .add(helpJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(aboutJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 336, Short.MAX_VALUE)
-                        .add(okJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(okJButton)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(cancelJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .add(cancelJButton)))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(new java.awt.Component[] {cancelJButton, okJButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(47, 47, 47)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel1)
-                    .add(findOmxFileJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(omxFileJTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(29, 29, 29)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(modsFileJTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jLabel2))
-                    .add(layout.createSequentialGroup()
-                        .add(1, 1, 1)
-                        .add(findModsFileJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .add(28, 28, 28)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(userModsJTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jLabel3))
-                    .add(layout.createSequentialGroup()
-                        .add(1, 1, 1)
-                        .add(findUserModsFileJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 40, Short.MAX_VALUE)
-                .add(jLabel4)
+                .addContainerGap()
+                .add(filesPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(cancelJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(okJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, helpJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, aboutJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.CENTER)
+                    .add(helpJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(aboutJButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(okJButton)
+                    .add(cancelJButton))
                 .addContainerGap())
         );
 
@@ -410,6 +403,35 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
 }//GEN-LAST:event_findOmxFileJButtonActionPerformed
 
     /**
+     * @see #cancelJButtonActionPerformed(java.awt.event.ActionEvent)
+     */
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        cancelJButtonActionPerformed(null);
+    }//GEN-LAST:event_formWindowClosing
+
+    /**
+     * Opens a frame containing the help manual for OMSSA Viewer File Selection.
+     *
+     * @param evt
+     */
+    private void helpJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpJButtonActionPerformed
+        setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+        new HelpWindow(this, getClass().getResource("/de/proteinms/omxparser/helpfiles/OmssaViewer.html"));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+}//GEN-LAST:event_helpJButtonActionPerformed
+
+    /**
+     * Opens a frame containing the About OMSSA Viewer information.
+     *
+     * @param evt
+     */
+    private void aboutJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutJButtonActionPerformed
+        setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+        new HelpWindow(this, getClass().getResource("/de/proteinms/omxparser/helpfiles/AboutOmssaViewer.html"));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+}//GEN-LAST:event_aboutJButtonActionPerformed
+
+    /**
      * Closes the dialog and opens an OMMSA Viewer, or inserts the new file selections
      * if a Viewer is already created.
      *
@@ -458,38 +480,10 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_cancelJButtonActionPerformed
 
-    /**
-     * @see #cancelJButtonActionPerformed(java.awt.event.ActionEvent)
-     */
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        cancelJButtonActionPerformed(null);
-    }//GEN-LAST:event_formWindowClosing
-
-    /**
-     * Opens a frame containing the help manual for OMSSA Viewer File Selection.
-     *
-     * @param evt
-     */
-    private void helpJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpJButtonActionPerformed
-        setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-        new HelpWindow(this, getClass().getResource("/de/proteinms/omxparser/helpfiles/OmssaViewer.html"));
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-}//GEN-LAST:event_helpJButtonActionPerformed
-
-    /**
-     * Opens a frame containing the About OMSSA Viewer information.
-     *
-     * @param evt
-     */
-    private void aboutJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutJButtonActionPerformed
-        setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-        new HelpWindow(this, getClass().getResource("/de/proteinms/omxparser/helpfiles/AboutOmssaViewer.html"));
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-}//GEN-LAST:event_aboutJButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aboutJButton;
     private javax.swing.JButton cancelJButton;
+    private javax.swing.JPanel filesPanel;
     private javax.swing.JButton findModsFileJButton;
     private javax.swing.JButton findOmxFileJButton;
     private javax.swing.JButton findUserModsFileJButton;
@@ -497,8 +491,6 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField modsFileJTextField;
     private javax.swing.JButton okJButton;
     private javax.swing.JTextField omxFileJTextField;

@@ -133,7 +133,7 @@ public class HelpWindow extends javax.swing.JFrame {
         textJEditorPane = new javax.swing.JEditorPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("OMMSA Viewer - Help");
+        setTitle("OMSSA Viewer - Help");
 
         closeJButton.setText("Close");
         closeJButton.addActionListener(new java.awt.event.ActionListener() {
