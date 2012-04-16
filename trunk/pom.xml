@@ -12,7 +12,7 @@
 
     <!-- Set the version number for the whole project -->
     <properties>
-        <version.number>1.4.8</version.number>
+        <version.number>1.5</version.number>
     </properties>
 
 
@@ -20,7 +20,7 @@
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
-            <url>LICENSE-2.0.txt</url>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
 
@@ -32,17 +32,26 @@
             <id>harald</id>
             <email>harald.barsnes@biomed.uib.no</email>
             <organization>Department of Biomedicine, University of Bergen, Norway</organization>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
         </developer>
         <developer>
             <name>Lennart Martens</name>
             <id>lennart</id>
             <email>lennart.martens@ebi.ac.uk</email>
             <organization>Proteomics Services Team, PANDA Group, EMBL-European Bioinformatics Institute</organization>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
         </developer>
         <developer>
             <name>Steffen Huber</name>
             <id>steffen</id>
             <email>s.ch.h@gmx.de</email>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
         </developer>
         <developer>
             <name>Marc Vaudel</name>
@@ -213,11 +222,7 @@
 
     <!-- Dependencies -->
     <dependencies>
-        <dependency>
-            <groupId>com.jgoodies</groupId>
-            <artifactId>looks</artifactId>
-            <version>2.2.0</version>
-        </dependency>
+
         <dependency>
             <groupId>xpp3</groupId>
             <artifactId>xpp3</artifactId>
@@ -254,28 +259,15 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.swinglabs</groupId>
-            <artifactId>swingx</artifactId>
-            <version>0.9.1</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>swing-worker</artifactId>
-                    <groupId>org.swinglabs</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>multiplegradientpaint</artifactId>
-                    <groupId>org.swinglabs</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>filters</artifactId>
-                    <groupId>com.jhlabs</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>com.compomics</groupId>
             <artifactId>utilities</artifactId>
             <version>3.0.46</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>no.uib</groupId>
+            <artifactId>jsparklines</artifactId>
+            <version>0.5.36</version>
         </dependency>
     </dependencies>
 </project>
