@@ -3,9 +3,16 @@
 
 ----
 
+*Changes in omssa-parser 1.5.2 (August 21. 2012):*
+ * BUG FIX: Fixed a bug in the OMSSA Viewer were fixed n- and c-terminal PTMs were annotated more than once in the legend.
+
+----
+
 *Changes in omssa-parser 1.5.1 (August 20. 2012):*
  * BUG FIX: Fixed a bug in the OMSSA Viewer were fixed n- and c-terminal PTMs were not annotated.
  * LIBRARY UPDATE: Updated utilities to version 3.7.6, improving the look and feel of the spectrum viewer.
+
+Download count: 0
 
 ----
 
