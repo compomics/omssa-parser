@@ -3,11 +3,19 @@
 
 ----
 
+*Changes in omssa-parser 1.5.1 (August 20. 2012):*
+ * BUG FIX: Fixed a bug in the OMSSA Viewer were fixed n- and c-terminal PTMs were not annotated.
+ * LIBRARY UPDATE: Updated utilities to version 3.7.6, improving the look and feel of the spectrum viewer.
+
+----
+
 *Changes in omssa-parser 1.5 (April 16. 2012):*
  * FEATURE IMPROVEMENT: Upgraded the OMSSA Viewer to the PeptideShaker look and feel.
  * FEATURE IMPROVEMENT: Updated the help and about texts.
  * LIBRARY UPDATE: Added jsparklines as a dependency.
  * LIBRARY UPDATE: Removed jgoodies and swingx as a dependencies.
+
+Download count: 36
 
 ----
 
