@@ -2307,8 +2307,11 @@ public class OmssaViewer extends javax.swing.JFrame {
                                 // n-terminal modification
                                 nTerminal += "<" + tempOmssaModification.getModNumber() + ">";
                                 
-                                modificationDetails += "<" + tempOmssaModification.getModNumber() + ">" + " " + tempOmssaModification.getModName()
+                                // check if we've already mapped the modification
+                                if (modificationDetails.lastIndexOf("<" + tempOmssaModification.getModNumber() + ">") == -1) {
+                                    modificationDetails += "<" + tempOmssaModification.getModNumber() + ">" + " " + tempOmssaModification.getModName()
                                                 + " (" + tempOmssaModification.getModMonoMass() + "), ";
+                                }
                                 
                             } else if (tempOmssaModification.getModType() == OmssaModification.MODC
                                     || tempOmssaModification.getModType() == OmssaModification.MODCAA
@@ -2318,8 +2321,11 @@ public class OmssaViewer extends javax.swing.JFrame {
                                 // c-terminal modification
                                 cTerminal += "<" + tempOmssaModification.getModNumber() + ">";
                                 
-                                modificationDetails += "<" + tempOmssaModification.getModNumber() + ">" + " " + tempOmssaModification.getModName()
+                                // check if we've already mapped the modification
+                                if (modificationDetails.lastIndexOf("<" + tempOmssaModification.getModNumber() + ">") == -1) {
+                                    modificationDetails += "<" + tempOmssaModification.getModNumber() + ">" + " " + tempOmssaModification.getModName()
                                                 + " (" + tempOmssaModification.getModMonoMass() + "), ";
+                                }
                             } 
                         }
                     }
