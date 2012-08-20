@@ -12,7 +12,7 @@
 
     <!-- Set the version number for the whole project -->
     <properties>
-        <version.number>1.5</version.number>
+        <version.number>1.5.1</version.number>
     </properties>
 
 
@@ -261,7 +261,57 @@
         <dependency>
             <groupId>com.compomics</groupId>
             <artifactId>utilities</artifactId>
-            <version>3.0.46</version>
+            <version>3.7.6</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>xz</artifactId>
+                    <groupId>org.tukaani</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xtandem-parser</artifactId>
+                    <groupId>de.proteinms.xtandemparser</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>omssa-parser</artifactId>
+                    <groupId>de.proteinms.omxparser</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>mail</artifactId>
+                    <groupId>javax.mail</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>ols-dialog</artifactId>
+                    <groupId>no.uib</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>mascotdatfile</artifactId>
+                    <groupId>com.compomics</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jmzml</artifactId>
+                    <groupId>uk.ac.ebi.jmzml</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>braf</artifactId>
+                    <groupId>uk.ac.ebi.pride.tools</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>derby</artifactId>
+                    <groupId>org.apache.derby</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>pdf-transcoder</artifactId>
+                    <groupId>batik</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>batik-all</artifactId>
+                    <groupId>batik</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>swingx</artifactId>
+                    <groupId>org.swinglabs</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         
         <dependency>

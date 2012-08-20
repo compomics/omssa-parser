@@ -1089,8 +1089,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                         .addContainerGap()
                         .add(spectrumJPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(spectrumJScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 164, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(22, 22, 22))
+                .add(spectrumJScrollPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 175, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         org.jdesktop.layout.GroupLayout backgroundPanelLayout = new org.jdesktop.layout.GroupLayout(backgroundPanel);
@@ -2228,6 +2228,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                     "" + spectraJTable.getValueAt(row, 3),
                     ((String) spectraJTable.getValueAt(row, 1)),
                     60, false);
+            spectrumPanel.showAnnotatedPeaksOnly(true);
 
             spectrumPanel.setBorder(null);
 
@@ -2280,21 +2281,46 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                         for (int i = 0; i < fixedModifications.size(); i++) {
 
-                            Vector<String> modifiedResidues =
-                                    omssaOmxFile.getModifications().get(fixedModifications.get(i)).getModResidues();
+                            // @TODO: what about terminal ptms
+                            OmssaModification tempOmssaModification = omssaOmxFile.getModifications().get(fixedModifications.get(i));
+                            
+                            if (tempOmssaModification.getModType() == OmssaModification.MODAA) {
 
-                            for (int j = 0; j < modifiedResidues.size(); j++) {
+                                // "normal" modification
+                                Vector<String> modifiedResidues = tempOmssaModification.getModResidues();
 
-                                int index = sequence.indexOf(modifiedResidues.get(j));
+                                for (int j = 0; j < modifiedResidues.size(); j++) {
 
-                                while (index != -1) {
+                                    int index = sequence.indexOf(modifiedResidues.get(j));
 
-                                    modifications[index] +=
-                                            "<" + omssaOmxFile.getModifications().get(fixedModifications.get(i)).getModNumber() + ">";
-
-                                    index = sequence.indexOf(modifiedResidues.get(j), index + 1);
+                                    while (index != -1) {
+                                        modifications[index] += "<" + tempOmssaModification.getModNumber() + ">";
+                                        index = sequence.indexOf(modifiedResidues.get(j), index + 1);
+                                    }
                                 }
-                            }
+                                
+                            } else if (tempOmssaModification.getModType() == OmssaModification.MODN
+                                    || tempOmssaModification.getModType() == OmssaModification.MODNAA
+                                    || tempOmssaModification.getModType() == OmssaModification.MODNP
+                                    || tempOmssaModification.getModType() == OmssaModification.MODNPAA) {
+
+                                // n-terminal modification
+                                nTerminal += "<" + tempOmssaModification.getModNumber() + ">";
+                                
+                                modificationDetails += "<" + tempOmssaModification.getModNumber() + ">" + " " + tempOmssaModification.getModName()
+                                                + " (" + tempOmssaModification.getModMonoMass() + "), ";
+                                
+                            } else if (tempOmssaModification.getModType() == OmssaModification.MODC
+                                    || tempOmssaModification.getModType() == OmssaModification.MODCAA
+                                    || tempOmssaModification.getModType() == OmssaModification.MODCP
+                                    || tempOmssaModification.getModType() == OmssaModification.MODCPAA) {
+
+                                // c-terminal modification
+                                cTerminal += "<" + tempOmssaModification.getModNumber() + ">";
+                                
+                                modificationDetails += "<" + tempOmssaModification.getModNumber() + ">" + " " + tempOmssaModification.getModName()
+                                                + " (" + tempOmssaModification.getModMonoMass() + "), ";
+                            } 
                         }
                     }
 
