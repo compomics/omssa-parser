@@ -15,7 +15,6 @@ import com.compomics.util.experiment.personalization.ExperimentObject;
 import com.compomics.util.gui.waiting.WaitingHandler;
 import com.compomics.util.protein.Header;
 import de.proteinms.omxparser.OmssaOmxFile;
-import de.proteinms.omxparser.util.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -288,9 +287,13 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 //            e.printStackTrace();
 //        }
 
+        //System.out.println("before: " + spectrumTitle);
 
-        // a special fix for mgf files with titles containing \\ instead of \
-        spectrumTitle = spectrumTitle.replaceAll("\\\\\\\\", "\\\\");  // @TODO: only needed for OMSSA???
+        // a special fix for mgf files with titles containing the escape character '\'
+        spectrumTitle = spectrumTitle.replaceAll("\\\\\"", "\\\""); // change \" into "
+        spectrumTitle = spectrumTitle.replaceAll("\\\\\\\\", "\\\\"); // change \\ into \
+
+        //System.out.println("after: " + spectrumTitle);
 
         return spectrumTitle;
     }
