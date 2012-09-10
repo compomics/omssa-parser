@@ -4,17 +4,10 @@
     <groupId>de.proteinms.omxparser</groupId>
     <artifactId>omssa-parser</artifactId>
     <packaging>jar</packaging>
-    <version>${version.number}</version> <!-- version number is set below -->
+    <version>1.5.3</version>
     <name>omssa-parser</name>
     <description>OMSSA Parser is a Java based parser for OMSSA (Open Mass Spectrometry Search Algorithm) omx files.</description>
     <url>http://omssa-parser.googlecode.com/</url>
-
-
-    <!-- Set the version number for the whole project -->
-    <properties>
-        <version.number>1.5.3</version.number>
-    </properties>
-
 
     <!-- License -->
     <licenses>
