@@ -209,7 +209,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
         // inspect variable modifications
         for (MSModHit msModHit : msModHits) {
             int msMod = msModHit.MSModHit_modtype.MSMod;
-            PTM currentPTM = ptmFactory.getPTM(msMod);   // This has to be changed if the mod file is not OMSSA based anymore
+            PTM currentPTM = ptmFactory.getPTM(msMod); // This has to be changed if the mod file is not OMSSA based anymore
             int location = msModHit.MSModHit_site + 1;
             modificationsFound.add(new ModificationMatch(currentPTM.getName(), true, location));
         }
