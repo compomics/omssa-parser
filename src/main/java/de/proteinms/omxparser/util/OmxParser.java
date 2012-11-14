@@ -45,24 +45,24 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 /**
- * This class contains the OmxParser using a XML Pull Parser API implementation<br>
- * (in this case XPP3/MXP1).
- * <br><br>
- * It stores the information from the specified Omx File into the Attribute "parserResult"<br>
- * The information structure is very similar to the XML structure defined in "OMSSA.xsd".
- * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>.
- * <br><br>
- * Every originally XML Tag is now represented as a name-corresponding Object, except<br>
- * the XML Tags which hold information, they are represented by an Attribute inside<br> the corresponding Object.
- * 
+ * This class contains the OmxParser using a XML Pull Parser API
+ * implementation<br> (in this case XPP3/MXP1). <br><br> It stores the
+ * information from the specified Omx File into the Attribute "parserResult"<br>
+ * The information structure is very similar to the XML structure defined in
+ * "OMSSA.xsd". See <a
+ * href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>.
+ * <br><br> Every originally XML Tag is now represented as a name-corresponding
+ * Object, except<br> the XML Tags which hold information, they are represented
+ * by an Attribute inside<br> the corresponding Object.
+ *
  * @author Steffen Huber
- * @author  Harald Barsnes
+ * @author Harald Barsnes
  */
 public class OmxParser {
 
     /**
-     * Define a static logger variable so that it references the
-     * Logger instance named "OmxParser".
+     * Define a static logger variable so that it references the Logger instance
+     * named "OmxParser".
      */
     private static Logger logger = Logger.getLogger(OmxParser.class);
     private int indexBuffer[] = new int[2];
@@ -82,14 +82,16 @@ public class OmxParser {
     private String attribute = "";
     private String value = "";
     /**
-     * HashMap of the modification details where the keys are the
-     * modification numbers and the elements are OmssaModification-objects
+     * HashMap of the modification details where the keys are the modification
+     * numbers and the elements are OmssaModification-objects
      */
     private HashMap<Integer, OmssaModification> omssaModificationDetails;
 
     /**
      * If a Class should be parsed by OmxParser, it has to be initialzed by<br>
      * writing it into the HashMap classes
+     * 
+     * @param importSpectra if true, the spectra will be imported
      */
     public static void initializeClasses(boolean importSpectra) {
 
@@ -176,36 +178,35 @@ public class OmxParser {
     }
 
     /**
-     * Initializes the parser and parses the omx file. Also parses
-     * the modification files (if any).
+     * Initializes the parser and parses the omx file. Also parses the
+     * modification files (if any).
      *
      * @param omxFile
      * @param modsFile
      * @param userModsFile
      */
-    public OmxParser(String omxFile, String modsFile, String userModsFile) {
+    public OmxParser(File omxFile, File modsFile, File userModsFile) {
         this(omxFile, modsFile, userModsFile, true);
     }
 
     /**
-     * Initializes the parser and parses the omx file. Also parses
-     * the modification files (if any).
+     * Initializes the parser and parses the omx file. Also parses the
+     * modification files (if any).
      *
      * @param omxFile
      * @param modsFile
      * @param userModsFile
-     * @param importSpectra 
+     * @param importSpectra
      */
-    public OmxParser(String omxFile, String modsFile, String userModsFile, boolean importSpectra) {
-
+    public OmxParser(File omxFile, File modsFile, File userModsFile, boolean importSpectra) {
         omssaModificationDetails = new HashMap();
 
         // parse modification files
-        if (modsFile != null && modsFile.endsWith(".xml")) {
+        if (modsFile != null && modsFile.getAbsolutePath().endsWith(".xml")) {
             parseModificationFile(modsFile);
         }
 
-        if (userModsFile != null && userModsFile.endsWith(".xml")) {
+        if (userModsFile != null && userModsFile.getAbsolutePath().endsWith(".xml")) {
             parseModificationFile(userModsFile);
         }
 
@@ -237,16 +238,39 @@ public class OmxParser {
     }
 
     /**
+     * Initializes the parser and parses the omx file. Also parses the
+     * modification files (if any).
+     *
+     * @param omxFile
+     * @param modsFile
+     * @param userModsFile
+     */
+    public OmxParser(String omxFile, String modsFile, String userModsFile) {
+        this(omxFile, modsFile, userModsFile, true);
+    }
+
+    /**
+     * Initializes the parser and parses the omx file. Also parses the
+     * modification files (if any).
+     *
+     * @param omxFile
+     * @param modsFile
+     * @param userModsFile
+     * @param importSpectra
+     */
+    public OmxParser(String omxFile, String modsFile, String userModsFile, boolean importSpectra) {
+        this(new File(omxFile), new File(modsFile), new File(userModsFile), importSpectra);
+    }
+
+    /**
      * Parses a mod.xml or usermod.xml file and builds a HashMap containing the
      * modification details.
      *
      * @param modsFile the path to the mods.xml or usermods.xml file
      */
-    private void parseModificationFile(String modsFile) {
+    private void parseModificationFile(File modsFile) {
 
         try {
-            File mods = new File(modsFile);
-
             //get the factory
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
@@ -259,7 +283,7 @@ public class OmxParser {
             DocumentBuilder db = dbf.newDocumentBuilder();
 
             //parse using builder to get DOM representation of the XML file
-            Document dom = db.parse(mods);
+            Document dom = db.parse(modsFile);
 
             //get the root elememt
             Element docEle = dom.getDocumentElement();
@@ -349,18 +373,18 @@ public class OmxParser {
         int eventType = xpp.getEventType();
 
         do {
-            if (eventType == xpp.START_DOCUMENT) {
-            } else if (eventType == xpp.END_DOCUMENT) {
-            } else if (eventType == xpp.START_TAG) {
+            if (eventType == XmlPullParser.START_DOCUMENT) {
+            } else if (eventType == XmlPullParser.END_DOCUMENT) {
+            } else if (eventType == XmlPullParser.START_TAG) {
                 processStartElement(xpp);
-            } else if (eventType == xpp.END_TAG) {
+            } else if (eventType == XmlPullParser.END_TAG) {
                 processEndElement(xpp);
-            } else if (eventType == xpp.TEXT) {
+            } else if (eventType == XmlPullParser.TEXT) {
                 processText(xpp);
             }
 
             eventType = xpp.next();
-        } while (eventType != xpp.END_DOCUMENT);
+        } while (eventType != XmlPullParser.END_DOCUMENT);
     }
 
     /**
