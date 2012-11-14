@@ -3,8 +3,19 @@
 
 ----
 
+*Changes in omssa-parser 1.5.6 (November 14. 2012):*
+ * NEW FEATURE: The code now supports Maven 3.
+ * FEATURE IMPROVEMENT: Added new constructors to the OmxParser, making it possible to provide the input as files instead of the paths to the files.
+ * FEATURE IMPROVEMENT: Improved the fixMgfTitle method in the OMSSAIdfileReader.
+ * FEATURE IMPROVEMENT: The source and JavaDoc is now included when building.
+ * LIBRARY UPDATE: Updated utilities to version 3.10.8.
+
+----
+
 *Changes in omssa-parser 1.5.2 (August 21. 2012):*
  * BUG FIX: Fixed a bug in the OMSSA Viewer were fixed n- and c-terminal PTMs were annotated more than once in the legend.
+
+Download count: 29
 
 ----
 
