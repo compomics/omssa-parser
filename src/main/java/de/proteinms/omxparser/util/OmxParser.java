@@ -90,7 +90,7 @@ public class OmxParser {
     /**
      * If a Class should be parsed by OmxParser, it has to be initialzed by<br>
      * writing it into the HashMap classes
-     * 
+     *
      * @param importSpectra if true, the spectra will be imported
      */
     public static void initializeClasses(boolean importSpectra) {
@@ -186,7 +186,7 @@ public class OmxParser {
      * @param userModsFile
      */
     public OmxParser(File omxFile, File modsFile, File userModsFile) {
-        this(omxFile, modsFile, userModsFile, true);
+        this(omxFile.getAbsolutePath(), modsFile.getAbsolutePath(), userModsFile.getAbsolutePath(), true);
     }
 
     /**
@@ -199,6 +199,31 @@ public class OmxParser {
      * @param importSpectra
      */
     public OmxParser(File omxFile, File modsFile, File userModsFile, boolean importSpectra) {
+        this(omxFile.getAbsolutePath(), modsFile.getAbsolutePath(), userModsFile.getAbsolutePath(), importSpectra);
+    }
+
+    /**
+     * Initializes the parser and parses the omx file. Also parses the
+     * modification files (if any).
+     *
+     * @param omxFilePath
+     * @param modsFilePath
+     * @param userModsFilePath
+     * @param importSpectra
+     */
+    public OmxParser(String omxFilePath, String modsFilePath, String userModsFilePath, boolean importSpectra) {
+        File omxFile = null;
+        File modsFile = null;
+        File userModsFile = null;
+        if (omxFilePath != null) {
+            omxFile = new File(omxFilePath);
+        }
+        if (modsFilePath != null) {
+            modsFile = new File(modsFilePath);
+        }
+        if (userModsFilePath != null) {
+            userModsFile = new File(userModsFilePath);
+        }
         omssaModificationDetails = new HashMap();
 
         // parse modification files
@@ -247,19 +272,6 @@ public class OmxParser {
      */
     public OmxParser(String omxFile, String modsFile, String userModsFile) {
         this(omxFile, modsFile, userModsFile, true);
-    }
-
-    /**
-     * Initializes the parser and parses the omx file. Also parses the
-     * modification files (if any).
-     *
-     * @param omxFile
-     * @param modsFile
-     * @param userModsFile
-     * @param importSpectra
-     */
-    public OmxParser(String omxFile, String modsFile, String userModsFile, boolean importSpectra) {
-        this(new File(omxFile), new File(modsFile), new File(userModsFile), importSpectra);
     }
 
     /**

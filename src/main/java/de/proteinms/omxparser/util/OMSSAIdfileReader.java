@@ -1,6 +1,7 @@
 package de.proteinms.omxparser.util;
 
 import com.compomics.util.Util;
+import com.compomics.util.experiment.biology.AminoAcidPattern;
 import com.compomics.util.experiment.biology.PTM;
 import com.compomics.util.experiment.biology.PTMFactory;
 import com.compomics.util.experiment.biology.Peptide;
@@ -45,10 +46,6 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
      * The modification file usermods.xml.
      */
     private File userModsFile;
-    /**
-     * The PTM factory.
-     */
-    private PTMFactory ptmFactory = PTMFactory.getInstance();
     /**
      * The instance of the inspected omx file.
      */
@@ -148,7 +145,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
                     for (double eValue : eValues) {
                         for (MSHits msHits : hitMap.get(eValue)) {
-                            currentMatch.addHit(Advocate.OMSSA, getPeptideAssumption(msHits, i, rank, peptideToProteinMap, msRequest));
+                            currentMatch.addHit(Advocate.OMSSA, getPeptideAssumption(msHits, rank, peptideToProteinMap));
                         }
                         rank += hitMap.get(eValue).size();
                     }
@@ -170,14 +167,16 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
     /**
      * Returns a peptide assumption based on the OMSSA MSHits.
+     * 
+     * Warning: the fixed modifications are not implemented and need to be added subsequently. That can be done using the compomics utilities PTMFactory (https://code.google.com/p/compomics-utilities/source/browse/trunk/src/main/java/com/compomics/util/experiment/biology/PTMFactory.java).
      *
      * @param currentMsHit the MSHits of interest
      * @param responseIndex the response index in the msrequest
      * @param rank the rank of the assumption in the spectrum match
      * @return the corresponding peptide assumption
      */
-    private PeptideAssumption getPeptideAssumption(MSHits currentMsHit, int responseIndex, int rank,
-            HashMap<String, LinkedList<MSPepHit>> peptideToProteinMap, List<MSRequest> msRequest) {
+    private PeptideAssumption getPeptideAssumption(MSHits currentMsHit, int rank,
+            HashMap<String, LinkedList<MSPepHit>> peptideToProteinMap) {
 
         Charge charge = new Charge(Charge.PLUS, currentMsHit.MSHits_charge);
         ArrayList<String> proteins = new ArrayList<String>();
@@ -209,43 +208,9 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
         // inspect variable modifications
         for (MSModHit msModHit : msModHits) {
             int msMod = msModHit.MSModHit_modtype.MSMod;
-            PTM currentPTM = ptmFactory.getPTM(msMod); // This has to be changed if the mod file is not OMSSA based anymore
+            PTM currentPTM = new PTM(-1, msMod + "", -1, new AminoAcidPattern()); //@TODO: add more information to rescue the PTM when the omssa index is wrong
             int location = msModHit.MSModHit_site + 1;
             modificationsFound.add(new ModificationMatch(currentPTM.getName(), true, location));
-        }
-
-        // inspect fixed modifications
-        List<Integer> fixedMods = msRequest.get(responseIndex).MSRequest_settings.MSSearchSettings.MSSearchSettings_fixed.MSMod;
-
-        String tempSequence = currentMsHit.MSHits_pepstring;
-        int tempSequenceLength = tempSequence.length();
-
-        for (int msMod : fixedMods) {
-
-            PTM currentPTM = ptmFactory.getPTM(msMod);
-
-            ArrayList<String> residuesArray = currentPTM.getResidues();
-            String currentPtmName = currentPTM.getName();
-
-            for (String location : residuesArray) {
-
-                if (location.compareTo("[") == 0) {
-                    modificationsFound.add(new ModificationMatch(currentPtmName, false, 1));
-                } else if (location.compareTo("]") == 0) {
-                    modificationsFound.add(new ModificationMatch(currentPtmName, false, tempSequenceLength));
-                } else {
-                    tempSequence = "#" + tempSequence + "#";
-                    String[] sequenceFragments = tempSequence.split(location);
-
-                    if (sequenceFragments.length > 0) {
-                        int cpt = 0;
-                        for (int f = 0; f < sequenceFragments.length - 1; f++) {
-                            cpt = cpt + sequenceFragments[f].length();
-                            modificationsFound.add(new ModificationMatch(currentPtmName, false, cpt));
-                        }
-                    }
-                }
-            }
         }
 
         Peptide thePeptide = new Peptide(currentMsHit.MSHits_pepstring, proteins, modificationsFound);
