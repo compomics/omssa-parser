@@ -5,7 +5,7 @@
 
 *Changes in omssa-parser 1.5.8 (November 28. 2012):*
  * FEATURE IMPROVEMENT: Removed the fixed modifications from the OMSSAIdfileReader.
- * BUG FIX: Fixed an issue with one of the constructors to OmxParser.
+ * BUG FIX: Fixed an issue with one of the constructors of OmxParser.
  * LIBRARY UPDATE: Updated utilities to version 3.10.24.
 
 ----
