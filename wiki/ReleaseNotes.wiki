@@ -3,6 +3,13 @@
 
 ----
 
+*Changes in omssa-parser 1.5.8 (November 28. 2012):*
+ * FEATURE IMPROVEMENT: Removed the fixed modifications from the OMSSAIdfileReader.
+ * BUG FIX: Fixed an issue with one of the constructors to OmxParser.
+ * LIBRARY UPDATE: Updated utilities to version 3.10.24.
+
+----
+
 *Changes in omssa-parser 1.5.6 (November 14. 2012):*
  * NEW FEATURE: The code now supports Maven 3.
  * FEATURE IMPROVEMENT: Added new constructors to the OmxParser, making it possible to provide the input as files instead of the paths to the files.
