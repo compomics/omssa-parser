@@ -182,7 +182,12 @@ public class OmssaViewer extends javax.swing.JFrame {
         String path = this.getClass().getResource("OmssaViewer.class").getPath();
 
         if (path.lastIndexOf("/omssa-parser-") != -1) {
-            path = path.substring(5, path.lastIndexOf("/omssa-parser-"));
+            // remove starting 'file:' tag if there
+            if (path.startsWith("file:")) {
+                path = path.substring("file:".length(), path.lastIndexOf("/omssa-parser-"));
+            } else {
+                path = path.substring(0, path.lastIndexOf("/omssa-parser-"));
+            }
             path = path.replace("%20", " ");
             path = path.replace("%5b", "[");
             path = path.replace("%5d", "]");

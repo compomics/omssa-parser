@@ -3,7 +3,6 @@ package de.proteinms.omxparser.tools;
 import java.io.*;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * A wrapper class used to start the jar file with parameters. The parameters
@@ -62,7 +61,12 @@ public class OmssaViewerWrapper {
         jarFileName = jarFileName + new Properties().getVersion() + ".jar";
 
         path = this.getClass().getResource("OmssaViewerWrapper.class").getPath();
-        path = path.substring(5, path.indexOf(jarFileName));
+        // remove starting 'file:' tag if there
+        if (path.startsWith("file:")) {
+            path = path.substring("file:".length(), path.indexOf(jarFileName));
+        } else {
+            path = path.substring(0, path.indexOf(jarFileName));
+        }
         path = path.replace("%20", " ");
 
         File javaOptions = new File(path + "Properties/JavaOptions.txt");
@@ -121,7 +125,7 @@ public class OmssaViewerWrapper {
             InputStream stderr = p.getErrorStream();
             InputStreamReader isr = new InputStreamReader(stderr);
             BufferedReader br = new BufferedReader(isr);
-            String line = null;
+            String line;
 
             temp += "<ERROR>\n\n";
 
