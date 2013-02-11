@@ -9,8 +9,6 @@ import javax.swing.UIManager;
  * are read from the JavaOptions file in the Properties folder.
  *
  * @author Harald Barsnes
- *
- * Created October 2005 Revised December 2008
  */
 public class OmssaViewerWrapper {
 
@@ -19,7 +17,7 @@ public class OmssaViewerWrapper {
      */
     private boolean debug = false;
     /**
-     * The name of the omssa parser jar file. Must be equal to the name given in
+     * The name of the OMSSA parser jar file. Must be equal to the name given in
      * the pom file.
      */
     private String jarFileName = "omssa-parser-";
@@ -50,7 +48,7 @@ public class OmssaViewerWrapper {
     }
 
     /**
-     * Launches the jar file with parameters to the jvm.
+     * Launches the jar file with parameters to the JVM.
      *
      * @throws java.lang.Exception
      */
@@ -147,6 +145,10 @@ public class OmssaViewerWrapper {
                 line = br.readLine();
                 error = true;
             }
+
+            br.close();
+            isr.close();
+            stderr.close();
 
             if (debug) {
                 System.out.println("</ERROR>");

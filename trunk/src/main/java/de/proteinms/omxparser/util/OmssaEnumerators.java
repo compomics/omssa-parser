@@ -3,12 +3,10 @@ package de.proteinms.omxparser.util;
 import java.util.HashMap;
 
 /**
- * Contains mappings for all the enumerators used in the OMSSA.mod.xsd file. <br>
- * <b>Mapping updated July 16th 2010.</b>
- * <br><br>
- * Please see "OMSSA.mod.xsd" for further information:
- * <br><br>
- * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
+ * Contains mappings for all the enumerators used in the OMSSA.mod.xsd file.
+ * <br> <b>Mapping updated July 16th 2010.</b> <br><br> Please see
+ * "OMSSA.mod.xsd" for further information: <br><br> See <a
+ * href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
  * @author Harald Barsnes
@@ -72,413 +70,418 @@ public class OmssaEnumerators {
 
         // MSEnzymes
         int index = 0;
-        MSEnzymes.put(new Integer(index++), "trypsin");
-        MSEnzymes.put(new Integer(index++), "argc");
-        MSEnzymes.put(new Integer(index++), "cnbr");
-        MSEnzymes.put(new Integer(index++), "chymotrypsin");
-        MSEnzymes.put(new Integer(index++), "formicacid");
-        MSEnzymes.put(new Integer(index++), "lysc");
-        MSEnzymes.put(new Integer(index++), "lysc-p");
-        MSEnzymes.put(new Integer(index++), "pepsin-a");
-        MSEnzymes.put(new Integer(index++), "tryp-cnbr");
-        MSEnzymes.put(new Integer(index++), "tryp-chymo");
-        MSEnzymes.put(new Integer(index++), "trypsin-p");
-        MSEnzymes.put(new Integer(index++), "whole-protein");
-        MSEnzymes.put(new Integer(index++), "aspn");
-        MSEnzymes.put(new Integer(index++), "gluc");
-        MSEnzymes.put(new Integer(index++), "aspngluc");
-        MSEnzymes.put(new Integer(index++), "top-down");
-        MSEnzymes.put(new Integer(index++), "semi-tryptic");
-        MSEnzymes.put(new Integer(index++), "no-enzyme");
-        MSEnzymes.put(new Integer(index++), "chymotrypsin-p");
-        MSEnzymes.put(new Integer(index++), "aspn-de");
-        MSEnzymes.put(new Integer(index++), "gluc-de");
-        MSEnzymes.put(new Integer(index++), "lysn");
-        MSEnzymes.put(new Integer(index++), "thermolysin-p");
-        MSEnzymes.put(new Integer(index++), "semi-chymotrypsin");
-        MSEnzymes.put(new Integer(index++), "semi-gluc");
-        MSEnzymes.put(new Integer(index++), "max");
-        MSEnzymes.put(new Integer(255), "none");
+        MSEnzymes.put(Integer.valueOf(index++), "trypsin");
+        MSEnzymes.put(Integer.valueOf(index++), "argc");
+        MSEnzymes.put(Integer.valueOf(index++), "cnbr");
+        MSEnzymes.put(Integer.valueOf(index++), "chymotrypsin");
+        MSEnzymes.put(Integer.valueOf(index++), "formicacid");
+        MSEnzymes.put(Integer.valueOf(index++), "lysc");
+        MSEnzymes.put(Integer.valueOf(index++), "lysc-p");
+        MSEnzymes.put(Integer.valueOf(index++), "pepsin-a");
+        MSEnzymes.put(Integer.valueOf(index++), "tryp-cnbr");
+        MSEnzymes.put(Integer.valueOf(index++), "tryp-chymo");
+        MSEnzymes.put(Integer.valueOf(index++), "trypsin-p");
+        MSEnzymes.put(Integer.valueOf(index++), "whole-protein");
+        MSEnzymes.put(Integer.valueOf(index++), "aspn");
+        MSEnzymes.put(Integer.valueOf(index++), "gluc");
+        MSEnzymes.put(Integer.valueOf(index++), "aspngluc");
+        MSEnzymes.put(Integer.valueOf(index++), "top-down");
+        MSEnzymes.put(Integer.valueOf(index++), "semi-tryptic");
+        MSEnzymes.put(Integer.valueOf(index++), "no-enzyme");
+        MSEnzymes.put(Integer.valueOf(index++), "chymotrypsin-p");
+        MSEnzymes.put(Integer.valueOf(index++), "aspn-de");
+        MSEnzymes.put(Integer.valueOf(index++), "gluc-de");
+        MSEnzymes.put(Integer.valueOf(index++), "lysn");
+        MSEnzymes.put(Integer.valueOf(index++), "thermolysin-p");
+        MSEnzymes.put(Integer.valueOf(index++), "semi-chymotrypsin");
+        MSEnzymes.put(Integer.valueOf(index++), "semi-gluc");
+        MSEnzymes.put(Integer.valueOf(index++), "max");
+        MSEnzymes.put(Integer.valueOf(255), "none");
 
 
         // MSMod
         index = 0;
-        MSMod.put(new Integer(index++), "methylk - methylation of K");
-        MSMod.put(new Integer(index++), "oxym - oxidation of methionine");
-        MSMod.put(new Integer(index++), "carboxymethylc - carboxymethyl cysteine");
-        MSMod.put(new Integer(index++), "carbamidomethylc - deamidation of K and Q");
-        MSMod.put(new Integer(index++), "deamidationkq - propionamide cysteine");
-        MSMod.put(new Integer(index++), "propionamidec - phosphorylation of S");
-        MSMod.put(new Integer(index++), "phosphorylations - phosphorylation of T");
-        MSMod.put(new Integer(index++), "phosphorylationt - phosphorylation of Y");
-        MSMod.put(new Integer(index++), "phosphorylationy - N terminal methionine cleavage");
-        MSMod.put(new Integer(index++), "ntermmcleave - N terminal methionine cleavage");
-        MSMod.put(new Integer(index++), "ntermacetyl - N terminal protein acetyl");
-        MSMod.put(new Integer(index++), "ntermmethyl - N terminal protein methyl");
-        MSMod.put(new Integer(index++), "ntermtrimethyl - N terminal protein trimethyl");
-        MSMod.put(new Integer(index++), "methythiold - beta methythiolation of D");
-        MSMod.put(new Integer(index++), "methylq - methylation of Q");
-        MSMod.put(new Integer(index++), "trimethylk - trimethylation of K");
-        MSMod.put(new Integer(index++), "methyld - methylation of D");
-        MSMod.put(new Integer(index++), "methyle - methylation of E");
-        MSMod.put(new Integer(index++), "ctermpepmethyl - C terminal methylation");
-        MSMod.put(new Integer(index++), "trideuteromethyld - trideuteromethylation of D");
-        MSMod.put(new Integer(index++), "trideuteromethyle - trideuteromethylation of E");
-        MSMod.put(new Integer(index++), "ctermpeptrideuteromethyl - C terminal trideuteromethylation");
-        MSMod.put(new Integer(index++), "nformylmet");
-        MSMod.put(new Integer(index++), "twoamino3oxobutanoicacid");
-        MSMod.put(new Integer(index++), "acetylk");
-        MSMod.put(new Integer(index++), "ctermamide");
-        MSMod.put(new Integer(index++), "bmethylthiold");
-        MSMod.put(new Integer(index++), "carbamidomethylk");
-        MSMod.put(new Integer(index++), "carbamidometylh");
-        MSMod.put(new Integer(index++), "carbamidomethyld");
-        MSMod.put(new Integer(index++), "carbamidomethyle");
-        MSMod.put(new Integer(index++), "carbamylk");
-        MSMod.put(new Integer(index++), "ntermcarbamyl");
-        MSMod.put(new Integer(index++), "citrullinationr");
-        MSMod.put(new Integer(index++), "cysteicacidc");
-        MSMod.put(new Integer(index++), "diiodinationy");
-        MSMod.put(new Integer(index++), "dimethylk");
-        MSMod.put(new Integer(index++), "dimethylr");
-        MSMod.put(new Integer(index++), "ntermpepdimethyl");
-        MSMod.put(new Integer(index++), "dihydroxyf");
-        MSMod.put(new Integer(index++), "thioacetylk");
-        MSMod.put(new Integer(index++), "ntermpeptioacetyl");
-        MSMod.put(new Integer(index++), "farnesylationc");
-        MSMod.put(new Integer(index++), "formylk");
-        MSMod.put(new Integer(index++), "ntermpepformyl");
-        MSMod.put(new Integer(index++), "formylkynureninw");
-        MSMod.put(new Integer(index++), "phef");
-        MSMod.put(new Integer(index++), "gammacarboxyld");
-        MSMod.put(new Integer(index++), "gammacarboxyle");
-        MSMod.put(new Integer(index++), "geranylgeranylc");
-        MSMod.put(new Integer(index++), "ntermpepglucuronylg");
-        MSMod.put(new Integer(index++), "glutathionec");
-        MSMod.put(new Integer(index++), "glyglyk");
-        MSMod.put(new Integer(index++), "guanidinationk");
-        MSMod.put(new Integer(index++), "his2asnh");
-        MSMod.put(new Integer(index++), "his2asph");
-        MSMod.put(new Integer(index++), "ctermpephsem");
-        MSMod.put(new Integer(index++), "ctermpephselactm");
-        MSMod.put(new Integer(index++), "hydroxykynureninw");
-        MSMod.put(new Integer(index++), "hydroxylationd");
-        MSMod.put(new Integer(index++), "hydroxylationk");
-        MSMod.put(new Integer(index++), "hydroxylationn");
-        MSMod.put(new Integer(index++), "hydroxylationp");
-        MSMod.put(new Integer(index++), "hydroxylationf");
-        MSMod.put(new Integer(index++), "hydroxylationy");
-        MSMod.put(new Integer(index++), "iodinationy");
-        MSMod.put(new Integer(index++), "kynureninw");
-        MSMod.put(new Integer(index++), "lipoylk");
-        MSMod.put(new Integer(index++), "ctermpepmeester");
-        MSMod.put(new Integer(index++), "meesterd");
-        MSMod.put(new Integer(index++), "meestere");
-        MSMod.put(new Integer(index++), "meesters");
-        MSMod.put(new Integer(index++), "meestery");
-        MSMod.put(new Integer(index++), "methylc");
-        MSMod.put(new Integer(index++), "methylh");
-        MSMod.put(new Integer(index++), "methyln");
-        MSMod.put(new Integer(index++), "ntermpepmethyl");
-        MSMod.put(new Integer(index++), "methylr");
-        MSMod.put(new Integer(index++), "ntermpepmyristoyeylationg");
-        MSMod.put(new Integer(index++), "ntermpepmyristoyl4hg");
-        MSMod.put(new Integer(index++), "ntermpepmyristoylationg");
-        MSMod.put(new Integer(index++), "myristoylationk");
-        MSMod.put(new Integer(index++), "ntermformyl");
-        MSMod.put(new Integer(index++), "nemc");
-        MSMod.put(new Integer(index++), "nipcam");
-        MSMod.put(new Integer(index++), "nitrow");
-        MSMod.put(new Integer(index++), "nitroy");
-        MSMod.put(new Integer(index++), "ctermpepo18");
-        MSMod.put(new Integer(index++), "ctermpepdio18");
-        MSMod.put(new Integer(index++), "oxyh");
-        MSMod.put(new Integer(index++), "oxyw");
-        MSMod.put(new Integer(index++), "ppantetheines");
-        MSMod.put(new Integer(index++), "palmitoylationc");
-        MSMod.put(new Integer(index++), "palmitoylationk");
-        MSMod.put(new Integer(index++), "palmitoylations");
-        MSMod.put(new Integer(index++), "palmitoylationt");
-        MSMod.put(new Integer(index++), "phospholosss");
-        MSMod.put(new Integer(index++), "phospholosst");
-        MSMod.put(new Integer(index++), "phospholossy");
-        MSMod.put(new Integer(index++), "phosphoneutrallossc");
-        MSMod.put(new Integer(index++), "phosphoneutrallossd");
-        MSMod.put(new Integer(index++), "phosphoneutrallossh");
-        MSMod.put(new Integer(index++), "propionylk");
-        MSMod.put(new Integer(index++), "ntermpeppropionyl");
-        MSMod.put(new Integer(index++), "propionylheavyk");
-        MSMod.put(new Integer(index++), "ntermpeppropionylheavy");
-        MSMod.put(new Integer(index++), "pyridylk");
-        MSMod.put(new Integer(index++), "ntermpeppyridyl");
-        MSMod.put(new Integer(index++), "ntermpeppyrocmc");
-        MSMod.put(new Integer(index++), "ntermpeppyroe");
-        MSMod.put(new Integer(index++), "ntermpeppyroq");
-        MSMod.put(new Integer(index++), "pyroglutamicp");
-        MSMod.put(new Integer(index++), "spyridylethylc");
-        MSMod.put(new Integer(index++), "semetm");
-        MSMod.put(new Integer(index++), "sulfationy");
-        MSMod.put(new Integer(index++), "suphonem");
-        MSMod.put(new Integer(index++), "triiodinationy");
-        MSMod.put(new Integer(index++), "trimethylationr");
-        MSMod.put(new Integer(index++), "ntermpeptripalmitatec");
-        MSMod.put(new Integer(index++), "usermod1 - start of user defined mods");
-        MSMod.put(new Integer(index++), "usermod2");
-        MSMod.put(new Integer(index++), "usermod3");
-        MSMod.put(new Integer(index++), "usermod4");
-        MSMod.put(new Integer(index++), "usermod5");
-        MSMod.put(new Integer(index++), "usermod6");
-        MSMod.put(new Integer(index++), "usermod7");
-        MSMod.put(new Integer(index++), "usermod8");
-        MSMod.put(new Integer(index++), "usermod9");
-        MSMod.put(new Integer(index++), "usermod10 - end of user defined mods");
-        MSMod.put(new Integer(index++), "icatlight");
-        MSMod.put(new Integer(index++), "icatheavy");
-        MSMod.put(new Integer(index++), "camthiopropanoylk");
-        MSMod.put(new Integer(index++), "phosphoneutrallosss");
-        MSMod.put(new Integer(index++), "phosphoneutrallosst");
-        MSMod.put(new Integer(index++), "phosphoetdlosss");
-        MSMod.put(new Integer(index++), "phosphoetdlosst");
-        MSMod.put(new Integer(index++), "arg-13c6");
-        MSMod.put(new Integer(index++), "arg-13c6-15n4");
-        MSMod.put(new Integer(index++), "lys-13c6");
-        MSMod.put(new Integer(index++), "oxy18");
-        MSMod.put(new Integer(index++), "beta-elim-s");
-        MSMod.put(new Integer(index++), "beta-elim-t");
-        MSMod.put(new Integer(index++), "usermod11");
-        MSMod.put(new Integer(index++), "usermod12");
-        MSMod.put(new Integer(index++), "usermod13");
-        MSMod.put(new Integer(index++), "usermod14");
-        MSMod.put(new Integer(index++), "usermod15");
-        MSMod.put(new Integer(index++), "usermod16");
-        MSMod.put(new Integer(index++), "usermod17");
-        MSMod.put(new Integer(index++), "usermod18");
-        MSMod.put(new Integer(index++), "usermod19");
-        MSMod.put(new Integer(index++), "usermod20");
-        MSMod.put(new Integer(index++), "usermod21");
-        MSMod.put(new Integer(index++), "usermod22");
-        MSMod.put(new Integer(index++), "usermod23");
-        MSMod.put(new Integer(index++), "usermod24");
-        MSMod.put(new Integer(index++), "usermod25");
-        MSMod.put(new Integer(index++), "usermod26");
-        MSMod.put(new Integer(index++), "usermod27");
-        MSMod.put(new Integer(index++), "usermod28");
-        MSMod.put(new Integer(index++), "usermod29");
-        MSMod.put(new Integer(index++), "usermod30");
-        MSMod.put(new Integer(index++), "sulfinicacid");
-        MSMod.put(new Integer(index++), "arg2orn");
-        MSMod.put(new Integer(index++), "dehydro");
-        MSMod.put(new Integer(index++), "carboxykynurenin");
-        MSMod.put(new Integer(index++), "sumoylation");
-        MSMod.put(new Integer(index++), "iTRAQ114nterm");
-        MSMod.put(new Integer(index++), "iTRAQ114K");
-        MSMod.put(new Integer(index++), "iTRAQ114Y");
-        MSMod.put(new Integer(index++), "iTRAQ115nterm");
-        MSMod.put(new Integer(index++), "iTRAQ115K");
-        MSMod.put(new Integer(index++), "iTRAQ115Y");
-        MSMod.put(new Integer(index++), "iTRAQ116nterm");
-        MSMod.put(new Integer(index++), "iTRAQ116K");
-        MSMod.put(new Integer(index++), "iTRAQ116Y");
-        MSMod.put(new Integer(index++), "iTRAQ117nterm");
-        MSMod.put(new Integer(index++), "iTRAQ117K");
-        MSMod.put(new Integer(index++), "iTRAQ117Y");
-        MSMod.put(new Integer(index++), "mmts");
-        MSMod.put(new Integer(index++), "lys-2H4");
-        MSMod.put(new Integer(index++), "lys-13C615N2");
-        MSMod.put(new Integer(index++), "hexNAcN");
-        MSMod.put(new Integer(index++), "dHexHexNAcN");
-        MSMod.put(new Integer(index++), "hexNAcS");
-        MSMod.put(new Integer(index++), "hexNAcT");
-        MSMod.put(new Integer(index++), "mod186");
-        MSMod.put(new Integer(index++), "mod187");
-        MSMod.put(new Integer(index++), "mod188");
-        MSMod.put(new Integer(index++), "mod189");
-        MSMod.put(new Integer(index++), "mod190");
-        MSMod.put(new Integer(index++), "mod191");
-        MSMod.put(new Integer(index++), "mod192");
-        MSMod.put(new Integer(index++), "mod193");
-        MSMod.put(new Integer(index++), "mod194");
-        MSMod.put(new Integer(index++), "mod195");
-        MSMod.put(new Integer(index++), "mod196");
-        MSMod.put(new Integer(index++), "mod197");
-        MSMod.put(new Integer(index++), "mod198");
-        MSMod.put(new Integer(index++), "mod199");
-        MSMod.put(new Integer(index++), "mod200");
-        MSMod.put(new Integer(index++), "mod201");
-        MSMod.put(new Integer(index++), "mod202");
-        MSMod.put(new Integer(index++), "mod203");
-        MSMod.put(new Integer(index++), "mod204");
-        MSMod.put(new Integer(index++), "mod205");
-        MSMod.put(new Integer(index++), "mod206");
-        MSMod.put(new Integer(index++), "mod207");
-        MSMod.put(new Integer(index++), "mod208");
-        MSMod.put(new Integer(index++), "mod209");
-        MSMod.put(new Integer(index++), "mod210");
-        MSMod.put(new Integer(index++), "mod211");
-        MSMod.put(new Integer(index++), "mod212");
-        MSMod.put(new Integer(index++), "mod213");
-        MSMod.put(new Integer(index++), "mod214");
-        MSMod.put(new Integer(index++), "mod215");
-        MSMod.put(new Integer(index++), "mod216");
-        MSMod.put(new Integer(index++), "mod217");
-        MSMod.put(new Integer(index++), "mod218");
-        MSMod.put(new Integer(index++), "mod219");
-        MSMod.put(new Integer(index++), "mod220");
-        MSMod.put(new Integer(index++), "mod221");
-        MSMod.put(new Integer(index++), "mod222");
-        MSMod.put(new Integer(index++), "mod223");
-        MSMod.put(new Integer(index++), "mod224");
-        MSMod.put(new Integer(index++), "mod225");
-        MSMod.put(new Integer(index++), "mod226");
-        MSMod.put(new Integer(index++), "mod227");
-        MSMod.put(new Integer(index++), "mod228");
-        MSMod.put(new Integer(index++), "mod229");
-        MSMod.put(new Integer(index++), "mod230");
-        MSMod.put(new Integer(index++), "max - maximum number of mods");
-        MSMod.put(new Integer(9999), "unknown - modification of unknown type");
-        MSMod.put(new Integer(10000), "none");
+        MSMod.put(Integer.valueOf(index++), "methylk - methylation of K");
+        MSMod.put(Integer.valueOf(index++), "oxym - oxidation of methionine");
+        MSMod.put(Integer.valueOf(index++), "carboxymethylc - carboxymethyl cysteine");
+        MSMod.put(Integer.valueOf(index++), "carbamidomethylc - deamidation of K and Q");
+        MSMod.put(Integer.valueOf(index++), "deamidationkq - propionamide cysteine");
+        MSMod.put(Integer.valueOf(index++), "propionamidec - phosphorylation of S");
+        MSMod.put(Integer.valueOf(index++), "phosphorylations - phosphorylation of T");
+        MSMod.put(Integer.valueOf(index++), "phosphorylationt - phosphorylation of Y");
+        MSMod.put(Integer.valueOf(index++), "phosphorylationy - N terminal methionine cleavage");
+        MSMod.put(Integer.valueOf(index++), "ntermmcleave - N terminal methionine cleavage");
+        MSMod.put(Integer.valueOf(index++), "ntermacetyl - N terminal protein acetyl");
+        MSMod.put(Integer.valueOf(index++), "ntermmethyl - N terminal protein methyl");
+        MSMod.put(Integer.valueOf(index++), "ntermtrimethyl - N terminal protein trimethyl");
+        MSMod.put(Integer.valueOf(index++), "methythiold - beta methythiolation of D");
+        MSMod.put(Integer.valueOf(index++), "methylq - methylation of Q");
+        MSMod.put(Integer.valueOf(index++), "trimethylk - trimethylation of K");
+        MSMod.put(Integer.valueOf(index++), "methyld - methylation of D");
+        MSMod.put(Integer.valueOf(index++), "methyle - methylation of E");
+        MSMod.put(Integer.valueOf(index++), "ctermpepmethyl - C terminal methylation");
+        MSMod.put(Integer.valueOf(index++), "trideuteromethyld - trideuteromethylation of D");
+        MSMod.put(Integer.valueOf(index++), "trideuteromethyle - trideuteromethylation of E");
+        MSMod.put(Integer.valueOf(index++), "ctermpeptrideuteromethyl - C terminal trideuteromethylation");
+        MSMod.put(Integer.valueOf(index++), "nformylmet");
+        MSMod.put(Integer.valueOf(index++), "twoamino3oxobutanoicacid");
+        MSMod.put(Integer.valueOf(index++), "acetylk");
+        MSMod.put(Integer.valueOf(index++), "ctermamide");
+        MSMod.put(Integer.valueOf(index++), "bmethylthiold");
+        MSMod.put(Integer.valueOf(index++), "carbamidomethylk");
+        MSMod.put(Integer.valueOf(index++), "carbamidometylh");
+        MSMod.put(Integer.valueOf(index++), "carbamidomethyld");
+        MSMod.put(Integer.valueOf(index++), "carbamidomethyle");
+        MSMod.put(Integer.valueOf(index++), "carbamylk");
+        MSMod.put(Integer.valueOf(index++), "ntermcarbamyl");
+        MSMod.put(Integer.valueOf(index++), "citrullinationr");
+        MSMod.put(Integer.valueOf(index++), "cysteicacidc");
+        MSMod.put(Integer.valueOf(index++), "diiodinationy");
+        MSMod.put(Integer.valueOf(index++), "dimethylk");
+        MSMod.put(Integer.valueOf(index++), "dimethylr");
+        MSMod.put(Integer.valueOf(index++), "ntermpepdimethyl");
+        MSMod.put(Integer.valueOf(index++), "dihydroxyf");
+        MSMod.put(Integer.valueOf(index++), "thioacetylk");
+        MSMod.put(Integer.valueOf(index++), "ntermpeptioacetyl");
+        MSMod.put(Integer.valueOf(index++), "farnesylationc");
+        MSMod.put(Integer.valueOf(index++), "formylk");
+        MSMod.put(Integer.valueOf(index++), "ntermpepformyl");
+        MSMod.put(Integer.valueOf(index++), "formylkynureninw");
+        MSMod.put(Integer.valueOf(index++), "phef");
+        MSMod.put(Integer.valueOf(index++), "gammacarboxyld");
+        MSMod.put(Integer.valueOf(index++), "gammacarboxyle");
+        MSMod.put(Integer.valueOf(index++), "geranylgeranylc");
+        MSMod.put(Integer.valueOf(index++), "ntermpepglucuronylg");
+        MSMod.put(Integer.valueOf(index++), "glutathionec");
+        MSMod.put(Integer.valueOf(index++), "glyglyk");
+        MSMod.put(Integer.valueOf(index++), "guanidinationk");
+        MSMod.put(Integer.valueOf(index++), "his2asnh");
+        MSMod.put(Integer.valueOf(index++), "his2asph");
+        MSMod.put(Integer.valueOf(index++), "ctermpephsem");
+        MSMod.put(Integer.valueOf(index++), "ctermpephselactm");
+        MSMod.put(Integer.valueOf(index++), "hydroxykynureninw");
+        MSMod.put(Integer.valueOf(index++), "hydroxylationd");
+        MSMod.put(Integer.valueOf(index++), "hydroxylationk");
+        MSMod.put(Integer.valueOf(index++), "hydroxylationn");
+        MSMod.put(Integer.valueOf(index++), "hydroxylationp");
+        MSMod.put(Integer.valueOf(index++), "hydroxylationf");
+        MSMod.put(Integer.valueOf(index++), "hydroxylationy");
+        MSMod.put(Integer.valueOf(index++), "iodinationy");
+        MSMod.put(Integer.valueOf(index++), "kynureninw");
+        MSMod.put(Integer.valueOf(index++), "lipoylk");
+        MSMod.put(Integer.valueOf(index++), "ctermpepmeester");
+        MSMod.put(Integer.valueOf(index++), "meesterd");
+        MSMod.put(Integer.valueOf(index++), "meestere");
+        MSMod.put(Integer.valueOf(index++), "meesters");
+        MSMod.put(Integer.valueOf(index++), "meestery");
+        MSMod.put(Integer.valueOf(index++), "methylc");
+        MSMod.put(Integer.valueOf(index++), "methylh");
+        MSMod.put(Integer.valueOf(index++), "methyln");
+        MSMod.put(Integer.valueOf(index++), "ntermpepmethyl");
+        MSMod.put(Integer.valueOf(index++), "methylr");
+        MSMod.put(Integer.valueOf(index++), "ntermpepmyristoyeylationg");
+        MSMod.put(Integer.valueOf(index++), "ntermpepmyristoyl4hg");
+        MSMod.put(Integer.valueOf(index++), "ntermpepmyristoylationg");
+        MSMod.put(Integer.valueOf(index++), "myristoylationk");
+        MSMod.put(Integer.valueOf(index++), "ntermformyl");
+        MSMod.put(Integer.valueOf(index++), "nemc");
+        MSMod.put(Integer.valueOf(index++), "nipcam");
+        MSMod.put(Integer.valueOf(index++), "nitrow");
+        MSMod.put(Integer.valueOf(index++), "nitroy");
+        MSMod.put(Integer.valueOf(index++), "ctermpepo18");
+        MSMod.put(Integer.valueOf(index++), "ctermpepdio18");
+        MSMod.put(Integer.valueOf(index++), "oxyh");
+        MSMod.put(Integer.valueOf(index++), "oxyw");
+        MSMod.put(Integer.valueOf(index++), "ppantetheines");
+        MSMod.put(Integer.valueOf(index++), "palmitoylationc");
+        MSMod.put(Integer.valueOf(index++), "palmitoylationk");
+        MSMod.put(Integer.valueOf(index++), "palmitoylations");
+        MSMod.put(Integer.valueOf(index++), "palmitoylationt");
+        MSMod.put(Integer.valueOf(index++), "phospholosss");
+        MSMod.put(Integer.valueOf(index++), "phospholosst");
+        MSMod.put(Integer.valueOf(index++), "phospholossy");
+        MSMod.put(Integer.valueOf(index++), "phosphoneutrallossc");
+        MSMod.put(Integer.valueOf(index++), "phosphoneutrallossd");
+        MSMod.put(Integer.valueOf(index++), "phosphoneutrallossh");
+        MSMod.put(Integer.valueOf(index++), "propionylk");
+        MSMod.put(Integer.valueOf(index++), "ntermpeppropionyl");
+        MSMod.put(Integer.valueOf(index++), "propionylheavyk");
+        MSMod.put(Integer.valueOf(index++), "ntermpeppropionylheavy");
+        MSMod.put(Integer.valueOf(index++), "pyridylk");
+        MSMod.put(Integer.valueOf(index++), "ntermpeppyridyl");
+        MSMod.put(Integer.valueOf(index++), "ntermpeppyrocmc");
+        MSMod.put(Integer.valueOf(index++), "ntermpeppyroe");
+        MSMod.put(Integer.valueOf(index++), "ntermpeppyroq");
+        MSMod.put(Integer.valueOf(index++), "pyroglutamicp");
+        MSMod.put(Integer.valueOf(index++), "spyridylethylc");
+        MSMod.put(Integer.valueOf(index++), "semetm");
+        MSMod.put(Integer.valueOf(index++), "sulfationy");
+        MSMod.put(Integer.valueOf(index++), "suphonem");
+        MSMod.put(Integer.valueOf(index++), "triiodinationy");
+        MSMod.put(Integer.valueOf(index++), "trimethylationr");
+        MSMod.put(Integer.valueOf(index++), "ntermpeptripalmitatec");
+        MSMod.put(Integer.valueOf(index++), "usermod1 - start of user defined mods");
+        MSMod.put(Integer.valueOf(index++), "usermod2");
+        MSMod.put(Integer.valueOf(index++), "usermod3");
+        MSMod.put(Integer.valueOf(index++), "usermod4");
+        MSMod.put(Integer.valueOf(index++), "usermod5");
+        MSMod.put(Integer.valueOf(index++), "usermod6");
+        MSMod.put(Integer.valueOf(index++), "usermod7");
+        MSMod.put(Integer.valueOf(index++), "usermod8");
+        MSMod.put(Integer.valueOf(index++), "usermod9");
+        MSMod.put(Integer.valueOf(index++), "usermod10 - end of user defined mods");
+        MSMod.put(Integer.valueOf(index++), "icatlight");
+        MSMod.put(Integer.valueOf(index++), "icatheavy");
+        MSMod.put(Integer.valueOf(index++), "camthiopropanoylk");
+        MSMod.put(Integer.valueOf(index++), "phosphoneutrallosss");
+        MSMod.put(Integer.valueOf(index++), "phosphoneutrallosst");
+        MSMod.put(Integer.valueOf(index++), "phosphoetdlosss");
+        MSMod.put(Integer.valueOf(index++), "phosphoetdlosst");
+        MSMod.put(Integer.valueOf(index++), "arg-13c6");
+        MSMod.put(Integer.valueOf(index++), "arg-13c6-15n4");
+        MSMod.put(Integer.valueOf(index++), "lys-13c6");
+        MSMod.put(Integer.valueOf(index++), "oxy18");
+        MSMod.put(Integer.valueOf(index++), "beta-elim-s");
+        MSMod.put(Integer.valueOf(index++), "beta-elim-t");
+        MSMod.put(Integer.valueOf(index++), "usermod11");
+        MSMod.put(Integer.valueOf(index++), "usermod12");
+        MSMod.put(Integer.valueOf(index++), "usermod13");
+        MSMod.put(Integer.valueOf(index++), "usermod14");
+        MSMod.put(Integer.valueOf(index++), "usermod15");
+        MSMod.put(Integer.valueOf(index++), "usermod16");
+        MSMod.put(Integer.valueOf(index++), "usermod17");
+        MSMod.put(Integer.valueOf(index++), "usermod18");
+        MSMod.put(Integer.valueOf(index++), "usermod19");
+        MSMod.put(Integer.valueOf(index++), "usermod20");
+        MSMod.put(Integer.valueOf(index++), "usermod21");
+        MSMod.put(Integer.valueOf(index++), "usermod22");
+        MSMod.put(Integer.valueOf(index++), "usermod23");
+        MSMod.put(Integer.valueOf(index++), "usermod24");
+        MSMod.put(Integer.valueOf(index++), "usermod25");
+        MSMod.put(Integer.valueOf(index++), "usermod26");
+        MSMod.put(Integer.valueOf(index++), "usermod27");
+        MSMod.put(Integer.valueOf(index++), "usermod28");
+        MSMod.put(Integer.valueOf(index++), "usermod29");
+        MSMod.put(Integer.valueOf(index++), "usermod30");
+        MSMod.put(Integer.valueOf(index++), "sulfinicacid");
+        MSMod.put(Integer.valueOf(index++), "arg2orn");
+        MSMod.put(Integer.valueOf(index++), "dehydro");
+        MSMod.put(Integer.valueOf(index++), "carboxykynurenin");
+        MSMod.put(Integer.valueOf(index++), "sumoylation");
+        MSMod.put(Integer.valueOf(index++), "iTRAQ114nterm");
+        MSMod.put(Integer.valueOf(index++), "iTRAQ114K");
+        MSMod.put(Integer.valueOf(index++), "iTRAQ114Y");
+        MSMod.put(Integer.valueOf(index++), "iTRAQ115nterm");
+        MSMod.put(Integer.valueOf(index++), "iTRAQ115K");
+        MSMod.put(Integer.valueOf(index++), "iTRAQ115Y");
+        MSMod.put(Integer.valueOf(index++), "iTRAQ116nterm");
+        MSMod.put(Integer.valueOf(index++), "iTRAQ116K");
+        MSMod.put(Integer.valueOf(index++), "iTRAQ116Y");
+        MSMod.put(Integer.valueOf(index++), "iTRAQ117nterm");
+        MSMod.put(Integer.valueOf(index++), "iTRAQ117K");
+        MSMod.put(Integer.valueOf(index++), "iTRAQ117Y");
+        MSMod.put(Integer.valueOf(index++), "mmts");
+        MSMod.put(Integer.valueOf(index++), "lys-2H4");
+        MSMod.put(Integer.valueOf(index++), "lys-13C615N2");
+        MSMod.put(Integer.valueOf(index++), "hexNAcN");
+        MSMod.put(Integer.valueOf(index++), "dHexHexNAcN");
+        MSMod.put(Integer.valueOf(index++), "hexNAcS");
+        MSMod.put(Integer.valueOf(index++), "hexNAcT");
+        MSMod.put(Integer.valueOf(index++), "mod186");
+        MSMod.put(Integer.valueOf(index++), "mod187");
+        MSMod.put(Integer.valueOf(index++), "mod188");
+        MSMod.put(Integer.valueOf(index++), "mod189");
+        MSMod.put(Integer.valueOf(index++), "mod190");
+        MSMod.put(Integer.valueOf(index++), "mod191");
+        MSMod.put(Integer.valueOf(index++), "mod192");
+        MSMod.put(Integer.valueOf(index++), "mod193");
+        MSMod.put(Integer.valueOf(index++), "mod194");
+        MSMod.put(Integer.valueOf(index++), "mod195");
+        MSMod.put(Integer.valueOf(index++), "mod196");
+        MSMod.put(Integer.valueOf(index++), "mod197");
+        MSMod.put(Integer.valueOf(index++), "mod198");
+        MSMod.put(Integer.valueOf(index++), "mod199");
+        MSMod.put(Integer.valueOf(index++), "mod200");
+        MSMod.put(Integer.valueOf(index++), "mod201");
+        MSMod.put(Integer.valueOf(index++), "mod202");
+        MSMod.put(Integer.valueOf(index++), "mod203");
+        MSMod.put(Integer.valueOf(index++), "mod204");
+        MSMod.put(Integer.valueOf(index++), "mod205");
+        MSMod.put(Integer.valueOf(index++), "mod206");
+        MSMod.put(Integer.valueOf(index++), "mod207");
+        MSMod.put(Integer.valueOf(index++), "mod208");
+        MSMod.put(Integer.valueOf(index++), "mod209");
+        MSMod.put(Integer.valueOf(index++), "mod210");
+        MSMod.put(Integer.valueOf(index++), "mod211");
+        MSMod.put(Integer.valueOf(index++), "mod212");
+        MSMod.put(Integer.valueOf(index++), "mod213");
+        MSMod.put(Integer.valueOf(index++), "mod214");
+        MSMod.put(Integer.valueOf(index++), "mod215");
+        MSMod.put(Integer.valueOf(index++), "mod216");
+        MSMod.put(Integer.valueOf(index++), "mod217");
+        MSMod.put(Integer.valueOf(index++), "mod218");
+        MSMod.put(Integer.valueOf(index++), "mod219");
+        MSMod.put(Integer.valueOf(index++), "mod220");
+        MSMod.put(Integer.valueOf(index++), "mod221");
+        MSMod.put(Integer.valueOf(index++), "mod222");
+        MSMod.put(Integer.valueOf(index++), "mod223");
+        MSMod.put(Integer.valueOf(index++), "mod224");
+        MSMod.put(Integer.valueOf(index++), "mod225");
+        MSMod.put(Integer.valueOf(index++), "mod226");
+        MSMod.put(Integer.valueOf(index++), "mod227");
+        MSMod.put(Integer.valueOf(index++), "mod228");
+        MSMod.put(Integer.valueOf(index++), "mod229");
+        MSMod.put(Integer.valueOf(index++), "mod230");
+        MSMod.put(Integer.valueOf(index++), "max - maximum number of mods");
+        MSMod.put(Integer.valueOf(9999), "unknown - modification of unknown type");
+        MSMod.put(Integer.valueOf(10000), "none");
 
 
         // MSModType
         index = 0;
-        MSModType.put(new Integer(index++), "modaa - at particular amino acids");
-        MSModType.put(new Integer(index++), "modn - at the N terminus of a protein");
-        MSModType.put(new Integer(index++), "modnaa - at the N terminus of a protein at particular amino acids");
-        MSModType.put(new Integer(index++), "modc - at the C terminus of a protein");
-        MSModType.put(new Integer(index++), "modcaa - at the C terminus of a protein at particular amino acids");
-        MSModType.put(new Integer(index++), "modnp - at the N terminus of a peptide");
-        MSModType.put(new Integer(index++), "modnpaa - at the N terminus of a peptide at particular amino acids");
-        MSModType.put(new Integer(index++), "modcp - at the C terminus of a peptide");
-        MSModType.put(new Integer(index++), "modcpaa - at the C terminus of a peptide at particular amino acids");
-        MSModType.put(new Integer(index++), "modmax - the max number of modification types");
+        MSModType.put(Integer.valueOf(index++), "modaa - at particular amino acids");
+        MSModType.put(Integer.valueOf(index++), "modn - at the N terminus of a protein");
+        MSModType.put(Integer.valueOf(index++), "modnaa - at the N terminus of a protein at particular amino acids");
+        MSModType.put(Integer.valueOf(index++), "modc - at the C terminus of a protein");
+        MSModType.put(Integer.valueOf(index++), "modcaa - at the C terminus of a protein at particular amino acids");
+        MSModType.put(Integer.valueOf(index++), "modnp - at the N terminus of a peptide");
+        MSModType.put(Integer.valueOf(index++), "modnpaa - at the N terminus of a peptide at particular amino acids");
+        MSModType.put(Integer.valueOf(index++), "modcp - at the C terminus of a peptide");
+        MSModType.put(Integer.valueOf(index++), "modcpaa - at the C terminus of a peptide at particular amino acids");
+        MSModType.put(Integer.valueOf(index++), "modmax - the max number of modification types");
 
 
         // MSSearchType
         index = 0;
-        MSSearchType.put(new Integer(index++), "monoisotopic");
-        MSSearchType.put(new Integer(index++), "average");
-        MSSearchType.put(new Integer(index++), "monon15");
-        MSSearchType.put(new Integer(index++), "exact");
-        MSSearchType.put(new Integer(index++), "multiisotope");
-        MSSearchType.put(new Integer(index++), "max");
+        MSSearchType.put(Integer.valueOf(index++), "monoisotopic");
+        MSSearchType.put(Integer.valueOf(index++), "average");
+        MSSearchType.put(Integer.valueOf(index++), "monon15");
+        MSSearchType.put(Integer.valueOf(index++), "exact");
+        MSSearchType.put(Integer.valueOf(index++), "multiisotope");
+        MSSearchType.put(Integer.valueOf(index++), "max");
 
 
         // MSZDependence
         index = 0;
-        MSZDependence.put(new Integer(index++), "independent - mass tol. invariant with charge");
-        MSZDependence.put(new Integer(index++), "linearwithz - mass tol. scales with charge");
-        MSZDependence.put(new Integer(index++), "max");
+        MSZDependence.put(Integer.valueOf(index++), "independent - mass tol. invariant with charge");
+        MSZDependence.put(Integer.valueOf(index++), "linearwithz - mass tol. scales with charge");
+        MSZDependence.put(Integer.valueOf(index++), "max");
 
 
         // MSSpectrumFileType
         index = 0;
-        MSSpectrumFileType.put(new Integer(index++), "dta");
-        MSSpectrumFileType.put(new Integer(index++), "dtablank");
-        MSSpectrumFileType.put(new Integer(index++), "dtaxml");
-        MSSpectrumFileType.put(new Integer(index++), "asc");
-        MSSpectrumFileType.put(new Integer(index++), "pkl");
-        MSSpectrumFileType.put(new Integer(index++), "pks");
-        MSSpectrumFileType.put(new Integer(index++), "sciex");
-        MSSpectrumFileType.put(new Integer(index++), "mgf");
-        MSSpectrumFileType.put(new Integer(index++), "unknown");
-        MSSpectrumFileType.put(new Integer(index++), "oms - asn.1 binary for iterative search");
-        MSSpectrumFileType.put(new Integer(index++), "omx - xml for iterative search");
-        MSSpectrumFileType.put(new Integer(index++), "xml - xml MSRequest");
-        MSSpectrumFileType.put(new Integer(index++), "omxbz - bzip2 omx file2");
+        MSSpectrumFileType.put(Integer.valueOf(index++), "dta");
+        MSSpectrumFileType.put(Integer.valueOf(index++), "dtablank");
+        MSSpectrumFileType.put(Integer.valueOf(index++), "dtaxml");
+        MSSpectrumFileType.put(Integer.valueOf(index++), "asc");
+        MSSpectrumFileType.put(Integer.valueOf(index++), "pkl");
+        MSSpectrumFileType.put(Integer.valueOf(index++), "pks");
+        MSSpectrumFileType.put(Integer.valueOf(index++), "sciex");
+        MSSpectrumFileType.put(Integer.valueOf(index++), "mgf");
+        MSSpectrumFileType.put(Integer.valueOf(index++), "unknown");
+        MSSpectrumFileType.put(Integer.valueOf(index++), "oms - asn.1 binary for iterative search");
+        MSSpectrumFileType.put(Integer.valueOf(index++), "omx - xml for iterative search");
+        MSSpectrumFileType.put(Integer.valueOf(index++), "xml - xml MSRequest");
+        MSSpectrumFileType.put(Integer.valueOf(index++), "omxbz - bzip2 omx file2");
 
 
         // MSSerialDataFormat
         index = 0;
-        MSSerialDataFormat.put(new Integer(index++), "none");
-        MSSerialDataFormat.put(new Integer(index++), "asntext - open ASN.1 text format");
-        MSSerialDataFormat.put(new Integer(index++), "asnbinary - open ASN.1 binary format");
-        MSSerialDataFormat.put(new Integer(index++), "xml - open XML format");
-        MSSerialDataFormat.put(new Integer(index++), "csv - csv (excel)");
-        MSSerialDataFormat.put(new Integer(index++), "pepxml - pepXML format");
-        MSSerialDataFormat.put(new Integer(index++), "xmlbz2 - bzip2 XML format");
+        MSSerialDataFormat.put(Integer.valueOf(index++), "none");
+        MSSerialDataFormat.put(Integer.valueOf(index++), "asntext - open ASN.1 text format");
+        MSSerialDataFormat.put(Integer.valueOf(index++), "asnbinary - open ASN.1 binary format");
+        MSSerialDataFormat.put(Integer.valueOf(index++), "xml - open XML format");
+        MSSerialDataFormat.put(Integer.valueOf(index++), "csv - csv (excel)");
+        MSSerialDataFormat.put(Integer.valueOf(index++), "pepxml - pepXML format");
+        MSSerialDataFormat.put(Integer.valueOf(index++), "xmlbz2 - bzip2 XML format");
 
 
         // MSIonType
         index = 0;
-        MSIonType.put(new Integer(index++), "a");
-        MSIonType.put(new Integer(index++), "b");
-        MSIonType.put(new Integer(index++), "c");
-        MSIonType.put(new Integer(index++), "x");
-        MSIonType.put(new Integer(index++), "y");
-        MSIonType.put(new Integer(index++), "z");
-        MSIonType.put(new Integer(index++), "parent");
-        MSIonType.put(new Integer(index++), "internal");
-        MSIonType.put(new Integer(index++), "immonium");
-        MSIonType.put(new Integer(index++), "unknown");
-        MSIonType.put(new Integer(index++), "adot");
-        MSIonType.put(new Integer(index++), "x-CO2");
-        MSIonType.put(new Integer(index++), "adot-CO2");
-        MSIonType.put(new Integer(index++), "max");
+        MSIonType.put(Integer.valueOf(index++), "a");
+        MSIonType.put(Integer.valueOf(index++), "b");
+        MSIonType.put(Integer.valueOf(index++), "c");
+        MSIonType.put(Integer.valueOf(index++), "x");
+        MSIonType.put(Integer.valueOf(index++), "y");
+        MSIonType.put(Integer.valueOf(index++), "z");
+        MSIonType.put(Integer.valueOf(index++), "parent");
+        MSIonType.put(Integer.valueOf(index++), "internal");
+        MSIonType.put(Integer.valueOf(index++), "immonium");
+        MSIonType.put(Integer.valueOf(index++), "unknown");
+        MSIonType.put(Integer.valueOf(index++), "adot");
+        MSIonType.put(Integer.valueOf(index++), "x-CO2");
+        MSIonType.put(Integer.valueOf(index++), "adot-CO2");
+        MSIonType.put(Integer.valueOf(index++), "max");
 
 
         // MSIonIsotopicType
         index = 0;
-        MSIonIsotopicType.put(new Integer(index++), "monoisotopic - no c13s in molecule");
-        MSIonIsotopicType.put(new Integer(index++), "c13 - one c13 in molecule");
-        MSIonIsotopicType.put(new Integer(index++), "c13two - two c13s in molecule");
-        MSIonIsotopicType.put(new Integer(index++), "c13three - three c13s in molecule");
-        MSIonIsotopicType.put(new Integer(index++), "c13four - four c13s in molecule");
+        MSIonIsotopicType.put(Integer.valueOf(index++), "monoisotopic - no c13s in molecule");
+        MSIonIsotopicType.put(Integer.valueOf(index++), "c13 - one c13 in molecule");
+        MSIonIsotopicType.put(Integer.valueOf(index++), "c13two - two c13s in molecule");
+        MSIonIsotopicType.put(Integer.valueOf(index++), "c13three - three c13s in molecule");
+        MSIonIsotopicType.put(Integer.valueOf(index++), "c13four - four c13s in molecule");
 
 
         // MSHitError
         index = 0;
-        MSHitError.put(new Integer(index++), "none");
-        MSHitError.put(new Integer(index++), "generalerr");
-        MSHitError.put(new Integer(index++), "unable2read - can't read the spectrum");
-        MSHitError.put(new Integer(index++), "notenuffpeaks - not enough peaks to search");
+        MSHitError.put(Integer.valueOf(index++), "none");
+        MSHitError.put(Integer.valueOf(index++), "generalerr");
+        MSHitError.put(Integer.valueOf(index++), "unable2read - can't read the spectrum");
+        MSHitError.put(Integer.valueOf(index++), "notenuffpeaks - not enough peaks to search");
 
 
         // MSUserAnnot
         index = 0;
-        MSUserAnnot.put(new Integer(index++), "none");
-        MSUserAnnot.put(new Integer(index++), "delete");
-        MSUserAnnot.put(new Integer(index++), "flag");
+        MSUserAnnot.put(Integer.valueOf(index++), "none");
+        MSUserAnnot.put(Integer.valueOf(index++), "delete");
+        MSUserAnnot.put(Integer.valueOf(index++), "flag");
 
 
         // MSResponseError
         index = 0;
-        MSResponseError.put(new Integer(index++), "none");
-        MSResponseError.put(new Integer(index++), "generalerr");
-        MSResponseError.put(new Integer(index++), "noblastdb - unable to open blast library");
-        MSResponseError.put(new Integer(index++), "noinput - input missing");
+        MSResponseError.put(Integer.valueOf(index++), "none");
+        MSResponseError.put(Integer.valueOf(index++), "generalerr");
+        MSResponseError.put(Integer.valueOf(index++), "noblastdb - unable to open blast library");
+        MSResponseError.put(Integer.valueOf(index++), "noinput - input missing");
 
 
         // MSIonNeutralLoss
         index = 0;
-        MSIonNeutralLoss.put(new Integer(index++), "water - minus 18 Da");
-        MSIonNeutralLoss.put(new Integer(index++), "ammonia - minus 17 Da");
+        MSIonNeutralLoss.put(Integer.valueOf(index++), "water - minus 18 Da");
+        MSIonNeutralLoss.put(Integer.valueOf(index++), "ammonia - minus 17 Da");
     }
 
     /**
      * Get the name of the enzyme as text, e.g., "trypsin" or "chymotrypsin".
      *
      * @param index the integer ID of the enzyme
-     * @return the enzyme as text, e.g., "trypsin" or "chymotrypsin", null if not found
+     * @return the enzyme as text, e.g., "trypsin" or "chymotrypsin", null if
+     * not found
      */
     public static String getEnzymeAsText(int index) {
         return OmssaEnumerators.MSEnzymes.get(index);
     }
-    
+
     /**
-     * Get the name of the modification as text, e.g., "oxym - oxidation of methionine".
+     * Get the name of the modification as text, e.g., "oxym - oxidation of
+     * methionine".
      *
      * @param index the integer ID of the modification
-     * @return the modification as text, e.g., "oxym - oxidation of methionine", null if not found
+     * @return the modification as text, e.g., "oxym - oxidation of methionine",
+     * null if not found
      */
     public static String getModificationAsText(int index) {
         return OmssaEnumerators.MSMod.get(index);
     }
-    
+
     /**
-     * Get the type of the modification as text, e.g., "modaa - at particular amino acids".
+     * Get the type of the modification as text, e.g., "modaa - at particular
+     * amino acids".
      *
      * @param index the integer ID of the modification type
-     * @return the modification type as text, e.g., "modaa - at particular amino acids", null if not found
+     * @return the modification type as text, e.g., "modaa - at particular amino
+     * acids", null if not found
      */
     public static String getModificationTypeAsText(int index) {
         return OmssaEnumerators.MSModType.get(index);
@@ -495,10 +498,12 @@ public class OmssaEnumerators {
     }
 
     /**
-     * Get the charge dependence of the mass tolerance as text, e.g., "independent - mass tol. invariant with charge".
+     * Get the charge dependence of the mass tolerance as text, e.g.,
+     * "independent - mass tol. invariant with charge".
      *
      * @param index the integer ID of the MSZDependence
-     * @return the charge dependence of the mass tolerance as text, e.g., "independent - mass tol. invariant with charge", null if not found
+     * @return the charge dependence of the mass tolerance as text, e.g.,
+     * "independent - mass tol. invariant with charge", null if not found
      */
     public static String getMSZDependenceAsText(int index) {
         return OmssaEnumerators.MSZDependence.get(index);
@@ -518,7 +523,8 @@ public class OmssaEnumerators {
      * Get the serial data format as text, e.g., "xml - open XML format".
      *
      * @param index the integer ID of the serial data format
-     * @return the serial data format as text, e.g., "xml - open XML format", null if not found
+     * @return the serial data format as text, e.g., "xml - open XML format",
+     * null if not found
      */
     public static String getMSSerialDataFormatAsText(int index) {
         return OmssaEnumerators.MSSerialDataFormat.get(index);
@@ -535,20 +541,24 @@ public class OmssaEnumerators {
     }
 
     /**
-     * Get the ion isotopic type as text, e.g., "monoisotopic - no c13s in molecule".
+     * Get the ion isotopic type as text, e.g., "monoisotopic - no c13s in
+     * molecule".
      *
      * @param index the integer ID of the ion isotopic type
-     * @return the ion isotopic type as text, e.g., "monoisotopic - no c13s in molecule", null if not found
+     * @return the ion isotopic type as text, e.g., "monoisotopic - no c13s in
+     * molecule", null if not found
      */
     public static String getMSIonIsotopicTypeAsText(int index) {
         return OmssaEnumerators.MSIonIsotopicType.get(index);
     }
 
     /**
-     * Get the MS hit error as text, e.g., "unable2read - can't read the spectrum".
+     * Get the MS hit error as text, e.g., "unable2read - can't read the
+     * spectrum".
      *
      * @param index the integer ID of the MS hit error
-     * @return the MS hit error as text, e.g., "unable2read - can't read the spectrum", null if not found
+     * @return the MS hit error as text, e.g., "unable2read - can't read the
+     * spectrum", null if not found
      */
     public static String getMSHitErrorAsText(int index) {
         return OmssaEnumerators.MSHitError.get(index);
@@ -558,17 +568,20 @@ public class OmssaEnumerators {
      * Get the MS user annotation as text, e.g., "none", "delete" or "flag".
      *
      * @param index the integer ID of the MS user annotation
-     * @return the MS user annotation as text, e.g., "none", "delete" or "flag", null if not found
+     * @return the MS user annotation as text, e.g., "none", "delete" or "flag",
+     * null if not found
      */
     public static String getMSUserAnnotAsText(int index) {
         return OmssaEnumerators.MSUserAnnot.get(index);
     }
 
     /**
-     * Get the MS response error as text, e.g., "noblastdb - unable to open blast library".
+     * Get the MS response error as text, e.g., "noblastdb - unable to open
+     * blast library".
      *
      * @param index the integer ID of the MS response error
-     * @return the MSresponse error as text, e.g., "noblastdb - unable to open blast library", null if not found
+     * @return the MSresponse error as text, e.g., "noblastdb - unable to open
+     * blast library", null if not found
      */
     public static String getMSResponseErrorAsText(int index) {
         return OmssaEnumerators.MSResponseError.get(index);
@@ -578,7 +591,8 @@ public class OmssaEnumerators {
      * Get the MS ion neutral loss as text, e.g.,"water - minus 18 Da".
      *
      * @param index the integer ID of the MS ion neutral loss
-     * @return the MS ion neutral loss text, e.g., "water - minus 18 Da", null if not found
+     * @return the MS ion neutral loss text, e.g., "water - minus 18 Da", null
+     * if not found
      */
     public static String getMSIonNeutralLossAsText(int index) {
         return OmssaEnumerators.MSIonNeutralLoss.get(index);
