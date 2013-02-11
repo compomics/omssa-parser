@@ -59,7 +59,7 @@ public class OmssaOmxFile {
      * Returns a HashMap where every Spectrum (key) is allocated to the corresponding found Peptides.
      * <br><br>Note: In this HashMap the Peptides are only represented through their sequences which
      * are stored as a HashSet of Strings. For further information about the Peptide ("at what position
-     * in the corresponding protein does the Peptide start/end?") you´ll need to search in the MSPepHit
+     * in the corresponding protein does the Peptide start/end?") you will need to search in the MSPepHit
      * object.
      */
     private HashMap<MSSpectrum, HashSet<String>> spectrumToPeptideMap = new HashMap<MSSpectrum, HashSet<String>>();
