@@ -10,8 +10,6 @@ import javax.swing.table.DefaultTableCellRenderer;
  * notation.
  *
  * @author Harald Barsnes
- *
- * Created Januar 2009.
  */
 public class ScientificNumberTableCellRenderer extends DefaultTableCellRenderer {
 
@@ -31,10 +29,10 @@ public class ScientificNumberTableCellRenderer extends DefaultTableCellRenderer 
      * All number below this value are formatted using the scientific formatter,
      * while all number above are formatted using the normal formatter.
      */
-    final float upperScientificFormattingLevel = 0.00009f;
+    private static final float upperScientificFormattingLevel = 0.00009f;
 
     /**
-     * Constructor that in addition to calling its super constuctor also
+     * Constructor that in addition to calling its super constructor also
      * right-aligns the numbers in the column.
      */
     public ScientificNumberTableCellRenderer() {

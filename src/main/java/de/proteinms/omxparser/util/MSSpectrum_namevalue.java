@@ -26,11 +26,9 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * Extra info: retention times, etc.
- * <br><br>
- * Please see "OMSSA.mod.xsd" for further information:
- * <br><br>
- * See <a href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
+ * Extra info: retention times, etc. <br><br> Please see "OMSSA.mod.xsd" for
+ * further information: <br><br> See <a
+ * href="http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd">http://www.ncbi.nlm.nih.gov/data_specs/schema/OMSSA.mod.xsd</a>
  *
  * @author Steffen Huber
  * @author Harald Barsnes
@@ -40,14 +38,14 @@ public class MSSpectrum_namevalue implements Serializable {
     /**
      * List of values.
      */
-    public List<NameValue> NameValue = new LinkedList<NameValue>();
+    public List<NameValue> nameValue = new LinkedList<NameValue>();
 
     /**
-     * Adds an element to the NameValue list.
+     * Adds an element to the nameValue list.
      *
      * @param s the name value to add
      */
     public void setNameValue(NameValue s) {
-        NameValue.add(s);
+        nameValue.add(s);
     }
 }

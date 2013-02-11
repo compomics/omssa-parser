@@ -65,7 +65,7 @@ public class OmssaViewer extends javax.swing.JFrame {
      */
     private int omssaResponseScale;
     /**
-     * The list of ionstypes used in the omx file.
+     * The list of ion types used in the omx file.
      */
     private List<Integer> usedIonTypes;
     /**
@@ -92,7 +92,6 @@ public class OmssaViewer extends javax.swing.JFrame {
     public static void main(String[] args) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
 
                 try {
@@ -251,7 +250,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
         // use scientific notation for the P- and E-values in the identification table
         identificationsJTable.setDefaultRenderer(Float.class, new ScientificNumberTableCellRenderer());
-        
+
         identificationsJTable.getColumn("Modified Sequence").setCellRenderer(new BlackWhiteTextColorRenderer());
         spectraJTable.getColumn("Identified").setCellRenderer(new NimbusCheckBoxRenderer());
 
@@ -445,7 +444,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         progressDialog = new ProgressDialog(this, true);
 
         final Thread t = new Thread(new Runnable() {
-
             public void run() {
                 progressDialog.setTitle("Parsing OMX File. Please Wait...");
                 progressDialog.setIntermidiate(true);
@@ -457,7 +455,6 @@ public class OmssaViewer extends javax.swing.JFrame {
 
 
         new Thread("ParserThread") {
-
             @Override
             public void run() {
 
@@ -526,7 +523,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 // iterate the spectra
                 while (iterator.hasNext()) {
                     MSSpectrum tempSpectrum = iterator.next();
-                    spectra.put(new Integer(tempSpectrum.MSSpectrum_number), tempSpectrum);
+                    spectra.put(Integer.valueOf(tempSpectrum.MSSpectrum_number), tempSpectrum);
                 }
 
                 // add the spectra to the table
@@ -569,9 +566,9 @@ public class OmssaViewer extends javax.swing.JFrame {
                         currentRealAbundanceValues.add(currentAbundanceValuesAsIntegers.get(j).doubleValue() / omssaAbundanceScale);
                     }
 
-                    allMzValues.put(new Integer(tempSpectrum.MSSpectrum_number),
+                    allMzValues.put(Integer.valueOf(tempSpectrum.MSSpectrum_number),
                             currentRealMzValues);
-                    allAbundanceValues.put(new Integer(tempSpectrum.MSSpectrum_number),
+                    allAbundanceValues.put(Integer.valueOf(tempSpectrum.MSSpectrum_number),
                             currentRealAbundanceValues);
 
                     boolean identified = false;
@@ -584,10 +581,10 @@ public class OmssaViewer extends javax.swing.JFrame {
                     }
 
                     ((DefaultTableModel) spectraJTable.getModel()).addRow(new Object[]{
-                                new Integer(tempSpectrum.MSSpectrum_number),
+                                Integer.valueOf(tempSpectrum.MSSpectrum_number),
                                 fileName,
                                 ((double) tempSpectrum.MSSpectrum_precursormz) / omssaResponseScale,
-                                new Integer(chargeString),
+                                Integer.valueOf(chargeString),
                                 identified
                             });
                 }
@@ -1256,7 +1253,7 @@ public class OmssaViewer extends javax.swing.JFrame {
     }//GEN-LAST:event_exitJMenuItemActionPerformed
 
     /**
-     * Enables copy to clipboard functionality from a popup menu.
+     * Enables copy to clipboard functionality from a pop up menu.
      *
      * @param evt
      */
@@ -1756,7 +1753,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                                         String currentMod = residueMods[j] + ">";
 
                                         OmssaModification tempOmssaModification = omssaOmxFile.getModifications().get(
-                                                new Integer(residueMods[j].substring(1)));
+                                                Integer.valueOf(residueMods[j].substring(1)));
 
                                         if (tempOmssaModification != null) {
 
@@ -1816,12 +1813,17 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                             // Note: assumes that 0 is a, 1 is b, 2 is c, 3 is x, 4 is y and 5 is z
                             if (ionType == 0) {
+                                // a ion, not used
                             } else if (ionType == 1) {
                                 ionCoverage[ionNumber][0]++;
+                            } else if (ionType == 5) {
+                                // c ion, not used
                             } else if (ionType == 3) {
+                                // x ion, not used
                             } else if (ionType == 4) {
                                 ionCoverage[ionNumber][1]++;
                             } else if (ionType == 5) {
+                                // z ion, not used
                             }
                         }
 
@@ -1937,7 +1939,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                             MSPepHit tempPepHit = pepHitIterator.next();
 
-                            MSSpectrum tempSpectrum = spectra.get(new Integer(msHitSet.MSHitSet_number));
+                            MSSpectrum tempSpectrum = spectra.get(Integer.valueOf(msHitSet.MSHitSet_number));
                             String filename = "[no filename specified]";
                             if (!tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.isEmpty()) {
                                 filename = tempSpectrum.MSSpectrum_ids.MSSpectrum_ids_E.get(0);
@@ -2214,7 +2216,7 @@ public class OmssaViewer extends javax.swing.JFrame {
             for (int i = 0; i < mzValues.size(); i++) {
 
                 ((DefaultTableModel) spectrumJTable.getModel()).addRow(new Object[]{
-                            new Integer(i + 1),
+                            Integer.valueOf(i + 1),
                             mzValues.get(i),
                             abundanceValues.get(i)
                         });
@@ -2288,7 +2290,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                             // @TODO: what about terminal ptms
                             OmssaModification tempOmssaModification = omssaOmxFile.getModifications().get(fixedModifications.get(i));
-                            
+
                             if (tempOmssaModification.getModType() == OmssaModification.MODAA) {
 
                                 // "normal" modification
@@ -2303,7 +2305,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                                         index = sequence.indexOf(modifiedResidues.get(j), index + 1);
                                     }
                                 }
-                                
+
                             } else if (tempOmssaModification.getModType() == OmssaModification.MODN
                                     || tempOmssaModification.getModType() == OmssaModification.MODNAA
                                     || tempOmssaModification.getModType() == OmssaModification.MODNP
@@ -2311,13 +2313,13 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                                 // n-terminal modification
                                 nTerminal += "<" + tempOmssaModification.getModNumber() + ">";
-                                
+
                                 // check if we've already mapped the modification
                                 if (modificationDetails.lastIndexOf("<" + tempOmssaModification.getModNumber() + ">") == -1) {
                                     modificationDetails += "<" + tempOmssaModification.getModNumber() + ">" + " " + tempOmssaModification.getModName()
-                                                + " (" + tempOmssaModification.getModMonoMass() + "), ";
+                                            + " (" + tempOmssaModification.getModMonoMass() + "), ";
                                 }
-                                
+
                             } else if (tempOmssaModification.getModType() == OmssaModification.MODC
                                     || tempOmssaModification.getModType() == OmssaModification.MODCAA
                                     || tempOmssaModification.getModType() == OmssaModification.MODCP
@@ -2325,13 +2327,13 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                                 // c-terminal modification
                                 cTerminal += "<" + tempOmssaModification.getModNumber() + ">";
-                                
+
                                 // check if we've already mapped the modification
                                 if (modificationDetails.lastIndexOf("<" + tempOmssaModification.getModNumber() + ">") == -1) {
                                     modificationDetails += "<" + tempOmssaModification.getModNumber() + ">" + " " + tempOmssaModification.getModName()
-                                                + " (" + tempOmssaModification.getModMonoMass() + "), ";
+                                            + " (" + tempOmssaModification.getModMonoMass() + "), ";
                                 }
-                            } 
+                            }
                         }
                     }
 
@@ -2365,7 +2367,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                                 if (modificationDetails.lastIndexOf(currentMod) == -1) {
 
                                     OmssaModification tempOmssaModification = omssaOmxFile.getModifications().get(
-                                            new Integer(residueMods[j].substring(1)));
+                                            Integer.valueOf(residueMods[j].substring(1)));
 
                                     if (tempOmssaModification != null) {
 
@@ -2476,7 +2478,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                     String unusedIon = "";
 
-                    if (!usedIonTypes.contains(new Integer(ionType))) {
+                    if (!usedIonTypes.contains(Integer.valueOf(ionType))) {
                         unusedIon = "#";
                     }
 
@@ -2697,7 +2699,7 @@ public class OmssaViewer extends javax.swing.JFrame {
             } else {
                 legendJLabel.setText(ionCoverageLegend);
             }
-            
+
             legendJLabel.setText(ionCoverageLegend);
 
             if (evt != null && evt.getButton() == MouseEvent.BUTTON3) {
@@ -2722,7 +2724,7 @@ public class OmssaViewer extends javax.swing.JFrame {
      * Updates the ion coverage relative in the spectrum to the selected
      * identification.
      *
-     * Right clicking opens a popup menu.
+     * Right clicking opens a pop up menu.
      *
      * @param evt
      */
