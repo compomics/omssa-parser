@@ -205,7 +205,7 @@ public class OmssaViewer extends javax.swing.JFrame {
         // creates the error log file
         if (useErrorLog && !getJarFilePath().equalsIgnoreCase(".")) {
             try {
-                String path = getJarFilePath() + "/Properties/ErrorLog.txt";
+                String path = getJarFilePath() + "/resources/conf/ErrorLog.txt";
                 File file = new File(path);
                 System.setOut(new java.io.PrintStream(new FileOutputStream(file, true)));
                 System.setErr(new java.io.PrintStream(new FileOutputStream(file, true)));
@@ -1457,7 +1457,7 @@ public class OmssaViewer extends javax.swing.JFrame {
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this,
                         "An error occured when exporting the spectra file details.\n"
-                        + "See ../Properties/ErrorLog.txt for more details.",
+                        + "See ../resources/conf/ErrorLog.txt for more details.",
                         "Error Exporting Spectra Files",
                         JOptionPane.ERROR_MESSAGE);
                 Util.writeToErrorLog("Error when exporting spectra file details: ");
@@ -1561,7 +1561,7 @@ public class OmssaViewer extends javax.swing.JFrame {
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this,
                         "An error occured when exporting the selected spectrum.\n"
-                        + "See ../Properties/ErrorLog.txt for more details.",
+                        + "See ../resources/conf/ErrorLog.txt for more details.",
                         "Error Exporting Selected Spectrum",
                         JOptionPane.ERROR_MESSAGE);
                 Util.writeToErrorLog("Error when exporting selected spectrum: ");
@@ -1977,7 +1977,7 @@ public class OmssaViewer extends javax.swing.JFrame {
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this,
                         "An error occured when exporting the identifications.\n"
-                        + "See ../Properties/ErrorLog.txt for more details.",
+                        + "See ../resources/conf/ErrorLog.txt for more details.",
                         "Error Exporting Identifications",
                         JOptionPane.ERROR_MESSAGE);
                 Util.writeToErrorLog("Error when exporting identifications: ");
@@ -2066,7 +2066,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this,
                             "An error occured when exporting the spectra.\n"
-                            + "See ../Properties/ErrorLog.txt for more details.",
+                            + "See ../resources/conf/ErrorLog.txt for more details.",
                             "Error Exporting Spectra",
                             JOptionPane.ERROR_MESSAGE);
                     Util.writeToErrorLog("Error when exporting spectra: ");
