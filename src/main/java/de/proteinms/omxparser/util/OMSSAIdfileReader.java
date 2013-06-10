@@ -3,7 +3,6 @@ package de.proteinms.omxparser.util;
 import com.compomics.util.Util;
 import com.compomics.util.experiment.biology.AminoAcidPattern;
 import com.compomics.util.experiment.biology.PTM;
-import com.compomics.util.experiment.biology.PTMFactory;
 import com.compomics.util.experiment.biology.Peptide;
 import com.compomics.util.experiment.identification.Advocate;
 import com.compomics.util.experiment.io.identifications.IdfileReader;
@@ -105,9 +104,6 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
             waitingHandler.setMaxSecondaryProgressValue(searchResponseSize);
         }
 
-        String tempName;
-        MSHitSet msHitSet;
-        int tempIndex;
 
         for (int i = 0; i < searchResponseSize; i++) {
 
@@ -116,7 +112,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
             for (int spectrumIndex : msHitSetMap.keySet()) {
 
-                msHitSet = msHitSetMap.get(spectrumIndex);
+                MSHitSet msHitSet = msHitSetMap.get(spectrumIndex);
                 List<MSHits> hitSet = msHitSet.MSHitSet_hits.MSHits;
 
                 if (hitSet.size() > 0) {
@@ -133,7 +129,8 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
                     ArrayList<Double> eValues = new ArrayList<Double>(hitMap.keySet());
                     Collections.sort(eValues);
 
-                    tempIndex = spectrumIndex + 1;
+                    String tempName;
+                    int tempIndex = spectrumIndex + 1;
                     if (msHitSet.MSHitSet_ids.MSHitSet_ids_E.isEmpty()) {
                         tempName = tempIndex + "";
                     } else {
@@ -169,8 +166,10 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
     /**
      * Returns a peptide assumption based on the OMSSA MSHits.
-     * 
-     * Warning: the fixed modifications are not implemented and need to be added subsequently. That can be done using the compomics utilities PTMFactory (https://code.google.com/p/compomics-utilities/source/browse/trunk/src/main/java/com/compomics/util/experiment/biology/PTMFactory.java).
+     *
+     * Warning: the fixed modifications are not implemented and need to be added
+     * subsequently. That can be done using the compomics utilities PTMFactory
+     * (https://code.google.com/p/compomics-utilities/source/browse/trunk/src/main/java/com/compomics/util/experiment/biology/PTMFactory.java).
      *
      * @param currentMsHit the MSHits of interest
      * @param responseIndex the response index in the msrequest
