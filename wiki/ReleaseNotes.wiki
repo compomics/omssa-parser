@@ -3,10 +3,24 @@
 
 ----
 
+*Changes in omssa-parser 1.5.11 (June 10. 2013):*
+ * Fixed a problem with starting the viewer on the latest Java release.
+
+----
+
+*Changes in omssa-parser 1.5.10 (April 26. 2013):*
+ * Fixed a problem with starting the viewer on the latest Java release.
+
+Download count: 16
+
+----
+
 *Changes in omssa-parser 1.5.9 (January 11. 2013):*
  * FEATURE IMPROVEMENT: Made a minor change to the pom file to handle recursive issues that can occur when opening the project in NetBeans 7.2.
  * FEATURE IMPROVEMENT: Spectrum titles are now decoded in the id file reader.
  * BUG FIX: Minor code cleanups.
+
+Download count: 19
 
 ----
 
