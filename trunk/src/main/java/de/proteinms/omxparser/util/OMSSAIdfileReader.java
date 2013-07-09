@@ -12,8 +12,8 @@ import com.compomics.util.experiment.identification.matches.SpectrumMatch;
 import com.compomics.util.experiment.massspectrometry.Charge;
 import com.compomics.util.experiment.massspectrometry.Spectrum;
 import com.compomics.util.experiment.personalization.ExperimentObject;
-import com.compomics.util.gui.waiting.WaitingHandler;
 import com.compomics.util.protein.Header;
+import com.compomics.util.waiting.WaitingHandler;
 import de.proteinms.omxparser.OmssaOmxFile;
 
 import java.io.File;
@@ -101,7 +101,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
         int searchResponseSize = msSearchResponse.size();
 
         if (waitingHandler != null) {
-            waitingHandler.setMaxSecondaryProgressValue(searchResponseSize);
+            waitingHandler.setMaxSecondaryProgressCounter(searchResponseSize);
         }
 
 
@@ -157,7 +157,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
                 if (!waitingHandler.isRunCanceled()) {
                     break;
                 }
-                waitingHandler.setSecondaryProgressValue(i);
+                waitingHandler.setSecondaryProgressCounter(i);
             }
         }
 
