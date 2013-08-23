@@ -91,16 +91,17 @@ public class OmxParser {
      * If a Class should be parsed by OmxParser, it has to be initialzed by<br>
      * writing it into the HashMap classes
      *
-     * @param importSpectra if true, the spectra will be imported
+     * @param importSpectra if false, the MSSpectrumset section of the omx file
+     * will be skipped
+     * @param importIdDetails if false only peptide sequence, modifications and
+     * e-values will be imported
      */
-    public static void initializeClasses(boolean importSpectra) {
+    public static void initializeClasses(boolean importSpectra, boolean importIdDetails) {
 
         classes.put("MSChargeHandle_calccharge", MSChargeHandle_calccharge.class);
         classes.put("MSChargeHandle_calcplusone", MSChargeHandle_calcplusone.class);
         classes.put("MSChargeHandle", MSChargeHandle.class);
         classes.put("MSHits_mods", MSHits_mods.class);
-        classes.put("MSHits_mzhits", MSHits_mzhits.class);
-        classes.put("MSHits_pephits", MSHits_pephits.class);
         classes.put("MSHits_scores", MSHits_scores.class);
         classes.put("MSHits", MSHits.class);
         classes.put("MSHitSet_error", MSHitSet_error.class);
@@ -128,17 +129,11 @@ public class OmxParser {
         classes.put("MSModSpec_residues", MSModSpec_residues.class);
         classes.put("MSModSpec", MSModSpec.class);
         classes.put("MSModSpecSet", MSModSpecSet.class);
-        classes.put("MSMZHit_annotation", MSMZHit_annotation.class);
-        classes.put("MSMZHit_ion", MSMZHit_ion.class);
-        classes.put("MSMZHit_moreion", MSMZHit_moreion.class);
-        classes.put("MSMZHit", MSMZHit.class);
         classes.put("MSOutFile_outfiletype", MSOutFile_outfiletype.class);
         classes.put("MSOutFile", MSOutFile.class);
-        classes.put("MSPepHit", MSPepHit.class);
         classes.put("MSRequest_modset", MSRequest_modset.class);
         classes.put("MSRequest_moresettings", MSRequest_moresettings.class);
         classes.put("MSRequest_settings", MSRequest_settings.class);
-        classes.put("MSRequest_spectra", MSRequest_spectra.class);
         classes.put("MSRequest", MSRequest.class);
         classes.put("MSResponse_error", MSResponse_error.class);
         classes.put("MSResponse_hitsets", MSResponse_hitsets.class);
@@ -165,15 +160,25 @@ public class OmxParser {
         classes.put("MSSearchSettings_zdep", MSSearchSettings_zdep.class);
         classes.put("MSSearchSettings", MSSearchSettings.class);
         classes.put("MSSearchSettingsSet", MSSearchSettingsSet.class);
-        classes.put("MSSpectrum_charge", MSSpectrum_charge.class);
-        classes.put("MSSpectrum_ids", MSSpectrum_ids.class);
         classes.put("MSSpectrum_namevalue", MSSpectrum_namevalue.class);
-        classes.put("MSSpectrum", MSSpectrum.class);
-        classes.put("MSSpectrumset", MSSpectrumset.class);
         classes.put("NameValue", NameValue.class);
         if (importSpectra) {
-            classes.put("MSSpectrum_abundance", MSSpectrum_abundance.class);
+            classes.put("MSRequest_spectra", MSRequest_spectra.class);
+            classes.put("MSSpectrumset", MSSpectrumset.class);
+            classes.put("MSSpectrum", MSSpectrum.class);
+            classes.put("MSSpectrum_charge", MSSpectrum_charge.class);
             classes.put("MSSpectrum_mz", MSSpectrum_mz.class);
+            classes.put("MSSpectrum_abundance", MSSpectrum_abundance.class);
+            classes.put("MSSpectrum_ids", MSSpectrum_ids.class);
+        }
+        if (importIdDetails) {
+            classes.put("MSHits_pephits", MSHits_pephits.class);
+            classes.put("MSPepHit", MSPepHit.class);
+            classes.put("MSHits_mzhits", MSHits_mzhits.class);
+            classes.put("MSMZHit_annotation", MSMZHit_annotation.class);
+            classes.put("MSMZHit_ion", MSMZHit_ion.class);
+            classes.put("MSMZHit_moreion", MSMZHit_moreion.class);
+            classes.put("MSMZHit", MSMZHit.class);
         }
     }
 
@@ -206,12 +211,28 @@ public class OmxParser {
      * Initializes the parser and parses the omx file. Also parses the
      * modification files (if any).
      *
-     * @param omxFilePath
-     * @param modsFilePath
-     * @param userModsFilePath
-     * @param importSpectra
+     * @param omxFilePath path to the omx file
+     * @param modsFilePath path to the mods.xml file
+     * @param userModsFilePath path to the usermods.xml file
+     * @param importSpectra boolean indicating whether spectra should be loaded
      */
     public OmxParser(String omxFilePath, String modsFilePath, String userModsFilePath, boolean importSpectra) {
+        this(omxFilePath, modsFilePath, userModsFilePath, importSpectra, false);
+    }
+
+    /**
+     * Initializes the parser and parses the omx file. Also parses the
+     * modification files (if any).
+     *
+     * @param omxFilePath path to the omx file
+     * @param modsFilePath path to the mods.xml file
+     * @param userModsFilePath path to the usermods.xml file
+     * @param importSpectra if false, the MSSpectrumset section of the omx file
+     * will be skipped
+     * @param importIdDetails if false only peptide sequence, modifications and
+     * e-values will be imported
+     */
+    public OmxParser(String omxFilePath, String modsFilePath, String userModsFilePath, boolean importSpectra, boolean importIdDetails) {
         File omxFile = null;
         File modsFile = null;
         File userModsFile = null;
@@ -244,12 +265,12 @@ public class OmxParser {
             XmlPullParser xpp = factory.newPullParser();
 
             //write every class from which objects should be created into the hashmap classes
-            initializeClasses(importSpectra);
+            initializeClasses(importSpectra, importIdDetails);
 
             logger.debug("Parsing file: " + omxFile);
             xpp.setInput(new BufferedReader(new FileReader(omxFile)));
             long t1 = System.currentTimeMillis();
-            processDocument(xpp);
+            processDocument(xpp, !importSpectra, !importIdDetails);
             long t2 = System.currentTimeMillis();
             long t3 = (t2 - t1) / 1000;
             logger.debug("finished after " + t3 + " seconds");
@@ -373,30 +394,48 @@ public class OmxParser {
      * Process the document given by the XmlPullParser.
      *
      * @param xpp
+     * @param skipMSRequest_spectra if true, the MSRequest_spectra section of
+     * the omx file will be skipped
+     * @param skipMSHits_mzhits if true, the sections MSHits_pephits,
+     * MSHits_mzhits of the omx file will be skipped
      * @throws org.xmlpull.v1.XmlPullParserException
      * @throws java.io.IOException
      */
-    public void processDocument(XmlPullParser xpp)
+    public void processDocument(XmlPullParser xpp, boolean skipMSRequest_spectra, boolean skipPeptideDetails)
             throws XmlPullParserException, IOException {
 
         // initialize lockStack:
         lockStack.add(false);
 
-        int eventType = xpp.getEventType();
+        int eventType;
 
-        do {
-            if (eventType == XmlPullParser.START_DOCUMENT) {
-            } else if (eventType == XmlPullParser.END_DOCUMENT) {
-            } else if (eventType == XmlPullParser.START_TAG) {
-                processStartElement(xpp);
+        while ((eventType = xpp.next()) != XmlPullParser.END_DOCUMENT) {
+            if (eventType == XmlPullParser.START_TAG) {
+                String name = xpp.getName();
+                if (skipMSRequest_spectra && name.equals("MSRequest_spectra")) {
+                    while (!(eventType == XmlPullParser.END_TAG && name.equals("MSRequest_spectra"))) {
+                        eventType = xpp.next();
+                        name = xpp.getName();
+                    }
+                } else if (skipPeptideDetails && name.equals("MSHits_pephits")) {
+                    while (!(eventType == XmlPullParser.END_TAG && name.equals("MSHits_pephits"))) {
+                        eventType = xpp.next();
+                        name = xpp.getName();
+                    }
+                } else if (skipPeptideDetails && name.equals("MSHits_mzhits")) {
+                    while (!(eventType == XmlPullParser.END_TAG && name.equals("MSHits_mzhits"))) {
+                        eventType = xpp.next();
+                        name = xpp.getName();
+                    }
+                } else {
+                    processStartElement(xpp, !skipPeptideDetails);
+                }
             } else if (eventType == XmlPullParser.END_TAG) {
-                processEndElement(xpp);
+                processEndElement(xpp, !skipPeptideDetails);
             } else if (eventType == XmlPullParser.TEXT) {
-                processText(xpp);
+                processText(xpp, !skipPeptideDetails);
             }
-
-            eventType = xpp.next();
-        } while (eventType != XmlPullParser.END_DOCUMENT);
+        }
     }
 
     /**
@@ -404,7 +443,7 @@ public class OmxParser {
      *
      * @param xpp
      */
-    public void processEndElement(XmlPullParser xpp) {
+    public void processEndElement(XmlPullParser xpp, boolean importDetails) {
 
         if (!objectStack.isEmpty() && (!lockStack.peek())) {
 
@@ -415,8 +454,11 @@ public class OmxParser {
                 try {
                     Object peek = objectStack.peek();
                     Class<?> c = peek.getClass();
-                    Method setX = c.getDeclaredMethod("set" + nameStack.peek(), pop.getClass());
-                    setX.invoke(peek, pop);
+                    String method = "set" + nameStack.peek();
+                    if (importDetails || shallExecute(c, method, pop)) {
+                        Method setX = c.getDeclaredMethod(method, pop.getClass());
+                        setX.invoke(peek, pop);
+                    }
                 } catch (EmptyStackException e) {
                     logger.error("Error processing the end element: " + e.toString());
                     e.printStackTrace();
@@ -449,7 +491,7 @@ public class OmxParser {
      *
      * @param xpp
      */
-    public void processStartElement(XmlPullParser xpp) {
+    public void processStartElement(XmlPullParser xpp, boolean importDetails) {
 
         nameStack.push(xpp.getName());
 
@@ -480,10 +522,13 @@ public class OmxParser {
                     try {
                         Object peek = objectStack.peek();
                         Class<?> c = peek.getClass();
-                        Method setX = c.getDeclaredMethod("set" + nameStack.peek(), String.class);
-                        setX.invoke(peek, value);
-                        attribute = "";
-                        value = "";
+                        String method = "set" + nameStack.peek();
+                        if (importDetails || shallExecute(c, method, peek)) {
+                            Method setX = c.getDeclaredMethod(method, String.class);
+                            setX.invoke(peek, value);
+                            attribute = "";
+                            value = "";
+                        }
                     } catch (EmptyStackException e) {
                         logger.error("Error processing the start element: " + e.toString());
                         e.printStackTrace();
@@ -508,28 +553,22 @@ public class OmxParser {
      * @param xpp
      * @throws org.xmlpull.v1.XmlPullParserException
      */
-    public void processText(XmlPullParser xpp) throws XmlPullParserException {
+    public void processText(XmlPullParser xpp, boolean importDetails) throws XmlPullParserException {
 
-        char ch[] = xpp.getTextCharacters(indexBuffer);
-        int start = indexBuffer[0];
-        int length = indexBuffer[1];
-        StringBuffer buffer = new StringBuffer();
         Boolean lockStackBuffer = lockStack.pop();
         if (!lockStack.peek()) {
 
-            for (int i = start; i < start + length; i++) {
-                buffer.append(ch[i]);
-            }
+            String text = xpp.getText().trim();
 
-            String buffer2 = buffer.toString().trim();
-
-            if (buffer2.equals("")) {
-            } else {
+            if (!text.equals("")) {
                 try {
                     Object peek = objectStack.peek();
                     Class<?> c = peek.getClass();
-                    Method setX = c.getDeclaredMethod("set" + nameStack.peek(), String.class);
-                    setX.invoke(peek, buffer2);
+                    String method = "set" + nameStack.peek();
+                    if (importDetails || shallExecute(c, method, peek)) {
+                        Method setX = c.getDeclaredMethod(method, String.class);
+                        setX.invoke(peek, text);
+                    }
                 } catch (EmptyStackException e) {
                     logger.error("Error processing the text element: " + e.toString());
                     e.printStackTrace();
@@ -557,5 +596,96 @@ public class OmxParser {
      */
     public HashMap<Integer, OmssaModification> getOmssaModificationDetails() {
         return omssaModificationDetails;
+    }
+
+    /**
+     * Indicates whether the given method shall be executed when not importing
+     * id details
+     *
+     * @param c the class being imported
+     * @param method the method to execute
+     * @param object the object to be stored
+     * @return true if method shall be executed
+     */
+    private boolean shallExecute(Class<?> c, String method, Object object) {
+        // save the file name
+        if (c == MSSearch.class && method.equals("setMSSearch_request")) {
+            return true;
+        }
+        if (c == MSSearch_request.class && method.equals("setMSRequest")) {
+            return true;
+        }
+        if (c == MSRequest.class && method.equals("setMSRequest_settings")) {
+            return true;
+        }
+        if (c == MSRequest_settings.class && method.equals("setMSSearchSettings")) {
+            return true;
+        }
+        if (c == MSSearchSettings.class && method.equals("setMSSearchSettings_infiles")) {
+            return true;
+        }
+        if (c == MSSearchSettings_infiles.class && method.equals("setMSSearchSettings_infiles")) {
+            return true;
+        }
+        if (c == MSSearchSettings_infiles.class && method.equals("setMSInFile")) {
+            return true;
+        }
+        if (c == MSInFile.class && method.equals("setMSInFile_infile")) {
+            return true;
+        }
+        // save the peptide sequence, modification and e-value
+        if (c == MSSearch.class && method.equals("setMSSearch_response")) {
+            return true;
+        }
+        if (c == MSSearch_response.class && method.equals("setMSResponse")) {
+            return true;
+        }
+        if (c == MSResponse.class && method.equals("setMSResponse_hitsets")) {
+            return true;
+        }
+        if (c == MSResponse_hitsets.class && method.equals("setMSHitSet")) {
+            MSHitSet msHitSet = (MSHitSet) object;
+            return !msHitSet.MSHitSet_hits.MSHits.isEmpty();
+        }
+        if (c == MSHitSet.class && method.equals("setMSHitSet_number")) {
+            return true;
+        }
+        if (c == MSHitSet.class && method.equals("setMSHitSet_hits")) {
+            return true;
+        }
+        if (c == MSHitSet_hits.class && method.equals("setMSHits")) {
+            return true;
+        }
+        if (c == MSHitSet.class && method.equals("setMSHitSet_ids")) {
+            return true;
+        }
+        if (c == MSHits.class && method.equals("setMSHits_evalue")) {
+            return true;
+        }
+        if (c == MSHits.class && method.equals("setMSHits_charge")) {
+            return true;
+        }
+        if (c == MSHits.class && method.equals("setMSHits_pepstring")) {
+            return true;
+        }
+        if (c == MSHits.class && method.equals("setMSHits_mods")) {
+            return true;
+        }
+        if (c == MSHits_mods.class && method.equals("setMSModHit")) {
+            return true;
+        }
+        if (c == MSModHit.class && method.equals("setMSModHit_site")) {
+            return true;
+        }
+        if (c == MSModHit.class && method.equals("setMSModHit_modtype")) {
+            return true;
+        }
+        if (c == MSModHit_modtype.class && method.equals("setMSMod")) {
+            return true;
+        }
+        if (c == MSHitSet_ids.class && method.equals("setMSHitSet_ids_E")) {
+            return true;
+        }
+        return false;
     }
 }

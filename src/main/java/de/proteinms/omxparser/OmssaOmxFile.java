@@ -190,22 +190,42 @@ public class OmssaOmxFile {
      * @param omxFile the file name of the omx file to be parsed
      * @param modsFile the file name of the mods.xml file
      * @param userModsFile the file name of the usermods.xml file
-     * @param importSpectra a boolean indicating whether spectra shall be
-     * imported
+     * @param importSpectra if false, the MSRequest_spectra section of the omx
+     * file will be skipped
      */
     public OmssaOmxFile(String omxFile, String modsFile, String userModsFile, boolean importSpectra) {
+        this(omxFile, modsFile, userModsFile, importSpectra, importSpectra, true);
+    }
 
-        parser = new OmxParser(omxFile, modsFile, userModsFile, importSpectra);
+    /**
+     * This constructor initializes the Parser with the file name of the omx
+     * file, and the file names of the two OMSSA modification files (mods.xml
+     * and usermods.xml).
+     *
+     * @param omxFile the file name of the omx file to be parsed
+     * @param modsFile the file name of the mods.xml file
+     * @param userModsFile the file name of the usermods.xml file
+     * @param importSpectra if false, the MSRequest_spectra section of the omx
+     * file will be skipped
+     * @param importIdDetails if false the sections MSHits_pephits,
+     * MSHits_mzhits of the omx file will be skipped
+     * @param processMaps if true the maps will be processed
+     */
+    public OmssaOmxFile(String omxFile, String modsFile, String userModsFile, boolean importSpectra, boolean importIdDetails, boolean processMaps) {
+
+        parser = new OmxParser(omxFile, modsFile, userModsFile, importSpectra, importIdDetails);
         parserResult = parser.parserResult;
 
         logger.debug("processing Information...");
 
-        //process Information
-        processSpectrumToHitSetMap(parserResult);
-        processSpectrumToPeptideMap(parserResult);
-        processPeptideToSpectrumMap(parserResult);
-        processPeptideToProteineMap(parserResult);
-        processProteineToPeptideMap(parserResult);
+        if (processMaps) {
+            //process Information
+            processSpectrumToHitSetMap(parserResult);
+            processSpectrumToPeptideMap(parserResult);
+            processPeptideToSpectrumMap(parserResult);
+            processPeptideToProteineMap(parserResult);
+            processProteineToPeptideMap(parserResult);
+        }
 
         logger.debug("parsing completed");
     }
@@ -242,6 +262,21 @@ public class OmssaOmxFile {
      */
     public OmssaOmxFile(String omxFile, boolean importSpectra) {
         this(omxFile, null, null, importSpectra);
+    }
+
+    /**
+     * This constructor initializes the Parser with the file name of the omx
+     * file.
+     *
+     * @param omxFile the file name of the omx file to be parsed
+     * @param importSpectra a boolean indicating whether spectra shall be
+     * imported
+     * @param importIdDetails if false the sections MSHits_pephits,
+     * MSHits_mzhits of the omx file will be skipped
+     * @param processMaps if true the maps will be processed
+     */
+    public OmssaOmxFile(String omxFile, boolean importSpectra, boolean importIdDetails, boolean processMaps) {
+        this(omxFile, null, null, importSpectra, importIdDetails, processMaps);
     }
 
     /**
