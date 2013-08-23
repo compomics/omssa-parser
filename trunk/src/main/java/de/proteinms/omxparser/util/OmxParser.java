@@ -396,7 +396,7 @@ public class OmxParser {
      * @param xpp
      * @param skipMSRequest_spectra if true, the MSRequest_spectra section of
      * the omx file will be skipped
-     * @param skipMSHits_mzhits if true, the sections MSHits_pephits,
+     * @param skipPeptideDetails if true, the sections MSHits_pephits,
      * MSHits_mzhits of the omx file will be skipped
      * @throws org.xmlpull.v1.XmlPullParserException
      * @throws java.io.IOException
@@ -442,6 +442,7 @@ public class OmxParser {
      * Process the end element for the XmlPullParser object.
      *
      * @param xpp
+     * @param importDetails if true the details will be imported
      */
     public void processEndElement(XmlPullParser xpp, boolean importDetails) {
 
@@ -490,6 +491,7 @@ public class OmxParser {
      * Process the start element for the XmlPullParser object.
      *
      * @param xpp
+     * @param importDetails if true the details will be imported
      */
     public void processStartElement(XmlPullParser xpp, boolean importDetails) {
 
@@ -551,6 +553,7 @@ public class OmxParser {
      * Process the text for the XmlPullParser object.
      *
      * @param xpp
+     * @param importDetails if true the details will be imported
      * @throws org.xmlpull.v1.XmlPullParserException
      */
     public void processText(XmlPullParser xpp, boolean importDetails) throws XmlPullParserException {
@@ -600,7 +603,7 @@ public class OmxParser {
 
     /**
      * Indicates whether the given method shall be executed when not importing
-     * id details
+     * id details.
      *
      * @param c the class being imported
      * @param method the method to execute
