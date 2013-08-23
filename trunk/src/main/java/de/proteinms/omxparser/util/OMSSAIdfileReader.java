@@ -40,14 +40,6 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
      */
     private File identificationFile;
     /**
-     * The modification file mods.xml.
-     */
-    private File modsFile;
-    /**
-     * The modification file usermods.xml.
-     */
-    private File userModsFile;
-    /**
      * The instance of the inspected omx file.
      */
     private OmssaOmxFile omxFile;
@@ -65,7 +57,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
      */
     public OMSSAIdfileReader(File idFile) {
         this.identificationFile = idFile;
-        omxFile = new OmssaOmxFile(idFile.getPath(), false);
+        omxFile = new OmssaOmxFile(idFile.getPath(), false, false, false);
     }
 
     /**
@@ -74,15 +66,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
      * @return the file name
      */
     public String getFileName() {
-        if (modsFile != null && userModsFile != null) {
-            return identificationFile.getName().concat(", ").concat(modsFile.getName()).concat(", ").concat(userModsFile.getName());
-        } else if (modsFile != null) {
-            return identificationFile.getName().concat(", ").concat(modsFile.getName());
-        } else if (userModsFile != null) {
-            return identificationFile.getName().concat(", ").concat(userModsFile.getName());
-        } else {
-            return identificationFile.getName();
-        }
+        return identificationFile.getName();
     }
 
     public String getExtension() {
@@ -93,22 +77,19 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
     public HashSet<SpectrumMatch> getAllSpectrumMatches(WaitingHandler waitingHandler) throws IOException, IllegalArgumentException, Exception {
 
         HashSet<SpectrumMatch> assignedSpectra = new HashSet<SpectrumMatch>();
-        HashMap<String, LinkedList<MSPepHit>> peptideToProteinMap = omxFile.getPeptideToProteinMap();
 
         List<MSResponse> msSearchResponse = omxFile.getParserResult().MSSearch_response.MSResponse;
         List<MSRequest> msRequest = omxFile.getParserResult().MSSearch_request.MSRequest;
 
-        int searchResponseSize = msSearchResponse.size();
+        for (int i = 0; i < msSearchResponse.size(); i++) {
 
-        if (waitingHandler != null) {
-            waitingHandler.setMaxSecondaryProgressCounter(searchResponseSize);
-        }
-
-
-        for (int i = 0; i < searchResponseSize; i++) {
+            String msFile = msRequest.get(i).MSRequest_settings.MSSearchSettings.MSSearchSettings_infiles.MSInFile.MSInFile_infile;
 
             Map<Integer, MSHitSet> msHitSetMap = msSearchResponse.get(i).MSResponse_hitsets.MSHitSet;
-            String tempFile = msRequest.get(i).MSRequest_settings.MSSearchSettings.MSSearchSettings_infiles.MSInFile.MSInFile_infile;
+
+            if (waitingHandler != null) {
+                waitingHandler.setMaxSecondaryProgressCounter(msHitSetMap.size());
+            }
 
             for (int spectrumIndex : msHitSetMap.keySet()) {
 
@@ -138,13 +119,13 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
                     }
 
                     String name = fixMgfTitle(tempName);
-                    SpectrumMatch currentMatch = new SpectrumMatch(Spectrum.getSpectrumKey(Util.getFileName(tempFile), name));
+                    SpectrumMatch currentMatch = new SpectrumMatch(Spectrum.getSpectrumKey(Util.getFileName(msFile), name));
                     currentMatch.setSpectrumNumber(tempIndex);
                     int rank = 1;
 
                     for (double eValue : eValues) {
                         for (MSHits msHits : hitMap.get(eValue)) {
-                            currentMatch.addHit(Advocate.OMSSA, getPeptideAssumption(msHits, rank, peptideToProteinMap));
+                            currentMatch.addHit(Advocate.OMSSA, getPeptideAssumption(msHits, rank));
                         }
                         rank += hitMap.get(eValue).size();
                     }
@@ -176,32 +157,9 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
      * @param rank the rank of the assumption in the spectrum match
      * @return the corresponding peptide assumption
      */
-    private PeptideAssumption getPeptideAssumption(MSHits currentMsHit, int rank,
-            HashMap<String, LinkedList<MSPepHit>> peptideToProteinMap) {
+    private PeptideAssumption getPeptideAssumption(MSHits currentMsHit, int rank) {
 
         Charge charge = new Charge(Charge.PLUS, currentMsHit.MSHits_charge);
-        ArrayList<String> proteins = new ArrayList<String>();
-
-        for (MSPepHit msPepHit : (List<MSPepHit>) peptideToProteinMap.get(currentMsHit.MSHits_pepstring)) { // There might be redundancies in the map.
-
-            Boolean taken = false;
-            String accession = getProteinAccession(msPepHit.MSPepHit_defline);
-
-            if (accession == null) {
-                accession = msPepHit.MSPepHit_accession;
-            }
-
-            for (String protein : proteins) {
-                if (protein.compareTo(accession) == 0) {
-                    taken = true;
-                    break;
-                }
-            }
-
-            if (!taken) {
-                proteins.add(accession);
-            }
-        }
 
         List<MSModHit> msModHits = currentMsHit.MSHits_mods.MSModHit;
         ArrayList<ModificationMatch> modificationsFound = new ArrayList<ModificationMatch>();
@@ -214,27 +172,8 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
             modificationsFound.add(new ModificationMatch(currentPTM.getName(), true, location));
         }
 
-        Peptide thePeptide = new Peptide(currentMsHit.MSHits_pepstring, proteins, modificationsFound);
+        Peptide thePeptide = new Peptide(currentMsHit.MSHits_pepstring, modificationsFound);
         return new PeptideAssumption(thePeptide, rank, Advocate.OMSSA, charge, currentMsHit.MSHits_evalue, getFileName());
-    }
-
-    /**
-     * Parses omssa description to have the accession.
-     *
-     * @param description the protein description
-     * @return the protein accession
-     */
-    private String getProteinAccession(String description) {
-        try {
-            Header header = Header.parseFromFASTA(description);
-            if (header.getAccession() != null) {
-                return header.getAccession();
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            return description.substring(1);
-        }
     }
 
     /**
