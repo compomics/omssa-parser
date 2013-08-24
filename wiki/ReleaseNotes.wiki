@@ -3,15 +3,24 @@
 
 ----
 
+*Changes in omssa-parser 1.6.0 (August 25. 2013):*
+ * NEW FEATURE: Created a new low memory usage mode.
+ * FEATURE IMPROVEMENT: Added some tests to escape null pointers that could occur when loading (corrupt?) omx files.
+ * LIBRARY UPDATE: Updated utilities to version 3.14.27.
+
+----
+
 *Changes in omssa-parser 1.5.11 (June 10. 2013):*
- * Fixed a problem with starting the viewer on the latest Java release.
+ * BUG FIX: Fixed a problem with starting the viewer on the latest Java release.
+
+Download count: 16
 
 ----
 
 *Changes in omssa-parser 1.5.10 (April 26. 2013):*
- * Fixed a problem with starting the viewer on the latest Java release.
+ * BUG FIX: Fixed a problem with starting the viewer on the latest Java release.
 
-Download count: 16
+Download count: 19
 
 ----
 
