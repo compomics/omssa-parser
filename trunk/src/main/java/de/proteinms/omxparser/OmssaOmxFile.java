@@ -216,7 +216,7 @@ public class OmssaOmxFile {
         parser = new OmxParser(omxFile, modsFile, userModsFile, importSpectra, importIdDetails);
         parserResult = parser.parserResult;
 
-        logger.debug("processing Information...");
+        logger.debug("processing information...");
 
         if (processMaps) {
             //process Information
