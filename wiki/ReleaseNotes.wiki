@@ -3,10 +3,17 @@
 
 ----
 
+*Changes in omssa-parser 1.6.1 (November 18. 2013):*
+ * LIBRARY UPDATE: Updated utilities to version 3.17.7.
+
+----
+
 *Changes in omssa-parser 1.6.0 (August 25. 2013):*
  * NEW FEATURE: Created a new low memory usage mode.
  * FEATURE IMPROVEMENT: Added some tests to escape null pointers that could occur when loading (corrupt?) omx files.
  * LIBRARY UPDATE: Updated utilities to version 3.14.27.
+
+Download count: 36
 
 ----
 
