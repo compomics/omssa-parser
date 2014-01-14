@@ -123,7 +123,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
                     for (double eValue : eValues) {
                         for (MSHits msHits : hitMap.get(eValue)) {
-                            currentMatch.addHit(Advocate.OMSSA, getPeptideAssumption(msHits, rank));
+                            currentMatch.addHit(Advocate.OMSSA.getIndex(), getPeptideAssumption(msHits, rank), false);
                         }
                         rank += hitMap.get(eValue).size();
                     }
@@ -171,7 +171,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
         }
 
         Peptide thePeptide = new Peptide(currentMsHit.MSHits_pepstring, modificationsFound);
-        return new PeptideAssumption(thePeptide, rank, Advocate.OMSSA, charge, currentMsHit.MSHits_evalue, getFileName());
+        return new PeptideAssumption(thePeptide, rank, Advocate.OMSSA.getIndex(), charge, currentMsHit.MSHits_evalue, getFileName());
     }
 
     /**
