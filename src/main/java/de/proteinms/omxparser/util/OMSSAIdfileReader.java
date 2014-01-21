@@ -205,4 +205,14 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
     public void close() throws IOException {
         omxFile = null;
     }
+
+    @Override
+    public String getSoftwareVersion() {
+        List<MSResponse> msSearchResponse = omxFile.getParserResult().MSSearch_response.MSResponse;
+        if (msSearchResponse.size() > 0) {
+            return "OMSSA " + msSearchResponse.get(0).MSResponse_version;
+        } else {
+            return null;
+        }
+    }
 }

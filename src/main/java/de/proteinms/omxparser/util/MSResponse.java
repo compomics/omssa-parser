@@ -54,7 +54,7 @@ public class MSResponse implements Serializable {
     /**
      * Version of OMSSA.
      */
-    public String MSResponse_version;
+    public String MSResponse_version = "2.1.9";
     /**
      * E-mail address for notification.
      */
