@@ -123,7 +123,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
                     for (double eValue : eValues) {
                         for (MSHits msHits : hitMap.get(eValue)) {
-                            currentMatch.addHit(Advocate.OMSSA.getIndex(), getPeptideAssumption(msHits, rank), false);
+                            currentMatch.addHit(Advocate.omssa.getIndex(), getPeptideAssumption(msHits, rank), false);
                         }
                         rank += hitMap.get(eValue).size();
                     }
@@ -171,7 +171,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
         }
 
         Peptide thePeptide = new Peptide(currentMsHit.MSHits_pepstring, modificationsFound);
-        return new PeptideAssumption(thePeptide, rank, Advocate.OMSSA.getIndex(), charge, currentMsHit.MSHits_evalue, getFileName());
+        return new PeptideAssumption(thePeptide, rank, Advocate.omssa.getIndex(), charge, currentMsHit.MSHits_evalue, getFileName());
     }
 
     /**
@@ -210,9 +210,13 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
     public String getSoftwareVersion() {
         List<MSResponse> msSearchResponse = omxFile.getParserResult().MSSearch_response.MSResponse;
         if (msSearchResponse.size() > 0) {
-            return "OMSSA " + msSearchResponse.get(0).MSResponse_version;
+            return msSearchResponse.get(0).MSResponse_version;
         } else {
-            return null;
+            return "2.1.9";
         }
+    }
+
+    public String getSoftware() {
+        return "OMSSA";
     }
 }
