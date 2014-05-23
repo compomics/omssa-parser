@@ -207,16 +207,11 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
     }
 
     @Override
-    public String getSoftwareVersion() {
-        List<MSResponse> msSearchResponse = omxFile.getParserResult().MSSearch_response.MSResponse;
-        if (msSearchResponse.size() > 0) {
-            return msSearchResponse.get(0).MSResponse_version;
-        } else {
-            return "2.1.9";
-        }
-    }
-
-    public String getSoftware() {
-        return "OMSSA";
+    public HashMap<String, ArrayList<String>> getSoftwareVersions() {
+        HashMap<String, ArrayList<String>> result = new HashMap<String, ArrayList<String>>();
+        ArrayList<String> versions = new ArrayList<String>();
+        versions.add("2.1.9");
+        result.put("OMSSA", versions);
+        return result;
     }
 }
