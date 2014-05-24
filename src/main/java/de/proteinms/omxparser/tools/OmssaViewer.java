@@ -1,5 +1,6 @@
 package de.proteinms.omxparser.tools;
 
+import com.compomics.util.gui.interfaces.SpectrumAnnotation;
 import com.compomics.util.gui.spectrum.DefaultSpectrumAnnotation;
 import com.compomics.util.gui.spectrum.SpectrumPanel;
 import com.compomics.util.protein.Header;
@@ -51,7 +52,7 @@ public class OmssaViewer extends javax.swing.JFrame {
     private Vector spectraJTableColumnToolTips;
     private Vector spectrumJTableColumnToolTips;
     private Vector identificationsJTableColumnToolTips;
-    private HashMap<String, Vector<DefaultSpectrumAnnotation>> allAnnotations;
+    private HashMap<String, Vector<SpectrumAnnotation>> allAnnotations;
     /**
      * The hardcoded mass of a hydrogen atom.
      */
@@ -1294,9 +1295,9 @@ public class OmssaViewer extends javax.swing.JFrame {
      * @param annotations the annotations to be filtered
      * @return the filtered annotations
      */
-    private Vector<DefaultSpectrumAnnotation> filterAnnotations(Vector<DefaultSpectrumAnnotation> annotations) {
+    private Vector<SpectrumAnnotation> filterAnnotations(Vector<SpectrumAnnotation> annotations) {
 
-        Vector<DefaultSpectrumAnnotation> filteredAnnotations = new Vector();
+        Vector<SpectrumAnnotation> filteredAnnotations = new Vector();
 
         for (int i = 0; i < annotations.size(); i++) {
             String currentLabel = annotations.get(i).getLabel();
@@ -2093,7 +2094,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 selectedRow = identificationsJTable.getSelectedRow();
             }
 
-            Vector<DefaultSpectrumAnnotation> currentAnnotations = allAnnotations.get(
+            Vector<SpectrumAnnotation> currentAnnotations = allAnnotations.get(
                     identificationsJTable.getValueAt(selectedRow, 1) + "_"
                     + identificationsJTable.getValueAt(selectedRow, 8));
 
@@ -2427,7 +2428,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                 // add ion coverage to peptide sequence
                 Iterator<MSMZHit> mzHits = tempMSHit.MSHits_mzhits.MSMZHit.iterator();
 
-                Vector<DefaultSpectrumAnnotation> currentAnnotations = new Vector();
+                Vector<SpectrumAnnotation> currentAnnotations = new Vector();
 
                 // annotate precursor ion
 //                annotations.add(new DefaultSpectrumAnnotation(
@@ -2737,7 +2738,7 @@ public class OmssaViewer extends javax.swing.JFrame {
 
                 if (identificationsJTable.getRowCount() > 1) {
 
-                    Vector<DefaultSpectrumAnnotation> currentAnnotations = allAnnotations.get(
+                    Vector<SpectrumAnnotation> currentAnnotations = allAnnotations.get(
                             identificationsJTable.getValueAt(identificationsJTable.getSelectedRow(), 1) + "_"
                             + identificationsJTable.getValueAt(identificationsJTable.getSelectedRow(), 8));
 
