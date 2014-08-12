@@ -7,6 +7,7 @@ import com.compomics.util.experiment.biology.Peptide;
 import com.compomics.util.experiment.identification.Advocate;
 import com.compomics.util.experiment.io.identifications.IdfileReader;
 import com.compomics.util.experiment.identification.PeptideAssumption;
+import com.compomics.util.experiment.identification.SequenceFactory;
 import com.compomics.util.experiment.identification.matches.ModificationMatch;
 import com.compomics.util.experiment.identification.matches.SpectrumMatch;
 import com.compomics.util.experiment.massspectrometry.Charge;
@@ -19,12 +20,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import javax.xml.bind.JAXBException;
 
 /**
  * This reader will import identifications from an OMSSA omx file.
@@ -41,6 +44,14 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
      * The instance of the inspected omx file.
      */
     private OmssaOmxFile omxFile;
+    /**
+     * A map of the peptides found in this file
+     */
+    private HashMap<String, LinkedList<Peptide>> peptideMap;
+    /**
+     * The length of the keys of the peptide map
+     */
+    private int peptideMapKeyLength;
 
     /**
      * Constructor for the reader.
@@ -72,9 +83,20 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
     }
 
     @Override
-    public HashSet<SpectrumMatch> getAllSpectrumMatches(WaitingHandler waitingHandler) throws IOException, IllegalArgumentException, Exception {
+    public LinkedList<SpectrumMatch> getAllSpectrumMatches(WaitingHandler waitingHandler) throws IOException, IllegalArgumentException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
+        return getAllSpectrumMatches(waitingHandler, true);
+    }
 
-        HashSet<SpectrumMatch> assignedSpectra = new HashSet<SpectrumMatch>();
+    @Override
+    public LinkedList<SpectrumMatch> getAllSpectrumMatches(WaitingHandler waitingHandler, boolean secondaryMaps) throws IOException, IllegalArgumentException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
+
+        if (secondaryMaps) {
+            SequenceFactory sequenceFactory = SequenceFactory.getInstance();
+            peptideMapKeyLength = sequenceFactory.getDefaultProteinTree().getInitialTagSize();
+            peptideMap = new HashMap<String, LinkedList<Peptide>>(1024);
+        }
+
+        LinkedList<SpectrumMatch> result = new LinkedList<SpectrumMatch>();
 
         List<MSResponse> msSearchResponse = omxFile.getParserResult().MSSearch_response.MSResponse;
         List<MSRequest> msRequest = omxFile.getParserResult().MSSearch_request.MSRequest;
@@ -123,12 +145,12 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
                     for (double eValue : eValues) {
                         for (MSHits msHits : hitMap.get(eValue)) {
-                            currentMatch.addHit(Advocate.omssa.getIndex(), getPeptideAssumption(msHits, rank), false);
+                            currentMatch.addHit(Advocate.omssa.getIndex(), getPeptideAssumption(msHits, rank, secondaryMaps), false);
                         }
                         rank += hitMap.get(eValue).size();
                     }
 
-                    assignedSpectra.add(currentMatch);
+                    result.add(currentMatch);
                 }
             }
 
@@ -140,7 +162,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
             }
         }
 
-        return assignedSpectra;
+        return result;
     }
 
     /**
@@ -153,9 +175,11 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
      * @param currentMsHit the MSHits of interest
      * @param responseIndex the response index in the msrequest
      * @param rank the rank of the assumption in the spectrum match
+     * @param secondaryMaps if true the peptides and tags will be kept in maps
+     *
      * @return the corresponding peptide assumption
      */
-    private PeptideAssumption getPeptideAssumption(MSHits currentMsHit, int rank) {
+    private PeptideAssumption getPeptideAssumption(MSHits currentMsHit, int rank, boolean secondaryMaps) {
 
         Charge charge = new Charge(Charge.PLUS, currentMsHit.MSHits_charge);
 
@@ -170,8 +194,20 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
             modificationsFound.add(new ModificationMatch(currentPTM.getName(), true, location));
         }
 
-        Peptide thePeptide = new Peptide(currentMsHit.MSHits_pepstring, modificationsFound);
-        return new PeptideAssumption(thePeptide, rank, Advocate.omssa.getIndex(), charge, currentMsHit.MSHits_evalue, getFileName());
+        String peptideSequence = currentMsHit.MSHits_pepstring;
+        Peptide peptide = new Peptide(peptideSequence, modificationsFound);
+
+        if (secondaryMaps) {
+            String subSequence = peptideSequence.substring(0, peptideMapKeyLength);
+            LinkedList<Peptide> peptidesForTag = peptideMap.get(subSequence);
+            if (peptidesForTag == null) {
+                peptidesForTag = new LinkedList<Peptide>();
+                peptideMap.put(subSequence, peptidesForTag);
+            }
+            peptidesForTag.add(peptide);
+        }
+
+        return new PeptideAssumption(peptide, rank, Advocate.omssa.getIndex(), charge, currentMsHit.MSHits_evalue, getFileName());
     }
 
     /**
@@ -191,13 +227,11 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
         }
 
         //System.out.println("before: " + spectrumTitle);
-
         // a special fix for mgf files with titles containing the escape character '\'
         spectrumTitle = spectrumTitle.replaceAll("\\\\\"", "\\\""); // change \" into "
         spectrumTitle = spectrumTitle.replaceAll("\\\\\\\\", "\\\\"); // change \\ into \
 
         //System.out.println("after: " + spectrumTitle);
-
         return spectrumTitle;
     }
 
@@ -213,5 +247,20 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
         versions.add("2.1.9");
         result.put("OMSSA", versions);
         return result;
+    }
+
+    @Override
+    public HashMap<String, LinkedList<Peptide>> getPeptidesMap() {
+        return peptideMap;
+    }
+
+    @Override
+    public HashMap<String, LinkedList<SpectrumMatch>> getSimpleTagsMap() {
+        return new HashMap<String, LinkedList<SpectrumMatch>>();
+    }
+
+    @Override
+    public HashMap<String, LinkedList<SpectrumMatch>> getTagsMap() {
+        return new HashMap<String, LinkedList<SpectrumMatch>>();
     }
 }
