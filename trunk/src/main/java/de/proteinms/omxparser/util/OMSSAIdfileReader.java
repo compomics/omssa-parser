@@ -45,11 +45,11 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
      */
     private OmssaOmxFile omxFile;
     /**
-     * A map of the peptides found in this file
+     * A map of the peptides found in this file.
      */
     private HashMap<String, LinkedList<Peptide>> peptideMap;
     /**
-     * The length of the keys of the peptide map
+     * The length of the keys of the peptide map.
      */
     private int peptideMapKeyLength;
 
