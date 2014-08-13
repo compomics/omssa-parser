@@ -1,6 +1,7 @@
 package de.proteinms.omxparser.util;
 
 import com.compomics.util.Util;
+import com.compomics.util.experiment.biology.AminoAcid;
 import com.compomics.util.experiment.biology.AminoAcidPattern;
 import com.compomics.util.experiment.biology.PTM;
 import com.compomics.util.experiment.biology.Peptide;
@@ -13,6 +14,7 @@ import com.compomics.util.experiment.identification.matches.SpectrumMatch;
 import com.compomics.util.experiment.massspectrometry.Charge;
 import com.compomics.util.experiment.massspectrometry.Spectrum;
 import com.compomics.util.experiment.personalization.ExperimentObject;
+import com.compomics.util.preferences.SequenceMatchingPreferences;
 import com.compomics.util.waiting.WaitingHandler;
 import de.proteinms.omxparser.OmssaOmxFile;
 
@@ -84,13 +86,13 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
     @Override
     public LinkedList<SpectrumMatch> getAllSpectrumMatches(WaitingHandler waitingHandler) throws IOException, IllegalArgumentException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
-        return getAllSpectrumMatches(waitingHandler, true);
+        return getAllSpectrumMatches(waitingHandler, null);
     }
 
     @Override
-    public LinkedList<SpectrumMatch> getAllSpectrumMatches(WaitingHandler waitingHandler, boolean secondaryMaps) throws IOException, IllegalArgumentException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
+    public LinkedList<SpectrumMatch> getAllSpectrumMatches(WaitingHandler waitingHandler, SequenceMatchingPreferences sequenceMatchingPreferences) throws IOException, IllegalArgumentException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
 
-        if (secondaryMaps) {
+        if (sequenceMatchingPreferences != null) {
             SequenceFactory sequenceFactory = SequenceFactory.getInstance();
             peptideMapKeyLength = sequenceFactory.getDefaultProteinTree().getInitialTagSize();
             peptideMap = new HashMap<String, LinkedList<Peptide>>(1024);
@@ -145,7 +147,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
                     for (double eValue : eValues) {
                         for (MSHits msHits : hitMap.get(eValue)) {
-                            currentMatch.addHit(Advocate.omssa.getIndex(), getPeptideAssumption(msHits, rank, secondaryMaps), false);
+                            currentMatch.addHit(Advocate.omssa.getIndex(), getPeptideAssumption(msHits, rank, sequenceMatchingPreferences), false);
                         }
                         rank += hitMap.get(eValue).size();
                     }
@@ -175,11 +177,12 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
      * @param currentMsHit the MSHits of interest
      * @param responseIndex the response index in the msrequest
      * @param rank the rank of the assumption in the spectrum match
-     * @param secondaryMaps if true the peptides and tags will be kept in maps
+     * @param sequenceMatchingPreferences the sequence matching preferences to
+     * use to fill the secondary maps
      *
      * @return the corresponding peptide assumption
      */
-    private PeptideAssumption getPeptideAssumption(MSHits currentMsHit, int rank, boolean secondaryMaps) {
+    private PeptideAssumption getPeptideAssumption(MSHits currentMsHit, int rank, SequenceMatchingPreferences sequenceMatchingPreferences) {
 
         Charge charge = new Charge(Charge.PLUS, currentMsHit.MSHits_charge);
 
@@ -197,8 +200,9 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
         String peptideSequence = currentMsHit.MSHits_pepstring;
         Peptide peptide = new Peptide(peptideSequence, modificationsFound);
 
-        if (secondaryMaps) {
+        if (sequenceMatchingPreferences != null) {
             String subSequence = peptideSequence.substring(0, peptideMapKeyLength);
+            subSequence = AminoAcid.getMatchingSequence(subSequence, sequenceMatchingPreferences);
             LinkedList<Peptide> peptidesForTag = peptideMap.get(subSequence);
             if (peptidesForTag == null) {
                 peptidesForTag = new LinkedList<Peptide>();
