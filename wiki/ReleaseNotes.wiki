@@ -3,6 +3,11 @@
 
 ----
 
+*Changes in omssa-parser v1.6.9 - (August 19. 2014):*
+ * LIBRARY UPDATE: Updated utilities to version 3.35.0.
+
+----
+
 *Changes in omssa-parser v1.6.6 - (August 11. 2014):*
  * LIBRARY UPDATE: Updated utilities to version 3.32.0.
 
