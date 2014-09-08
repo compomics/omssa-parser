@@ -150,13 +150,13 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
                         for (MSHits msHits : hitMap.get(eValue)) {
                             PeptideAssumption peptideAssumption = getPeptideAssumption(msHits, rank, sequenceMatchingPreferences);
                             if (expandAaCombinations && AminoAcidSequence.hasCombination(peptideAssumption.getPeptide().getSequence())) {
-                            Peptide peptide = peptideAssumption.getPeptide();
-                            ArrayList<ModificationMatch> modificationMatches = peptide.getModificationMatches();
-                            for (StringBuilder expandedSequence : AminoAcidSequence.getCombinations(peptide.getSequence())) {
-                                Peptide newPeptide = new Peptide(expandedSequence.toString(), new ArrayList<ModificationMatch>(modificationMatches.size()));
-                                for (ModificationMatch modificationMatch : modificationMatches) {
-                                    newPeptide.addModificationMatch(new ModificationMatch(modificationMatch.getTheoreticPtm(), modificationMatch.isVariable(), modificationMatch.getModificationSite()));
-                                }
+                                Peptide peptide = peptideAssumption.getPeptide();
+                                ArrayList<ModificationMatch> modificationMatches = peptide.getModificationMatches();
+                                for (StringBuilder expandedSequence : AminoAcidSequence.getCombinations(peptide.getSequence())) {
+                                    Peptide newPeptide = new Peptide(expandedSequence.toString(), new ArrayList<ModificationMatch>(modificationMatches.size()));
+                                    for (ModificationMatch modificationMatch : modificationMatches) {
+                                        newPeptide.addModificationMatch(new ModificationMatch(modificationMatch.getTheoreticPtm(), modificationMatch.isVariable(), modificationMatch.getModificationSite()));
+                                    }
                                     PeptideAssumption newAssumption = new PeptideAssumption(newPeptide, peptideAssumption.getRank(), peptideAssumption.getAdvocate(), peptideAssumption.getIdentificationCharge(), peptideAssumption.getScore(), peptideAssumption.getIdentificationFile());
                                     currentMatch.addHit(Advocate.omssa.getIndex(), newAssumption, false);
                                 }
