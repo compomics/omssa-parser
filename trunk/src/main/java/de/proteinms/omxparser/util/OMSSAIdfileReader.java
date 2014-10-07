@@ -285,6 +285,8 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
     @Override
     public void clearPeptidesMap() {
-        peptideMap.clear();
+        if (peptideMap != null) {
+            peptideMap.clear();
+        }
     }
 }
