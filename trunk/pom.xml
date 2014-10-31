@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
     <version>1.6.11</version>
     <name>omssa-parser</name>
-    <description>OMSSA Parser is a Java based parser for OMSSA (Open Mass Spectrometry Search Algorithm) omx files.</description>
+    <description>Java based parser for OMSSA (Open Mass Spectrometry Search Algorithm) omx files</description>
     <url>http://omssa-parser.googlecode.com/</url>
 
     <!-- License -->
