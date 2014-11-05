@@ -114,7 +114,8 @@ public class OmssaOmxFile {
      * corresponding HitSet (value). This HashMap is a good basis for searching
      * specific information.
      *
-     * @return HashMap<MSSpectrum,MSHitSet>
+     * @return a HashMap where every Spectrum (key) is allocated to the
+     * corresponding HitSet (value)
      */
     public HashMap<MSSpectrum, MSHitSet> getSpectrumToHitSetMap() {
         return spectrumToHitSetMap;
@@ -129,7 +130,8 @@ public class OmssaOmxFile {
      * protein does the Peptide start/end?") you will need to search in the
      * MSPepHit object.
      *
-     * @return HashMap<MSSpectrum,HashSet<String>>
+     * @return a HashMap where every Spectrum (key) is allocated to the
+     * corresponding found Peptides
      */
     public HashMap<MSSpectrum, HashSet<String>> getSpectrumToPeptideMap() {
         return spectrumToPeptideMap;
@@ -139,7 +141,8 @@ public class OmssaOmxFile {
      * Returns a HashMap where every Peptide (represented by the sequence) is
      * allocated to the corresponding Spectra.
      *
-     * @return HashMap<String,LinkedList<MSSpectrum>>
+     * @return a HashMap where every Peptide (represented by the sequence) is
+     * allocated to the corresponding Spectra
      */
     public HashMap<String, LinkedList<MSSpectrum>> getPeptideToSpectrumMap() {
         return peptideToSpectrumMap;
@@ -152,7 +155,8 @@ public class OmssaOmxFile {
      * object. This object stores among other things the position of the Peptide
      * in the Protein.
      *
-     * @return HashMap<String,LinkedList<MSPepHit>>
+     * @return a HashMap where every Peptide (represented by the sequence) is
+     * allocated to the corresponding proteins (in most cases only one Protein)
      */
     public HashMap<String, LinkedList<MSPepHit>> getPeptideToProteinMap() {
         return peptideToProteinMap;
@@ -161,9 +165,11 @@ public class OmssaOmxFile {
     /**
      * Returns a HashMap where every Protein (represented by its accession) is
      * allocated to the corresponding Peptides (represented by their sequence),
-     * found by the omssa algorithm.
+     * found by the OMSSA algorithm.
      *
-     * @return HashMap<String,LinkedList<String>>
+     * @return a HashMap where every Protein (represented by its accession) is
+     * allocated to the corresponding Peptides (represented by their sequence),
+     * found by the OMSSA algorithm
      */
     public HashMap<String, LinkedList<String>> getProteinToPeptideMap() {
         return proteinToPeptideMap;
@@ -280,12 +286,12 @@ public class OmssaOmxFile {
     }
 
     /**
-     * Returns a hashmap of the omssa modification details. Where the key is the
-     * integer value used by omssa for the modification, and the element is a
+     * Returns a hashmap of the OMSSA modification details. Where the key is the
+     * integer value used by OMSSA for the modification, and the element is a
      * OmssaModification object containing all the information about the
      * modification.
      *
-     * @return HashMap<Integer, OmssaModification>
+     * @return a hashmap of the OMSSA modification details
      */
     public HashMap<Integer, OmssaModification> getModifications() {
         return parser.getOmssaModificationDetails();
@@ -298,7 +304,8 @@ public class OmssaOmxFile {
      * Peptide in the Protein etc.
      *
      * @param protein_accession (String)
-     * @return HashMap<String,MSPepHit>
+     * @return a Map of Peptides and corresponding MSPepHit objects for the
+     * given Protein
      */
     public HashMap<String, MSPepHit> getPeptidesToPepHit(String protein_accession) {
         HashMap<String, MSPepHit> resultMap = new HashMap<String, MSPepHit>();
