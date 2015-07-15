@@ -4,6 +4,7 @@ import com.compomics.util.Util;
 import com.compomics.util.experiment.biology.AminoAcid;
 import com.compomics.util.experiment.biology.AminoAcidPattern;
 import com.compomics.util.experiment.biology.AminoAcidSequence;
+import com.compomics.util.experiment.biology.AtomChain;
 import com.compomics.util.experiment.biology.PTM;
 import com.compomics.util.experiment.biology.Peptide;
 import com.compomics.util.experiment.identification.Advocate;
@@ -211,9 +212,9 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
         // inspect variable modifications
         for (MSModHit msModHit : msModHits) {
             int msMod = msModHit.MSModHit_modtype.MSMod;
-            PTM currentPTM = new PTM(-1, msMod + "", -1, new AminoAcidPattern()); //@TODO: add more information to rescue the PTM when the omssa index is wrong
+            String name = msMod + "";
             int location = msModHit.MSModHit_site + 1;
-            modificationsFound.add(new ModificationMatch(currentPTM.getName(), true, location));
+            modificationsFound.add(new ModificationMatch(name, true, location));
         }
 
         String peptideSequence = currentMsHit.MSHits_pepstring;
