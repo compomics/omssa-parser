@@ -22,8 +22,8 @@
 
 ---
 
-|   |   |   |   |
-| :------------------------- | :---------------: | :--: | :--: |
+|   |   |   |
+| :------------------------- | :---------------: | :--: |
 | [![download](https://github.com/compomics/omssa-parser/wiki/images/download_button.png)](http://genesis.ugent.be/maven2/de/proteinms/omxparser/omssa-parser/1.6.12/omssa-parser-1.6.12.zip) | *v1.6.12 - All platforms* | [ReleaseNotes](https://github.com/compomics/omssa-parser/wiki/ReleaseNotes) |
 
 ---
