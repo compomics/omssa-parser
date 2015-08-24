@@ -155,7 +155,7 @@ Note that the OMSSA OMX file may contain references to the Bioseq module/schema 
 
 (Click on figure to see the full size version)
 
-[![](https://github.com/compomics/omssa-parser/wiki/images/omssaviewer\_small.PNG)](https://github.com/compomics/omssa-parser/wiki/images/omssaviewer.PNG)
+[![](https://github.com/compomics/omssa-parser/wiki/images/omssaviewer_small.PNG)](https://github.com/compomics/omssa-parser/wiki/images/omssaviewer.PNG)
 
 [Go to top of page](#omssa-parser)
 
