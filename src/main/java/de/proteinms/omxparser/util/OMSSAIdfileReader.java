@@ -188,8 +188,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
      * Returns a peptide assumption based on the OMSSA MSHits.
      *
      * Warning: the fixed modifications are not implemented and need to be added
-     * subsequently. That can be done using the compomics utilities PTMFactory
-     * (https://code.google.com/p/compomics-utilities/source/browse/trunk/src/main/java/com/compomics/util/experiment/biology/PTMFactory.java).
+     * subsequently. That can be done using the compomics utilities PTMFactory.
      *
      * @param currentMsHit the MSHits of interest
      * @param responseIndex the response index in the msrequest

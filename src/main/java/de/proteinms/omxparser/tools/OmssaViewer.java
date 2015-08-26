@@ -1,5 +1,7 @@
 package de.proteinms.omxparser.tools;
 
+import com.compomics.software.CompomicsWrapper;
+import com.compomics.software.autoupdater.MavenJarFile;
 import com.compomics.util.gui.interfaces.SpectrumAnnotation;
 import com.compomics.util.gui.spectrum.DefaultSpectrumAnnotation;
 import com.compomics.util.gui.spectrum.SpectrumPanel;
@@ -24,7 +26,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -106,67 +110,67 @@ public class OmssaViewer extends javax.swing.JFrame {
                     // ignore error, use look and feel below
                 }
 
-                // check if a newer version of the omssa-parser is available
-                try {
-
-                    boolean deprecatedOrDeleted = false;
-
-                    URL downloadPage = new URL(
-                            "http://code.google.com/p/omssa-parser/downloads/detail?name=omssa-parser-"
-                            + new Properties().getVersion() + ".zip");
-
-                    int respons = ((java.net.HttpURLConnection) downloadPage.openConnection()).getResponseCode();
-
-                    // 404 means that the file no longer exists, which means that
-                    // the running version is no longer available for download,
-                    // which again means that a never version is available.
-                    if (respons == 404) {
-                        deprecatedOrDeleted = true;
-                        //JOptionPane.showMessageDialog(null, "Deprecated!!!!");
-                    } else {
-
-                        // also need to check if the available running version has been
-                        // deprecated (but not deleted)
-                        BufferedReader in = new BufferedReader(
-                                new InputStreamReader(downloadPage.openStream()));
-
-                        String inputLine = in.readLine();
-
-                        while (inputLine != null && !deprecatedOrDeleted) {
-
-                            //JOptionPane.showMessageDialog(null, inputLine);
-
-                            if (inputLine.lastIndexOf("Deprecated") != -1
-                                    && inputLine.lastIndexOf("Deprecated Downloads") == -1
-                                    && inputLine.lastIndexOf("Deprecated downloads") == -1) {
-                                deprecatedOrDeleted = true;
-                                //JOptionPane.showMessageDialog(null, "Deprecated 2!!!!);
-                            }
-
-                            inputLine = in.readLine();
-                        }
-
-                        in.close();
-                    }
-
-                    if (deprecatedOrDeleted) {
-                        int option = JOptionPane.showConfirmDialog(null,
-                                "A newer version of OMSSA Parser is available.\n"
-                                + "Do you want to upgrade?",
-                                "OMSSA Parser - Upgrade Available",
-                                JOptionPane.YES_NO_CANCEL_OPTION);
-                        if (option == JOptionPane.YES_OPTION) {
-                            BareBonesBrowserLaunch.openURL("http://code.google.com/p/omssa-parser");
-                            System.exit(0);
-                        } else if (option == JOptionPane.CANCEL_OPTION) {
-                            System.exit(0);
-                        }
-                    }
-                } catch (MalformedURLException e) {
-                    //e.printStackTrace();
-                } catch (IOException e) {
-                    //e.printStackTrace();
-                }
+                // check if a newer version of the omssa-parser is available // @TODO: reimplement?
+//                try {
+//
+//                    boolean deprecatedOrDeleted = false;
+//
+//                    URL downloadPage = new URL(
+//                            "http://code.google.com/p/omssa-parser/downloads/detail?name=omssa-parser-"
+//                            + new Properties().getVersion() + ".zip");
+//
+//                    int respons = ((java.net.HttpURLConnection) downloadPage.openConnection()).getResponseCode();
+//
+//                    // 404 means that the file no longer exists, which means that
+//                    // the running version is no longer available for download,
+//                    // which again means that a never version is available.
+//                    if (respons == 404) {
+//                        deprecatedOrDeleted = true;
+//                        //JOptionPane.showMessageDialog(null, "Deprecated!!!!");
+//                    } else {
+//
+//                        // also need to check if the available running version has been
+//                        // deprecated (but not deleted)
+//                        BufferedReader in = new BufferedReader(
+//                                new InputStreamReader(downloadPage.openStream()));
+//
+//                        String inputLine = in.readLine();
+//
+//                        while (inputLine != null && !deprecatedOrDeleted) {
+//
+//                            //JOptionPane.showMessageDialog(null, inputLine);
+//
+//                            if (inputLine.lastIndexOf("Deprecated") != -1
+//                                    && inputLine.lastIndexOf("Deprecated Downloads") == -1
+//                                    && inputLine.lastIndexOf("Deprecated downloads") == -1) {
+//                                deprecatedOrDeleted = true;
+//                                //JOptionPane.showMessageDialog(null, "Deprecated 2!!!!);
+//                            }
+//
+//                            inputLine = in.readLine();
+//                        }
+//
+//                        in.close();
+//                    }
+//
+//                    if (deprecatedOrDeleted) {
+//                        int option = JOptionPane.showConfirmDialog(null,
+//                                "A newer version of OMSSA Parser is available.\n"
+//                                + "Do you want to upgrade?",
+//                                "OMSSA Parser - Upgrade Available",
+//                                JOptionPane.YES_NO_CANCEL_OPTION);
+//                        if (option == JOptionPane.YES_OPTION) {
+//                            BareBonesBrowserLaunch.openURL("http://code.google.com/p/omssa-parser");
+//                            System.exit(0);
+//                        } else if (option == JOptionPane.CANCEL_OPTION) {
+//                            System.exit(0);
+//                        }
+//                    }
+//                } catch (MalformedURLException e) {
+//                    //e.printStackTrace();
+//                } catch (IOException e) {
+//                    //e.printStackTrace();
+//                }
 
                 new OmssaViewerFileSelection(new OmssaViewer(), false, null, null, null, "user.home");
             }
