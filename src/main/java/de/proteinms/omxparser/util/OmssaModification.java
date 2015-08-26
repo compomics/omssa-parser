@@ -76,11 +76,11 @@ public class OmssaModification implements Serializable {
     /**
      * Creates a new OmssaModification object.
      * 
-     * @param modNumber
-     * @param modName
-     * @param modMonoMass
-     * @param modResidues
-     * @param modType
+     * @param modNumber the modification number
+     * @param modName the modification name
+     * @param modMonoMass the modification mass
+     * @param modResidues the modified residue
+     * @param modType the modification type
      */
     public OmssaModification(Integer modNumber, String modName,
             Double modMonoMass, Vector<String> modResidues, Integer modType) {

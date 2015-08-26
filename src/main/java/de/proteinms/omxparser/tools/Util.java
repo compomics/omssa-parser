@@ -1,11 +1,9 @@
 package de.proteinms.omxparser.tools;
 
 /**
- * Makes sure that all writing to the ErrorLog has a uniform appearence.
+ * Makes sure that all writing to the ErrorLog has a uniform appearance.
  * 
  * @author  Harald Barsnes
- * 
- * Created April 2005
  */
 public final class Util {
 
@@ -13,7 +11,7 @@ public final class Util {
      * Writes the given String to the errorLog. 
      * Adds date and time of entry.
      *
-     * @param logEntry
+     * @param logEntry the log entry
      */
     public static void writeToErrorLog(String logEntry) {
         System.out.println(

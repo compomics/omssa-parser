@@ -23,7 +23,7 @@ public class OmssaViewerFileSelection extends javax.swing.JDialog {
      * Creates new OmssaViewerFileSelection dialog and makes it visible.
      *
      * @param parent the parent frame (the OMSSA Viewer)
-     * @param modal
+     * @param modal if the dialog is to be modal
      * @param omxFile the OMSSA omx file to parse
      * @param modsFile the mods.xml file
      * @param userModsFile the usermods.xml file

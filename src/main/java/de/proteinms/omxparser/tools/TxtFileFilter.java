@@ -6,8 +6,6 @@ import javax.swing.filechooser.*;
 /**
  * File filter for *.txt files.
  * 
- * Created February 2009
- * 
  * @author  Harald Barsnes
  */
 public class TxtFileFilter extends FileFilter {
@@ -15,7 +13,7 @@ public class TxtFileFilter extends FileFilter {
     /**
      * Accept all directories, *.txt files.
      *
-     * @param f
+     * @param f the file
      * @return boolean
      */
     public boolean accept(File f) {
@@ -38,7 +36,7 @@ public class TxtFileFilter extends FileFilter {
     /**
      * The description of this filter
      *
-     * @return String
+     * @return the description of the filter
      */
     public java.lang.String getDescription() {
         return "Text (Tab delimited) (*.txt)";

@@ -13,8 +13,8 @@ import javax.swing.SwingUtilities;
 public class ProgressDialog extends javax.swing.JDialog {
 
     /**
-     * If set to true the progress dialog ignores all closing attemts. This
-     * can be used when the progess monitored is a process that is not possible
+     * If set to true the progress dialog ignores all closing attempts. This
+     * can be used when the progress monitored is a process that is not possible
      * to stop.
      */
     private boolean doNothingOnClose = false;
@@ -22,8 +22,8 @@ public class ProgressDialog extends javax.swing.JDialog {
     /**
      * Opens a new ProgressDialog with a Frame as a parent
      * 
-     * @param parent
-     * @param modal
+     * @param parent the parent frame
+     * @param modal if the dialog is to be modal
      */
     public ProgressDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -39,8 +39,8 @@ public class ProgressDialog extends javax.swing.JDialog {
     /**
      * Opens a new ProgressDialog with a JDialog as a parent
      * 
-     * @param parent
-     * @param modal
+     * @param parent the parent dialog
+     * @param modal if the dialog is to be modal
      */
     public ProgressDialog(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
@@ -83,10 +83,10 @@ public class ProgressDialog extends javax.swing.JDialog {
     }
 
     /**
-     * Makes the dialog intermidiate or not intermidiate. Also 
+     * Makes the dialog indeterminate or not indeterminate. Also 
      * turns the paint progress string on or off.
      * 
-     * @param intermidiate
+     * @param intermidiate if the dialog is to be indeterminate
      */
     public void setIntermidiate(final boolean intermidiate) {
 
@@ -99,10 +99,10 @@ public class ProgressDialog extends javax.swing.JDialog {
     }
 
     /**
-     * Sets the string to display in the progrss bar. For example to show 
+     * Sets the string to display in the progress bar. For example to show 
      * the name of the file currently being converted.
      * 
-     * @param currentFileName
+     * @param currentFileName the file name
      */
     public void setString(final String currentFileName) {
 

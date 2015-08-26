@@ -6,8 +6,6 @@ import javax.swing.ImageIcon;
 /**
  * Organizes the file filters.
  * 
- * Created March 2008
- * 
  * @author  Harald Barsnes
  */
 public class FileFilterUtils {
@@ -22,7 +20,7 @@ public class FileFilterUtils {
     /**
      * Get the extension of a file.
      *
-     * @param f
+     * @param f the file
      * @return String - the extension of the file f
      */
     public static String getExtension(File f) {
@@ -39,7 +37,7 @@ public class FileFilterUtils {
     /**
      * Returns an ImageIcon, or null if the path was invalid.
      *
-     * @param path
+     * @param path the path
      * @return ImageIcon
      */
     protected static ImageIcon createImageIcon(String path) {

@@ -15,7 +15,7 @@ public class OmxFileFilter extends FileFilter {
     /**
      * Accept all directories, *.omx files.
      *
-     * @param f
+     * @param f the file
      * @return boolean
      */
     public boolean accept(File f) {

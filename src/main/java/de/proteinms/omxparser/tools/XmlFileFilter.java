@@ -6,8 +6,6 @@ import javax.swing.filechooser.*;
 /**
  * File filter for *.xml files.
  * 
- * Created March 2008
- * 
  * @author  Harald Barsnes
  */
 public class XmlFileFilter extends FileFilter {
@@ -15,7 +13,7 @@ public class XmlFileFilter extends FileFilter {
     /**
      * Accept all directories, *.xml files.
      *
-     * @param f
+     * @param f the file
      * @return boolean
      */
     public boolean accept(File f) {
@@ -36,9 +34,9 @@ public class XmlFileFilter extends FileFilter {
     }
 
     /**
-     * The description of this filter
+     * The description of the filter.
      *
-     * @return String
+     * @return the description of the filter
      */
     public java.lang.String getDescription() {
         return "XML file (*.xml)";

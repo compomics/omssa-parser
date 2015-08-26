@@ -186,9 +186,9 @@ public class OmxParser {
      * Initializes the parser and parses the omx file. Also parses the
      * modification files (if any).
      *
-     * @param omxFile
-     * @param modsFile
-     * @param userModsFile
+     * @param omxFile the OMX file
+     * @param modsFile the modification file
+     * @param userModsFile the user modification file
      */
     public OmxParser(File omxFile, File modsFile, File userModsFile) {
         this(omxFile.getAbsolutePath(), modsFile.getAbsolutePath(), userModsFile.getAbsolutePath(), true);
@@ -198,10 +198,10 @@ public class OmxParser {
      * Initializes the parser and parses the omx file. Also parses the
      * modification files (if any).
      *
-     * @param omxFile
-     * @param modsFile
-     * @param userModsFile
-     * @param importSpectra
+     * @param omxFile the OMX file
+     * @param modsFile the modification file
+     * @param userModsFile the user modification file
+     * @param importSpectra if the spectra are to be imported
      */
     public OmxParser(File omxFile, File modsFile, File userModsFile, boolean importSpectra) {
         this(omxFile.getAbsolutePath(), modsFile.getAbsolutePath(), userModsFile.getAbsolutePath(), importSpectra);
@@ -287,9 +287,9 @@ public class OmxParser {
      * Initializes the parser and parses the omx file. Also parses the
      * modification files (if any).
      *
-     * @param omxFile
-     * @param modsFile
-     * @param userModsFile
+     * @param omxFile the OMX file
+     * @param modsFile the modification file
+     * @param userModsFile the user modification file
      */
     public OmxParser(String omxFile, String modsFile, String userModsFile) {
         this(omxFile, modsFile, userModsFile, true);
@@ -393,13 +393,13 @@ public class OmxParser {
     /**
      * Process the document given by the XmlPullParser.
      *
-     * @param xpp
+     * @param xpp the XML parser
      * @param skipMSRequest_spectra if true, the MSRequest_spectra section of
      * the omx file will be skipped
      * @param skipPeptideDetails if true, the sections MSHits_pephits,
      * MSHits_mzhits of the omx file will be skipped
-     * @throws org.xmlpull.v1.XmlPullParserException
-     * @throws java.io.IOException
+     * @throws org.xmlpull.v1.XmlPullParserException if an XmlPullParserException is thrown 
+     * @throws java.io.IOException if an IOException is thrown
      */
     public void processDocument(XmlPullParser xpp, boolean skipMSRequest_spectra, boolean skipPeptideDetails)
             throws XmlPullParserException, IOException {
@@ -441,7 +441,7 @@ public class OmxParser {
     /**
      * Process the end element for the XmlPullParser object.
      *
-     * @param xpp
+     * @param xpp the XML parser
      * @param importDetails if true the details will be imported
      */
     public void processEndElement(XmlPullParser xpp, boolean importDetails) {
@@ -490,7 +490,7 @@ public class OmxParser {
     /**
      * Process the start element for the XmlPullParser object.
      *
-     * @param xpp
+     * @param xpp the XML parser
      * @param importDetails if true the details will be imported
      */
     public void processStartElement(XmlPullParser xpp, boolean importDetails) {
@@ -552,9 +552,9 @@ public class OmxParser {
     /**
      * Process the text for the XmlPullParser object.
      *
-     * @param xpp
+     * @param xpp the XML parser
      * @param importDetails if true the details will be imported
-     * @throws org.xmlpull.v1.XmlPullParserException
+     * @throws org.xmlpull.v1.XmlPullParserException if an XmlPullParserException is thrown
      */
     public void processText(XmlPullParser xpp, boolean importDetails) throws XmlPullParserException {
 

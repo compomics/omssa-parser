@@ -92,7 +92,7 @@ public class OmssaViewer extends javax.swing.JFrame {
      * creates an error log file (if useErrorLog == true) and finally opens the
      * OmssaViewerFileSelection dialog.
      *
-     * @param args
+     * @param args the command line arguments
      */
     public static void main(String[] args) {
 
