@@ -17,8 +17,8 @@
 ---
 
 **SearchGUI and PeptideShaker:**
-  * To run OMSSA searches we recommend the use of [SearchGUI](http://searchgui.googlecode.com).
-  * To visualize and analyze OMSSA results we recommend the use of [PeptideShaker](http://peptide-shaker.googlecode.com).
+  * To run OMSSA searches we recommend the use of [SearchGUI](http://compomics.github.io/projects/searchgui.html).
+  * To visualize and analyze OMSSA results we recommend the use of [PeptideShaker](http://compomics.github.io/projects/peptide-shaker.html).
 
 ---
 
@@ -100,7 +100,7 @@ Note that all the m/z and abundance values in the omx file are stored as integer
 
 ## Result Analysis ##
 
-To visualize and analyze OMSSA results we recommend the use of [PeptideShaker](http://peptide-shaker.googlecode.com). **PeptideShaker** is a search engine independent platform for visualization of peptide and protein identification results from multiple search engines.
+To visualize and analyze OMSSA results we recommend the use of [PeptideShaker](http://compomics.github.io/projects/peptide-shaker.html). **PeptideShaker** is a search engine independent platform for visualization of peptide and protein identification results from multiple search engines.
 
 [Go to top of page](#omssa-parser)
 
