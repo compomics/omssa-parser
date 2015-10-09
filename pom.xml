@@ -4,7 +4,7 @@
     <groupId>de.proteinms.omxparser</groupId>
     <artifactId>omssa-parser</artifactId>
     <packaging>jar</packaging>
-    <version>1.7.0</version>
+    <version>1.7.1</version>
     <name>omssa-parser</name>
     <description>Java based parser for OMSSA (Open Mass Spectrometry Search Algorithm) omx files</description>
     <url>http://omssa-parser.googlecode.com/</url>
@@ -259,7 +259,7 @@
         <dependency>
             <groupId>com.compomics</groupId>
             <artifactId>utilities</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.14</version>
             <exclusions>
                 <exclusion>
                     <artifactId>xz</artifactId>

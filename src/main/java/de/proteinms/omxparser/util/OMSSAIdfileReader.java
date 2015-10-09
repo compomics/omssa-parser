@@ -46,14 +46,6 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
      * The instance of the inspected omx file.
      */
     private OmssaOmxFile omxFile;
-    /**
-     * A map of the peptides found in this file.
-     */
-    private HashMap<String, LinkedList<Peptide>> peptideMap;
-    /**
-     * The length of the keys of the peptide map.
-     */
-    private int peptideMapKeyLength;
 
     /**
      * Constructor for the reader.
@@ -94,12 +86,6 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
     public LinkedList<SpectrumMatch> getAllSpectrumMatches(WaitingHandler waitingHandler, SearchParameters searchParameters,
             SequenceMatchingPreferences sequenceMatchingPreferences, boolean expandAaCombinations)
             throws IOException, IllegalArgumentException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
-
-        if (sequenceMatchingPreferences != null) {
-            SequenceFactory sequenceFactory = SequenceFactory.getInstance();
-            peptideMapKeyLength = sequenceFactory.getDefaultProteinTree().getInitialTagSize();
-            peptideMap = new HashMap<String, LinkedList<Peptide>>(1024);
-        }
 
         LinkedList<SpectrumMatch> result = new LinkedList<SpectrumMatch>();
 
@@ -216,17 +202,6 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
         String peptideSequence = currentMsHit.MSHits_pepstring;
         Peptide peptide = new Peptide(peptideSequence, modificationsFound);
 
-        if (sequenceMatchingPreferences != null) {
-            String subSequence = peptideSequence.substring(0, peptideMapKeyLength);
-            subSequence = AminoAcid.getMatchingSequence(subSequence, sequenceMatchingPreferences);
-            LinkedList<Peptide> peptidesForTag = peptideMap.get(subSequence);
-            if (peptidesForTag == null) {
-                peptidesForTag = new LinkedList<Peptide>();
-                peptideMap.put(subSequence, peptidesForTag);
-            }
-            peptidesForTag.add(peptide);
-        }
-
         return new PeptideAssumption(peptide, rank, Advocate.omssa.getIndex(), charge, currentMsHit.MSHits_evalue, getFileName());
     }
 
@@ -270,13 +245,8 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
     }
 
     @Override
-    public HashMap<String, LinkedList<Peptide>> getPeptidesMap() {
-        return peptideMap;
-    }
-
-    @Override
     public HashMap<String, LinkedList<SpectrumMatch>> getTagsMap() {
-        return new HashMap<String, LinkedList<SpectrumMatch>>();
+        return new HashMap<String, LinkedList<SpectrumMatch>>(0);
     }
 
     @Override
@@ -285,9 +255,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
     }
 
     @Override
-    public void clearPeptidesMap() {
-        if (peptideMap != null) {
-            peptideMap.clear();
-        }
+    public boolean hasDeNovoTags() {
+        return false;
     }
 }
