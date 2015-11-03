@@ -109,18 +109,32 @@ To visualize and analyze OMSSA results we recommend the use of [PeptideShaker](h
 **OMSSA Parser** is available for use in Maven projects:
 
 ```
-<dependency>
-    <groupId>de.proteinms.omxparser</groupId>
-    <artifactId>omssa-parser</artifactId>
-    <version>X.Y.Z</version>
-</dependency>
+<dependencies>
+    <dependency>
+        <groupId>de.proteinms.omxparser</groupId>
+        <artifactId>omssa-parser</artifactId>
+        <version>X.Y.Z</version>
+    </dependency>
+</dependencies>
 ```
 ```
-<repository>
-    <id>genesis-maven2-repository</id>
-    <name>Genesis maven2 repository</name>
-    <url>http://genesis.UGent.be/maven2</url>
-</repository>
+<repositories>
+    <!-- Compomics Genesis Maven 2 repository -->
+    <repository>
+        <id>genesis-maven2-repository</id>
+        <name>Genesis maven2 repository</name>
+        <url>http://genesis.UGent.be/maven2</url>
+        <layout>default</layout>
+    </repository>
+
+    <!-- EBI Maven 2 repository -->
+    <repository>
+        <id>ebi-repo</id>
+        <name>The EBI Maven2 repository</name>
+        <url>http://www.ebi.ac.uk/~maven/m2repo</url>
+        <layout>default</layout>
+    </repository>
+</repositories>
 ```
 
 Update the version number to latest released version.
