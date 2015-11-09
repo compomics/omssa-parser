@@ -4,8 +4,7 @@
    =======================
 
    For updated information about the OMSSA Parser please visit:
-
-   http://omssa-parser.googlecode.com
+   http://compomics.github.io/projects/omssa-parser.html
 
 
    ==============
