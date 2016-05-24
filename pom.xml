@@ -7,7 +7,7 @@
     <version>1.7.1</version>
     <name>omssa-parser</name>
     <description>Java based parser for OMSSA (Open Mass Spectrometry Search Algorithm) omx files</description>
-    <url>http://omssa-parser.googlecode.com/</url>
+    <url>https://github.com/compomics/omssa-parser</url>
 
     <!-- License -->
     <licenses>
