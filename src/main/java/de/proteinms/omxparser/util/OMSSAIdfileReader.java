@@ -32,9 +32,9 @@ import java.util.Map;
 import javax.xml.bind.JAXBException;
 
 /**
- * This reader will import identifications from an OMSSA omx file.
- *
- * Created by IntelliJ IDEA. User: Marc Date: Jun 23, 2010 Time: 9:45:45 AM
+ * This reader import identifications from an X!Tandem XML result file to the compomics-utilities data structure.
+ * 
+ * @author Marc Vaudel
  */
 public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader {
 
@@ -242,16 +242,6 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
         versions.add("2.1.9");
         result.put("OMSSA", versions);
         return result;
-    }
-
-    @Override
-    public HashMap<String, LinkedList<SpectrumMatch>> getTagsMap() {
-        return new HashMap<String, LinkedList<SpectrumMatch>>(0);
-    }
-
-    @Override
-    public void clearTagsMap() {
-        // No tags here
     }
 
     @Override
