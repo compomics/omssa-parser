@@ -1,7 +1,6 @@
 package de.proteinms.omxparser.util;
 
 import com.compomics.util.Util;
-import com.compomics.util.experiment.biology.AminoAcid;
 import com.compomics.util.experiment.biology.AminoAcidSequence;
 import com.compomics.util.experiment.biology.Peptide;
 import com.compomics.util.experiment.identification.Advocate;
@@ -9,7 +8,6 @@ import com.compomics.util.experiment.identification.identification_parameters.Se
 import com.compomics.util.experiment.io.identifications.IdfileReader;
 import com.compomics.util.experiment.identification.matches.ModificationMatch;
 import com.compomics.util.experiment.identification.matches.SpectrumMatch;
-import com.compomics.util.experiment.identification.protein_sequences.SequenceFactory;
 import com.compomics.util.experiment.identification.spectrum_assumptions.PeptideAssumption;
 import com.compomics.util.experiment.massspectrometry.Charge;
 import com.compomics.util.experiment.massspectrometry.Spectrum;
@@ -32,8 +30,9 @@ import java.util.Map;
 import javax.xml.bind.JAXBException;
 
 /**
- * This reader import identifications from an X!Tandem XML result file to the compomics-utilities data structure.
- * 
+ * This reader import identifications from an OMSSA omx result file to the
+ * compomics-utilities data structure.
+ *
  * @author Marc Vaudel
  */
 public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader {
