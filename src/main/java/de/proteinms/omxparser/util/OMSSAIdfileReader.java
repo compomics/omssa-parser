@@ -129,7 +129,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
                     }
 
                     String name = fixMgfTitle(tempName);
-                    SpectrumMatch currentMatch = new SpectrumMatch(Spectrum.getSpectrumKey(Util.getFileName(msFile), name));
+                    SpectrumMatch currentMatch = new SpectrumMatch(Util.getFileName(msFile), name);
                     currentMatch.setSpectrumNumber(tempIndex);
                     int rank = 1;
 
@@ -142,7 +142,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
                                 for (StringBuilder expandedSequence : AminoAcidSequence.getCombinations(peptide.getSequence())) {
                                     Peptide newPeptide = new Peptide(expandedSequence.toString(), new ArrayList<ModificationMatch>(modificationMatches.size()));
                                     for (ModificationMatch modificationMatch : modificationMatches) {
-                                        newPeptide.addModificationMatch(new ModificationMatch(modificationMatch.getTheoreticPtm(), modificationMatch.isVariable(), modificationMatch.getModificationSite()));
+                                        newPeptide.addModificationMatch(new ModificationMatch(modificationMatch.getTheoreticPtm(), modificationMatch.getVariable(), modificationMatch.getModificationSite()));
                                     }
                                     PeptideAssumption newAssumption = new PeptideAssumption(newPeptide, peptideAssumption.getRank(), peptideAssumption.getAdvocate(), peptideAssumption.getIdentificationCharge(), peptideAssumption.getScore(), peptideAssumption.getIdentificationFile());
                                     currentMatch.addHit(Advocate.omssa.getIndex(), newAssumption, false);
