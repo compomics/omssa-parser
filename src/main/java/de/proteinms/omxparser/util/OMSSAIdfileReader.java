@@ -1,17 +1,16 @@
 package de.proteinms.omxparser.util;
 
-import com.compomics.util.Util;
-import com.compomics.util.experiment.biology.AminoAcidSequence;
-import com.compomics.util.experiment.biology.Peptide;
+import com.compomics.util.experiment.biology.aminoacids.sequence.AminoAcidSequence;
+import com.compomics.util.experiment.biology.proteins.Peptide;
 import com.compomics.util.experiment.identification.Advocate;
-import com.compomics.util.experiment.identification.identification_parameters.SearchParameters;
-import com.compomics.util.experiment.io.identifications.IdfileReader;
 import com.compomics.util.experiment.identification.matches.ModificationMatch;
 import com.compomics.util.experiment.identification.matches.SpectrumMatch;
 import com.compomics.util.experiment.identification.spectrum_assumptions.PeptideAssumption;
-import com.compomics.util.experiment.massspectrometry.Charge;
+import com.compomics.util.experiment.io.identification.IdfileReader;
+import com.compomics.util.experiment.mass_spectrometry.spectra.Spectrum;
 import com.compomics.util.experiment.personalization.ExperimentObject;
-import com.compomics.util.preferences.SequenceMatchingPreferences;
+import com.compomics.util.parameters.identification.advanced.SequenceMatchingParameters;
+import com.compomics.util.parameters.identification.search.SearchParameters;
 import com.compomics.util.waiting.WaitingHandler;
 import de.proteinms.omxparser.OmssaOmxFile;
 
@@ -21,6 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -33,6 +33,7 @@ import javax.xml.bind.JAXBException;
  * compomics-utilities data structure.
  *
  * @author Marc Vaudel
+ * @author Harald Barsnes
  */
 public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader {
 
@@ -44,7 +45,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
      * The instance of the inspected omx file.
      */
     private OmssaOmxFile omxFile;
-
+  
     /**
      * Constructor for the reader.
      */
@@ -73,7 +74,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
     public String getExtension() {
         return ".omx";
     }
-
+    
     @Override
     public LinkedList<SpectrumMatch> getAllSpectrumMatches(WaitingHandler waitingHandler, SearchParameters searchParameters)
             throws IOException, IllegalArgumentException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
@@ -82,7 +83,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
     @Override
     public LinkedList<SpectrumMatch> getAllSpectrumMatches(WaitingHandler waitingHandler, SearchParameters searchParameters,
-            SequenceMatchingPreferences sequenceMatchingPreferences, boolean expandAaCombinations)
+            SequenceMatchingParameters sequenceMatchingParameters, boolean expandAaCombinations)
             throws IOException, IllegalArgumentException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
 
         LinkedList<SpectrumMatch> result = new LinkedList<SpectrumMatch>();
@@ -128,26 +129,36 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
                     }
 
                     String name = fixMgfTitle(tempName);
-                    SpectrumMatch currentMatch = new SpectrumMatch(Util.getFileName(msFile), name);
+                    String spectrumKey = Spectrum.getSpectrumKey(msFile, name);
+                    SpectrumMatch currentMatch = new SpectrumMatch(spectrumKey);
                     currentMatch.setSpectrumNumber(tempIndex);
                     int rank = 1;
 
                     for (double eValue : eValues) {
                         for (MSHits msHits : hitMap.get(eValue)) {
-                            PeptideAssumption peptideAssumption = getPeptideAssumption(msHits, rank, sequenceMatchingPreferences);
+                            
+                            PeptideAssumption peptideAssumption = getPeptideAssumption(msHits, rank);
+                            
                             if (expandAaCombinations && AminoAcidSequence.hasCombination(peptideAssumption.getPeptide().getSequence())) {
+
                                 Peptide peptide = peptideAssumption.getPeptide();
-                                ArrayList<ModificationMatch> modificationMatches = peptide.getModificationMatches();
+                                ModificationMatch[] previousModificationMatches = peptide.getVariableModifications();
+
                                 for (StringBuilder expandedSequence : AminoAcidSequence.getCombinations(peptide.getSequence())) {
-                                    Peptide newPeptide = new Peptide(expandedSequence.toString(), new ArrayList<ModificationMatch>(modificationMatches.size()));
-                                    for (ModificationMatch modificationMatch : modificationMatches) {
-                                        newPeptide.addModificationMatch(new ModificationMatch(modificationMatch.getTheoreticPtm(), modificationMatch.getVariable(), modificationMatch.getModificationSite()));
-                                    }
+
+                                    ModificationMatch[] newModificationMatches = Arrays.stream(previousModificationMatches)
+                                            .map(modificationMatch -> modificationMatch.clone())
+                                            .toArray(ModificationMatch[]::new);
+
+                                    Peptide newPeptide = new Peptide(expandedSequence.toString(), newModificationMatches, true);
+
                                     PeptideAssumption newAssumption = new PeptideAssumption(newPeptide, peptideAssumption.getRank(), peptideAssumption.getAdvocate(), peptideAssumption.getIdentificationCharge(), peptideAssumption.getScore(), peptideAssumption.getIdentificationFile());
-                                    currentMatch.addHit(Advocate.omssa.getIndex(), newAssumption, false);
+                                    currentMatch.addPeptideAssumption(Advocate.omssa.getIndex(), newAssumption);
+
                                 }
+
                             } else {
-                                currentMatch.addHit(Advocate.omssa.getIndex(), peptideAssumption, false);
+                                currentMatch.addPeptideAssumption(Advocate.omssa.getIndex(), peptideAssumption);
                             }
                         }
                         rank += hitMap.get(eValue).size();
@@ -177,15 +188,13 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
      * @param currentMsHit the MSHits of interest
      * @param responseIndex the response index in the msrequest
      * @param rank the rank of the assumption in the spectrum match
-     * @param sequenceMatchingPreferences the sequence matching preferences to
-     * use to fill the secondary maps
      *
      * @return the corresponding peptide assumption
      */
-    private PeptideAssumption getPeptideAssumption(MSHits currentMsHit, int rank, SequenceMatchingPreferences sequenceMatchingPreferences) {
+    private PeptideAssumption getPeptideAssumption(MSHits currentMsHit, int rank) {
 
-        Charge charge = new Charge(Charge.PLUS, currentMsHit.MSHits_charge);
-
+        int charge = currentMsHit.MSHits_charge;
+        
         List<MSModHit> msModHits = currentMsHit.MSHits_mods.MSModHit;
         ArrayList<ModificationMatch> modificationsFound = new ArrayList<ModificationMatch>();
 
@@ -194,11 +203,11 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
             int msMod = msModHit.MSModHit_modtype.MSMod;
             String name = msMod + "";
             int location = msModHit.MSModHit_site + 1;
-            modificationsFound.add(new ModificationMatch(name, true, location));
+            modificationsFound.add(new ModificationMatch(name, location));
         }
 
         String peptideSequence = currentMsHit.MSHits_pepstring;
-        Peptide peptide = new Peptide(peptideSequence, modificationsFound);
+        Peptide peptide = new Peptide(peptideSequence, modificationsFound.toArray(new ModificationMatch[modificationsFound.size()]), true);
 
         return new PeptideAssumption(peptide, rank, Advocate.omssa.getIndex(), charge, currentMsHit.MSHits_evalue, getFileName());
     }
