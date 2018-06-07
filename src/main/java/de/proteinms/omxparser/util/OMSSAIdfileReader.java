@@ -1,5 +1,6 @@
 package de.proteinms.omxparser.util;
 
+import com.compomics.util.Util;
 import com.compomics.util.experiment.biology.aminoacids.sequence.AminoAcidSequence;
 import com.compomics.util.experiment.biology.proteins.Peptide;
 import com.compomics.util.experiment.identification.Advocate;
@@ -129,7 +130,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
                     }
 
                     String name = fixMgfTitle(tempName);
-                    String spectrumKey = Spectrum.getSpectrumKey(msFile, name);
+                    String spectrumKey = Spectrum.getSpectrumKey(Util.getFileName(msFile), name);
                     SpectrumMatch currentMatch = new SpectrumMatch(spectrumKey);
                     currentMatch.setSpectrumNumber(tempIndex);
                     int rank = 1;
