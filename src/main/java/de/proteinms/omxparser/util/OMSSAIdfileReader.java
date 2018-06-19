@@ -46,7 +46,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
      * The instance of the inspected omx file.
      */
     private OmssaOmxFile omxFile;
-  
+
     /**
      * Constructor for the reader.
      */
@@ -75,7 +75,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
     public String getExtension() {
         return ".omx";
     }
-    
+
     @Override
     public LinkedList<SpectrumMatch> getAllSpectrumMatches(WaitingHandler waitingHandler, SearchParameters searchParameters)
             throws IOException, IllegalArgumentException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
@@ -91,6 +91,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
         List<MSResponse> msSearchResponse = omxFile.getParserResult().MSSearch_response.MSResponse;
         List<MSRequest> msRequest = omxFile.getParserResult().MSSearch_request.MSRequest;
+        int spectrumMatchCounter = 0;
 
         for (int i = 0; i < msSearchResponse.size(); i++) {
 
@@ -99,6 +100,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
             Map<Integer, MSHitSet> msHitSetMap = msSearchResponse.get(i).MSResponse_hitsets.MSHitSet;
 
             if (waitingHandler != null) {
+                waitingHandler.setSecondaryProgressCounterIndeterminate(false);
                 waitingHandler.setMaxSecondaryProgressCounter(msHitSetMap.size());
             }
 
@@ -137,9 +139,9 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
                     for (double eValue : eValues) {
                         for (MSHits msHits : hitMap.get(eValue)) {
-                            
+
                             PeptideAssumption peptideAssumption = getPeptideAssumption(msHits, rank);
-                            
+
                             if (expandAaCombinations && AminoAcidSequence.hasCombination(peptideAssumption.getPeptide().getSequence())) {
 
                                 Peptide peptide = peptideAssumption.getPeptide();
@@ -167,13 +169,13 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
                     result.add(currentMatch);
                 }
-            }
 
-            if (waitingHandler != null) {
-                if (!waitingHandler.isRunCanceled()) {
-                    break;
+                if (waitingHandler != null) {
+                    if (waitingHandler.isRunCanceled()) {
+                        break;
+                    }
+                    waitingHandler.setSecondaryProgressCounter(++spectrumMatchCounter);
                 }
-                waitingHandler.setSecondaryProgressCounter(i);
             }
         }
 
@@ -195,7 +197,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
     private PeptideAssumption getPeptideAssumption(MSHits currentMsHit, int rank) {
 
         int charge = currentMsHit.MSHits_charge;
-        
+
         List<MSModHit> msModHits = currentMsHit.MSHits_mods.MSModHit;
         ArrayList<ModificationMatch> modificationsFound = new ArrayList<ModificationMatch>();
 
