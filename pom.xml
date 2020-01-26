@@ -447,7 +447,7 @@
         <dependency>
             <groupId>no.uib</groupId>
             <artifactId>jsparklines</artifactId>
-            <version>0.5.36</version>
+            <version>1.0.12</version>
         </dependency>
         <dependency>
             <groupId>javax.xml.bind</groupId>
