@@ -77,17 +77,22 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
     }
 
     @Override
-    public LinkedList<SpectrumMatch> getAllSpectrumMatches(WaitingHandler waitingHandler, SearchParameters searchParameters)
-            throws IOException, IllegalArgumentException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
+    public ArrayList<SpectrumMatch> getAllSpectrumMatches(
+            WaitingHandler waitingHandler, 
+            SearchParameters searchParameters
+    ) throws IOException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
         return getAllSpectrumMatches(waitingHandler, searchParameters, null, true);
     }
 
     @Override
-    public LinkedList<SpectrumMatch> getAllSpectrumMatches(WaitingHandler waitingHandler, SearchParameters searchParameters,
-            SequenceMatchingParameters sequenceMatchingParameters, boolean expandAaCombinations)
-            throws IOException, IllegalArgumentException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
+    public ArrayList<SpectrumMatch> getAllSpectrumMatches(
+            WaitingHandler waitingHandler, 
+            SearchParameters searchParameters,
+            SequenceMatchingParameters sequenceMatchingParameters, 
+            boolean expandAaCombinations
+    ) throws IOException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
 
-        LinkedList<SpectrumMatch> result = new LinkedList<SpectrumMatch>();
+        ArrayList<SpectrumMatch> result = new ArrayList<>();
 
         List<MSResponse> msSearchResponse = omxFile.getParserResult().MSSearch_response.MSResponse;
         List<MSRequest> msRequest = omxFile.getParserResult().MSSearch_request.MSRequest;
