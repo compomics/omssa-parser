@@ -23,8 +23,12 @@ package de.proteinms.omxparser.util;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.EmptyStackException;
@@ -33,6 +37,7 @@ import java.util.HashMap;
 import java.util.Stack;
 
 import java.util.Vector;
+import java.util.zip.GZIPInputStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.xmlpull.v1.XmlPullParser;
@@ -60,6 +65,10 @@ import org.w3c.dom.NodeList;
  */
 public class OmxParser {
 
+    /**
+     * Default encoding, cf the second rule.
+     */
+    public static final String ENCODING = "UTF-8";
     /**
      * Define a static logger variable so that it references the Logger instance
      * named "OmxParser".
@@ -232,7 +241,14 @@ public class OmxParser {
      * @param importIdDetails if false only peptide sequence, modifications and
      * e-values will be imported
      */
-    public OmxParser(String omxFilePath, String modsFilePath, String userModsFilePath, boolean importSpectra, boolean importIdDetails) {
+    public OmxParser(
+            String omxFilePath,
+            String modsFilePath,
+            String userModsFilePath,
+            boolean importSpectra,
+            boolean importIdDetails
+    ) {
+
         File omxFile = null;
         File modsFile = null;
         File userModsFile = null;
@@ -268,7 +284,23 @@ public class OmxParser {
             initializeClasses(importSpectra, importIdDetails);
 
             logger.debug("Parsing file: " + omxFile);
-            xpp.setInput(new BufferedReader(new FileReader(omxFile)));
+
+            Reader reader;
+            if (omxFile.getName().endsWith(".gz")) {
+
+                InputStream fileStream = new FileInputStream(omxFile);
+                InputStream gzipStream = new GZIPInputStream(fileStream);
+                Reader decoder = new InputStreamReader(gzipStream, ENCODING);
+
+                reader = new BufferedReader(decoder);
+
+            } else {
+
+                reader = new BufferedReader(new FileReader(omxFile));
+
+            }
+
+            xpp.setInput(reader);
             long t1 = System.currentTimeMillis();
             processDocument(xpp, !importSpectra, !importIdDetails);
             long t2 = System.currentTimeMillis();
@@ -381,7 +413,7 @@ public class OmxParser {
 
                     omssaModificationDetails.put(modNumber,
                             new OmssaModification(modNumber, modName,
-                            modMonoMass, modResidues, modType));
+                                    modMonoMass, modResidues, modType));
                 }
             }
         } catch (Exception e) {
@@ -398,7 +430,8 @@ public class OmxParser {
      * the omx file will be skipped
      * @param skipPeptideDetails if true, the sections MSHits_pephits,
      * MSHits_mzhits of the omx file will be skipped
-     * @throws org.xmlpull.v1.XmlPullParserException if an XmlPullParserException is thrown 
+     * @throws org.xmlpull.v1.XmlPullParserException if an
+     * XmlPullParserException is thrown
      * @throws java.io.IOException if an IOException is thrown
      */
     public void processDocument(XmlPullParser xpp, boolean skipMSRequest_spectra, boolean skipPeptideDetails)
@@ -554,7 +587,8 @@ public class OmxParser {
      *
      * @param xpp the XML parser
      * @param importDetails if true the details will be imported
-     * @throws org.xmlpull.v1.XmlPullParserException if an XmlPullParserException is thrown
+     * @throws org.xmlpull.v1.XmlPullParserException if an
+     * XmlPullParserException is thrown
      */
     public void processText(XmlPullParser xpp, boolean importDetails) throws XmlPullParserException {
 
