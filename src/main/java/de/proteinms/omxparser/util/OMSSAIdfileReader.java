@@ -8,8 +8,10 @@ import com.compomics.util.experiment.identification.matches.ModificationMatch;
 import com.compomics.util.experiment.identification.matches.SpectrumMatch;
 import com.compomics.util.experiment.identification.spectrum_assumptions.PeptideAssumption;
 import com.compomics.util.experiment.io.identification.IdfileReader;
+import com.compomics.util.experiment.mass_spectrometry.SpectrumProvider;
 import com.compomics.util.experiment.mass_spectrometry.spectra.Spectrum;
 import com.compomics.util.experiment.personalization.ExperimentObject;
+import com.compomics.util.io.IoUtil;
 import com.compomics.util.parameters.identification.advanced.SequenceMatchingParameters;
 import com.compomics.util.parameters.identification.search.SearchParameters;
 import com.compomics.util.waiting.WaitingHandler;
@@ -78,19 +80,30 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
     @Override
     public ArrayList<SpectrumMatch> getAllSpectrumMatches(
+            SpectrumProvider spectrumProvider,
             WaitingHandler waitingHandler, 
             SearchParameters searchParameters
-    ) throws IOException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
-        return getAllSpectrumMatches(waitingHandler, searchParameters, null, true);
+    ) 
+            throws IOException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
+        
+        return getAllSpectrumMatches(
+                spectrumProvider,
+                waitingHandler, 
+                searchParameters, 
+                null, 
+                true
+        );
     }
 
     @Override
     public ArrayList<SpectrumMatch> getAllSpectrumMatches(
+            SpectrumProvider spectrumProvider,
             WaitingHandler waitingHandler, 
             SearchParameters searchParameters,
             SequenceMatchingParameters sequenceMatchingParameters, 
             boolean expandAaCombinations
-    ) throws IOException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
+    ) 
+            throws IOException, SQLException, ClassNotFoundException, InterruptedException, JAXBException {
 
         ArrayList<SpectrumMatch> result = new ArrayList<>();
 
@@ -116,30 +129,23 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
                 if (hitSet.size() > 0) {
 
-                    HashMap<Double, ArrayList<MSHits>> hitMap = new HashMap<Double, ArrayList<MSHits>>();
+                    HashMap<Double, ArrayList<MSHits>> hitMap = new HashMap<>();
 
                     for (MSHits msHits : hitSet) {
                         if (!hitMap.containsKey(msHits.MSHits_evalue)) {
-                            hitMap.put(msHits.MSHits_evalue, new ArrayList<MSHits>());
+                            hitMap.put(msHits.MSHits_evalue, new ArrayList<>());
                         }
                         hitMap.get(msHits.MSHits_evalue).add(msHits);
                     }
 
-                    ArrayList<Double> eValues = new ArrayList<Double>(hitMap.keySet());
+                    ArrayList<Double> eValues = new ArrayList<>(hitMap.keySet());
                     Collections.sort(eValues);
 
-                    String tempName;
-                    int tempIndex = spectrumIndex + 1;
-                    if (msHitSet.MSHitSet_ids.MSHitSet_ids_E.isEmpty()) {
-                        tempName = tempIndex + "";
-                    } else {
-                        tempName = msHitSet.MSHitSet_ids.MSHitSet_ids_E.get(0);
-                    }
+                    String tempTitle = msHitSet.MSHitSet_ids.MSHitSet_ids_E.get(0);
 
-                    String name = fixMgfTitle(tempName);
-                    String spectrumKey = Spectrum.getSpectrumKey(Util.getFileName(msFile), name);
-                    SpectrumMatch currentMatch = new SpectrumMatch(spectrumKey);
-                    currentMatch.setSpectrumNumber(tempIndex);
+                    String spectrumTitle = fixMgfTitle(tempTitle);
+                    String fileName = IoUtil.getFileName(msFile);
+                    SpectrumMatch currentMatch = new SpectrumMatch(fileName, spectrumTitle);
                     int rank = 1;
 
                     for (double eValue : eValues) {
