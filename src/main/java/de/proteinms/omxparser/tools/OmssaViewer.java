@@ -825,7 +825,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         ptmsJTextField.setEditable(false);
         ptmsJTextField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         ptmsJTextField.setBorder(null);
-        ptmsJTextField.setOpaque(false);
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -876,7 +875,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         aIonsJCheckBox.setToolTipText("Show a-ions");
         aIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         aIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
-        aIonsJCheckBox.setOpaque(false);
         aIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         aIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -889,7 +887,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         bIonsJCheckBox.setToolTipText("Show b-ions");
         bIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         bIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
-        bIonsJCheckBox.setOpaque(false);
         bIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         bIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -902,7 +899,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         cIonsJCheckBox.setToolTipText("Show c-ions");
         cIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         cIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
-        cIonsJCheckBox.setOpaque(false);
         cIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         cIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -915,7 +911,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         yIonsJCheckBox.setToolTipText("Show y-ions");
         yIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         yIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
-        yIonsJCheckBox.setOpaque(false);
         yIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         yIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -928,7 +923,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         xIonsJCheckBox.setToolTipText("Show x-ions");
         xIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         xIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
-        xIonsJCheckBox.setOpaque(false);
         xIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         xIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -941,7 +935,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         zIonsJCheckBox.setToolTipText("Show z-ions");
         zIonsJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         zIonsJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
-        zIonsJCheckBox.setOpaque(false);
         zIonsJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         zIonsJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -954,7 +947,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         chargeOneJCheckBox.setToolTipText("Show ions with charge 1");
         chargeOneJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         chargeOneJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
-        chargeOneJCheckBox.setOpaque(false);
         chargeOneJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         chargeOneJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -967,7 +959,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         chargeTwoJCheckBox.setToolTipText("Show ions with charge 2");
         chargeTwoJCheckBox.setMaximumSize(new java.awt.Dimension(39, 23));
         chargeTwoJCheckBox.setMinimumSize(new java.awt.Dimension(39, 23));
-        chargeTwoJCheckBox.setOpaque(false);
         chargeTwoJCheckBox.setPreferredSize(new java.awt.Dimension(39, 23));
         chargeTwoJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -978,7 +969,6 @@ public class OmssaViewer extends javax.swing.JFrame {
         chargeOverTwoJCheckBox.setSelected(true);
         chargeOverTwoJCheckBox.setText(">2");
         chargeOverTwoJCheckBox.setToolTipText("Show ions with charge >2");
-        chargeOverTwoJCheckBox.setOpaque(false);
         chargeOverTwoJCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chargeOverTwoJCheckBoxActionPerformed(evt);
@@ -1949,8 +1939,8 @@ public class OmssaViewer extends javax.swing.JFrame {
                                     + modifiedSequenceColorCoded + "\t"
                                     + tempPepHit.MSPepHit_start + "\t"
                                     + tempPepHit.MSPepHit_stop + "\t"
-                                    + new Double(((double) tempMSHit.MSHits_mass) / omssaResponseScale) + "\t"
-                                    + new Double(((double) tempMSHit.MSHits_theomass) / omssaResponseScale) + "\t"
+                                    + Double.valueOf(((double) tempMSHit.MSHits_mass) / omssaResponseScale) + "\t"
+                                    + Double.valueOf(((double) tempMSHit.MSHits_theomass) / omssaResponseScale) + "\t"
                                     + tempMSHit.MSHits_evalue + "\t"
                                     + tempMSHit.MSHits_pvalue + "\t"
                                     + tempPepHit.MSPepHit_accession + "\t"
@@ -2538,7 +2528,7 @@ public class OmssaViewer extends javax.swing.JFrame {
                                 unusedIon + "unknown" + chargeAsString + neturalLossTag));
                     }
 
-                    allAnnotations.put((sequence + "_" + new Float(tempMSHit.MSHits_pvalue)), currentAnnotations);
+                    allAnnotations.put((sequence + "_" + Float.valueOf((float) tempMSHit.MSHits_pvalue)), currentAnnotations);
 
                     // only add the annotations for the first identification
                     if (allAnnotations.size() == 1) {
@@ -2676,11 +2666,9 @@ public class OmssaViewer extends javax.swing.JFrame {
                                 sequence,
                                 modifiedSequenceColorCoded,
                                 tempPepHit.MSPepHit_start,
-                                tempPepHit.MSPepHit_stop,
-                                new Double(((double) tempMSHit.MSHits_mass) / omssaResponseScale),
-                                new Double(((double) tempMSHit.MSHits_theomass) / omssaResponseScale),
-                                new Float(tempMSHit.MSHits_evalue),
-                                new Float(tempMSHit.MSHits_pvalue),
+                                tempPepHit.MSPepHit_stop, ((double) tempMSHit.MSHits_mass) / omssaResponseScale, ((double) tempMSHit.MSHits_theomass) / omssaResponseScale, 
+                                (float) tempMSHit.MSHits_evalue, 
+                                (float) tempMSHit.MSHits_pvalue,
                                 accession,
                                 description
                             });

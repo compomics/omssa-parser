@@ -374,7 +374,7 @@ public class OmxParser {
 
                             for (int m = 0; m < tempNodes.getLength(); m++) {
                                 if (tempNodes.item(m).getNodeName().equalsIgnoreCase("MSMod")) {
-                                    modNumber = new Integer(tempNodes.item(m).getTextContent());
+                                    modNumber = Integer.valueOf(tempNodes.item(m).getTextContent());
                                 }
                             }
                         } else if (modNodes.item(j).getNodeName().equalsIgnoreCase("MSModSpec_type")) {
@@ -383,13 +383,13 @@ public class OmxParser {
 
                             for (int m = 0; m < tempNodes.getLength(); m++) {
                                 if (tempNodes.item(m).getNodeName().equalsIgnoreCase("MSModType")) {
-                                    modType = new Integer(tempNodes.item(m).getTextContent());
+                                    modType = Integer.valueOf(tempNodes.item(m).getTextContent());
                                 }
                             }
                         } else if (modNodes.item(j).getNodeName().equalsIgnoreCase("MSModSpec_name")) {
                             modName = modNodes.item(j).getTextContent();
                         } else if (modNodes.item(j).getNodeName().equalsIgnoreCase("MSModSpec_monomass")) {
-                            modMonoMass = new Double(modNodes.item(j).getTextContent());
+                            modMonoMass = Double.valueOf(modNodes.item(j).getTextContent());
                         } else if (modNodes.item(j).getNodeName().equalsIgnoreCase("MSModSpec_residues")) {
                             NodeList residueNodes = modNodes.item(j).getChildNodes();
 
