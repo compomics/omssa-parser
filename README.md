@@ -17,8 +17,8 @@
 ---
 
 **SearchGUI and PeptideShaker:**
-  * To run OMSSA searches we recommend the use of [SearchGUI](http://compomics.github.io/projects/searchgui.html).
-  * To visualize and analyze OMSSA results we recommend the use of [PeptideShaker](http://compomics.github.io/projects/peptide-shaker.html).
+  * To run OMSSA searches we recommend [SearchGUI](http://compomics.github.io/projects/searchgui.html).
+  * To visualize and analyze OMSSA results we recommend [PeptideShaker](http://compomics.github.io/projects/peptide-shaker.html).
 
 ---
 
