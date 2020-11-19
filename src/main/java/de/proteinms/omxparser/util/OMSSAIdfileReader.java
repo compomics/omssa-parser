@@ -233,7 +233,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
         // a special fix for mgf files with titles containing url encoding, e.g.: %3b instead of ;
         try {
-            spectrumTitle = URLDecoder.decode(spectrumTitle, "utf-8");
+            spectrumTitle = URLDecoder.decode(spectrumTitle.trim(), "utf-8");
         } catch (UnsupportedEncodingException e) {
             System.out.println("An exception was thrown when trying to decode an mgf tile!");
             e.printStackTrace();

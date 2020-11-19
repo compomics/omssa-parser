@@ -4,7 +4,7 @@
     <groupId>de.proteinms.omxparser</groupId>
     <artifactId>omssa-parser</artifactId>
     <packaging>jar</packaging>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <name>omssa-parser</name>
     <description>Java based parser for OMSSA (Open Mass Spectrometry Search Algorithm) omx files</description>
     <url>https://github.com/compomics/omssa-parser</url>
