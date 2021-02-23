@@ -71,6 +71,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
         return identificationFile.getName();
     }
 
+    @Override
     public String getExtension() {
         return ".omx";
     }
@@ -163,7 +164,16 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
                                     Peptide newPeptide = new Peptide(expandedSequence.toString(), newModificationMatches, true);
 
-                                    PeptideAssumption newAssumption = new PeptideAssumption(newPeptide, peptideAssumption.getRank(), peptideAssumption.getAdvocate(), peptideAssumption.getIdentificationCharge(), peptideAssumption.getScore(), peptideAssumption.getIdentificationFile());
+                                    PeptideAssumption newAssumption = new PeptideAssumption(
+                                            newPeptide,
+                                            peptideAssumption.getRank(), 
+                                            peptideAssumption.getAdvocate(), 
+                                            peptideAssumption.getIdentificationCharge(),
+                                            peptideAssumption.getRawScore(),
+                                            peptideAssumption.getScore(), 
+                                            peptideAssumption.getIdentificationFile()
+                                    );
+                                    
                                     currentMatch.addPeptideAssumption(Advocate.omssa.getIndex(), newAssumption);
 
                                 }
@@ -207,7 +217,7 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
         int charge = currentMsHit.MSHits_charge;
 
         List<MSModHit> msModHits = currentMsHit.MSHits_mods.MSModHit;
-        ArrayList<ModificationMatch> modificationsFound = new ArrayList<ModificationMatch>();
+        ArrayList<ModificationMatch> modificationsFound = new ArrayList<>();
 
         // inspect variable modifications
         for (MSModHit msModHit : msModHits) {
@@ -220,7 +230,15 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
         String peptideSequence = currentMsHit.MSHits_pepstring;
         Peptide peptide = new Peptide(peptideSequence, modificationsFound.toArray(new ModificationMatch[modificationsFound.size()]), true);
 
-        return new PeptideAssumption(peptide, rank, Advocate.omssa.getIndex(), charge, currentMsHit.MSHits_evalue, getFileName());
+        return new PeptideAssumption(
+                peptide, 
+                rank, 
+                Advocate.omssa.getIndex(), 
+                charge, 
+                currentMsHit.MSHits_evalue, 
+                currentMsHit.MSHits_evalue,
+                getFileName()
+        );
     }
 
     /**
@@ -255,8 +273,8 @@ public class OMSSAIdfileReader extends ExperimentObject implements IdfileReader 
 
     @Override
     public HashMap<String, ArrayList<String>> getSoftwareVersions() {
-        HashMap<String, ArrayList<String>> result = new HashMap<String, ArrayList<String>>();
-        ArrayList<String> versions = new ArrayList<String>();
+        HashMap<String, ArrayList<String>> result = new HashMap<>();
+        ArrayList<String> versions = new ArrayList<>();
         versions.add("2.1.9");
         result.put("OMSSA", versions);
         return result;
