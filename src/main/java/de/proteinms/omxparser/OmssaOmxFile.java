@@ -33,7 +33,8 @@ import de.proteinms.omxparser.util.MSSpectrum;
 import de.proteinms.omxparser.util.OmssaModification;
 import de.proteinms.omxparser.util.OmxParser;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * This Class manages parsing and storing of the Omx file. It provides several
@@ -50,7 +51,7 @@ public class OmssaOmxFile {
      * Define a static logger variable so that it references the Logger instance
      * named "OmssaOmxFile".
      */
-    private static Logger logger = Logger.getLogger(OmssaOmxFile.class);
+    private static Logger logger = LogManager.getLogger(OmssaOmxFile.class);
     /**
      * A HashMap where every Spectrum (key) is allocated to the corresponding
      * HitSet (value). This HashMap is a good basis for searching specific

@@ -44,7 +44,8 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -73,7 +74,7 @@ public class OmxParser {
      * Define a static logger variable so that it references the Logger instance
      * named "OmxParser".
      */
-    private static Logger logger = Logger.getLogger(OmxParser.class);
+    private static Logger logger = LogManager.getLogger(OmxParser.class);
     private int indexBuffer[] = new int[2];
     private Stack<Object> objectStack = new Stack<Object>();
     private Stack<String> nameStack = new Stack<String>();
