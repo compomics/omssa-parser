@@ -24,7 +24,7 @@
 
 |   |   |   |
 | :------------------------- | :---------------: | :--: |
-| [![download](https://github.com/compomics/omssa-parser/wiki/images/download_button.png)](https://genesis.ugent.be/maven2/de/proteinms/omxparser/omssa-parser/2.0.3/omssa-parser-2.0.3.zip) | *v2.0.3 - All platforms* | [ReleaseNotes](https://github.com/compomics/omssa-parser/wiki/ReleaseNotes) |
+| [![download](https://github.com/compomics/omssa-parser/wiki/images/download_button.png)](https://genesis.ugent.be/maven2/de/proteinms/omxparser/omssa-parser/2.0.4/omssa-parser-2.0.4.zip) | *v2.0.4 - All platforms* | [ReleaseNotes](https://github.com/compomics/omssa-parser/wiki/ReleaseNotes) |
 
 ---
 
